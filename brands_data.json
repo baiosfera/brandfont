@@ -1,0 +1,920 @@
+{
+  "BAIOSFERA.COM": {
+    "id": "baiosfera.com",
+    "name": "BAIOSFERA.COM",
+    "ecosystems": [
+      {
+        "id": "eco_sovereign_luxury",
+        "title": "Sovereign Gold & Obsidian",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.75 0.15 85)",
+            "hex": "#d4af37",
+            "name": "Imperial Gold"
+          },
+          {
+            "role": "secondary",
+            "oklch": "oklch(0.60 0.10 70)",
+            "hex": "#9b783e",
+            "name": "Aged Bronze"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.85 0.12 90)",
+            "hex": "#f3e5ab",
+            "name": "Champagne Light"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.12 0.02 260)",
+            "hex": "#0b0d14",
+            "name": "Deep Obsidian"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.18 0.03 260)",
+            "hex": "#161a26",
+            "name": "Charcoal Slate"
+          },
+          {
+            "role": "text",
+            "oklch": "oklch(0.96 0.01 260)",
+            "hex": "#f1f4fa",
+            "name": "Pure Light"
+          },
+          {
+            "role": "muted",
+            "oklch": "oklch(0.60 0.03 260)",
+            "hex": "#848ea4",
+            "name": "Muted Steel"
+          }
+        ]
+      }
+    ]
+  },
+  "CATALINAGLAMUR": {
+    "id": "catalinaglamur",
+    "name": "CATALINAGLAMUR",
+    "ecosystems": [
+      {
+        "id": "bb_brand",
+        "title": "Brandbook: BRAND",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.54 0.11 312.9)",
+            "hex": "#855a9c",
+            "name": "Solar Essence Earth"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.76 0.17 347.9)",
+            "hex": "#fd80c4",
+            "name": "Gilded Accent"
+          },
+          {
+            "role": "balance",
+            "oklch": "oklch(0.68 0.04 260.0)",
+            "hex": "#8a99b2",
+            "name": "Homeostatic Metal"
+          }
+        ]
+      },
+      {
+        "id": "bb_neutral",
+        "title": "Brandbook: NEUTRAL",
+        "tokens": [
+          {
+            "role": "bg",
+            "oklch": "oklch(0.13 0.02 260.0)",
+            "hex": "#04070f",
+            "name": "Canvas dark background"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.19 0.03 260.0)",
+            "hex": "#0c1421",
+            "name": "Card surface canvas"
+          },
+          {
+            "role": "text",
+            "oklch": "oklch(0.97 0.01 312.9)",
+            "hex": "#f7f3fa",
+            "name": "Primary crisp text"
+          },
+          {
+            "role": "muted",
+            "oklch": "oklch(0.70 0.04 260.0)",
+            "hex": "#909fb8",
+            "name": "Secondary muted text"
+          }
+        ]
+      },
+      {
+        "id": "ecosistema_1__quiet_luxury___soberan_a_m",
+        "title": "Ecosistema 1: Quiet Luxury & Soberanía Mineral (Seleccionado)",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.54 0.11 312.9)",
+            "hex": "#855a9c",
+            "name": "Solar Essence Earth"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.76 0.17 347.9)",
+            "hex": "#fd80c4",
+            "name": "Gilded Accent"
+          },
+          {
+            "role": "balance",
+            "oklch": "oklch(0.68 0.04 260.0)",
+            "hex": "#8a99b2",
+            "name": "Homeostatic Metal"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.13 0.02 260.0)",
+            "hex": "#04070f",
+            "name": "Obsidian Deep"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.19 0.03 260.0)",
+            "hex": "#0c1421",
+            "name": "Basalt Surface"
+          },
+          {
+            "role": "text-primary",
+            "oklch": "oklch(0.97 0.01 312.9)",
+            "hex": "#f7f3fa",
+            "name": "Celestial Crisp"
+          },
+          {
+            "role": "text-muted",
+            "oklch": "oklch(0.70 0.04 260.0)",
+            "hex": "#909fb8",
+            "name": "Astral Slate"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.98 0.01 312.9)",
+            "hex": "#fbf7fd",
+            "name": "Alabaster Light"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.94 0.02 312.9)",
+            "hex": "#f0e8f5",
+            "name": "Parchment Surface"
+          },
+          {
+            "role": "text-primary",
+            "oklch": "oklch(0.18 0.03 260.0)",
+            "hex": "#0a121f",
+            "name": "Deep Charcoal"
+          },
+          {
+            "role": "text-muted",
+            "oklch": "oklch(0.48 0.04 260.0)",
+            "hex": "#515e75",
+            "name": "Granite Muted"
+          }
+        ]
+      },
+      {
+        "id": "ecosistema_2__high_performance___vanguar",
+        "title": "Ecosistema 2: High Performance & Vanguardia Activa",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.46 0.21 312.9)",
+            "hex": "#7f1aa8",
+            "name": "Kinetic Vanguard"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.78 0.20 132.9)",
+            "hex": "#82d132",
+            "name": "Solar Flash"
+          },
+          {
+            "role": "balance",
+            "oklch": "oklch(0.65 0.18 260.0)",
+            "hex": "#488bfb",
+            "name": "Dynamic Metal"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.11 0.02 260.0)",
+            "hex": "#02040b",
+            "name": "Carbon Mineral"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.18 0.03 260.0)",
+            "hex": "#0a121f",
+            "name": "Cobalt Void"
+          },
+          {
+            "role": "text-primary",
+            "oklch": "oklch(0.98 0.01 312.9)",
+            "hex": "#fbf7fd",
+            "name": "Pure Crisp"
+          },
+          {
+            "role": "text-muted",
+            "oklch": "oklch(0.68 0.06 312.9)",
+            "hex": "#a58eb3",
+            "name": "Cyan Tint Muted"
+          }
+        ]
+      },
+      {
+        "id": "ecosistema_3__bio-sensual___calidez_org_",
+        "title": "Ecosistema 3: Bio-Sensual & Calidez Orgánica",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.62 0.08 292.9)",
+            "hex": "#887db2",
+            "name": "Terracotta Velvet"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.84 0.12 72.6)",
+            "hex": "#fabe6e",
+            "name": "Copper Ember"
+          },
+          {
+            "role": "balance",
+            "oklch": "oklch(0.72 0.09 260.0)",
+            "hex": "#84a6dd",
+            "name": "Verdant Metal"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.14 0.03 312.9)",
+            "hex": "#0d0612",
+            "name": "Dark Umber"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.21 0.04 312.9)",
+            "hex": "#1f1225",
+            "name": "Earth Clay"
+          },
+          {
+            "role": "text-primary",
+            "oklch": "oklch(0.95 0.02 260.0)",
+            "hex": "#e7effc",
+            "name": "Warm Sand"
+          },
+          {
+            "role": "text-muted",
+            "oklch": "oklch(0.72 0.04 312.9)",
+            "hex": "#ad9eb7",
+            "name": "Ochre Muted"
+          }
+        ]
+      }
+    ]
+  },
+  "DAMAREN": {
+    "id": "damaren",
+    "name": "DAMAREN",
+    "ecosystems": [
+      {
+        "id": "bb_brand",
+        "title": "Brandbook: BRAND",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.71 0.15 94.0)",
+            "hex": "#c09e00",
+            "name": "Solar Essence Air"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.92 0.21 129.0)",
+            "hex": "#b8fe51",
+            "name": "Gilded Accent"
+          },
+          {
+            "role": "balance",
+            "oklch": "oklch(0.55 0.14 245.0)",
+            "hex": "#0077bd",
+            "name": "Homeostatic Water"
+          }
+        ]
+      },
+      {
+        "id": "bb_neutral",
+        "title": "Brandbook: NEUTRAL",
+        "tokens": [
+          {
+            "role": "bg",
+            "oklch": "oklch(0.13 0.02 245.0)",
+            "hex": "#03080f",
+            "name": "Canvas dark background"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.19 0.03 245.0)",
+            "hex": "#081520",
+            "name": "Card surface canvas"
+          },
+          {
+            "role": "text",
+            "oklch": "oklch(0.97 0.01 94.0)",
+            "hex": "#f7f5ee",
+            "name": "Primary crisp text"
+          },
+          {
+            "role": "muted",
+            "oklch": "oklch(0.70 0.04 245.0)",
+            "hex": "#8aa2b6",
+            "name": "Secondary muted text"
+          }
+        ]
+      },
+      {
+        "id": "modo_oscuro___quiet_luxury",
+        "title": "Modo Oscuro — Quiet Luxury",
+        "tokens": [
+          {
+            "role": "color-primary",
+            "oklch": "oklch(0.71 0.15 94.0)",
+            "hex": "#c09e00",
+            "name": "Solar Essence Air"
+          },
+          {
+            "role": "color-accent",
+            "oklch": "oklch(0.92 0.21 129.0)",
+            "hex": "#b8fe51",
+            "name": "Gilded Accent"
+          },
+          {
+            "role": "color-balance",
+            "oklch": "oklch(0.55 0.14 245.0)",
+            "hex": "#0077bd",
+            "name": "Homeostatic Water"
+          },
+          {
+            "role": "color-background",
+            "oklch": "oklch(0.13 0.02 245.0)",
+            "hex": "#03080f",
+            "name": "Obsidian Deep"
+          },
+          {
+            "role": "color-surface",
+            "oklch": "oklch(0.19 0.03 245.0)",
+            "hex": "#081520",
+            "name": "Basalt Surface"
+          },
+          {
+            "role": "color-text-primary",
+            "oklch": "oklch(0.97 0.01 94.0)",
+            "hex": "#f7f5ee",
+            "name": "Celestial Crisp"
+          },
+          {
+            "role": "color-text-muted",
+            "oklch": "oklch(0.70 0.04 245.0)",
+            "hex": "#8aa2b6",
+            "name": "Astral Slate"
+          }
+        ]
+      },
+      {
+        "id": "modo_claro___quiet_luxury",
+        "title": "Modo Claro — Quiet Luxury",
+        "tokens": [
+          {
+            "role": "color-primary",
+            "oklch": "oklch(0.71 0.15 94.0)",
+            "hex": "#c09e00",
+            "name": "Solar Essence Air"
+          },
+          {
+            "role": "color-accent",
+            "oklch": "oklch(0.92 0.21 129.0)",
+            "hex": "#b8fe51",
+            "name": "Gilded Accent"
+          },
+          {
+            "role": "color-balance",
+            "oklch": "oklch(0.55 0.14 245.0)",
+            "hex": "#0077bd",
+            "name": "Homeostatic Water"
+          },
+          {
+            "role": "color-background",
+            "oklch": "oklch(0.98 0.01 94.0)",
+            "hex": "#faf8f1",
+            "name": "Alabaster Light"
+          },
+          {
+            "role": "color-surface",
+            "oklch": "oklch(0.94 0.02 94.0)",
+            "hex": "#efebdd",
+            "name": "Parchment Surface"
+          },
+          {
+            "role": "color-text-primary",
+            "oklch": "oklch(0.18 0.03 245.0)",
+            "hex": "#06131e",
+            "name": "Deep Charcoal"
+          },
+          {
+            "role": "color-text-muted",
+            "oklch": "oklch(0.48 0.04 245.0)",
+            "hex": "#4b6073",
+            "name": "Granite Muted"
+          }
+        ]
+      },
+      {
+        "id": "3_4_ecosistema_high_performance___vangua",
+        "title": "3.4 Ecosistema High Performance & Vanguardia Activa",
+        "tokens": [
+          {
+            "role": "color-primary",
+            "oklch": "oklch(0.63 0.25 94.0)",
+            "hex": "#bb7d00",
+            "name": "Kinetic Vanguard"
+          },
+          {
+            "role": "color-accent",
+            "oklch": "oklch(0.78 0.20 274.0)",
+            "hex": "#92a8ff",
+            "name": "Solar Flash"
+          },
+          {
+            "role": "color-balance",
+            "oklch": "oklch(0.65 0.18 245.0)",
+            "hex": "#0096f4",
+            "name": "Dynamic Water"
+          },
+          {
+            "role": "color-background",
+            "oklch": "oklch(0.11 0.02 245.0)",
+            "hex": "#01050a",
+            "name": "Carbon Mineral"
+          },
+          {
+            "role": "color-surface",
+            "oklch": "oklch(0.18 0.03 245.0)",
+            "hex": "#06131e",
+            "name": "Cobalt Void"
+          },
+          {
+            "role": "color-text-primary",
+            "oklch": "oklch(0.98 0.01 94.0)",
+            "hex": "#faf8f1",
+            "name": "Pure Crisp"
+          },
+          {
+            "role": "color-text-muted",
+            "oklch": "oklch(0.68 0.06 94.0)",
+            "hex": "#a4986e",
+            "name": "Cyan Tint Muted"
+          }
+        ]
+      },
+      {
+        "id": "3_5_ecosistema_bio-sensual___calidez_org",
+        "title": "3.5 Ecosistema Bio-Sensual & Calidez Orgánica",
+        "tokens": [
+          {
+            "role": "color-primary",
+            "oklch": "oklch(0.68 0.12 74.0)",
+            "hex": "#c48c38",
+            "name": "Terracotta Velvet"
+          },
+          {
+            "role": "color-accent",
+            "oklch": "oklch(0.84 0.12 62.3)",
+            "hex": "#ffb975",
+            "name": "Copper Ember"
+          },
+          {
+            "role": "color-balance",
+            "oklch": "oklch(0.72 0.09 245.0)",
+            "hex": "#73abda",
+            "name": "Verdant Water"
+          },
+          {
+            "role": "color-background",
+            "oklch": "oklch(0.14 0.03 94.0)",
+            "hex": "#0d0900",
+            "name": "Dark Umber"
+          },
+          {
+            "role": "color-surface",
+            "oklch": "oklch(0.21 0.04 94.0)",
+            "hex": "#1e1802",
+            "name": "Earth Clay"
+          },
+          {
+            "role": "color-text-primary",
+            "oklch": "oklch(0.95 0.02 245.0)",
+            "hex": "#e4f0fb",
+            "name": "Warm Sand"
+          },
+          {
+            "role": "color-text-muted",
+            "oklch": "oklch(0.72 0.04 94.0)",
+            "hex": "#ada589",
+            "name": "Ochre Muted"
+          }
+        ]
+      }
+    ]
+  },
+  "ELPLACERDC": {
+    "id": "elplacerdc",
+    "name": "ELPLACERDC",
+    "ecosystems": [
+      {
+        "id": "bb_the_corset_society",
+        "title": "Brandbook: THE CORSET SOCIETY",
+        "tokens": [
+          {
+            "role": "noir_abyssal",
+            "oklch": "",
+            "hex": "#050505",
+            "name": "Negro profundo de alta costura, fondo principal nocturno."
+          },
+          {
+            "role": "gold_imperial",
+            "oklch": "",
+            "hex": "#C5A059",
+            "name": "Oro cepillado y acentos metálicos de distinción."
+          },
+          {
+            "role": "gold_champagne",
+            "oklch": "",
+            "hex": "#EAD397",
+            "name": "Dorado tenue para tipografía sobre negro y cajas de destaque."
+          },
+          {
+            "role": "gold_antique",
+            "oklch": "",
+            "hex": "#8A6D3B",
+            "name": "Bronce y oro viejo para bordes sutiles y subtextos."
+          },
+          {
+            "role": "velvet_burgundy",
+            "oklch": "",
+            "hex": "#4A0E17",
+            "name": "Burdeos terciopelo, pasión refinada y misterio."
+          },
+          {
+            "role": "wine_cabernet",
+            "oklch": "",
+            "hex": "#721C24",
+            "name": "Rojo vino intenso para alertas sobrias y separadores de honor."
+          }
+        ]
+      },
+      {
+        "id": "bb_el_placer_dc_umbrella",
+        "title": "Brandbook: EL PLACER DC UMBRELLA",
+        "tokens": [
+          {
+            "role": "canvas_salon",
+            "oklch": "",
+            "hex": "#180A1A",
+            "name": "Lienzo oscuro cálido y sensual estilo salón nocturno de cóctel."
+          },
+          {
+            "role": "canvas_card",
+            "oklch": "",
+            "hex": "#250F22",
+            "name": "Fondo de tarjetas y paneles en terciopelo vino oscuro."
+          },
+          {
+            "role": "canvas_blush",
+            "oklch": "",
+            "hex": "#F7D6CB",
+            "name": "Lienzo cálido rosé y champán extraído del medallón del logo y flyer del Centro Cultural."
+          },
+          {
+            "role": "canvas_light",
+            "oklch": "",
+            "hex": "#FDF8F5",
+            "name": "Blanco perla cálido y luminoso para fondos respirables de alta gama."
+          },
+          {
+            "role": "velvet_wine",
+            "oklch": "",
+            "hex": "#591F26",
+            "name": "Vino tinto terciopelo para títulos principales, contraste noble y acentos."
+          },
+          {
+            "role": "wine_deep",
+            "oklch": "",
+            "hex": "#380913",
+            "name": "Borgoña oscuro profundo para textos de máxima legibilidad sobre fondo claro."
+          },
+          {
+            "role": "gold_champagne",
+            "oklch": "",
+            "hex": "#C5A059",
+            "name": "Oro champán y acentos metálicos luminosos."
+          },
+          {
+            "role": "midnight_plum",
+            "oklch": "",
+            "hex": "#180A22",
+            "name": "Púrpura noche cálido, representativo de la sensualidad comunitaria."
+          },
+          {
+            "role": "terracotta_sensual",
+            "oklch": "",
+            "hex": "#B84A39",
+            "name": "Terracota cálido y piel viva, alejado de lo estridente."
+          },
+          {
+            "role": "amethyst_glow",
+            "oklch": "",
+            "hex": "#682D7E",
+            "name": "Amatista vibrante para eventos lunares y místicos."
+          },
+          {
+            "role": "ivory_silk",
+            "oklch": "",
+            "hex": "#F7F4EE",
+            "name": "Blanco marfil cálido para textos de máxima legibilidad."
+          },
+          {
+            "role": "allied_event_canvas",
+            "oklch": "",
+            "hex": "#1E0C24",
+            "name": "Lienzo oscuro sobrio y elegante para eventos aliados, sin estridencias."
+          },
+          {
+            "role": "allied_event_accent",
+            "oklch": "",
+            "hex": "#8E4A8C",
+            "name": "Púrpura suave y distinguido para distintivos de aliados, preservando alto contraste."
+          },
+          {
+            "role": "background_invariant_rule",
+            "oklch": "",
+            "hex": "",
+            "name": "INVARIANTE ABSOLUTO: ElPlacerDC y Centro Cultural deben usar siempre el degradado terciopelo vino cálido. El negro profundo (#050505 / #0A050A) queda estrictamente restringido a The Corset Society."
+          },
+          {
+            "role": "smoke_charcoal",
+            "oklch": "",
+            "hex": "#1A1A1A",
+            "name": "Gris carbón para tarjetas y bloques neutros."
+          }
+        ]
+      },
+      {
+        "id": "bb_semantic_consent",
+        "title": "Brandbook: SEMANTIC CONSENT",
+        "tokens": [
+          {
+            "role": "green_safe",
+            "oklch": "",
+            "hex": "#2E7D32",
+            "name": "Verde esmeralda para consentimiento confirmado y bienvenida."
+          },
+          {
+            "role": "amber_caution",
+            "oklch": "",
+            "hex": "#E65100",
+            "name": "Ámbar para zonas de transición y consulta previa."
+          },
+          {
+            "role": "red_boundary",
+            "oklch": "",
+            "hex": "#B71C1C",
+            "name": "Rojo carmesí para límites no negociables y espacios restringidos."
+          }
+        ]
+      }
+    ]
+  },
+  "JUANDENKREISS": {
+    "id": "juandenkreiss",
+    "name": "JUANDENKREISS",
+    "ecosystems": [
+      {
+        "id": "eco_sovereign_luxury",
+        "title": "Sovereign Gold & Obsidian",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.75 0.15 85)",
+            "hex": "#d4af37",
+            "name": "Imperial Gold"
+          },
+          {
+            "role": "secondary",
+            "oklch": "oklch(0.60 0.10 70)",
+            "hex": "#9b783e",
+            "name": "Aged Bronze"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.85 0.12 90)",
+            "hex": "#f3e5ab",
+            "name": "Champagne Light"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.12 0.02 260)",
+            "hex": "#0b0d14",
+            "name": "Deep Obsidian"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.18 0.03 260)",
+            "hex": "#161a26",
+            "name": "Charcoal Slate"
+          },
+          {
+            "role": "text",
+            "oklch": "oklch(0.96 0.01 260)",
+            "hex": "#f1f4fa",
+            "name": "Pure Light"
+          },
+          {
+            "role": "muted",
+            "oklch": "oklch(0.60 0.03 260)",
+            "hex": "#848ea4",
+            "name": "Muted Steel"
+          }
+        ]
+      }
+    ]
+  },
+  "JUANTRABAJO": {
+    "id": "juantrabajo",
+    "name": "JUANTRABAJO",
+    "ecosystems": [
+      {
+        "id": "eco_sovereign_luxury",
+        "title": "Sovereign Gold & Obsidian",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.75 0.15 85)",
+            "hex": "#d4af37",
+            "name": "Imperial Gold"
+          },
+          {
+            "role": "secondary",
+            "oklch": "oklch(0.60 0.10 70)",
+            "hex": "#9b783e",
+            "name": "Aged Bronze"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.85 0.12 90)",
+            "hex": "#f3e5ab",
+            "name": "Champagne Light"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.12 0.02 260)",
+            "hex": "#0b0d14",
+            "name": "Deep Obsidian"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.18 0.03 260)",
+            "hex": "#161a26",
+            "name": "Charcoal Slate"
+          },
+          {
+            "role": "text",
+            "oklch": "oklch(0.96 0.01 260)",
+            "hex": "#f1f4fa",
+            "name": "Pure Light"
+          },
+          {
+            "role": "muted",
+            "oklch": "oklch(0.60 0.03 260)",
+            "hex": "#848ea4",
+            "name": "Muted Steel"
+          }
+        ]
+      }
+    ]
+  },
+  "MENTORDEMARCA.COM": {
+    "id": "mentordemarca.com",
+    "name": "MENTORDEMARCA.COM",
+    "ecosystems": [
+      {
+        "id": "eco_sovereign_luxury",
+        "title": "Sovereign Gold & Obsidian",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.75 0.15 85)",
+            "hex": "#d4af37",
+            "name": "Imperial Gold"
+          },
+          {
+            "role": "secondary",
+            "oklch": "oklch(0.60 0.10 70)",
+            "hex": "#9b783e",
+            "name": "Aged Bronze"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.85 0.12 90)",
+            "hex": "#f3e5ab",
+            "name": "Champagne Light"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.12 0.02 260)",
+            "hex": "#0b0d14",
+            "name": "Deep Obsidian"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.18 0.03 260)",
+            "hex": "#161a26",
+            "name": "Charcoal Slate"
+          },
+          {
+            "role": "text",
+            "oklch": "oklch(0.96 0.01 260)",
+            "hex": "#f1f4fa",
+            "name": "Pure Light"
+          },
+          {
+            "role": "muted",
+            "oklch": "oklch(0.60 0.03 260)",
+            "hex": "#848ea4",
+            "name": "Muted Steel"
+          }
+        ]
+      }
+    ]
+  },
+  "METODO_APOTELOS": {
+    "id": "metodo_apotelos",
+    "name": "METODO_APOTELOS",
+    "ecosystems": [
+      {
+        "id": "eco_sovereign_luxury",
+        "title": "Sovereign Gold & Obsidian",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.75 0.15 85)",
+            "hex": "#d4af37",
+            "name": "Imperial Gold"
+          },
+          {
+            "role": "secondary",
+            "oklch": "oklch(0.60 0.10 70)",
+            "hex": "#9b783e",
+            "name": "Aged Bronze"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.85 0.12 90)",
+            "hex": "#f3e5ab",
+            "name": "Champagne Light"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.12 0.02 260)",
+            "hex": "#0b0d14",
+            "name": "Deep Obsidian"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.18 0.03 260)",
+            "hex": "#161a26",
+            "name": "Charcoal Slate"
+          },
+          {
+            "role": "text",
+            "oklch": "oklch(0.96 0.01 260)",
+            "hex": "#f1f4fa",
+            "name": "Pure Light"
+          },
+          {
+            "role": "muted",
+            "oklch": "oklch(0.60 0.03 260)",
+            "hex": "#848ea4",
+            "name": "Muted Steel"
+          }
+        ]
+      }
+    ]
+  }
+}

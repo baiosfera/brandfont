@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 const PORT = parseInt(process.env.PORT || '3000', 10);
 const HOST = process.env.HOST || '0.0.0.0';
 const CATALOG_FILE = path.join(__dirname, 'catalog.json');
+const BRANDS_DATA_FILE = path.join(__dirname, 'brands_data.json');
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 const PROYECTOS_DIR = '/var/www/baiosfera/PROYECTOS';
 
@@ -31,47 +32,162 @@ const MIME_TYPES = {
 
 // Helper: Parse markdown astrobranding files for real OKLCH color palettes
 function parseAstrobranding(filePath) {
-    if (!fs.existsSync(filePath)) return null;
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const ecosystems = [];
-    const sections = content.split(/###?\s+/);
+    if (!fs.existsSync(filePath)) return [];
+    try {
+        const content = fs.readFileSync(filePath, 'utf-8');
+        const ecosystems = [];
+        const sections = content.split(/###?\s+/);
 
-    for (const sec of sections) {
-        if (!sec.toLowerCase().includes('oklch')) continue;
-        const lines = sec.split('\n');
-        const title = lines[0].trim();
-        const rows = [];
+        for (const sec of sections) {
+            if (!sec.toLowerCase().includes('oklch')) continue;
+            const lines = sec.split('\n');
+            const rawTitle = lines[0].trim();
+            const title = rawTitle.replace(/\*\*/g, '').replace(/^#+\s*/, '').trim();
+            const rows = [];
 
-        for (const line of lines) {
-            // Markdown table format: | **Rol** | `oklch(...)` | `#hex` | Nombre |
-            if (line.includes('|') && !line.includes('---') && !line.toLowerCase().includes('semiótico')) {
-                const cols = line.split('|').map(c => c.trim()).filter(Boolean);
-                if (cols.length >= 3) {
-                    const role = cols[0].replace(/\*\*/g, '').replace(/`/g, '').trim();
-                    const oklch = cols[1].replace(/`/g, '').trim();
-                    const hex = cols[2].replace(/`/g, '').trim();
-                    const name = cols[3] ? cols[3].replace(/["“”]/g, '').trim() : '';
-                    if (oklch.includes('oklch') || hex.startsWith('#')) {
-                        rows.push({ role, oklch, hex, name });
+            for (const line of lines) {
+                if (line.includes('|') && !line.includes('---') && !line.toLowerCase().includes('semiótico') && !line.toLowerCase().includes('rol')) {
+                    const cols = line.split('|').map(c => c.trim()).filter(Boolean);
+                    if (cols.length >= 3) {
+                        const role = cols[0].replace(/\*\*/g, '').replace(/`/g, '').trim().toLowerCase().replace(/\s+/g, '-');
+                        const oklch = cols[1].replace(/`/g, '').trim();
+                        const hex = cols[2].replace(/`/g, '').trim();
+                        const name = cols[3] ? cols[3].replace(/["“”\`\*]/g, '').trim() : '';
+                        if (oklch.includes('oklch') || hex.startsWith('#')) {
+                            rows.push({ role, oklch, hex, name });
+                        }
                     }
                 }
+                const listMatch = line.match(/^-\s*([A-Za-z\s]+):\s*`?(oklch\([^`]+\))`?\s*→?\s*`?(#[A-Fa-f0-9]{3,6})`?\s*[“"]?([^"“”\n]*)["”]?/i);
+                if (listMatch) {
+                    rows.push({
+                        role: listMatch[1].trim().toLowerCase().replace(/\s+/g, '-'),
+                        oklch: listMatch[2].trim(),
+                        hex: listMatch[3].trim(),
+                        name: listMatch[4].trim()
+                    });
+                }
             }
-            // Markdown list format: - Primary: `oklch(...)` → `#hex` “Name”
-            const listMatch = line.match(/^-\s*([A-Za-z\s]+):\s*`?(oklch\([^`]+\))`?\s*→?\s*`?(#[A-Fa-f0-9]{3,6})`?\s*[“"]?([^"“”\n]*)["”]?/i);
-            if (listMatch) {
-                rows.push({
-                    role: listMatch[1].trim().toLowerCase().replace(/\s+/g, '-'),
-                    oklch: listMatch[2].trim(),
-                    hex: listMatch[3].trim(),
-                    name: listMatch[4].trim()
+            if (rows.length > 0) {
+                ecosystems.push({
+                    id: title.toLowerCase().replace(/[^a-z0-9_-]/g, '_').slice(0, 40),
+                    title,
+                    tokens: rows
                 });
             }
         }
-        if (rows.length > 0) {
-            ecosystems.push({ title, tokens: rows });
+        return ecosystems;
+    } catch {
+        return [];
+    }
+}
+
+function parseBrandbook(filePath) {
+    if (!fs.existsSync(filePath)) return [];
+    try {
+        const bb = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        const colorSec = bb.design_system?.color || {};
+        const ecosystems = [];
+        for (const [groupName, groupObj] of Object.entries(colorSec)) {
+            const tokens = [];
+            for (const [tokenName, tokenData] of Object.entries(groupObj)) {
+                if (tokenData && typeof tokenData === 'object' && (tokenData.$value || tokenData.hex || tokenData.oklch)) {
+                    tokens.push({
+                        role: tokenName.toLowerCase().replace(/\s+/g, '-'),
+                        oklch: tokenData.$value?.includes('oklch') ? tokenData.$value : '',
+                        hex: tokenData.$extensions?.hex || (tokenData.$value?.startsWith('#') ? tokenData.$value : ''),
+                        name: tokenData.$extensions?.name || tokenData.$description || tokenName
+                    });
+                }
+            }
+            if (tokens.length > 0) {
+                ecosystems.push({
+                    id: `bb_${groupName.toLowerCase().replace(/[^a-z0-9_-]/g, '_')}`,
+                    title: `Brandbook: ${groupName.replace(/_/g, ' ').toUpperCase()}`,
+                    tokens
+                });
+            }
+        }
+        return ecosystems;
+    } catch {
+        return [];
+    }
+}
+
+function loadAllBrands() {
+    let brands = {};
+
+    // 1. If PROYECTOS_DIR exists (local ZCP or mounted Drive SSoT), scan in vivo
+    if (fs.existsSync(PROYECTOS_DIR)) {
+        try {
+            const entries = fs.readdirSync(PROYECTOS_DIR, { withFileTypes: true });
+            for (const d of entries) {
+                if (!d.isDirectory() || d.name.startsWith('.') || d.name === 'sync') continue;
+                const bName = d.name;
+                const bDir = path.join(PROYECTOS_DIR, bName);
+                let devDir = path.join(bDir, 'dev');
+                if (!fs.existsSync(devDir)) devDir = bDir;
+
+                const brandData = {
+                    id: bName.toLowerCase(),
+                    name: bName,
+                    ecosystems: []
+                };
+
+                // Brandbook
+                const bbEcos = parseBrandbook(path.join(devDir, 'brandbook.json'));
+                brandData.ecosystems.push(...bbEcos);
+
+                // Astrobranding
+                if (fs.existsSync(devDir)) {
+                    const files = fs.readdirSync(devDir);
+                    const match = files.find(f => f.startsWith('astrobranding_') && f.endsWith('.md'));
+                    if (match) {
+                        const astroEcos = parseAstrobranding(path.join(devDir, match));
+                        brandData.ecosystems.push(...astroEcos);
+                    }
+                }
+
+                // Fallback default
+                if (brandData.ecosystems.length === 0) {
+                    brandData.ecosystems.push({
+                        id: 'eco_sovereign_luxury',
+                        title: 'Sovereign Gold & Obsidian',
+                        tokens: [
+                            { role: 'primary', oklch: 'oklch(0.75 0.15 85)', hex: '#d4af37', name: 'Imperial Gold' },
+                            { role: 'secondary', oklch: 'oklch(0.60 0.10 70)', hex: '#9b783e', name: 'Aged Bronze' },
+                            { role: 'accent', oklch: 'oklch(0.85 0.12 90)', hex: '#f3e5ab', name: 'Champagne Light' },
+                            { role: 'background', oklch: 'oklch(0.12 0.02 260)', hex: '#0b0d14', name: 'Deep Obsidian' },
+                            { role: 'surface', oklch: 'oklch(0.18 0.03 260)', hex: '#161a26', name: 'Charcoal Slate' },
+                            { role: 'text', oklch: 'oklch(0.96 0.01 260)', hex: '#f1f4fa', name: 'Pure Light' },
+                            { role: 'muted', oklch: 'oklch(0.60 0.03 260)', hex: '#848ea4', name: 'Muted Steel' }
+                        ]
+                    });
+                }
+
+                brands[bName] = brandData;
+            }
+
+            try {
+                fs.writeFileSync(BRANDS_DATA_FILE, JSON.stringify(brands, null, 2), 'utf8');
+            } catch {}
+            return brands;
+        } catch (err) {
+            console.error('Error scanning PROYECTOS_DIR:', err);
         }
     }
-    return ecosystems;
+
+    // 2. Fallback: read from BRANDS_DATA_FILE
+    if (fs.existsSync(BRANDS_DATA_FILE)) {
+        try {
+            brands = JSON.parse(fs.readFileSync(BRANDS_DATA_FILE, 'utf8'));
+            return brands;
+        } catch (e) {
+            console.error('Error reading BRANDS_DATA_FILE:', e);
+        }
+    }
+
+    return brands;
 }
 
 const server = http.createServer(async (req, res) => {
@@ -339,70 +455,43 @@ const server = http.createServer(async (req, res) => {
             }
         }
 
-        // 5. Dynamic SSoT Brands API (/api/brands and /api/brands/:brand)
+        // 5. Dynamic SSoT Brands API (/api/brands, /api/brands/:brand, /api/brands/sync)
         if (pathname === '/api/brands') {
-            let brands = [];
-            if (fs.existsSync(PROYECTOS_DIR)) {
-                try {
-                    const entries = await fs.promises.readdir(PROYECTOS_DIR, { withFileTypes: true });
-                    brands = entries
-                        .filter(d => d.isDirectory() && !d.name.startsWith('.') && d.name !== 'sync')
-                        .map(d => d.name);
-                } catch (e) {
-                    console.error('Error reading PROYECTOS dir:', e);
-                }
-            }
+            const allBrands = loadAllBrands();
+            const brandList = Object.keys(allBrands);
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ ok: true, brands }));
+            res.end(JSON.stringify({ ok: true, brands: brandList }));
+            return;
+        }
+
+        if (pathname === '/api/brands/sync') {
+            const allBrands = loadAllBrands();
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ ok: true, count: Object.keys(allBrands).length, brands: Object.keys(allBrands) }));
             return;
         }
 
         if (pathname.startsWith('/api/brands/')) {
-            const brandName = decodeURIComponent(pathname.replace('/api/brands/', '').replace(/\/$/, ''));
-            const brandDir = path.join(PROYECTOS_DIR, brandName);
+            const brandName = decodeURIComponent(pathname.replace('/api/brands/', '').replace(/\/$/, '')).trim();
+            const allBrands = loadAllBrands();
+            
+            // Case-insensitive lookup
+            const foundKey = Object.keys(allBrands).find(k => k.toLowerCase() === brandName.toLowerCase());
+            const brandData = foundKey ? allBrands[foundKey] : null;
 
-            if (!fs.existsSync(brandDir)) {
-                res.writeHead(404, { 'Content-Type': 'application/json' });
+            if (!brandData) {
+                res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
                 res.end(JSON.stringify({ ok: false, error: `Marca '${brandName}' no encontrada en SSoT` }));
                 return;
-            }
-
-            // Find dev/astrobranding_*.md
-            let devDir = path.join(brandDir, 'dev');
-            if (!fs.existsSync(devDir)) devDir = brandDir;
-
-            let astroFile = null;
-            let brandbookFile = path.join(devDir, 'brandbook.json');
-            let fontManifestFile = path.join(devDir, 'font_manifest.json');
-
-            try {
-                const devFiles = await fs.promises.readdir(devDir);
-                const match = devFiles.find(f => f.startsWith('astrobranding_') && f.endsWith('.md'));
-                if (match) astroFile = path.join(devDir, match);
-            } catch {}
-
-            const ecosystems = astroFile ? parseAstrobranding(astroFile) : [];
-            let brandbookData = null;
-            let fontManifestData = null;
-
-            if (fs.existsSync(brandbookFile)) {
-                try {
-                    brandbookData = JSON.parse(await fs.promises.readFile(brandbookFile, 'utf8'));
-                } catch {}
-            }
-            if (fs.existsSync(fontManifestFile)) {
-                try {
-                    fontManifestData = JSON.parse(await fs.promises.readFile(fontManifestFile, 'utf8'));
-                } catch {}
             }
 
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.end(JSON.stringify({
                 ok: true,
-                brand: brandName,
-                ecosystems: ecosystems || [],
-                brandbook: brandbookData,
-                fontManifest: fontManifestData
+                brand: brandData.name,
+                ecosystems: brandData.ecosystems || [],
+                brandbook: brandData.brandbook || null,
+                fontManifest: brandData.fontManifest || null
             }));
             return;
         }
