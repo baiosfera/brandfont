@@ -1,0 +1,16 @@
+zerops:
+  - setup: brandfont
+    build:
+      base: alpine/nodejs@22
+      deployFiles:
+        - .
+    run:
+      base: alpine/nodejs@22
+      ports:
+        - port: 3000
+          httpSupport: true
+      start: node server.js
+      healthCheck:
+        httpGet:
+          port: 3000
+          path: /health

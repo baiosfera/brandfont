@@ -1,0 +1,3357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Brandmark & Font Workbench (v4.5 - Master Studio)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Sovereign Extracted Local Fonts (Native OpenType HarfBuzz Ligatures) */
+        @font-face {
+            font-family: 'Monas';
+            src: url('fonts/Monas.woff') format('woff'),
+                 url('fonts/Monas.ttf') format('truetype'),
+                 url('fonts/Monas.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Kaeleya';
+            src: url('fonts/Kaeleya-Regular.woff2') format('woff2'),
+                 url('fonts/Kaeleya-Regular.woff') format('woff'),
+                 url('fonts/Kaeleya-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Kaeleya';
+            src: url('fonts/Kaeleya-Italic.woff2') format('woff2'),
+                 url('fonts/Kaeleya-Italic.woff') format('woff'),
+                 url('fonts/Kaeleya-Italic.ttf') format('truetype');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Kalieb Luxury';
+            src: url('fonts/KaliebLuxury-Regular.woff') format('woff'),
+                 url('fonts/KaliebLuxury-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Kalieb Luxury';
+            src: url('fonts/KaliebLuxury-Italic.woff') format('woff'),
+                 url('fonts/KaliebLuxury-Italic.ttf') format('truetype');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Megante';
+            src: url('fonts/Megante.woff') format('woff'),
+                 url('fonts/Megante.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Biancha';
+            src: url('fonts/Biancha.woff2') format('woff2'),
+                 url('fonts/Biancha.woff') format('woff'),
+                 url('fonts/Biancha.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Sagora Glamour';
+            src: url('fonts/Sagora Glamour.woff2') format('woff2'),
+                 url('fonts/Sagora Glamour.woff') format('woff'),
+                 url('fonts/Sagora Glamour.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Averne';
+            src: url('fonts/Averne.woff') format('woff'),
+                 url('fonts/Averne.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --bg-deep: #07080b;
+            --bg-surface: #0e1118;
+            --bg-surface-elevated: #161a24;
+            --border: #202636;
+            --border-hover: #3b445c;
+            --text-main: #f1f4fa;
+            --text-muted: #848ea4;
+            --accent-gold: #d4af37;
+            --accent-gold-soft: rgba(212, 175, 55, 0.15);
+            --danger: #ef4444;
+            --danger-soft: rgba(239, 68, 68, 0.15);
+            --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-serif: 'Cinzel', serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar */
+        .top-nav {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .logo-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-badge {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #d4af37, #f6e05e);
+            border-radius: 8px;
+            color: #07080b;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+
+        .logo-text h1 {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .logo-text p {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .nav-extractors {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex: 1;
+            max-width: 860px;
+            flex-wrap: wrap;
+        }
+
+        .url-extractor {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .url-input {
+            flex: 1;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 12px;
+            color: var(--text-main);
+            font-size: 12px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .url-input:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .btn-extract {
+            background: linear-gradient(135deg, #d4af37, #b89327);
+            border: none;
+            color: #07080b;
+            font-weight: 700;
+            font-size: 11px;
+            padding: 7px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            transition: all 0.15s;
+        }
+
+        .btn-extract:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .btn-extract.btn-google {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #ffffff;
+        }
+
+        .btn-reset {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 11px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-weight: 600;
+        }
+
+        .btn-reset:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* Workspace Layout */
+        .workspace {
+            display: grid;
+            grid-template-columns: 480px 1fr;
+            flex: 1;
+            min-height: calc(100vh - 58px);
+            height: auto;
+            overflow: visible;
+        }
+
+        .sidebar {
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border);
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: auto;
+        }
+
+        /* Sticky Canvas Viewport (Always visible while scrolling controls) */
+        .main-stage {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-deep);
+            position: sticky;
+            top: 58px;
+            height: calc(100vh - 58px);
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        .canvas-container {
+            flex: 1;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            position: relative;
+        }
+
+        /* Control Groups */
+        .control-group {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .control-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-reset-mini {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--accent-gold);
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: var(--font-ui);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-reset-mini:hover {
+            background: var(--accent-gold-soft);
+            border-color: var(--accent-gold);
+        }
+
+        .input-field {
+            width: 100%;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--text-main);
+            font-size: 12px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Segmented Buttons */
+        .segmented-btn-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 4px;
+            background: var(--bg-deep);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .segmented-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+        }
+
+        .segmented-btn.active {
+            background: var(--bg-surface-elevated);
+            color: var(--accent-gold);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-hover);
+        }
+
+        .segmented-btn:hover:not(.active) {
+            color: var(--text-main);
+        }
+
+        /* Sliders */
+        .slider-control {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 5px;
+            background: var(--bg-deep);
+            border-radius: 4px;
+            outline: none;
+            border: 1px solid var(--border);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Element Font Cards */
+        .element-font-card {
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .element-font-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .select-field {
+            width: 100%;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 10px;
+            color: var(--text-main);
+            font-size: 11px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .select-field:focus {
+            border-color: var(--accent-gold);
+        }
+
+        /* CUSTOM RICH FONT SELECTOR WITH VISUAL PREVIEW IN MENUS */
+        .custom-font-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-trigger {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.15s ease;
+        }
+
+        .custom-select-trigger:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .custom-select-trigger-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .custom-select-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .custom-select-preview-swatch {
+            max-height: 28px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .custom-select-preview-swatch svg {
+            max-height: 24px;
+            width: auto;
+        }
+
+        .custom-select-arrow {
+            color: var(--accent-gold);
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .custom-select-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            max-height: 280px;
+            overflow-y: auto;
+            background: #11141d;
+            border: 1px solid var(--border-hover);
+            border-radius: 8px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            gap: 3px;
+        }
+
+        .custom-select-option {
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            border: 1px solid transparent;
+            transition: all 0.12s ease;
+        }
+
+        .custom-select-option:hover {
+            background: rgba(212, 175, 55, 0.12);
+            border-color: var(--accent-gold);
+        }
+
+        .custom-select-option.selected {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--accent-gold);
+        }
+
+        .custom-option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .custom-option-name {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .custom-option-badge {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--accent-gold);
+            background: var(--bg-deep);
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .custom-option-preview {
+            min-height: 24px;
+            max-height: 36px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background: #000;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .custom-option-preview svg {
+            max-height: 24px;
+            width: auto;
+        }
+
+        .custom-option-preview svg path {
+            fill: #ffffff !important;
+        }
+
+        /* Variant Pills */
+        .variants-bar {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .variant-pill {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.12s;
+        }
+
+        .variant-pill.active {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            background: var(--accent-gold-soft);
+        }
+
+        /* Tabs Nav */
+        .tabs-nav {
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .tab-btn.active {
+            color: var(--accent-gold);
+            background: var(--accent-gold-soft);
+        }
+
+        /* Selector Pills (Words & Letters) */
+        .selector-pills {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            max-height: 90px;
+            overflow-y: auto;
+            background: var(--bg-deep);
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .pill-btn {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.12s;
+        }
+
+        .pill-btn.active {
+            background: var(--accent-gold);
+            color: #07080b;
+            font-weight: 700;
+            border-color: var(--accent-gold);
+        }
+
+        /* Ligature Lab */
+        .ligature-lab-box {
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ligature-preview-stage {
+            background: #000000;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+        }
+
+        .ligature-preview-stage svg path { fill: #ffffff !important; }
+
+        .ligature-chips-grid {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .ligature-chip {
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .ligature-chip:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .ligature-chip.active {
+            background: var(--accent-gold-soft);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .btn-chip-action {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--accent-gold);
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.12s;
+        }
+
+        .btn-chip-action:hover {
+            background: var(--accent-gold-soft);
+        }
+
+        /* Canvas Styles */
+        .brand-canvas {
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            min-width: 740px;
+            min-height: 440px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px;
+            position: relative;
+            transition: background 0.2s, border-color 0.2s;
+            user-select: none;
+        }
+
+        .brand-canvas[data-theme="dark"] {
+            background: #090a0f;
+            border: 1px solid #1f2433;
+            color: #ffffff;
+        }
+        .brand-canvas[data-theme="dark"] svg path { fill: #ffffff !important; }
+        .brand-canvas[data-theme="dark"] .monogram-circle { border-color: #d4af37 !important; }
+        .brand-canvas[data-theme="dark"] .monogram-circle svg path,
+        .brand-canvas[data-theme="dark"] .monogram-minimal svg path { fill: #d4af37 !important; }
+        .brand-canvas[data-theme="dark"] .monogram-letter-span { color: #d4af37 !important; }
+        .brand-canvas[data-theme="dark"] .brand-descriptor-row svg path { fill: #848ea4 !important; }
+
+        .brand-canvas[data-theme="light"] {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            color: #090a0f;
+        }
+        .brand-canvas[data-theme="light"] svg path { fill: #090a0f !important; }
+        .brand-canvas[data-theme="light"] .monogram-circle { border-color: #090a0f !important; }
+        .brand-canvas[data-theme="light"] .monogram-circle svg path,
+        .brand-canvas[data-theme="light"] .monogram-minimal svg path { fill: #090a0f !important; }
+        .brand-canvas[data-theme="light"] .monogram-letter-span { color: #090a0f !important; }
+        .brand-canvas[data-theme="light"] .brand-descriptor-row svg path { fill: #64748b !important; }
+
+        .brand-canvas[data-theme="gold"] {
+            background: #040405;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
+            color: #d4af37;
+        }
+        .brand-canvas[data-theme="gold"] svg path { fill: #d4af37 !important; }
+        .brand-canvas[data-theme="gold"] .monogram-circle { border-color: #d4af37 !important; }
+        .brand-canvas[data-theme="gold"] .monogram-circle svg path,
+        .brand-canvas[data-theme="gold"] .monogram-minimal svg path { fill: #d4af37 !important; }
+        .brand-canvas[data-theme="gold"] .monogram-letter-span { color: #d4af37 !important; }
+        .brand-canvas[data-theme="gold"] .brand-descriptor-row svg path { fill: rgba(212, 175, 55, 0.7) !important; }
+
+        .brand-canvas[data-theme="ivory"] {
+            background: #faf7f2;
+            border: 1px solid #e7ded4;
+            color: #2e241c;
+        }
+        .brand-canvas[data-theme="ivory"] svg path { fill: #2e241c !important; }
+        .brand-canvas[data-theme="ivory"] .monogram-circle { border-color: #785a3c !important; }
+        .brand-canvas[data-theme="ivory"] .monogram-circle svg path,
+        .brand-canvas[data-theme="ivory"] .monogram-minimal svg path { fill: #785a3c !important; }
+        .brand-canvas[data-theme="ivory"] .monogram-letter-span { color: #785a3c !important; }
+        .brand-canvas[data-theme="ivory"] .brand-descriptor-row svg path { fill: #8c735b !important; }
+
+        /* Lockup Elements */
+        .brand-lockup {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease-out;
+        }
+
+        .brand-lockup[data-layout="stacked"] {
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .brand-lockup[data-layout="inline"] {
+            flex-direction: row;
+            gap: 28px;
+        }
+
+        .brand-lockup[data-layout="monogram-only"] .wordmark-container { display: none !important; }
+        .brand-lockup[data-layout="wordmark-only"] .monogram-container { display: none !important; }
+
+        .monogram-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.15s ease-out;
+        }
+
+        .monogram-circle {
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        .monogram-minimal {
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        .monogram-letters-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .monogram-unit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.15s ease-out;
+        }
+
+        .monogram-letter-span {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .wordmark-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .brand-lockup[data-layout="stacked"] .wordmark-container { align-items: center; }
+        .brand-lockup[data-layout="inline"] .wordmark-container { align-items: flex-start; }
+
+        .wordmark-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            transition: transform 0.15s ease-out, gap 0.15s ease-out;
+        }
+
+        .word-unit {
+            display: inline-flex;
+            align-items: center;
+            transition: transform 0.15s ease-out;
+        }
+
+        .letter-unit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: center;
+            transition: transform 0.15s ease-out;
+        }
+
+        .letter-span {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            display: inline-block;
+            transform-origin: center;
+        }
+
+        .brand-descriptor-row {
+            display: flex;
+            align-items: center;
+            transition: transform 0.15s ease-out, gap 0.15s ease-out;
+        }
+
+        .descriptor-unit {
+            display: inline-flex;
+            align-items: center;
+            transition: transform 0.15s ease-out;
+        }
+
+        .descriptor-letter-span {
+            font-family: var(--font-ui);
+            font-weight: 600;
+            font-size: 11px;
+            display: inline-block;
+            transition: transform 0.15s ease-out;
+            color: var(--text-muted);
+        }
+
+        /* Tray & Catalog */
+        .font-tray {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border);
+            padding: 12px 20px;
+            max-height: 220px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tray-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tray-header h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+        }
+
+        .fonts-grid {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .font-card {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            min-width: 220px;
+            max-width: 260px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .font-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .font-card.active-card {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 12px var(--accent-gold-soft);
+        }
+
+        .font-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .font-card-title {
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 160px;
+        }
+
+        .font-card-variants-count {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--accent-gold);
+        }
+
+        .font-card-caps {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .badge-tag {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            padding: 2px 4px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        .badge-active { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+        .badge-inactive { background: var(--bg-deep); color: var(--text-muted); }
+
+        .font-card-preview {
+            background: #000;
+            border-radius: 4px;
+            padding: 8px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .font-card-preview svg path { fill: #ffffff !important; }
+
+        .font-card-btn-delete {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid transparent;
+            border-radius: 4px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .font-card-btn-delete:hover {
+            background: var(--danger);
+            color: #ffffff;
+        }
+
+        .font-card-actions {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+            align-items: center;
+        }
+
+        .btn-card-apply-both {
+            flex: 1;
+            background: linear-gradient(135deg, #d4af37, #f6e05e);
+            color: #07080b;
+            border: none;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 5px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .btn-card-apply-both:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .btn-card-apply-target {
+            background: var(--bg-deep);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            font-size: 9px;
+            font-weight: 600;
+            padding: 4px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-card-apply-target:hover,
+        .btn-card-apply-target.active {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            background: var(--accent-gold-soft);
+        }
+
+        .auto-apply-checkbox {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--accent-gold);
+            cursor: pointer;
+            user-select: none;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            padding: 5px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .monogram-chip-highlight {
+            border-color: var(--accent-gold) !important;
+            background: rgba(212, 175, 55, 0.2) !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
+
+        /* Export & Toast */
+        .export-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+
+        .btn-export {
+            flex: 1;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+
+        .btn-export:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .btn-export-primary {
+            background: linear-gradient(135deg, #d4af37, #b89327);
+            border: none;
+            color: #07080b;
+            font-weight: 700;
+        }
+
+        .btn-export-primary:hover {
+            opacity: 0.95;
+            color: #07080b;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #161a24;
+            border: 1px solid var(--accent-gold);
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.25s ease;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive Layout: Canvas pinned top, controls scroll underneath */
+        @media (max-width: 1140px) {
+            .workspace {
+                display: flex;
+                flex-direction: column;
+            }
+            .main-stage {
+                order: -1;
+                position: sticky;
+                top: 50px;
+                z-index: 40;
+                height: auto;
+                max-height: 42vh;
+                border-bottom: 2px solid var(--border);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            }
+            .canvas-container {
+                padding: 12px;
+                max-height: 38vh;
+                min-height: 180px;
+            }
+            .brand-canvas {
+                min-width: unset;
+                width: 100%;
+                min-height: 160px;
+                padding: 16px;
+                transform: scale(0.85);
+                transform-origin: center;
+            }
+            .font-tray {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <div class="logo-meta">
+            <div class="logo-badge">✦</div>
+            <div class="logo-text">
+                <h1>Brandmark & Font Studio</h1>
+                <p>Vector Typography · Master Studio (v4.5)</p>
+            </div>
+        </div>
+
+        <div class="nav-extractors">
+            <!-- Envato Extractor -->
+            <form class="url-extractor" onsubmit="handleExtractUrl(event)">
+                <input 
+                    type="url" 
+                    id="envatoUrlInput" 
+                    class="url-input" 
+                    placeholder="URL de Envato Elements..." 
+                />
+                <button type="submit" id="btnExtract" class="btn-extract">
+                    <span>⚡ Extraer Envato</span>
+                </button>
+            </form>
+
+            <!-- Google Font Extractor -->
+            <form class="url-extractor google-extractor" onsubmit="handleAddGoogleFont(event)">
+                <input 
+                    type="text" 
+                    id="googleFontUrlInput" 
+                    class="url-input" 
+                    placeholder="Google Fonts URL o nombre (ej: Playfair Display)..." 
+                />
+                <button type="submit" id="btnAddGoogle" class="btn-extract btn-google">
+                    <span>➕ Google Font</span>
+                </button>
+            </form>
+
+            <!-- Auto-apply option: 1 golpe a Logotipo + Monograma -->
+            <label class="auto-apply-checkbox" title="Aplica automáticamente la fuente recién extraída tanto al Logotipo como al Monograma de un solo golpe (sin tocar el tagline)">
+                <input type="checkbox" id="chkAutoApplyBoth" checked />
+                <span>★ Aplicar a Logo + Monograma</span>
+            </label>
+        </div>
+
+        <button class="btn-reset" onclick="resetToCleanSlate()" title="Reiniciar el diseño del lienzo a valores limpios (las fuentes extraídas se conservan en el catálogo)">
+            🧹 Limpiar Lienzo
+        </button>
+    </header>
+
+    <!-- Workspace -->
+    <main class="workspace">
+        
+        <!-- Controls Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- 1. Text Inputs (Allows uppercase and lowercase for Monogram & Tagline) -->
+            <div class="control-group">
+                <div class="control-title">
+                    <span>Identidad de Marca</span>
+                    <span style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-gold);">EN VIVO</span>
+                </div>
+                <input 
+                    type="text" 
+                    id="inputBrandName" 
+                    class="input-field" 
+                    placeholder="NOMBRE DE MARCA" 
+                    value="MI MARCA" 
+                    oninput="onBrandTextChange()"
+                />
+                <div class="input-row">
+                    <input 
+                        type="text" 
+                        id="inputInitials" 
+                        class="input-field" 
+                        placeholder="Iniciales (Aa)" 
+                        value="MM" 
+                        maxlength="6"
+                        style="width: 35%; text-align: center;" 
+                        oninput="onBrandTextChange()"
+                    />
+                    <input 
+                        type="text" 
+                        id="inputDescriptor" 
+                        class="input-field" 
+                        placeholder="Tagline / Descriptor (Aa)" 
+                        value="ESTUDIO DE DISEÑO" 
+                        style="width: 65%;" 
+                        oninput="onBrandTextChange()"
+                    />
+                </div>
+            </div>
+
+            <!-- 2. Independent Font Selectors with Rich Visual Previews in Menus -->
+            <div class="control-group">
+                <div class="control-title">
+                    <span>Asignación de Tipografías</span>
+                    <span style="font-size: 10px; color: var(--accent-gold);">INDIVIDUAL</span>
+                </div>
+
+                <!-- Wordmark Font Selector -->
+                <div class="element-font-card">
+                    <div class="element-font-header">
+                        <span>1. Logotipo (Wordmark)</span>
+                        <span id="wmVariantsCount" style="font-family: var(--font-mono); font-size: 9px; color: var(--accent-gold);"></span>
+                    </div>
+                    <div class="custom-font-select" id="customSelect_wordmark">
+                        <div class="custom-select-trigger" onclick="toggleFontDropdown('wordmark')">
+                            <div class="custom-select-trigger-content">
+                                <span class="custom-select-title" id="title_wordmark">Por defecto (Cinzel / Sans)</span>
+                                <div class="custom-select-preview-swatch" id="swatch_wordmark"></div>
+                            </div>
+                            <span class="custom-select-arrow">▾</span>
+                        </div>
+                        <div class="custom-select-menu" id="menu_wordmark" style="display: none;"></div>
+                        <select id="selectWordmarkFont" class="select-field" style="display: none;" onchange="onElementFontChanged('wordmark', this.value)"></select>
+                    </div>
+                    <div id="wmVariantsBar" class="variants-bar"></div>
+                </div>
+
+                <!-- Monogram Font Selector -->
+                <div class="element-font-card">
+                    <div class="element-font-header">
+                        <span>2. Monograma (Isotipo)</span>
+                        <span id="mgVariantsCount" style="font-family: var(--font-mono); font-size: 9px; color: var(--accent-gold);"></span>
+                    </div>
+                    <div class="custom-font-select" id="customSelect_monogram">
+                        <div class="custom-select-trigger" onclick="toggleFontDropdown('monogram')">
+                            <div class="custom-select-trigger-content">
+                                <span class="custom-select-title" id="title_monogram">Por defecto (Cinzel / Sans)</span>
+                                <div class="custom-select-preview-swatch" id="swatch_monogram"></div>
+                            </div>
+                            <span class="custom-select-arrow">▾</span>
+                        </div>
+                        <div class="custom-select-menu" id="menu_monogram" style="display: none;"></div>
+                        <select id="selectMonogramFont" class="select-field" style="display: none;" onchange="onElementFontChanged('monogram', this.value)"></select>
+                    </div>
+                    <div id="mgVariantsBar" class="variants-bar"></div>
+                </div>
+
+                <!-- Tagline Font Selector -->
+                <div class="element-font-card">
+                    <div class="element-font-header">
+                        <span>3. Tagline (Descriptor)</span>
+                        <span id="tlVariantsCount" style="font-family: var(--font-mono); font-size: 9px; color: var(--accent-gold);"></span>
+                    </div>
+                    <div class="custom-font-select" id="customSelect_tagline">
+                        <div class="custom-select-trigger" onclick="toggleFontDropdown('tagline')">
+                            <div class="custom-select-trigger-content">
+                                <span class="custom-select-title" id="title_tagline">Por defecto (Cinzel / Sans)</span>
+                                <div class="custom-select-preview-swatch" id="swatch_tagline"></div>
+                            </div>
+                            <span class="custom-select-arrow">▾</span>
+                        </div>
+                        <div class="custom-select-menu" id="menu_tagline" style="display: none;"></div>
+                        <select id="selectTaglineFont" class="select-field" style="display: none;" onchange="onElementFontChanged('tagline', this.value)"></select>
+                    </div>
+                    <div id="tlVariantsBar" class="variants-bar"></div>
+                </div>
+            </div>
+
+            <!-- 3. Granular Targeting & Word/Letter Overrides -->
+            <div class="control-group">
+                <div class="control-title">
+                    <span>Nivel de Edición Fina</span>
+                    <span id="activeBindingLabel" style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-gold);">LOGOTIPO</span>
+                </div>
+                
+                <div class="segmented-btn-group">
+                    <button type="button" class="segmented-btn active" data-target="wordmark" onclick="setActiveTarget('wordmark')">Logotipo</button>
+                    <button type="button" class="segmented-btn" data-target="monogram" onclick="setActiveTarget('monogram')">Monograma</button>
+                    <button type="button" class="segmented-btn" data-target="tagline" onclick="setActiveTarget('tagline')">Tagline</button>
+                </div>
+
+                <!-- Level Tabs -->
+                <div class="tabs-nav" style="margin-top: 4px;">
+                    <button type="button" class="tab-btn active" data-level="block" onclick="setGranularLevel('block')">Bloque</button>
+                    <button type="button" class="tab-btn" data-level="word" onclick="setGranularLevel('word')">Palabra</button>
+                    <button type="button" class="tab-btn" data-level="letter" onclick="setGranularLevel('letter')">Letra</button>
+                </div>
+
+                <!-- Word Selector Container -->
+                <div id="wordSelectorRow" style="display: none; flex-direction: column; gap: 4px; margin-top: 4px;">
+                    <span style="font-size: 10px; color: var(--text-muted);">Seleccioná la palabra para editar:</span>
+                    <div id="wordPills" class="selector-pills"></div>
+                </div>
+
+                <!-- Letter Selector Container -->
+                <div id="letterSelectorRow" style="display: none; flex-direction: column; gap: 4px; margin-top: 4px;">
+                    <span style="font-size: 10px; color: var(--text-muted);">Seleccioná el glifo para editar:</span>
+                    <div id="letterPills" class="selector-pills"></div>
+                </div>
+
+                <!-- Granular Font Override -->
+                <div id="granularFontOverrideContainer" style="display: none; flex-direction: column; gap: 4px; margin-top: 6px; padding: 8px; background: var(--bg-surface-elevated); border-radius: 6px; border: 1px dashed var(--border);">
+                    <span id="granularOverrideLabel" style="font-size: 10px; color: var(--accent-gold); font-weight: 700;">Sobrescribir fuente para esta unidad:</span>
+                    <div class="custom-font-select" id="customSelect_granular">
+                        <div class="custom-select-trigger" onclick="toggleFontDropdown('granular')">
+                            <div class="custom-select-trigger-content">
+                                <span class="custom-select-title" id="title_granular">Heredar fuente padre</span>
+                                <div class="custom-select-preview-swatch" id="swatch_granular"></div>
+                            </div>
+                            <span class="custom-select-arrow">▾</span>
+                        </div>
+                        <div class="custom-select-menu" id="menu_granular" style="display: none;"></div>
+                        <select id="selectGranularFont" class="select-field" style="display: none;" onchange="onGranularFontChanged(this.value)"></select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Granular Sliders with Initial Reset Button & Letter Mirror Rotator -->
+            <div class="control-group">
+                <div class="control-title">
+                    <span id="transformTitle">Transformación de Bloque</span>
+                    <button type="button" class="btn-reset-mini" onclick="resetTransformControls()" title="Restablecer tamaño, espaciado y posición a valores iniciales">
+                        ↺ Restablecer
+                    </button>
+                </div>
+
+                <!-- Scale Slider -->
+                <div class="slider-control">
+                    <div class="slider-header">
+                        <span id="lblScale">Escala / Altura</span>
+                        <span id="valScale">100%</span>
+                    </div>
+                    <input type="range" id="sliderScale" min="30" max="250" value="100" oninput="onSliderChange()">
+                </div>
+
+                <!-- Spacing / Tracking Slider (Active in Block mode) -->
+                <div class="slider-control" id="ctrlSpacing">
+                    <div class="slider-header">
+                        <span>Espaciado de Letras (Tracking)</span>
+                        <span id="valSpacing">4px</span>
+                    </div>
+                    <input type="range" id="sliderSpacing" min="-10" max="80" value="4" oninput="onSliderChange()">
+                </div>
+
+                <!-- Shift Y Slider -->
+                <div class="slider-control" id="ctrlShiftY">
+                    <div class="slider-header">
+                        <span>Desplazamiento Vertical (Baseline Y)</span>
+                        <span id="valShiftY">0px</span>
+                    </div>
+                    <input type="range" id="sliderShiftY" min="-100" max="100" value="0" oninput="onSliderChange()">
+                </div>
+
+                <!-- Shift X Slider -->
+                <div class="slider-control" id="ctrlShiftX">
+                    <div class="slider-header">
+                        <span>Desplazamiento Horizontal (Offset X)</span>
+                        <span id="valShiftX">0px</span>
+                    </div>
+                    <input type="range" id="sliderShiftX" min="-100" max="100" value="0" oninput="onSliderChange()">
+                </div>
+
+                <!-- Rotation Slider (Only for letter mode) -->
+                <div class="slider-control" id="ctrlRotate" style="display: none;">
+                    <div class="slider-header">
+                        <span>Rotación de Glifo</span>
+                        <span id="valRotate">0°</span>
+                    </div>
+                    <input type="range" id="sliderRotate" min="-180" max="180" value="0" oninput="onSliderChange()">
+                </div>
+
+                <!-- Mirror Rotator Controls (Letter mode only) -->
+                <div class="slider-control" id="ctrlMirror" style="display: none; flex-direction: column; gap: 6px;">
+                    <div class="slider-header">
+                        <span>Rotador Espejo (Flip Letra)</span>
+                        <span style="font-size: 9px; color: var(--accent-gold);">REFLEJO</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <button type="button" id="btnMirrorH" class="segmented-btn" onclick="toggleLetterMirror('H')" title="Invertir horizontalmente">
+                            ⇄ Espejo Horizontal
+                        </button>
+                        <button type="button" id="btnMirrorV" class="segmented-btn" onclick="toggleLetterMirror('V')" title="Invertir verticalmente">
+                            ⇅ Espejo Vertical
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Open Ligature & Discovery Lab (Dynamic Brand Pairs & Full ss01-ss20 Sets) -->
+            <div class="control-group">
+                <div class="control-title">
+                    <span>Laboratorio Libre de Ligaduras</span>
+                    <span id="ligatureBadge" style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-gold);">EXPLORADOR</span>
+                </div>
+
+                <!-- Mode Toggle: Native Ligatures vs Disconnected Glyphs -->
+                <label style="display: flex; align-items: center; justify-content: space-between; font-size: 11px; cursor: pointer; background: var(--bg-deep); padding: 7px 10px; border-radius: 6px; border: 1px solid var(--border);">
+                    <span>Ligaduras nativas completas (OpenType HarfBuzz)</span>
+                    <input type="checkbox" id="chkGlobalLigatures" checked onchange="toggleGlobalLigatures(this.checked)">
+                </label>
+
+                <!-- Free Ligature Tester -->
+                <div class="ligature-lab-box">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <span style="font-size: 10px; color: var(--text-muted); font-weight: 600;">Probador de pares y combinaciones:</span>
+                        <div style="display: flex; gap: 4px;">
+                            <button type="button" class="btn-chip-action active" id="btnLigTargetLogo" onclick="setLigatureTestTarget('wordmark')" title="Probar con la fuente del Logotipo">Logo</button>
+                            <button type="button" class="btn-chip-action" id="btnLigTargetMono" onclick="setLigatureTestTarget('monogram')" title="Probar con la fuente del Monograma">Monograma</button>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 6px;">
+                        <input type="text" id="inputLigatureTest" class="input-field" placeholder="Escribí ej: CG, CA, Th, st, fi..." value="CG" style="flex: 1;" oninput="onLigatureTestInput()">
+                        <button type="button" class="segmented-btn" style="padding: 6px 8px; border: 1px solid var(--border); font-size: 10px;" onclick="insertLigatureIntoBrand()" title="Insertar en el nombre de marca (Logotipo)">
+                            ➕ Al Logo
+                        </button>
+                        <button type="button" class="segmented-btn" style="padding: 6px 8px; border: 1px solid var(--accent-gold); color: var(--accent-gold); font-size: 10px;" onclick="applyLigatureToMonogram()" title="Aplicar como iniciales del Monograma">
+                            ⚡ Al Monograma
+                        </button>
+                    </div>
+
+                    <!-- Live Vector Preview of Ligature -->
+                    <div id="ligaturePreviewStage" class="ligature-preview-stage">
+                        <span style="color:#666; font-size:11px;">Cargando glifo...</span>
+                    </div>
+
+                    <!-- Dynamic Ligatures Detected in Brand Name & Initials -->
+                    <div id="detectedBrandPairsContainer" style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 10px; color: var(--accent-gold); font-weight: 700;">Ligaduras en tu marca y monograma:</span>
+                            <button type="button" class="btn-chip-action" onclick="testLigaturePair(state.initials || state.brandName)">Probar</button>
+                        </div>
+                        <div id="detectedBrandPairsChips" class="ligature-chips-grid"></div>
+                    </div>
+                </div>
+
+                <!-- Stylistic Sets Explorer (ss01 to ss20 + OpenType features) -->
+                <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 10px; color: var(--text-muted); font-weight: 700;">Variaciones Stylistic Sets (ss01–ss20):</span>
+                        <div style="display: flex; gap: 4px;">
+                            <button type="button" class="btn-chip-action" onclick="enableAllStylisticSets()">Todas</button>
+                            <button type="button" class="btn-chip-action" onclick="disableAllStylisticSets()">Ninguna</button>
+                        </div>
+                    </div>
+                    <div class="ligature-chips-grid" id="stylisticSetsGrid"></div>
+                </div>
+            </div>
+
+            <!-- 6. Layout & View Mode (Vertical, Horizontal, Solo Isotipo, Solo Logotipo) -->
+            <div class="control-group">
+                <div class="control-title">Disposición del Canvas (Visor)</div>
+                <div class="segmented-btn-group">
+                    <button type="button" class="segmented-btn active" data-layout="stacked" onclick="setLayout('stacked')">Vertical</button>
+                    <button type="button" class="segmented-btn" data-layout="inline" onclick="setLayout('inline')">Horizontal</button>
+                    <button type="button" class="segmented-btn" data-layout="monogram-only" onclick="setLayout('monogram-only')">Isotipo</button>
+                    <button type="button" class="segmented-btn" data-layout="wordmark-only" onclick="setLayout('wordmark-only')">Logotipo</button>
+                </div>
+                
+                <div class="slider-control" id="ctrlGap" style="margin-top: 6px;">
+                    <div class="slider-header">
+                        <span>Separación entre Elementos (Gap)</span>
+                        <span id="valGap">24px</span>
+                    </div>
+                    <input type="range" id="sliderGap" min="0" max="100" value="24" oninput="onGapChange()">
+                </div>
+            </div>
+
+            <!-- 7. Themes & Contrast -->
+            <div class="control-group">
+                <div class="control-title">Contraste de Mesa de Trabajo</div>
+                <div class="segmented-btn-group" style="grid-template-columns: repeat(4, 1fr);">
+                    <button type="button" class="segmented-btn active" data-canvastheme="dark" onclick="setCanvasTheme('dark')">Oscuro</button>
+                    <button type="button" class="segmented-btn" data-canvastheme="light" onclick="setCanvasTheme('light')">Claro</button>
+                    <button type="button" class="segmented-btn" data-canvastheme="gold" onclick="setCanvasTheme('gold')">Oro</button>
+                    <button type="button" class="segmented-btn" data-canvastheme="ivory" onclick="setCanvasTheme('ivory')">Marfil</button>
+                </div>
+            </div>
+
+            <!-- 8. Export Actions -->
+            <div class="export-actions">
+                <label style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted); width: 100%; margin-bottom: 4px; cursor: pointer;">
+                    <input type="checkbox" id="chkIncludeBg" checked>
+                    <span>Incluir fondo de contraste en el SVG exportado</span>
+                </label>
+                <button type="button" class="btn-export" onclick="copyCombinedSvgToClipboard()">
+                    <span>📋 Copiar SVG</span>
+                </button>
+                <button type="button" class="btn-export btn-export-primary" onclick="downloadCombinedSvg()">
+                    <span>💾 Descargar SVG</span>
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- Main Workspace Stage (Sticky & Always in view while scrolling controls) -->
+        <div class="main-stage">
+            
+            <div class="canvas-container">
+                <div id="brandCanvas" class="brand-canvas" data-theme="dark">
+                    <div id="brandLockup" class="brand-lockup" data-layout="stacked" style="gap: 24px;">
+                        
+                        <!-- Monogram Unit (Minimal clean borderless by default) -->
+                        <div id="monogramWrapper" class="monogram-container">
+                            <div id="monogramBadge" class="monogram-minimal">
+                                <div id="monogramLettersRow" class="monogram-letters-row"></div>
+                            </div>
+                        </div>
+
+                        <!-- Wordmark & Tagline Unit -->
+                        <div id="wordmarkWrapper" class="wordmark-container">
+                            <div id="wordmarkRow" class="wordmark-row"></div>
+                            <div id="descriptorRow" class="brand-descriptor-row"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Font Tray / Catalog -->
+            <section class="font-tray">
+                <div class="tray-header">
+                    <h3>Catálogo de Fuentes Extraídas y Google Fonts (<span id="fontsCount">0</span>)</h3>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" class="btn-extract btn-google" style="padding: 4px 10px; font-size: 10px;" onclick="promptAddGoogleFont()">
+                            ➕ Cargar Google Font
+                        </button>
+                    </div>
+                </div>
+                <div id="fontsGrid" class="fonts-grid"></div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Mensaje</div>
+
+    <script>
+        // Dynamic path helper for code-server proxy
+        function getApiUrl(endpoint) {
+            const base = window.location.pathname.replace(/\/index\.html.*$/, '').replace(/\/$/, '');
+            return `${base}/${endpoint.replace(/^\//, '')}`;
+        }
+
+        // Clean SVG format helper: strips existing styles/sizes and injects explicit pixel dimensions & aspect-ratio width
+        function formatSvg(svgString, heightPx, customStyle = "") {
+            if (!svgString) return "";
+            return svgString.replace(/<svg\b([^>]*)>/i, (match, attrs) => {
+                let vbMatch = attrs.match(/viewBox\s*=\s*["']([^"']+)["']/i);
+                let widthAttr = "";
+                if (vbMatch) {
+                    let vbParts = vbMatch[1].trim().split(/\s+/).map(Number);
+                    if (vbParts.length === 4 && vbParts[3] > 0) {
+                        let calcW = Math.round(heightPx * (vbParts[2] / vbParts[3]));
+                        widthAttr = `width="${calcW}"`;
+                    }
+                }
+                let cleanAttrs = attrs
+                    .replace(/\b(height|width)\s*=\s*["'][^"']*["']/gi, '')
+                    .replace(/\bstyle\s*=\s*["'][^"']*["']/gi, '');
+                return `<svg ${cleanAttrs.trim()} ${widthAttr} height="${heightPx}" style="height:${heightPx}px; width:auto; display:block; overflow:visible; ${customStyle}">`;
+            });
+        }
+
+        // In-memory Client SVG Cache
+        const svgCache = new Map();
+
+        // Master App State
+        const state = {
+            brandName: "MI MARCA",
+            initials: "MM",
+            descriptor: "ESTUDIO DE DISEÑO",
+            layout: "stacked", // stacked | inline | monogram-only | wordmark-only
+            monogramShape: "minimal", // minimal (clean)
+            canvasTheme: "dark", // dark | light | gold | ivory
+            gap: 24,
+
+            // Active Target & Granular Level
+            activeTarget: "wordmark", // wordmark | monogram | tagline
+            granularLevel: "block",   // block | word | letter
+            selectedWordIndex: 0,
+            selectedLetterIndex: 0,
+
+            // Global Ligature Engine Settings
+            globalLigatures: true,
+            activeStylisticSets: new Set(),
+
+            // Elements store
+            elements: {
+                wordmark: {
+                    fontId: null,
+                    variantId: null,
+                    block: { scale: 100, spacing: 4, shiftX: 0, shiftY: 0 },
+                    words: [],
+                    letters: []
+                },
+                monogram: {
+                    fontId: null,
+                    variantId: null,
+                    block: { scale: 100, spacing: 0, shiftX: 0, shiftY: 0 },
+                    words: [],
+                    letters: []
+                },
+                tagline: {
+                    fontId: null,
+                    variantId: null,
+                    block: { scale: 100, spacing: 4, shiftX: 0, shiftY: 0 },
+                    words: [],
+                    letters: []
+                }
+            },
+
+            // Catalog of extracted font families & Google Fonts
+            fonts: []
+        };
+
+        // All OpenType Stylistic Sets & Features
+        const ALL_STYLISTIC_SETS = [
+            "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "ss09", "ss10",
+            "ss11", "ss12", "ss13", "ss14", "ss15", "ss16", "ss17", "ss18", "ss19", "ss20",
+            "swsh", "salt", "titl", "calt", "dlig", "hlig"
+        ];
+
+        // Initialize App
+        async function initApp() {
+            rebuildComponentStores();
+            await loadStoredFonts();
+            loadSavedAssignments();
+            populateAllFontDropdowns();
+            renderStylisticSetChips();
+            updateDetectedBrandPairs();
+            renderFontCards();
+            updateSidebarUI();
+            updateCanvasElements();
+            testLigaturePair("Th");
+
+            // Global click-outside listener to close custom dropdowns
+            document.addEventListener("click", (e) => {
+                if (!e.target.closest(".custom-font-select")) {
+                    closeAllFontDropdowns();
+                }
+            });
+        }
+
+        // Rebuild word & letter arrays for all components without losing transforms
+        function rebuildComponentStores() {
+            // 1. Wordmark
+            const wmWords = state.brandName.split(" ").filter(Boolean);
+            state.elements.wordmark.words = wmWords.map((w, idx) => {
+                const ex = state.elements.wordmark.words[idx];
+                return { 
+                    text: w, 
+                    scale: ex ? ex.scale : 100, 
+                    shiftX: ex ? ex.shiftX : 0, 
+                    shiftY: ex ? ex.shiftY : 0, 
+                    fontId: ex ? ex.fontId : null,
+                    variantId: ex ? ex.variantId : null
+                };
+            });
+            const wmChars = Array.from(state.brandName);
+            state.elements.wordmark.letters = wmChars.map((c, idx) => {
+                const ex = state.elements.wordmark.letters[idx];
+                return { 
+                    char: c, 
+                    scale: ex ? ex.scale : 100, 
+                    shiftX: ex ? ex.shiftX : 0, 
+                    shiftY: ex ? ex.shiftY : 0, 
+                    rotate: ex ? ex.rotate : 0,
+                    mirrorH: ex ? !!ex.mirrorH : false,
+                    mirrorV: ex ? !!ex.mirrorV : false,
+                    fontId: ex ? ex.fontId : null,
+                    variantId: ex ? ex.variantId : null
+                };
+            });
+
+            // 2. Monogram (Preserves exact casing)
+            const mgChars = Array.from(state.initials);
+            state.elements.monogram.letters = mgChars.map((c, idx) => {
+                const ex = state.elements.monogram.letters[idx];
+                return { 
+                    char: c, 
+                    scale: ex ? ex.scale : 100, 
+                    shiftX: ex ? ex.shiftX : 0, 
+                    shiftY: ex ? ex.shiftY : 0, 
+                    rotate: ex ? ex.rotate : 0,
+                    mirrorH: ex ? !!ex.mirrorH : false,
+                    mirrorV: ex ? !!ex.mirrorV : false,
+                    fontId: ex ? ex.fontId : null,
+                    variantId: ex ? ex.variantId : null
+                };
+            });
+            state.elements.monogram.words = [{ text: state.initials, scale: 100, shiftX: 0, shiftY: 0, fontId: null, variantId: null }];
+
+            // 3. Tagline (Preserves exact casing)
+            const tlWords = state.descriptor.split(" ").filter(Boolean);
+            state.elements.tagline.words = tlWords.map((w, idx) => {
+                const ex = state.elements.tagline.words[idx];
+                return { 
+                    text: w, 
+                    scale: ex ? ex.scale : 100, 
+                    shiftX: ex ? ex.shiftX : 0, 
+                    shiftY: ex ? ex.shiftY : 0, 
+                    fontId: ex ? ex.fontId : null,
+                    variantId: ex ? ex.variantId : null
+                };
+            });
+            const tlChars = Array.from(state.descriptor);
+            state.elements.tagline.letters = tlChars.map((c, idx) => {
+                const ex = state.elements.tagline.letters[idx];
+                return { 
+                    char: c, 
+                    scale: ex ? ex.scale : 100, 
+                    shiftX: ex ? ex.shiftX : 0, 
+                    shiftY: ex ? ex.shiftY : 0, 
+                    rotate: ex ? ex.rotate : 0,
+                    mirrorH: ex ? !!ex.mirrorH : false,
+                    mirrorV: ex ? !!ex.mirrorV : false,
+                    fontId: ex ? ex.fontId : null,
+                    variantId: ex ? ex.variantId : null
+                };
+            });
+
+            renderPills();
+        }
+
+        // Render Selector Pills for active target
+        function renderPills() {
+            const comp = state.elements[state.activeTarget];
+            
+            // Words
+            const wContainer = document.getElementById("wordPills");
+            wContainer.innerHTML = "";
+            comp.words.forEach((w, idx) => {
+                const btn = document.createElement("button");
+                btn.className = `pill-btn ${idx === state.selectedWordIndex ? 'active' : ''}`;
+                btn.textContent = `${idx + 1}. ${w.text}`;
+                btn.onclick = () => { 
+                    state.selectedWordIndex = idx; 
+                    renderPills(); 
+                    updateSidebarUI(); 
+                };
+                wContainer.appendChild(btn);
+            });
+
+            // Letters
+            const lContainer = document.getElementById("letterPills");
+            lContainer.innerHTML = "";
+            comp.letters.forEach((l, idx) => {
+                const btn = document.createElement("button");
+                btn.className = `pill-btn ${idx === state.selectedLetterIndex ? 'active' : ''}`;
+                btn.textContent = l.char === " " ? "␣" : l.char;
+                btn.onclick = () => { 
+                    state.selectedLetterIndex = idx; 
+                    renderPills(); 
+                    updateSidebarUI(); 
+                };
+                lContainer.appendChild(btn);
+            });
+        }
+
+        // ==========================================
+        // CUSTOM RICH FONT SELECTORS WITH VISUAL PREVIEW
+        // ==========================================
+        function toggleFontDropdown(elementKey) {
+            const menu = document.getElementById(`menu_${elementKey}`);
+            if (!menu) return;
+            const isOpen = menu.style.display === "flex";
+            closeAllFontDropdowns();
+            if (!isOpen) {
+                menu.style.display = "flex";
+            }
+        }
+
+        function closeAllFontDropdowns() {
+            ['wordmark', 'monogram', 'tagline', 'granular'].forEach(key => {
+                const m = document.getElementById(`menu_${key}`);
+                if (m) m.style.display = "none";
+            });
+        }
+
+        function selectCustomFont(elementKey, fontId) {
+            closeAllFontDropdowns();
+            if (elementKey === 'granular') {
+                onGranularFontChanged(fontId);
+            } else {
+                onElementFontChanged(elementKey, fontId);
+            }
+        }
+
+        // Populate all custom font dropdown menus with rich previews
+        function populateAllFontDropdowns() {
+            const keys = ["wordmark", "monogram", "tagline", "granular"];
+            
+            keys.forEach(k => {
+                const menu = document.getElementById(`menu_${k}`);
+                const nativeSelect = document.getElementById(k === 'granular' ? 'selectGranularFont' : `select${k.charAt(0).toUpperCase() + k.slice(1)}Font`);
+                if (!menu) return;
+
+                menu.innerHTML = "";
+                if (nativeSelect) nativeSelect.innerHTML = "";
+
+                // Default Option
+                const defaultLabel = k === 'granular' ? "Heredar fuente padre" : "Por defecto (Cinzel / Sans)";
+                const defaultOpt = document.createElement("div");
+                defaultOpt.className = "custom-select-option";
+                defaultOpt.onclick = () => selectCustomFont(k, "");
+                defaultOpt.innerHTML = `
+                    <div class="custom-option-header">
+                        <span class="custom-option-name">${defaultLabel}</span>
+                        <span class="custom-option-badge">Sistema</span>
+                    </div>
+                    <div class="custom-option-preview">
+                        <span style="font-family: var(--font-serif); font-size: 16px; color: #d4af37;">${state.brandName || "CINZEL"}</span>
+                    </div>
+                `;
+                menu.appendChild(defaultOpt);
+
+                if (nativeSelect) {
+                    const opt = document.createElement("option");
+                    opt.value = "";
+                    opt.textContent = defaultLabel;
+                    nativeSelect.appendChild(opt);
+                }
+
+                // Extracted Fonts & Google Fonts
+                state.fonts.forEach(f => {
+                    const item = document.createElement("div");
+                    item.className = "custom-select-option";
+                    item.onclick = () => selectCustomFont(k, f.id);
+
+                    let previewHtml = "";
+                    if (f.previewSvg) {
+                        previewHtml = formatSvg(f.previewSvg, 22);
+                    } else if (f.isGoogleFont) {
+                        previewHtml = `<span style="font-family: '${f.family}', serif; font-size: 18px; color: #ffffff;">${state.brandName || f.title}</span>`;
+                    } else {
+                        previewHtml = `<span style="font-family: var(--font-serif); font-size: 16px; color: #ffffff;">${f.title}</span>`;
+                    }
+
+                    const badge = f.isGoogleFont ? "Google Font" : "Envato";
+                    item.innerHTML = `
+                        <div class="custom-option-header">
+                            <span class="custom-option-name" title="${f.title}">${f.title}</span>
+                            <span class="custom-option-badge">${badge} (${f.variants.length})</span>
+                        </div>
+                        <div class="custom-option-preview">
+                            ${previewHtml}
+                        </div>
+                    `;
+                    menu.appendChild(item);
+
+                    if (nativeSelect) {
+                        const opt = document.createElement("option");
+                        opt.value = f.id;
+                        opt.textContent = `${f.title} (${f.variants.length} estilos)`;
+                        nativeSelect.appendChild(opt);
+                    }
+                });
+            });
+
+            // Update Trigger labels & swatches
+            updateDropdownTriggerDisplay("wordmark", state.elements.wordmark.fontId);
+            updateDropdownTriggerDisplay("monogram", state.elements.monogram.fontId);
+            updateDropdownTriggerDisplay("tagline", state.elements.tagline.fontId);
+
+            // Update variant bars
+            updateVariantBarForElement("wordmark");
+            updateVariantBarForElement("monogram");
+            updateVariantBarForElement("tagline");
+        }
+
+        function updateDropdownTriggerDisplay(elementKey, fontId) {
+            const titleEl = document.getElementById(`title_${elementKey}`);
+            const swatchEl = document.getElementById(`swatch_${elementKey}`);
+            if (!titleEl || !swatchEl) return;
+
+            const fontObj = state.fonts.find(f => f.id === fontId);
+            if (fontObj) {
+                titleEl.textContent = `${fontObj.title} (${fontObj.isGoogleFont ? 'Google' : 'Envato'})`;
+                if (fontObj.previewSvg) {
+                    swatchEl.innerHTML = formatSvg(fontObj.previewSvg, 20);
+                } else if (fontObj.isGoogleFont) {
+                    swatchEl.innerHTML = `<span style="font-family: '${fontObj.family}', serif; font-size: 15px; color: var(--accent-gold);">${state.brandName || fontObj.title}</span>`;
+                } else {
+                    swatchEl.innerHTML = `<span style="font-family: var(--font-serif); font-size: 14px; color: var(--accent-gold);">${fontObj.title}</span>`;
+                }
+            } else {
+                titleEl.textContent = elementKey === 'granular' ? "Heredar fuente padre" : "Por defecto (Cinzel / Sans)";
+                swatchEl.innerHTML = `<span style="font-family: var(--font-serif); font-size: 14px; color: #888;">${state.brandName || "CINZEL"}</span>`;
+            }
+
+            // Sync hidden native select
+            const nativeSelect = document.getElementById(elementKey === 'granular' ? 'selectGranularFont' : `select${elementKey.charAt(0).toUpperCase() + elementKey.slice(1)}Font`);
+            if (nativeSelect) nativeSelect.value = fontId || "";
+        }
+
+        // Update Variant Bar for a specific element
+        function updateVariantBarForElement(elementKey) {
+            const barMap = {
+                wordmark: { bar: document.getElementById("wmVariantsBar"), count: document.getElementById("wmVariantsCount") },
+                monogram: { bar: document.getElementById("mgVariantsBar"), count: document.getElementById("mgVariantsCount") },
+                tagline: { bar: document.getElementById("tlVariantsBar"), count: document.getElementById("tlVariantsCount") }
+            };
+
+            const target = barMap[elementKey];
+            if (!target) return;
+
+            const comp = state.elements[elementKey];
+            const fontObj = state.fonts.find(f => f.id === comp.fontId);
+
+            if (fontObj && fontObj.variants && fontObj.variants.length > 0) {
+                target.count.textContent = `${fontObj.variants.length} estilos`;
+                target.bar.innerHTML = "";
+
+                const activeVarId = comp.variantId || fontObj.variants[0].variantId;
+
+                fontObj.variants.forEach(v => {
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.className = `variant-pill ${v.variantId === activeVarId ? 'active' : ''}`;
+                    btn.textContent = v.styleName;
+                    btn.onclick = () => onElementVariantChanged(elementKey, v.variantId);
+                    target.bar.appendChild(btn);
+                });
+            } else {
+                target.count.textContent = "";
+                target.bar.innerHTML = "";
+            }
+        }
+
+        // Change Font for a specific Element
+        function onElementFontChanged(elementKey, fontId) {
+            const comp = state.elements[elementKey];
+            comp.fontId = fontId || null;
+
+            const fontObj = state.fonts.find(f => f.id === fontId);
+            comp.variantId = fontObj && fontObj.variants.length > 0 ? fontObj.variants[0].variantId : null;
+
+            updateDropdownTriggerDisplay(elementKey, fontId);
+            updateVariantBarForElement(elementKey);
+            saveAssignments();
+            renderFontCards();
+            updateCanvasElements();
+            showToast(`✓ Fuente asignada a ${elementKey.toUpperCase()}: ${fontObj ? fontObj.title : 'Por defecto'}`);
+        }
+
+        // Change Variant for a specific Element
+        function onElementVariantChanged(elementKey, variantId) {
+            const comp = state.elements[elementKey];
+            comp.variantId = variantId;
+
+            updateVariantBarForElement(elementKey);
+            saveAssignments();
+            updateCanvasElements();
+            showToast(`✓ Estilo/peso actualizado para ${elementKey.toUpperCase()}`);
+        }
+
+        // Active Target Switcher (wordmark | monogram | tagline)
+        function setActiveTarget(t) {
+            state.activeTarget = t;
+            state.selectedWordIndex = 0;
+            state.selectedLetterIndex = 0;
+
+            document.querySelectorAll(".segmented-btn[data-target]").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-target") === t);
+            });
+
+            document.getElementById("activeBindingLabel").textContent = t.toUpperCase();
+
+            renderPills();
+            updateSidebarUI();
+        }
+
+        // Granular Level Switcher (block | word | letter)
+        function setGranularLevel(lvl) {
+            state.granularLevel = lvl;
+            document.querySelectorAll(".tab-btn").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-level") === lvl);
+            });
+
+            document.getElementById("wordSelectorRow").style.display = lvl === "word" ? "flex" : "none";
+            document.getElementById("letterSelectorRow").style.display = lvl === "letter" ? "flex" : "none";
+            document.getElementById("ctrlRotate").style.display = lvl === "letter" ? "flex" : "none";
+            document.getElementById("ctrlMirror").style.display = lvl === "letter" ? "flex" : "none";
+            document.getElementById("ctrlSpacing").style.display = lvl === "block" ? "flex" : "none";
+
+            const overrideContainer = document.getElementById("granularFontOverrideContainer");
+            overrideContainer.style.display = lvl === "block" ? "none" : "flex";
+
+            const titles = {
+                block: `Transformación de ${state.activeTarget.toUpperCase()} (Bloque)`,
+                word: `Transformación de Palabra (${state.activeTarget.toUpperCase()})`,
+                letter: `Transformación de Letra (${state.activeTarget.toUpperCase()})`
+            };
+            document.getElementById("transformTitle").textContent = titles[lvl];
+
+            renderPills();
+            updateSidebarUI();
+        }
+
+        // Letter Mirror Toggle (Flip H / Flip V)
+        function toggleLetterMirror(axis) {
+            const comp = state.elements[state.activeTarget];
+            const l = comp.letters[state.selectedLetterIndex];
+            if (!l) return;
+            if (axis === 'H') l.mirrorH = !l.mirrorH;
+            if (axis === 'V') l.mirrorV = !l.mirrorV;
+            updateSidebarUI();
+            updateCanvasElements();
+            showToast(`✓ Espejo ${axis === 'H' ? 'Horizontal' : 'Vertical'}: ${l['mirror' + axis] ? 'Activado' : 'Desactivado'}`);
+        }
+
+        // Reset Transform Controls to Initial Default Values
+        function resetTransformControls() {
+            const comp = state.elements[state.activeTarget];
+            if (state.granularLevel === "block") {
+                comp.block.scale = 100;
+                comp.block.spacing = (state.activeTarget === "monogram" ? 0 : 4);
+                comp.block.shiftX = 0;
+                comp.block.shiftY = 0;
+            } else if (state.granularLevel === "word") {
+                const w = comp.words[state.selectedWordIndex];
+                if (w) {
+                    w.scale = 100;
+                    w.shiftX = 0;
+                    w.shiftY = 0;
+                }
+            } else if (state.granularLevel === "letter") {
+                const l = comp.letters[state.selectedLetterIndex];
+                if (l) {
+                    l.scale = 100;
+                    l.shiftX = 0;
+                    l.shiftY = 0;
+                    l.rotate = 0;
+                    l.mirrorH = false;
+                    l.mirrorV = false;
+                }
+            }
+            updateSidebarUI();
+            updateCanvasElements();
+            showToast(`✓ Valores de tamaño y posición restablecidos (${state.granularLevel.toUpperCase()})`);
+        }
+
+        // Update Sliders and Granular Override UI
+        function updateSidebarUI() {
+            const comp = state.elements[state.activeTarget];
+            let target;
+            let currentUnitFontId = null;
+
+            if (state.granularLevel === "block") {
+                target = comp.block;
+            } else if (state.granularLevel === "word") {
+                const w = comp.words[state.selectedWordIndex] || comp.words[0];
+                target = w;
+                currentUnitFontId = w ? w.fontId : null;
+                document.getElementById("granularOverrideLabel").textContent = `Sobrescribir fuente para palabra "${w ? w.text : ''}":`;
+            } else {
+                const l = comp.letters[state.selectedLetterIndex] || comp.letters[0];
+                target = l;
+                currentUnitFontId = l ? l.fontId : null;
+                document.getElementById("granularOverrideLabel").textContent = `Sobrescribir fuente para glifo "${l ? l.char : ''}":`;
+            }
+
+            if (!target) target = { scale: 100, shiftX: 0, shiftY: 0 };
+
+            document.getElementById("sliderScale").value = target.scale || 100;
+            document.getElementById("valScale").textContent = `${target.scale || 100}%`;
+
+            document.getElementById("sliderSpacing").value = comp.block.spacing !== undefined ? comp.block.spacing : 4;
+            document.getElementById("valSpacing").textContent = `${comp.block.spacing !== undefined ? comp.block.spacing : 4}px`;
+
+            document.getElementById("sliderShiftY").value = target.shiftY || 0;
+            document.getElementById("valShiftY").textContent = `${target.shiftY || 0}px`;
+
+            document.getElementById("sliderShiftX").value = target.shiftX || 0;
+            document.getElementById("valShiftX").textContent = `${target.shiftX || 0}px`;
+
+            document.getElementById("sliderRotate").value = target.rotate || 0;
+            document.getElementById("valRotate").textContent = `${target.rotate || 0}°`;
+
+            if (state.granularLevel === "letter") {
+                const l = comp.letters[state.selectedLetterIndex] || comp.letters[0];
+                document.getElementById("btnMirrorH").classList.toggle("active", !!(l && l.mirrorH));
+                document.getElementById("btnMirrorV").classList.toggle("active", !!(l && l.mirrorV));
+            }
+
+            if (state.granularLevel !== "block") {
+                updateDropdownTriggerDisplay("granular", currentUnitFontId);
+            }
+        }
+
+        // Granular Font Override Handler
+        function onGranularFontChanged(fontId) {
+            const comp = state.elements[state.activeTarget];
+            const fontObj = state.fonts.find(f => f.id === fontId);
+            const varId = fontObj && fontObj.variants.length > 0 ? fontObj.variants[0].variantId : null;
+
+            if (state.granularLevel === "word") {
+                const w = comp.words[state.selectedWordIndex];
+                if (w) { w.fontId = fontId || null; w.variantId = varId; }
+            } else if (state.granularLevel === "letter") {
+                const l = comp.letters[state.selectedLetterIndex];
+                if (l) { l.fontId = fontId || null; l.variantId = varId; }
+            }
+
+            updateDropdownTriggerDisplay("granular", fontId);
+            updateCanvasElements();
+            showToast(`✓ Fuente individual asignada a la unidad`);
+        }
+
+        // Slider Change Listener
+        function onSliderChange() {
+            const comp = state.elements[state.activeTarget];
+            const scale = parseInt(document.getElementById("sliderScale").value, 10);
+            const spacing = parseInt(document.getElementById("sliderSpacing").value, 10);
+            const shiftY = parseInt(document.getElementById("sliderShiftY").value, 10);
+            const shiftX = parseInt(document.getElementById("sliderShiftX").value, 10);
+            const rotate = parseInt(document.getElementById("sliderRotate").value, 10);
+
+            if (state.granularLevel === "block") {
+                comp.block.scale = scale;
+                comp.block.spacing = spacing;
+                comp.block.shiftX = shiftX;
+                comp.block.shiftY = shiftY;
+            } else if (state.granularLevel === "word") {
+                const w = comp.words[state.selectedWordIndex];
+                if (w) { w.scale = scale; w.shiftX = shiftX; w.shiftY = shiftY; }
+            } else {
+                const l = comp.letters[state.selectedLetterIndex];
+                if (l) { l.scale = scale; l.shiftX = shiftX; l.shiftY = shiftY; l.rotate = rotate; }
+            }
+
+            document.getElementById("valScale").textContent = `${scale}%`;
+            document.getElementById("valSpacing").textContent = `${spacing}px`;
+            document.getElementById("valShiftY").textContent = `${shiftY}px`;
+            document.getElementById("valShiftX").textContent = `${shiftX}px`;
+            document.getElementById("valRotate").textContent = `${rotate}°`;
+
+            updateCanvasElements();
+        }
+
+        function onGapChange() {
+            state.gap = parseInt(document.getElementById("sliderGap").value, 10);
+            document.getElementById("valGap").textContent = `${state.gap}px`;
+            document.getElementById("brandLockup").style.gap = `${state.gap}px`;
+        }
+
+        function setLayout(layout) {
+            state.layout = layout;
+            document.querySelectorAll(".segmented-btn[data-layout]").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-layout") === layout);
+            });
+            document.getElementById("brandLockup").setAttribute("data-layout", layout);
+        }
+
+        function setCanvasTheme(theme) {
+            state.canvasTheme = theme;
+            document.querySelectorAll(".segmented-btn[data-canvastheme]").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-canvastheme") === theme);
+            });
+            document.getElementById("brandCanvas").setAttribute("data-theme", theme);
+        }
+
+        // Live text change listener (Preserves uppercase and lowercase for Monogram & Tagline)
+        let debounceTimer;
+        function onBrandTextChange() {
+            state.brandName = document.getElementById("inputBrandName").value.trim() || "MARCA";
+            let initialsVal = document.getElementById("inputInitials").value;
+            if (!initialsVal) {
+                const words = state.brandName.split(" ").filter(Boolean);
+                initialsVal = words.slice(0, 2).map(w => w[0]).join("");
+            }
+            state.initials = initialsVal; // Allows uppercase and lowercase!
+            state.descriptor = document.getElementById("inputDescriptor").value; // Allows uppercase and lowercase!
+
+            rebuildComponentStores();
+            updateDetectedBrandPairs();
+
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                updateCanvasElements();
+            }, 180);
+        }
+
+        // ==========================================
+        // DYNAMIC LIGATURE ENGINE & STYLISTIC SETS
+        // ==========================================
+        function toggleGlobalLigatures(enabled) {
+            state.globalLigatures = enabled;
+            updateCanvasElements();
+            showToast(`Ligaduras globales: ${enabled ? 'Activadas (OpenType HarfBuzz)' : 'Desactivadas'}`);
+        }
+
+        function getFontFeaturesCss() {
+            let features = [];
+            if (state.globalLigatures) {
+                features.push('"liga" 1', '"dlig" 1', '"calt" 1', '"clig" 1', '"hlig" 1');
+            } else {
+                features.push('"liga" 0', '"dlig" 0', '"calt" 0', '"clig" 0', '"hlig" 0');
+            }
+            state.activeStylisticSets.forEach(tag => {
+                features.push(`"${tag}" 1`);
+            });
+            const fSettings = features.join(', ');
+            const vLigatures = state.globalLigatures ? 'common-ligatures discretionary-ligatures historical-ligatures contextual' : 'none';
+            return `font-feature-settings: ${fSettings}; -webkit-font-feature-settings: ${fSettings}; font-variant-ligatures: ${vLigatures};`;
+        }
+
+        function renderStylisticSetChips() {
+            const grid = document.getElementById("stylisticSetsGrid");
+            if (!grid) return;
+            grid.innerHTML = "";
+            ALL_STYLISTIC_SETS.forEach(tag => {
+                const chip = document.createElement("span");
+                const isActive = state.activeStylisticSets.has(tag);
+                chip.className = `ligature-chip ${isActive ? 'active' : ''}`;
+                chip.textContent = tag;
+                chip.title = `Activar/Desactivar variación ${tag}`;
+                chip.onclick = () => toggleStylisticSetTag(tag);
+                grid.appendChild(chip);
+            });
+        }
+
+        function toggleStylisticSetTag(tag) {
+            if (state.activeStylisticSets.has(tag)) {
+                state.activeStylisticSets.delete(tag);
+                showToast(`Desactivado ${tag}`);
+            } else {
+                state.activeStylisticSets.add(tag);
+                showToast(`✓ Activado ${tag}`);
+            }
+            renderStylisticSetChips();
+            updateCanvasElements();
+            const currentTest = document.getElementById("inputLigatureTest").value.trim();
+            if (currentTest) testLigaturePair(currentTest);
+        }
+
+        function enableAllStylisticSets() {
+            for (let i = 1; i <= 20; i++) {
+                const tag = `ss${i < 10 ? '0' + i : i}`;
+                state.activeStylisticSets.add(tag);
+            }
+            state.activeStylisticSets.add("swsh");
+            state.activeStylisticSets.add("salt");
+            state.activeStylisticSets.add("dlig");
+            state.activeStylisticSets.add("calt");
+            renderStylisticSetChips();
+            updateCanvasElements();
+            showToast("✓ Todas las variaciones ss01–ss20 activadas");
+        }
+
+        function disableAllStylisticSets() {
+            state.activeStylisticSets.clear();
+            renderStylisticSetChips();
+            updateCanvasElements();
+            showToast("Variaciones ss## desactivadas");
+        }
+
+        // Target for ligature preview (wordmark or monogram font)
+        let ligatureTestTarget = "wordmark";
+
+        function setLigatureTestTarget(target) {
+            ligatureTestTarget = target;
+            const btnLogo = document.getElementById("btnLigTargetLogo");
+            const btnMono = document.getElementById("btnLigTargetMono");
+            if (btnLogo) btnLogo.classList.toggle("active", target === "wordmark");
+            if (btnMono) btnMono.classList.toggle("active", target === "monogram");
+            const currentTest = document.getElementById("inputLigatureTest").value.trim();
+            if (currentTest) testLigaturePair(currentTest);
+        }
+
+        // Dynamically detect ligatures and character pairs from brand name & initials
+        function updateDetectedBrandPairs() {
+            const container = document.getElementById("detectedBrandPairsChips");
+            if (!container) return;
+            container.innerHTML = "";
+            
+            const pairsSet = new Set();
+            
+            // 1. Add monogram initials first!
+            if (state.initials && state.initials.trim().length > 0) {
+                pairsSet.add(state.initials.trim());
+            }
+
+            const text = (state.brandName || "").trim();
+            if (text) {
+                const words = text.split(" ").filter(Boolean);
+                words.forEach(w => {
+                    if (w.length > 1) pairsSet.add(w);
+                });
+                words.forEach(w => {
+                    for (let i = 0; i < w.length - 1; i++) {
+                        pairsSet.add(w.substring(i, i + 2));
+                    }
+                });
+                words.forEach(w => {
+                    for (let i = 0; i < w.length - 2; i++) {
+                        pairsSet.add(w.substring(i, i + 3));
+                    }
+                });
+            }
+
+            // High aesthetic ligature classics
+            ['CG', 'CA', 'MM', 'Th', 'st', 'fi', 'fl', 'ct', 'sp'].forEach(p => {
+                pairsSet.add(p);
+            });
+            
+            pairsSet.forEach(p => {
+                const chip = document.createElement("span");
+                const isMonogramInitials = (p === state.initials);
+                chip.className = `ligature-chip ${isMonogramInitials ? 'monogram-chip-highlight' : ''}`;
+                chip.innerHTML = isMonogramInitials ? `<b>★ ${p}</b>` : p;
+                chip.title = `Probar ligadura para "${p}"`;
+                chip.onclick = () => testLigaturePair(p);
+                container.appendChild(chip);
+            });
+        }
+
+        let ligatureDebounce;
+        function onLigatureTestInput() {
+            clearTimeout(ligatureDebounce);
+            ligatureDebounce = setTimeout(() => {
+                const text = document.getElementById("inputLigatureTest").value.trim();
+                if (text) testLigaturePair(text);
+            }, 200);
+        }
+
+        async function testLigaturePair(pairText) {
+            document.getElementById("inputLigatureTest").value = pairText;
+            const stage = document.getElementById("ligaturePreviewStage");
+            stage.innerHTML = `<span style="color:#888; font-size:10px;">Renderizando "${pairText}"...</span>`;
+
+            const targetElementKey = ligatureTestTarget === "monogram" ? "monogram" : "wordmark";
+            const targetFontId = state.elements[targetElementKey].fontId || state.elements.wordmark.fontId;
+            const activeFont = resolveFont(targetFontId) || state.fonts[0];
+            const fontFeaturesCss = getFontFeaturesCss();
+
+            if (!activeFont) {
+                stage.innerHTML = `<span style="font-family: var(--font-serif); font-size: 28px; color: #fff; ${fontFeaturesCss}">${pairText}</span>`;
+                return;
+            }
+
+            if (activeFont.isLocalFont || activeFont.isGoogleFont) {
+                const fam = activeFont.family || activeFont.title;
+                stage.innerHTML = `<span style="font-family: '${fam}', serif; font-size: 32px; color: #fff; line-height: 1; ${fontFeaturesCss}">${pairText}</span>`;
+                return;
+            }
+
+            const varId = state.elements[targetElementKey].variantId || (activeFont.variants[0] ? activeFont.variants[0].variantId : "");
+            const svgCode = await getSvgForText(activeFont, pairText, varId);
+            if (svgCode) {
+                stage.innerHTML = formatSvg(svgCode, 42);
+            } else {
+                stage.innerHTML = `<span style="font-family: var(--font-serif); font-size: 28px; color: #fff; ${fontFeaturesCss}">${pairText}</span>`;
+            }
+        }
+
+        function insertLigatureIntoBrand() {
+            const pairText = document.getElementById("inputLigatureTest").value.trim();
+            if (!pairText) return;
+            const input = document.getElementById("inputBrandName");
+            input.value = `${input.value} ${pairText}`.trim();
+            onBrandTextChange();
+            showToast(`✓ Insertado "${pairText}" en el logotipo`);
+        }
+
+        function applyLigatureToMonogram() {
+            const pairText = document.getElementById("inputLigatureTest").value.trim();
+            if (!pairText) return;
+            const input = document.getElementById("inputInitials");
+            input.value = pairText;
+            onBrandTextChange();
+            showToast(`✓ Aplicado "${pairText}" como iniciales del monograma`);
+        }
+
+        // ==========================================
+        // ONE-CLICK MASTER APPLIER (WORDMARK + MONOGRAM, NO TAGLINE)
+        // ==========================================
+        function applyFontToLogoAndMonogram(fontId) {
+            if (!fontId) return;
+            const fontObj = state.fonts.find(f => f.id === fontId);
+            const defVarId = fontObj && fontObj.variants && fontObj.variants.length > 0 ? fontObj.variants[0].variantId : null;
+
+            // 1. Assign to wordmark
+            state.elements.wordmark.fontId = fontId;
+            state.elements.wordmark.variantId = defVarId;
+
+            // 2. Assign to monogram
+            state.elements.monogram.fontId = fontId;
+            state.elements.monogram.variantId = defVarId;
+
+            // 3. Tagline remains 100% UNTOUCHED (contract: "(no al tagline)")
+
+            updateDropdownTriggerDisplay("wordmark", fontId);
+            updateDropdownTriggerDisplay("monogram", fontId);
+            updateVariantBarForElement("wordmark");
+            updateVariantBarForElement("monogram");
+
+            saveAssignments();
+            renderFontCards();
+            updateCanvasElements();
+            showToast(`✓ Fuente "${fontObj ? fontObj.title : fontId}" aplicada a Logotipo y Monograma`);
+        }
+
+        // ==========================================
+        // GOOGLE FONTS ON-DEMAND LOADER (BY URL OR NAME)
+        // ==========================================
+        function parseGoogleFontInput(input) {
+            input = input.trim();
+            let family = "";
+            
+            // Check HTML link tag
+            const linkMatch = input.match(/href=["'](https:\/\/fonts\.googleapis\.com\/css2\?[^"']+)["']/i);
+            if (linkMatch) input = linkMatch[1];
+            
+            if (input.includes("fonts.googleapis.com/css2")) {
+                try {
+                    const url = new URL(input);
+                    const famParam = url.searchParams.get("family");
+                    if (famParam) family = famParam.split(":")[0].replace(/\+/g, " ");
+                } catch (e) {
+                    const m = input.match(/family=([^&:]+)/);
+                    if (m) family = decodeURIComponent(m[1]).replace(/\+/g, " ");
+                }
+            } else if (input.includes("fonts.google.com/specimen/")) {
+                const m = input.match(/specimen\/([^/?#]+)/);
+                if (m) family = decodeURIComponent(m[1]).replace(/\+/g, " ");
+            } else if (!input.startsWith("http")) {
+                family = input;
+            }
+            return family.trim();
+        }
+
+        async function addGoogleFont(urlOrName) {
+            const family = parseGoogleFontInput(urlOrName);
+            if (!family) {
+                showToast("⚠️ URL o nombre de Google Font no válido");
+                return;
+            }
+
+            const googleCssUrl = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family.replace(/ /g, "+"))}:ital,wght@0,300..900;1,300..900&display=swap`;
+            const fallbackCssUrl = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family.replace(/ /g, "+"))}&display=swap`;
+
+            let link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = googleCssUrl;
+            document.head.appendChild(link);
+
+            showToast(`Cargando Google Font: "${family}"...`);
+            try {
+                await document.fonts.load(`16px "${family}"`);
+            } catch (e) {
+                link.href = fallbackCssUrl;
+                try { await document.fonts.load(`16px "${family}"`); } catch(err) {}
+            }
+
+            const fontId = `gf_${family.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
+            const exists = state.fonts.find(f => f.id === fontId);
+            if (exists) {
+                showToast(`ℹ️ La fuente "${family}" ya está en el catálogo`);
+                return;
+            }
+
+            const fontObj = {
+                id: fontId,
+                title: family,
+                family: family,
+                isGoogleFont: true,
+                itemUuid: null,
+                url: `https://fonts.google.com/specimen/${encodeURIComponent(family.replace(/ /g, "+"))}`,
+                totalStyleCount: 3,
+                variants: [
+                    { variantId: "regular", styleName: "Regular", weight: 400, italic: false },
+                    { variantId: "italic", styleName: "Italic", weight: 400, italic: true },
+                    { variantId: "bold", styleName: "Bold", weight: 700, italic: false }
+                ],
+                itemAttributes: {
+                    ligatures: true,
+                    stylisticSet: true,
+                    alternates: true,
+                    serifSansSerif: "Google Font"
+                },
+                previewSvg: null
+            };
+
+            state.fonts.unshift(fontObj);
+            await saveFonts();
+            populateAllFontDropdowns();
+            renderFontCards();
+
+            // Auto-apply logic
+            const chkBoth = document.getElementById("chkAutoApplyBoth");
+            if (chkBoth && chkBoth.checked) {
+                applyFontToLogoAndMonogram(fontObj.id);
+            } else {
+                onElementFontChanged(state.activeTarget, fontObj.id);
+            }
+
+            showToast(`✓ Google Font "${family}" agregada al catálogo`);
+        }
+
+        async function handleAddGoogleFont(e) {
+            e.preventDefault();
+            const input = document.getElementById("googleFontUrlInput");
+            const val = input.value.trim();
+            if (!val) return;
+            await addGoogleFont(val);
+            input.value = "";
+        }
+
+        function promptAddGoogleFont() {
+            const urlOrName = prompt("Pegá la URL de Google Fonts o escribí el nombre de la familia (ej: Cormorant Garamond, Playfair Display):");
+            if (urlOrName) addGoogleFont(urlOrName);
+        }
+
+        // ==========================================
+        // NETWORK & RENDER ENGINE
+        // ==========================================
+        async function getSvgForText(font, text, variantId = "") {
+            if (!font || !text || font.isGoogleFont) return null;
+            const cacheKey = `${font.itemUuid}_${variantId || ''}_${text}`;
+            if (svgCache.has(cacheKey)) {
+                return svgCache.get(cacheKey);
+            }
+
+            const renderUrl = getApiUrl(`api/render?itemUuid=${encodeURIComponent(font.itemUuid)}&text=${encodeURIComponent(text)}&variant=${encodeURIComponent(variantId || '')}`);
+            try {
+                const resp = await fetch(renderUrl);
+                if (resp.ok) {
+                    const svgText = await resp.text();
+                    svgCache.set(cacheKey, svgText);
+                    return svgText;
+                }
+            } catch (err) {
+                console.warn("Render fetch error:", err);
+            }
+            return null;
+        }
+
+        function resolveFont(fontId) {
+            return state.fonts.find(f => f.id === fontId) || null;
+        }
+
+        // ==========================================
+        // FAIL-SAFE MASTER CANVAS RENDER ENGINE
+        // ==========================================
+        async function updateCanvasElements() {
+            const fontFeaturesCss = getFontFeaturesCss();
+
+            // ==========================================
+            // 1. RENDER MONOGRAM
+            // ==========================================
+            const mgBadge = document.getElementById("monogramBadge");
+            const mgLettersRow = document.getElementById("monogramLettersRow");
+            const mg = state.elements.monogram;
+            
+            const badgeSize = Math.round(72 * (mg.block.scale / 100));
+            mgBadge.style.width = `${badgeSize}px`;
+            mgBadge.style.height = `${badgeSize}px`;
+            mgBadge.style.transform = `translate(${mg.block.shiftX}px, ${mg.block.shiftY}px)`;
+            mgLettersRow.style.gap = `${mg.block.spacing || 0}px`;
+            if (mg.block.spacing && mg.block.spacing !== 0) {
+                mgLettersRow.style.letterSpacing = `${mg.block.spacing}px`;
+            } else {
+                mgLettersRow.style.letterSpacing = "normal";
+            }
+
+            const mgFont = resolveFont(mg.fontId);
+
+            const hasIndividualLetterOverrides = mg.letters.some(l => 
+                (l.scale !== 100 || l.shiftX !== 0 || l.shiftY !== 0 || l.rotate !== 0 || l.mirrorH || l.mirrorV || (l.fontId && l.fontId !== mg.fontId))
+            );
+
+            if (mgFont && (mgFont.isLocalFont || mgFont.isGoogleFont)) {
+                const v = mg.variantId || (mgFont.variants[0] ? mgFont.variants[0].variantId : "regular");
+                const isItalic = v === "italic";
+                const fWeight = v === "bold" ? 700 : (v === "light" ? 300 : 400);
+                const fontFam = mgFont.family || mgFont.title;
+                const fontStyle = `font-family: '${fontFam}', serif; font-size: ${badgeSize * 0.52}px; font-weight: ${fWeight}; font-style: ${isItalic ? 'italic' : 'normal'}; line-height: 1; ${fontFeaturesCss}`;
+
+                if (!hasIndividualLetterOverrides) {
+                    // Unified text run: enables true OpenType ligatures across monogram characters
+                    mgLettersRow.innerHTML = `<div class="monogram-unit"><span class="monogram-letter-span" style="${fontStyle}">${state.initials}</span></div>`;
+                } else {
+                    mgLettersRow.innerHTML = mg.letters.map((l, i) => {
+                        const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
+                        const f = resolveFont(l.fontId) || mgFont;
+                        const vL = l.variantId || mg.variantId || (f.variants[0] ? f.variants[0].variantId : "regular");
+                        const isItL = vL === "italic";
+                        const fWtL = vL === "bold" ? 700 : 400;
+                        const fFamL = f.family || f.title;
+                        const s = `display: inline-block; transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; font-size: ${badgeSize * 0.52}px; font-family: '${fFamL}', serif; font-weight: ${fWtL}; font-style: ${isItL ? 'italic' : 'normal'}; line-height: 1; ${fontFeaturesCss}`;
+                        return `<span class="monogram-letter-span" style="${s}">${l.char}</span>`;
+                    }).join("");
+                }
+            } else if (mgFont) {
+                // Envato Cloud Font
+                if (hasIndividualLetterOverrides || !state.globalLigatures) {
+                    const letterSvgs = await Promise.all(mg.letters.map(l => {
+                        const f = resolveFont(l.fontId) || mgFont;
+                        const v = l.variantId || mg.variantId || (f.variants[0] ? f.variants[0].variantId : "");
+                        return getSvgForText(f, l.char, v);
+                    }));
+
+                    mgLettersRow.innerHTML = mg.letters.map((l, i) => {
+                        const targetH = Math.round(badgeSize * 0.52 * (l.scale / 100));
+                        const rawSvg = letterSvgs[i];
+                        const content = rawSvg ? formatSvg(rawSvg, targetH) : `<span class="monogram-letter-span" style="font-size:${targetH}px;">${l.char}</span>`;
+                        const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
+                        return `<div class="monogram-unit" style="transform: translate(${l.shiftX}px, ${l.shiftY}px) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center;">${content}</div>`;
+                    }).join("");
+                } else {
+                    const v = mg.variantId || (mgFont.variants[0] ? mgFont.variants[0].variantId : "");
+                    const fullMonoSvg = await getSvgForText(mgFont, state.initials, v);
+                    const targetH = Math.round(badgeSize * 0.52);
+                    const content = fullMonoSvg ? formatSvg(fullMonoSvg, targetH) : `<span class="monogram-letter-span" style="font-size:${targetH}px; ${fontFeaturesCss}">${state.initials}</span>`;
+                    mgLettersRow.innerHTML = `<div class="monogram-unit">${content}</div>`;
+                }
+            } else {
+                // Typography Fallback (Cinzel Serif)
+                const s = `font-family: var(--font-serif); font-size: ${badgeSize * 0.46}px; line-height: 1; ${fontFeaturesCss}`;
+                if (!hasIndividualLetterOverrides) {
+                    mgLettersRow.innerHTML = `<div class="monogram-unit"><span class="monogram-letter-span" style="${s}">${state.initials}</span></div>`;
+                } else {
+                    mgLettersRow.innerHTML = mg.letters.map((l, i) => {
+                        const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
+                        const indS = `display: inline-block; transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; ${s}`;
+                        return `<span class="monogram-letter-span" style="${indS}">${l.char}</span>`;
+                    }).join("");
+                }
+            }
+
+            // ==========================================
+            // 2. RENDER WORDMARK
+            // ==========================================
+            const wmRow = document.getElementById("wordmarkRow");
+            const wm = state.elements.wordmark;
+            wmRow.style.transform = `translate(${wm.block.shiftX}px, ${wm.block.shiftY}px)`;
+            wmRow.style.gap = `${(wm.block.spacing || 0) * 2}px`;
+            if (wm.block.spacing && wm.block.spacing !== 0) {
+                wmRow.style.letterSpacing = `${wm.block.spacing}px`;
+            } else {
+                wmRow.style.letterSpacing = "normal";
+            }
+
+            const wmFont = resolveFont(wm.fontId);
+
+            const hasAnyOverrides = wm.words.some(w => w.scale !== 100 || w.shiftX !== 0 || w.shiftY !== 0 || (w.fontId && w.fontId !== wm.fontId)) ||
+                                   wm.letters.some(l => l.scale !== 100 || l.shiftX !== 0 || l.shiftY !== 0 || l.rotate !== 0 || l.mirrorH || l.mirrorV || (l.fontId && l.fontId !== wm.fontId));
+
+            const baseWordH = Math.round(68 * (wm.block.scale / 100));
+
+            if (wmFont && (wmFont.isLocalFont || wmFont.isGoogleFont)) {
+                const v = wm.variantId || (wmFont.variants[0] ? wmFont.variants[0].variantId : "regular");
+                const isItalic = v === "italic";
+                const fWeight = v === "bold" ? 700 : (v === "light" ? 300 : 400);
+                const fontFam = wmFont.family || wmFont.title;
+                const fontStyle = `font-family: '${fontFam}', serif; font-size: ${baseWordH}px; font-weight: ${fWeight}; font-style: ${isItalic ? 'italic' : 'normal'}; letter-spacing: ${wm.block.spacing || 0}px; ${fontFeaturesCss}`;
+
+                if (!hasAnyOverrides) {
+                    wmRow.innerHTML = `<div class="word-unit"><span class="letter-span" style="${fontStyle}">${state.brandName}</span></div>`;
+                } else {
+                    let charOffset = 0;
+                    wmRow.innerHTML = wm.words.map((word, wIdx) => {
+                        const wordChars = Array.from(word.text);
+                        const lettersHtml = wordChars.map((ch, cIdx) => {
+                            const l = wm.letters[charOffset + cIdx] || { scale: 100, shiftX: 0, shiftY: 0, rotate: 0, mirrorH: false, mirrorV: false };
+                            const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
+                            const s = `display: inline-block; transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; ${fontStyle}`;
+                            return `<span class="letter-span" style="${s}">${ch}</span>`;
+                        }).join("");
+                        charOffset += wordChars.length + 1;
+                        return `<div class="word-unit" style="transform: translate(${word.shiftX}px, ${word.shiftY}px) scale(${word.scale / 100}); margin-right: ${(wm.block.spacing || 0) * 2}px;">${lettersHtml}</div>`;
+                    }).join("");
+                }
+            } else if (wmFont && !hasAnyOverrides && state.globalLigatures) {
+                // Connected brandmark SVG from Envato cloud
+                const v = wm.variantId || (wmFont.variants[0] ? wmFont.variants[0].variantId : "");
+                const fullBrandSvg = await getSvgForText(wmFont, state.brandName, v);
+                const content = fullBrandSvg ? formatSvg(fullBrandSvg, baseWordH) : `<span class="letter-span" style="font-size:${baseWordH}px;">${state.brandName}</span>`;
+                wmRow.innerHTML = `<div class="word-unit">${content}</div>`;
+            } else if (wmFont) {
+                // Word by word or letter by letter
+                let charOffset = 0;
+                const renderedWordsHtml = await Promise.all(wm.words.map(async (word, wIdx) => {
+                    const wordChars = Array.from(word.text);
+                    const wordLetters = wm.letters.slice(charOffset, charOffset + wordChars.length);
+                    charOffset += wordChars.length + 1;
+
+                    const hasLetterOverrides = wordLetters.some(l => l.scale !== 100 || l.shiftX !== 0 || l.shiftY !== 0 || l.rotate !== 0 || l.mirrorH || l.mirrorV || (l.fontId && l.fontId !== word.fontId));
+
+                    if (hasLetterOverrides || !state.globalLigatures) {
+                        const letterSvgs = await Promise.all(wordLetters.map(l => {
+                            const f = resolveFont(l.fontId) || resolveFont(word.fontId) || wmFont;
+                            const v = l.variantId || word.variantId || wm.variantId || (f.variants[0] ? f.variants[0].variantId : "");
+                            return getSvgForText(f, l.char, v);
+                        }));
+
+                        const lettersHtml = wordLetters.map((l, i) => {
+                            const targetH = Math.round(baseWordH * (word.scale / 100) * (l.scale / 100));
+                            const rawSvg = letterSvgs[i];
+                            const content = rawSvg ? formatSvg(rawSvg, targetH) : `<span class="letter-span" style="font-size:${targetH}px;">${l.char}</span>`;
+                            const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
+                            return `<div class="letter-unit" style="transform: translate(${l.shiftX}px, ${l.shiftY}px) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; margin-right: ${wm.block.spacing || 0}px;">${content}</div>`;
+                        }).join("");
+
+                        return `<div class="word-unit" style="transform: translate(${word.shiftX}px, ${word.shiftY}px);">${lettersHtml}</div>`;
+                    } else {
+                        const f = resolveFont(word.fontId) || wmFont;
+                        const v = word.variantId || wm.variantId || (f.variants[0] ? f.variants[0].variantId : "");
+                        const wordSvg = await getSvgForText(f, word.text, v);
+                        const targetH = Math.round(baseWordH * (word.scale / 100));
+                        const content = wordSvg ? formatSvg(wordSvg, targetH) : `<span class="letter-span" style="font-size:${targetH}px;">${word.text}</span>`;
+                        return `<div class="word-unit" style="transform: translate(${word.shiftX}px, ${word.shiftY}px);">${content}</div>`;
+                    }
+                }));
+
+                wmRow.innerHTML = renderedWordsHtml.join("");
+            } else {
+                // Typography Fallback (Cinzel Serif)
+                wmRow.innerHTML = wm.words.map(w => {
+                    const s = `transform: translate(${w.shiftX}px, ${w.shiftY}px) scale(${w.scale / 100}); font-size: ${baseWordH}px; letter-spacing: ${wm.block.spacing || 0}px; ${fontFeaturesCss}`;
+                    return `<div class="word-unit"><span class="letter-span" style="${s}">${w.text}</span></div>`;
+                }).join("&nbsp;");
+            }
+
+            // ==========================================
+            // 3. RENDER TAGLINE (Preserves casing & applies tracking)
+            // ==========================================
+            const descRow = document.getElementById("descriptorRow");
+            const tl = state.elements.tagline;
+            descRow.style.display = state.descriptor ? "flex" : "none";
+            descRow.style.transform = `translate(${tl.block.shiftX}px, ${tl.block.shiftY}px)`;
+            descRow.style.gap = `${(tl.block.spacing || 0) * 2}px`;
+            descRow.style.letterSpacing = `${tl.block.spacing || 0}px`;
+
+            const tlFont = resolveFont(tl.fontId);
+            const tlBaseH = Math.round(18 * (tl.block.scale / 100));
+
+            if (tlFont && tlFont.isGoogleFont) {
+                const v = tl.variantId || "regular";
+                const isItalic = v === "italic";
+                const fWeight = v === "bold" ? 700 : 400;
+                const fontStyle = `font-family: '${tlFont.family}', sans-serif; font-size: ${tlBaseH}px; font-weight: ${fWeight}; font-style: ${isItalic ? 'italic' : 'normal'}; letter-spacing: ${tl.block.spacing || 0}px; ${fontFeaturesCss}`;
+                descRow.innerHTML = `<span class="descriptor-letter-span" style="${fontStyle}">${state.descriptor}</span>`;
+            } else if (tlFont) {
+                const v = tl.variantId || (tlFont.variants[0] ? tlFont.variants[0].variantId : "");
+                const fullTlSvg = await getSvgForText(tlFont, state.descriptor, v);
+                const content = fullTlSvg ? formatSvg(fullTlSvg, tlBaseH) : `<span class="descriptor-letter-span" style="font-size: ${tlBaseH}px; letter-spacing: ${tl.block.spacing || 0}px;">${state.descriptor}</span>`;
+                descRow.innerHTML = `<div class="descriptor-unit">${content}</div>`;
+            } else {
+                // Typography Fallback (Sans-serif)
+                descRow.innerHTML = tl.letters.map((l, i) => {
+                    const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
+                    const s = `transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; margin-right: ${tl.block.spacing || 0}px; font-size: ${tlBaseH}px; ${fontFeaturesCss}`;
+                    return `<span class="descriptor-letter-span" style="${s}">${l.char === ' ' ? '&nbsp;' : l.char}</span>`;
+                }).join("");
+            }
+        }
+
+        // ==========================================
+        // FONT CATALOG & CARDS
+        // ==========================================
+        function renderFontCards() {
+            const grid = document.getElementById("fontsGrid");
+            document.getElementById("fontsCount").textContent = state.fonts.length;
+            grid.innerHTML = "";
+
+            state.fonts.forEach(f => {
+                const card = document.createElement("div");
+                const isAssigned = (state.elements.wordmark.fontId === f.id || state.elements.monogram.fontId === f.id || state.elements.tagline.fontId === f.id);
+                card.className = `font-card ${isAssigned ? 'active-card' : ''}`;
+                
+                card.onclick = (e) => {
+                    if (e.target.closest('.font-card-btn-delete') || e.target.closest('.font-card-actions') || e.target.closest('button')) return;
+                    onElementFontChanged(state.activeTarget, f.id);
+                };
+
+                let capsHtml = "";
+                if (f.itemAttributes) {
+                    if (f.itemAttributes.ligatures) capsHtml += `<span class="badge-tag badge-active">liga</span>`;
+                    if (f.itemAttributes.stylisticSet) capsHtml += `<span class="badge-tag badge-active">ss01</span>`;
+                    if (f.itemAttributes.serifSansSerif) capsHtml += `<span class="badge-tag badge-inactive">${f.itemAttributes.serifSansSerif}</span>`;
+                }
+
+                let previewBlock = "";
+                if (f.previewSvg) {
+                    previewBlock = f.previewSvg;
+                } else if (f.isGoogleFont) {
+                    previewBlock = `<span style="font-family: '${f.family}', serif; font-size: 22px; color: #fff;">${state.brandName || f.title}</span>`;
+                } else {
+                    previewBlock = `<span style="color:#888; font-size:11px;">${f.title}</span>`;
+                }
+
+                card.innerHTML = `
+                    <button type="button" class="font-card-btn-delete" title="Eliminar fuente del catálogo" onclick="event.stopPropagation(); deleteFontFamily('${f.id}')">✕</button>
+                    <div class="font-card-header">
+                        <span class="font-card-title">${f.title}</span>
+                        <span class="font-card-variants-count">${f.variants ? f.variants.length : 0} estilos</span>
+                    </div>
+                    <div class="font-card-caps">${capsHtml}</div>
+                    <div class="font-card-preview">
+                        ${previewBlock}
+                    </div>
+                    <div class="font-card-actions">
+                        <button type="button" class="btn-card-apply-both" onclick="event.stopPropagation(); applyFontToLogoAndMonogram('${f.id}')" title="Aplicar de un solo golpe a Logotipo y Monograma (no al tagline)">
+                            ★ Logo + Monograma
+                        </button>
+                        <button type="button" class="btn-card-apply-target" onclick="event.stopPropagation(); onElementFontChanged('wordmark', '${f.id}')" title="Aplicar solo al Logotipo">
+                            Logo
+                        </button>
+                        <button type="button" class="btn-card-apply-target" onclick="event.stopPropagation(); onElementFontChanged('monogram', '${f.id}')" title="Aplicar solo al Monograma">
+                            Mono
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        async function deleteFontFamily(fontId) {
+            const fontObj = state.fonts.find(f => f.id === fontId);
+            if (!confirm(`¿Eliminar la fuente "${fontObj ? fontObj.title : 'seleccionada'}" del catálogo?`)) return;
+
+            state.fonts = state.fonts.filter(f => f.id !== fontId);
+
+            ['wordmark', 'monogram', 'tagline'].forEach(k => {
+                if (state.elements[k].fontId === fontId) {
+                    state.elements[k].fontId = null;
+                    state.elements[k].variantId = null;
+                }
+                state.elements[k].words.forEach(w => { if (w.fontId === fontId) { w.fontId = null; w.variantId = null; } });
+                state.elements[k].letters.forEach(l => { if (l.fontId === fontId) { l.fontId = null; l.variantId = null; } });
+            });
+
+            await saveFonts();
+            saveAssignments();
+            populateAllFontDropdowns();
+            renderFontCards();
+            updateCanvasElements();
+            showToast(`Fuente eliminada`);
+        }
+
+        // ==========================================
+        // URL EXTRACTION (ENVATO ELEMENTS)
+        // ==========================================
+        async function handleExtractUrl(e) {
+            e.preventDefault();
+            const input = document.getElementById("envatoUrlInput");
+            const btn = document.getElementById("btnExtract");
+            const url = input.value.trim();
+
+            if (!url) return;
+
+            btn.disabled = true;
+            btn.innerHTML = `<span>⏳ Extrayendo...</span>`;
+
+            try {
+                const endpoint = getApiUrl(`api/extract?url=${encodeURIComponent(url)}&text=${encodeURIComponent(state.brandName)}`);
+                const resp = await fetch(endpoint);
+                const data = await resp.json();
+
+                if (!resp.ok || !data.ok) {
+                    throw new Error(data.error || "Error extrayendo fuente");
+                }
+
+                const fontObj = {
+                    id: `envato_${data.itemUuid}`,
+                    title: data.title,
+                    url: data.url,
+                    itemUuid: data.itemUuid,
+                    totalStyleCount: data.totalStyleCount,
+                    defaultStyleName: data.defaultStyleName,
+                    itemAttributes: data.itemAttributes,
+                    variants: data.variants,
+                    previewSvg: data.variants[0] ? data.variants[0].svgContent : ""
+                };
+
+                const existingIdx = state.fonts.findIndex(f => f.id === fontObj.id);
+                if (existingIdx !== -1) {
+                    state.fonts[existingIdx] = fontObj;
+                } else {
+                    state.fonts.unshift(fontObj);
+                }
+
+                await saveFonts();
+                input.value = "";
+                populateAllFontDropdowns();
+                renderFontCards();
+
+                // Auto-apply logic
+                const chkBoth = document.getElementById("chkAutoApplyBoth");
+                if (chkBoth && chkBoth.checked) {
+                    applyFontToLogoAndMonogram(fontObj.id);
+                } else {
+                    onElementFontChanged(state.activeTarget, fontObj.id);
+                }
+
+                showToast(`✓ Fuente "${fontObj.title}" extraída con éxito`);
+
+            } catch (err) {
+                alert(`Error extrayendo fuente: ${err.message}`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>⚡ Extraer Envato</span>`;
+            }
+        }
+
+        // ==========================================
+        // PERSISTENCE (HYBRID LOCALSTORAGE + SERVER CATALOG)
+        // ==========================================
+        async function saveFonts() {
+            try {
+                localStorage.setItem("sovereign_fonts_catalog_v4", JSON.stringify(state.fonts));
+            } catch (e) {
+                console.warn("localStorage quota exceeded or error:", e);
+            }
+            try {
+                const endpoint = getApiUrl("api/fonts");
+                await fetch(endpoint, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ fonts: state.fonts })
+                });
+            } catch (err) {
+                console.warn("Could not save fonts to server catalog:", err);
+            }
+        }
+
+        async function loadStoredFonts() {
+            // 1. Fast load from localStorage
+            try {
+                const data = localStorage.getItem("sovereign_fonts_catalog_v4") || localStorage.getItem("sovereign_fonts_catalog_v35");
+                if (data) {
+                    const parsed = JSON.parse(data);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        state.fonts = parsed;
+                    }
+                }
+            } catch (e) {
+                console.warn("Could not parse localStorage fonts:", e);
+            }
+
+            // 2. Authoritative sync with server catalog.json
+            try {
+                const endpoint = getApiUrl("api/fonts");
+                const resp = await fetch(endpoint);
+                if (resp.ok) {
+                    const serverData = await resp.json();
+                    const serverFonts = serverData.fonts || (Array.isArray(serverData) ? serverData : []);
+                    if (Array.isArray(serverFonts) && serverFonts.length > 0) {
+                        const fontMap = new Map();
+                        // Server fonts first
+                        serverFonts.forEach(f => { if (f && f.id) fontMap.set(f.id, f); });
+                        // Merge any in-memory fonts
+                        state.fonts.forEach(f => { if (f && f.id && !fontMap.has(f.id)) fontMap.set(f.id, f); });
+                        state.fonts = Array.from(fontMap.values());
+                        try {
+                            localStorage.setItem("sovereign_fonts_catalog_v4", JSON.stringify(state.fonts));
+                        } catch (e) {}
+                    }
+                }
+            } catch (err) {
+                console.warn("Could not fetch server fonts catalog:", err);
+            }
+
+            populateAllFontDropdowns();
+            renderFontCards();
+        }
+
+        function saveAssignments() {
+            try {
+                const assign = {
+                    wmFont: state.elements.wordmark.fontId,
+                    wmVar: state.elements.wordmark.variantId,
+                    mgFont: state.elements.monogram.fontId,
+                    mgVar: state.elements.monogram.variantId,
+                    tlFont: state.elements.tagline.fontId,
+                    tlVar: state.elements.tagline.variantId
+                };
+                localStorage.setItem("sovereign_assignments_v4", JSON.stringify(assign));
+            } catch (e) {}
+        }
+
+        function loadSavedAssignments() {
+            try {
+                const raw = localStorage.getItem("sovereign_assignments_v4");
+                if (raw) {
+                    const assign = JSON.parse(raw);
+                    state.elements.wordmark.fontId = assign.wmFont || null;
+                    state.elements.wordmark.variantId = assign.wmVar || null;
+                    state.elements.monogram.fontId = assign.mgFont || null;
+                    state.elements.monogram.variantId = assign.mgVar || null;
+                    state.elements.tagline.fontId = assign.tlFont || null;
+                    state.elements.tagline.variantId = assign.tlVar || null;
+                }
+            } catch (e) {}
+        }
+
+        function resetToCleanSlate() {
+            if (confirm("¿Reiniciar el diseño del lienzo a valores limpios? (Tus fuentes extraídas se conservarán intactas en el catálogo)")) {
+                state.elements.wordmark.fontId = null;
+                state.elements.wordmark.variantId = null;
+                state.elements.monogram.fontId = null;
+                state.elements.monogram.variantId = null;
+                state.elements.tagline.fontId = null;
+                state.elements.tagline.variantId = null;
+                state.brandName = "MI MARCA";
+                state.initials = "MM";
+                state.descriptor = "ESTUDIO DE DISEÑO";
+                document.getElementById("inputBrandName").value = "MI MARCA";
+                document.getElementById("inputInitials").value = "MM";
+                document.getElementById("inputDescriptor").value = "ESTUDIO DE DISEÑO";
+                rebuildComponentStores();
+                populateAllFontDropdowns();
+                renderFontCards();
+                updateSidebarUI();
+                updateCanvasElements();
+                saveAssignments();
+                showToast("Lienzo reiniciado a limpio. Catálogo conservado.");
+            }
+        }
+
+        // ==========================================
+        // 100% ACCURATE STANDALONE SVG BUILDER
+        // ==========================================
+        function buildCombinedSvgString() {
+            const includeBg = document.getElementById("chkIncludeBg").checked;
+            
+            const themeColors = {
+                dark: { bg: "#090a0f", fg: "#ffffff", accent: "#d4af37", desc: "#848ea4" },
+                light: { bg: "#ffffff", fg: "#090a0f", accent: "#090a0f", desc: "#64748b" },
+                gold: { bg: "#040405", fg: "#d4af37", accent: "#d4af37", desc: "rgba(212, 175, 55, 0.7)" },
+                ivory: { bg: "#faf7f2", fg: "#2e241c", accent: "#785a3c", desc: "#8c735b" }
+            };
+            const col = themeColors[state.canvasTheme] || themeColors.dark;
+
+            const lockup = document.getElementById("brandLockup");
+            const lockupBox = lockup.getBoundingClientRect();
+            
+            const padX = 64;
+            const padY = 48;
+            const totalW = Math.round(lockupBox.width + padX * 2);
+            const totalH = Math.round(lockupBox.height + padY * 2);
+
+            let bgSvg = "";
+            if (includeBg) {
+                bgSvg = `<rect width="${totalW}" height="${totalH}" rx="16" fill="${col.bg}"/>`;
+            }
+
+            let elementsGroup = `<g transform="translate(${padX}, ${padY})">`;
+
+            // 1. Monogram Export
+            if (state.layout !== "wordmark-only") {
+                const monoBadge = document.getElementById("monogramBadge");
+                const bBox = monoBadge.getBoundingClientRect();
+                const relX = Math.round(bBox.left - lockupBox.left);
+                const relY = Math.round(bBox.top - lockupBox.top);
+                const w = Math.round(bBox.width);
+                const h = Math.round(bBox.height);
+                const r = Math.round(w / 2);
+
+                const monoShape = state.monogramShape === "circle" 
+                    ? `<circle cx="${r}" cy="${r}" r="${r - 2}" fill="none" stroke="${col.accent}" stroke-width="2"/>` 
+                    : "";
+
+                let lettersSvg = "";
+                const monoUnits = monoBadge.querySelectorAll(".monogram-unit");
+                if (monoUnits.length > 0) {
+                    monoUnits.forEach(mUnit => {
+                        const mBox = mUnit.getBoundingClientRect();
+                        const mX = Math.round(mBox.left - bBox.left);
+                        const mY = Math.round(mBox.top - bBox.top);
+                        
+                        let unitGlyph = "";
+                        mUnit.querySelectorAll("svg").forEach(s => {
+                            const cl = s.cloneNode(true);
+                            cl.querySelectorAll("path").forEach(p => p.setAttribute("fill", col.accent));
+                            unitGlyph += cl.outerHTML;
+                        });
+                        if (!unitGlyph) {
+                            const span = mUnit.querySelector(".monogram-letter-span, .letter-span");
+                            if (span) {
+                                unitGlyph = `<text x="0" y="${Math.round(mBox.height * 0.8)}" font-family="'Cinzel', serif" font-weight="700" font-size="${Math.round(mBox.height * 0.8)}" fill="${col.accent}">${span.textContent}</text>`;
+                            }
+                        }
+                        lettersSvg += `<g transform="translate(${mX}, ${mY})">${unitGlyph}</g>`;
+                    });
+                } else {
+                    const spans = monoBadge.querySelectorAll(".monogram-letter-span");
+                    spans.forEach(sp => {
+                        const sBox = sp.getBoundingClientRect();
+                        const sX = Math.round(sBox.left - bBox.left);
+                        const sY = Math.round(sBox.top - bBox.top);
+                        lettersSvg += `<text x="${sX}" y="${sY + Math.round(sBox.height * 0.75)}" font-family="'Cinzel', serif" font-weight="700" font-size="${Math.round(sBox.height * 0.8)}" fill="${col.accent}">${sp.textContent}</text>`;
+                    });
+                }
+
+                elementsGroup += `
+                    <g transform="translate(${relX}, ${relY})">
+                        ${monoShape}
+                        ${lettersSvg}
+                    </g>
+                `;
+            }
+
+            // 2. Wordmark Export
+            if (state.layout !== "monogram-only") {
+                const wmRow = document.getElementById("wordmarkRow");
+                const wmBox = wmRow.getBoundingClientRect();
+                const wmX = Math.round(wmBox.left - lockupBox.left);
+                const wmY = Math.round(wmBox.top - lockupBox.top);
+
+                let wordmarkInner = "";
+                const wordUnits = wmRow.querySelectorAll(".word-unit");
+                if (wordUnits.length > 0) {
+                    wordUnits.forEach(wUnit => {
+                        const uBox = wUnit.getBoundingClientRect();
+                        const uX = Math.round(uBox.left - wmBox.left);
+                        const uY = Math.round(uBox.top - wmBox.top);
+
+                        let unitSvg = "";
+                        wUnit.querySelectorAll("svg").forEach(s => {
+                            const cl = s.cloneNode(true);
+                            cl.querySelectorAll("path").forEach(p => p.setAttribute("fill", col.fg));
+                            unitSvg += cl.outerHTML;
+                        });
+                        if (!unitSvg) {
+                            const span = wUnit.querySelector(".letter-span");
+                            if (span) {
+                                unitSvg = `<text x="0" y="${Math.round(uBox.height * 0.8)}" font-family="'Cinzel', serif" font-weight="700" font-size="${Math.round(uBox.height * 0.8)}" fill="${col.fg}">${span.textContent}</text>`;
+                            }
+                        }
+                        wordmarkInner += `<g transform="translate(${uX}, ${uY})">${unitSvg}</g>`;
+                    });
+                } else {
+                    const svgs = wmRow.querySelectorAll("svg");
+                    if (svgs.length > 0) {
+                        svgs.forEach(s => {
+                            const cl = s.cloneNode(true);
+                            cl.querySelectorAll("path").forEach(p => p.setAttribute("fill", col.fg));
+                            wordmarkInner += cl.outerHTML;
+                        });
+                    } else {
+                        wordmarkInner = `<text x="0" y="${Math.round(wmBox.height * 0.8)}" font-family="'Cinzel', serif" font-weight="700" font-size="${Math.round(wmBox.height * 0.8)}" fill="${col.fg}">${state.brandName}</text>`;
+                    }
+                }
+
+                elementsGroup += `<g transform="translate(${wmX}, ${wmY})">${wordmarkInner}</g>`;
+
+                // 3. Tagline Export
+                if (state.descriptor) {
+                    const descRow = document.getElementById("descriptorRow");
+                    const dBox = descRow.getBoundingClientRect();
+                    const dX = Math.round(dBox.left - lockupBox.left);
+                    const dY = Math.round(dBox.top - lockupBox.top);
+
+                    let descInner = "";
+                    descRow.querySelectorAll(".descriptor-unit, .descriptor-letter-span").forEach(dUnit => {
+                        const duBox = dUnit.getBoundingClientRect();
+                        const duX = Math.round(duBox.left - dBox.left);
+                        const duY = Math.round(duBox.top - dBox.top);
+
+                        let duSvg = "";
+                        dUnit.querySelectorAll("svg").forEach(s => {
+                            const cl = s.cloneNode(true);
+                            cl.querySelectorAll("path").forEach(p => p.setAttribute("fill", col.desc));
+                            duSvg += cl.outerHTML;
+                        });
+                        if (!duSvg) {
+                            duSvg = `<text x="0" y="${Math.round(duBox.height * 0.8)}" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="${Math.round(duBox.height * 0.8)}" fill="${col.desc}">${dUnit.textContent}</text>`;
+                        }
+                        descInner += `<g transform="translate(${duX}, ${duY})">${duSvg}</g>`;
+                    });
+
+                    elementsGroup += `<g transform="translate(${dX}, ${dY})">${descInner}</g>`;
+                }
+            }
+
+            elementsGroup += `</g>`;
+
+            return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalW} ${totalH}" width="${totalW}" height="${totalH}">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&amp;family=Plus+Jakarta+Sans:wght@600&amp;display=swap');
+            text { text-anchor: start; dominant-baseline: alphabetic; }
+        </style>
+    </defs>
+    ${bgSvg}
+    ${elementsGroup}
+</svg>`;
+        }
+
+        async function copyCombinedSvgToClipboard() {
+            const svgStr = buildCombinedSvgString();
+            try {
+                await navigator.clipboard.writeText(svgStr);
+                showToast("✓ SVG vectorial copiado al portapapeles. ¡Pegalo en Figma o Astro!");
+            } catch (err) {
+                prompt("Copia el código SVG manualmente:", svgStr);
+            }
+        }
+
+        function downloadCombinedSvg() {
+            const svgStr = buildCombinedSvgString();
+            const blob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${state.brandName.toLowerCase().replace(/[^a-z0-9_-]/g, "_")}_brandmark.svg`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("✓ Archivo SVG vectorial descargado.");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.textContent = msg;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 3200);
+        }
+
+        window.addEventListener("DOMContentLoaded", initApp);
+    </script>
+</body>
+</html>
