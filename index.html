@@ -757,6 +757,23 @@
             user-select: none;
         }
 
+        .brand-canvas.canvas-dragover {
+            outline: 2px dashed var(--accent-gold) !important;
+            outline-offset: -8px;
+            background: rgba(212, 175, 55, 0.08) !important;
+        }
+        .btn-file-upload:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+        .unsupported-font-banner {
+            animation: fadeIn 0.2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .brand-canvas[data-theme="dark"] {
             background: var(--brand-bg, #090a0f);
             border: 1px solid var(--brand-surface, #1f2433);
@@ -1433,6 +1450,12 @@
             <label class="auto-apply-checkbox" title="Aplica automáticamente la fuente recién extraída tanto al Logotipo como al Monograma de un solo golpe (sin tocar el tagline)">
                 <input type="checkbox" id="chkAutoApplyBoth" checked />
                 <span>★ Aplicar a Logo + Monograma</span>
+            </label>
+
+            <!-- Local Font File Loader (.otf, .ttf, .woff, .woff2) -->
+            <label class="btn-extract btn-file-upload" style="cursor: pointer; background: linear-gradient(135deg, #059669, #047857); color: #fff; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 11px; display: inline-flex; align-items: center; gap: 6px;" title="Cargar cualquier fuente .otf, .ttf, .woff o .woff2 para probarla en vivo con ligaduras completas">
+                <span>📁 Cargar .OTF/.TTF</span>
+                <input type="file" id="fontFileInput" accept=".otf,.ttf,.woff,.woff2" style="display:none;" onchange="handleFontFileUpload(event)">
             </label>
         </div>
 
@@ -2506,6 +2529,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             updateSidebarUI();
             updateCanvasElements();
             testLigaturePair("Th");
+            setupCanvasDragAndDrop();
 
             // Global click-outside listener to close custom dropdowns
             document.addEventListener("click", (e) => {
@@ -2702,15 +2726,22 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     item.onclick = () => selectCustomFont(k, f.id);
 
                     let previewHtml = "";
-                    if (f.previewSvg) {
+                    if (f.previewSvg && f.previewSvg.includes("<svg")) {
                         previewHtml = formatSvg(f.previewSvg, 22);
+                    } else if (f.isLocalFont || f.family) {
+                        previewHtml = `<span style="font-family: '${f.family || f.title}', serif; font-size: 18px; color: #ffffff;">${state.brandName || f.title}</span>`;
                     } else if (f.isGoogleFont) {
                         previewHtml = `<span style="font-family: '${f.family}', serif; font-size: 18px; color: #ffffff;">${state.brandName || f.title}</span>`;
+                    } else if (f.coverImage || f.unsupported) {
+                        previewHtml = `<div style="display:flex; align-items:center; gap:8px;">
+                            ${f.coverImage ? `<img src="${f.coverImage}" alt="${f.title}" style="max-height: 20px; border-radius: 2px;" />` : ''}
+                            <span style="font-size: 10px; color: #d4af37;">⚠️ Envato sin vector</span>
+                        </div>`;
                     } else {
                         previewHtml = `<span style="font-family: var(--font-serif); font-size: 16px; color: #ffffff;">${f.title}</span>`;
                     }
 
-                    const badge = f.isGoogleFont ? "Google Font" : "Envato";
+                    const badge = f.isLocalFont ? "Local" : (f.isGoogleFont ? "Google" : (f.unsupported ? "Envato (No-Vector)" : "Envato"));
                     item.innerHTML = `
                         <div class="custom-option-header">
                             <span class="custom-option-name" title="${f.title}">${f.title}</span>
@@ -2749,11 +2780,16 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             const fontObj = state.fonts.find(f => f.id === fontId);
             if (fontObj) {
-                titleEl.textContent = `${fontObj.title} (${fontObj.isGoogleFont ? 'Google' : 'Envato'})`;
-                if (fontObj.previewSvg) {
+                const badge = fontObj.isLocalFont ? 'Local' : (fontObj.isGoogleFont ? 'Google' : (fontObj.unsupported ? 'Envato No-Vector' : 'Envato'));
+                titleEl.textContent = `${fontObj.title} (${badge})`;
+                if (fontObj.previewSvg && fontObj.previewSvg.includes("<svg")) {
                     swatchEl.innerHTML = formatSvg(fontObj.previewSvg, 20);
+                } else if (fontObj.isLocalFont || fontObj.family) {
+                    swatchEl.innerHTML = `<span style="font-family: '${fontObj.family || fontObj.title}', serif; font-size: 15px; color: var(--accent-gold);">${state.brandName || fontObj.title}</span>`;
                 } else if (fontObj.isGoogleFont) {
                     swatchEl.innerHTML = `<span style="font-family: '${fontObj.family}', serif; font-size: 15px; color: var(--accent-gold);">${state.brandName || fontObj.title}</span>`;
+                } else if (fontObj.coverImage || fontObj.unsupported) {
+                    swatchEl.innerHTML = `<img src="${fontObj.coverImage}" alt="${fontObj.title}" style="max-height: 20px; border-radius: 2px;" />`;
                 } else {
                     swatchEl.innerHTML = `<span style="font-family: var(--font-serif); font-size: 14px; color: var(--accent-gold);">${fontObj.title}</span>`;
                 }
@@ -3213,9 +3249,17 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 return;
             }
 
-            if (activeFont.isLocalFont || activeFont.isGoogleFont) {
+            if (activeFont.isLocalFont || activeFont.isGoogleFont || activeFont.family) {
                 const fam = activeFont.family || activeFont.title;
                 stage.innerHTML = `<span style="font-family: '${fam}', serif; font-size: 32px; color: #fff; line-height: 1; ${fontFeaturesCss}">${pairText}</span>`;
+                return;
+            }
+
+            if (activeFont.unsupported) {
+                stage.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; gap:4px; padding:6px; text-align:center;">
+                    <span style="color:#d4af37; font-size:11px; font-weight:600;">⚠️ "${activeFont.title}" no tiene webfonts en Envato</span>
+                    <span style="color:#94a3b8; font-size:10px;">Arrastrá el archivo .otf/.ttf al lienzo para probar sus ligaduras en vivo.</span>
+                </div>`;
                 return;
             }
 
@@ -3500,7 +3544,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 (l.scale !== 100 || l.shiftX !== 0 || l.shiftY !== 0 || l.rotate !== 0 || l.mirrorH || l.mirrorV || (l.fontId && l.fontId !== mg.fontId))
             );
 
-            if (mgFont && (mgFont.isLocalFont || mgFont.isGoogleFont)) {
+            if (mgFont && (mgFont.isLocalFont || mgFont.isGoogleFont || mgFont.family)) {
                 const v = mg.variantId || (mgFont.variants[0] ? mgFont.variants[0].variantId : "regular");
                 const isItalic = v === "italic";
                 const fWeight = v === "bold" ? 700 : (v === "light" ? 300 : 400);
@@ -3521,6 +3565,13 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                         const s = `display: inline-block; transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; font-size: ${badgeSize * 0.52}px; font-family: '${fFamL}', serif; font-weight: ${fWtL}; font-style: ${isItL ? 'italic' : 'normal'}; line-height: 1; ${fontFeaturesCss}`;
                         return `<span class="monogram-letter-span" style="${s}">${l.char}</span>`;
                     }).join("");
+                }
+            } else if (mgFont && mgFont.unsupported) {
+                const targetH = Math.round(badgeSize * 0.52);
+                if (mgFont.coverImage) {
+                    mgLettersRow.innerHTML = `<div class="monogram-unit" title="${mgFont.title} (Envato sin preview vectorial)"><img src="${mgFont.coverImage}" alt="${mgFont.title}" style="max-height:${targetH}px; border-radius:4px; object-fit:contain;" /></div>`;
+                } else {
+                    mgLettersRow.innerHTML = `<div class="monogram-unit"><span class="monogram-letter-span" style="font-size:12px; color:#d4af37;">${state.initials}</span></div>`;
                 }
             } else if (mgFont) {
                 // Envato Cloud Font
@@ -3579,15 +3630,21 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             const baseWordH = Math.round(68 * (wm.block.scale / 100));
 
-            if (wmFont && (wmFont.isLocalFont || wmFont.isGoogleFont)) {
+            if (wmFont && (wmFont.isLocalFont || wmFont.isGoogleFont || wmFont.family)) {
                 const v = wm.variantId || (wmFont.variants[0] ? wmFont.variants[0].variantId : "regular");
                 const isItalic = v === "italic";
                 const fWeight = v === "bold" ? 700 : (v === "light" ? 300 : 400);
                 const fontFam = wmFont.family || wmFont.title;
                 const fontStyle = `font-family: '${fontFam}', serif; font-size: ${baseWordH}px; font-weight: ${fWeight}; font-style: ${isItalic ? 'italic' : 'normal'}; letter-spacing: ${wm.block.spacing || 0}px; ${fontFeaturesCss}`;
 
-                if (!hasAnyOverrides) {
-                    wmRow.innerHTML = `<div class="word-unit"><span class="letter-span" style="${fontStyle}">${state.brandName}</span></div>`;
+                const hasLetterSpecificTransforms = wm.letters.some(l => l.scale !== 100 || l.shiftX !== 0 || l.shiftY !== 0 || l.rotate !== 0 || l.mirrorH || l.mirrorV || (l.fontId && l.fontId !== wm.fontId));
+
+                if (!hasLetterSpecificTransforms) {
+                    // Unbroken text runs per word: OpenType ligatures form cleanly!
+                    wmRow.innerHTML = wm.words.map(w => {
+                        const s = `display: inline-block; transform: translate(${w.shiftX}px, ${w.shiftY}px) scale(${w.scale / 100}); margin-right: ${(wm.block.spacing || 0) * 2}px; ${fontStyle}`;
+                        return `<div class="word-unit"><span class="letter-span" style="${s}">${w.text}</span></div>`;
+                    }).join("");
                 } else {
                     let charOffset = 0;
                     wmRow.innerHTML = wm.words.map((word, wIdx) => {
@@ -3602,6 +3659,20 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                         return `<div class="word-unit" style="transform: translate(${word.shiftX}px, ${word.shiftY}px) scale(${word.scale / 100}); margin-right: ${(wm.block.spacing || 0) * 2}px;">${lettersHtml}</div>`;
                     }).join("");
                 }
+            } else if (wmFont && wmFont.unsupported) {
+                // Unsupported Envato font: clear visual explanation with sample cover & drag-and-drop invite
+                wmRow.innerHTML = `
+                    <div class="unsupported-font-banner" style="display:flex; flex-direction:column; align-items:center; gap:10px; padding:16px 24px; border:1px dashed var(--accent-gold); border-radius:10px; background:rgba(10,12,16,0.85); max-width:680px; text-align:center;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span style="color:var(--accent-gold); font-size:14px; font-weight:700;">⚠️ ${wmFont.title}</span>
+                            <span style="font-size:10px; background:rgba(212,175,55,0.2); color:var(--accent-gold); padding:2px 8px; border-radius:4px; font-family:var(--font-mono);">Envato No-Vector</span>
+                        </div>
+                        <div style="font-size:11px; color:#cbd5e1; line-height:1.4;">
+                            Envato Elements no provee preview vectorial en vivo para esta fuente. Podés ver su muestra oficial abajo, o <strong>arrastrar el archivo .otf / .ttf de la fuente directamente a este lienzo</strong> para probarla con "${state.brandName}" y ligaduras completas.
+                        </div>
+                        ${wmFont.coverImage ? `<img src="${wmFont.coverImage}" alt="${wmFont.title}" style="max-height:130px; max-width:100%; border-radius:6px; box-shadow:0 6px 20px rgba(0,0,0,0.6); object-fit:contain;" />` : ''}
+                    </div>
+                `;
             } else if (wmFont && !hasAnyOverrides && state.globalLigatures) {
                 // Connected brandmark SVG from Envato cloud
                 const v = wm.variantId || (wmFont.variants[0] ? wmFont.variants[0].variantId : "");
@@ -3711,12 +3782,24 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     if (f.itemAttributes.stylisticSet) capsHtml += `<span class="badge-tag badge-active">ss01</span>`;
                     if (f.itemAttributes.serifSansSerif) capsHtml += `<span class="badge-tag badge-inactive">${f.itemAttributes.serifSansSerif}</span>`;
                 }
+                if (f.unsupported) {
+                    capsHtml += `<span class="badge-tag" style="background:rgba(212,175,55,0.15); color:#d4af37; border-color:rgba(212,175,55,0.4);">Envato No-Vector</span>`;
+                } else if (f.isLocalFont) {
+                    capsHtml += `<span class="badge-tag" style="background:rgba(16,185,129,0.15); color:#10b981; border-color:rgba(16,185,129,0.4);">Local HarfBuzz</span>`;
+                }
 
                 let previewBlock = "";
-                if (f.previewSvg) {
+                if (f.previewSvg && f.previewSvg.includes("<svg")) {
                     previewBlock = f.previewSvg;
+                } else if (f.isLocalFont || f.family) {
+                    previewBlock = `<span style="font-family: '${f.family || f.title}', serif; font-size: 22px; color: #fff; line-height: 1; ${getFontFeaturesCss()}">${state.brandName || f.title}</span>`;
                 } else if (f.isGoogleFont) {
                     previewBlock = `<span style="font-family: '${f.family}', serif; font-size: 22px; color: #fff;">${state.brandName || f.title}</span>`;
+                } else if (f.coverImage || f.unsupported) {
+                    previewBlock = `<div style="display:flex; flex-direction:column; align-items:center; gap:4px; width:100%;">
+                        ${f.coverImage ? `<img src="${f.coverImage}" alt="${f.title}" style="max-height: 48px; max-width: 100%; border-radius: 4px; object-fit: contain;" />` : ''}
+                        <span style="color:#d4af37; font-size:9px; font-weight:600;">⚠️ Sin webfonts en Envato (subí .otf)</span>
+                    </div>`;
                 } else {
                     previewBlock = `<span style="color:#888; font-size:11px;">${f.title}</span>`;
                 }
@@ -3802,7 +3885,13 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     defaultStyleName: data.defaultStyleName,
                     itemAttributes: data.itemAttributes,
                     variants: data.variants,
-                    previewSvg: data.variants[0] ? data.variants[0].svgContent : ""
+                    previewSvg: data.variants[0] ? data.variants[0].svgContent : "",
+                    unsupported: !!data.unsupported,
+                    unsupportedReason: data.unsupportedReason,
+                    coverImage: data.coverImage || "",
+                    sampleImages: data.sampleImages || [],
+                    author: data.author || "",
+                    authorUrl: data.authorUrl || ""
                 };
 
                 const existingIdx = state.fonts.findIndex(f => f.id === fontObj.id);
@@ -3825,7 +3914,11 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     onElementFontChanged(state.activeTarget, fontObj.id);
                 }
 
-                showToast(`✓ Fuente "${fontObj.title}" extraída con éxito`);
+                if (fontObj.unsupported) {
+                    showToast(`⚠️ "${fontObj.title}" añadida (Envato no provee preview vectorial; podés arrastrar su archivo .otf/.ttf al lienzo para probarla en vivo)`);
+                } else {
+                    showToast(`✓ Fuente "${fontObj.title}" extraída con éxito`);
+                }
 
             } catch (err) {
                 alert(`Error extrayendo fuente: ${err.message}`);
@@ -3833,6 +3926,94 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 btn.disabled = false;
                 btn.innerHTML = `<span>⚡ Extraer Envato</span>`;
             }
+        }
+
+        // ==========================================
+        // LOCAL FONT FILE LOADER & DRAG-AND-DROP (.OTF / .TTF / .WOFF / .WOFF2)
+        // ==========================================
+        async function handleFontFileUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            await loadFontFile(file);
+            event.target.value = "";
+        }
+
+        async function loadFontFile(file) {
+            try {
+                const fontName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ").trim();
+                const buffer = await file.arrayBuffer();
+                const fontFace = new FontFace(fontName, buffer);
+                await fontFace.load();
+                document.fonts.add(fontFace);
+
+                const fontId = `local_uploaded_${Date.now()}_${fontName.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
+                const fontObj = {
+                    id: fontId,
+                    title: fontName,
+                    family: fontName,
+                    isLocalFont: true,
+                    totalStyleCount: 1,
+                    defaultStyleName: "Regular",
+                    itemAttributes: {
+                        ligatures: true,
+                        stylisticSet: true,
+                        alternates: true,
+                        serifSansSerif: "custom"
+                    },
+                    variants: [{ variantId: "regular", styleName: "Regular" }],
+                    previewSvg: ""
+                };
+
+                state.fonts.unshift(fontObj);
+                await saveFonts();
+                populateAllFontDropdowns();
+                renderFontCards();
+
+                const chkBoth = document.getElementById("chkAutoApplyBoth");
+                if (chkBoth && chkBoth.checked) {
+                    applyFontToLogoAndMonogram(fontObj.id);
+                } else {
+                    onElementFontChanged(state.activeTarget, fontObj.id);
+                }
+
+                showToast(`✓ Fuente "${fontName}" cargada en vivo con ligaduras OpenType nativas`);
+            } catch (err) {
+                alert(`Error cargando archivo de fuente: ${err.message}`);
+            }
+        }
+
+        function setupCanvasDragAndDrop() {
+            const canvas = document.getElementById("brandCanvas");
+            if (!canvas) return;
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                canvas.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    canvas.classList.add("canvas-dragover");
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                canvas.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    canvas.classList.remove("canvas-dragover");
+                }, false);
+            });
+
+            canvas.addEventListener('drop', async (e) => {
+                const dt = e.dataTransfer;
+                const files = dt && dt.files;
+                if (files && files.length > 0) {
+                    const file = files[0];
+                    if (file.name.match(/\.(otf|ttf|woff|woff2)$/i)) {
+                        await loadFontFile(file);
+                    } else {
+                        showToast("⚠️ Arrastrá un archivo de fuente (.otf, .ttf, .woff, .woff2)");
+                    }
+                }
+            }, false);
         }
 
         // ==========================================

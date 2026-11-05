@@ -302,11 +302,17 @@ const server = http.createServer(async (req, res) => {
                     res.end(svgData);
                     return;
                 }
+                const errData = await proxyResp.text();
+                let errCode = 'font_preview_error';
+                try {
+                    const parsed = JSON.parse(errData);
+                    if (parsed.errorCode) errCode = parsed.errorCode;
+                } catch {}
                 res.writeHead(proxyResp.status, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: `Error conectando con Envato: ${proxyResp.statusText}` }));
+                res.end(JSON.stringify({ ok: false, errorCode: errCode, error: `Error desde Envato (${proxyResp.status}): ${proxyResp.statusText}` }));
             } catch (err) {
                 res.writeHead(502, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: `Error conectando con Envato: ${err.message}` }));
+                res.end(JSON.stringify({ ok: false, error: `Error conectando con Envato: ${err.message}` }));
             }
             return;
         }
@@ -352,6 +358,9 @@ const server = http.createServer(async (req, res) => {
                 const totalStyleCount = fontPreview.totalStyleCount || variants.length || 1;
                 const defaultStyleName = fontPreview.defaultStyleName || 'Regular';
 
+                const coverImage = item.coverImageUrls?.w900 || item.coverImageUrls?.w632 || item.coverImageUrls?.og1200x630 || item.openGraphImageUrl || '';
+                const sampleImages = (item.previewImageSrcSets || []).map(s => s.split(' ')[0]).slice(0, 6);
+
                 if (!itemUuid) {
                     throw new Error('No se pudo obtener el itemUuid del ítem');
                 }
@@ -392,6 +401,9 @@ const server = http.createServer(async (req, res) => {
                     };
                 }));
 
+                const hasValidSvg = results.some(v => v.svgContent && v.svgContent.includes('<svg'));
+                const unsupported = !hasValidSvg;
+
                 const responseData = {
                     ok: true,
                     title: title,
@@ -400,6 +412,12 @@ const server = http.createServer(async (req, res) => {
                     text: brandText,
                     totalStyleCount: totalStyleCount,
                     defaultStyleName: defaultStyleName,
+                    unsupported: unsupported,
+                    unsupportedReason: unsupported ? 'font_preview_unsupported' : undefined,
+                    coverImage: coverImage,
+                    sampleImages: sampleImages,
+                    author: item.author || '',
+                    authorUrl: item.authorUrl ? `https://elements.envato.com${item.authorUrl}` : '',
                     itemAttributes: {
                         ligatures: !!itemAttributes.ligatures,
                         stylisticSet: !!itemAttributes.stylisticSet,
@@ -423,7 +441,13 @@ const server = http.createServer(async (req, res) => {
                         defaultStyleName: defaultStyleName,
                         itemAttributes: responseData.itemAttributes,
                         variants: results,
-                        previewSvg: results[0] ? results[0].svgContent : ''
+                        previewSvg: results[0] ? results[0].svgContent : '',
+                        unsupported: unsupported,
+                        unsupportedReason: unsupported ? 'font_preview_unsupported' : undefined,
+                        coverImage: coverImage,
+                        sampleImages: sampleImages,
+                        author: item.author || '',
+                        authorUrl: item.authorUrl ? `https://elements.envato.com${item.authorUrl}` : ''
                     };
 
                     let catalog = [];
