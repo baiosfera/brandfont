@@ -82,6 +82,53 @@ function parseAstrobranding(filePath) {
     }
 }
 
+function parseChromaManifest(filePath) {
+    if (!fs.existsSync(filePath)) return [];
+    try {
+        const manifest = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        const ecosystems = [];
+        if (Array.isArray(manifest.ecosystems)) {
+            for (const eco of manifest.ecosystems) {
+                if (eco.themes?.dark) {
+                    const darkTokens = [];
+                    for (const [role, token] of Object.entries(eco.themes.dark)) {
+                        darkTokens.push({
+                            role,
+                            oklch: token.$value || '',
+                            hex: token.hex || '',
+                            name: token.$description || role
+                        });
+                    }
+                    ecosystems.push({
+                        id: `${eco.id}_dark`,
+                        title: `${eco.name} (Modo Oscuro)`,
+                        tokens: darkTokens
+                    });
+                }
+                if (eco.themes?.light) {
+                    const lightTokens = [];
+                    for (const [role, token] of Object.entries(eco.themes.light)) {
+                        lightTokens.push({
+                            role,
+                            oklch: token.$value || '',
+                            hex: token.hex || '',
+                            name: token.$description || role
+                        });
+                    }
+                    ecosystems.push({
+                        id: `${eco.id}_light`,
+                        title: `${eco.name} (Modo Claro)`,
+                        tokens: lightTokens
+                    });
+                }
+            }
+        }
+        return ecosystems;
+    } catch {
+        return [];
+    }
+}
+
 function parseBrandbook(filePath) {
     if (!fs.existsSync(filePath)) return [];
     try {
@@ -134,12 +181,35 @@ function loadAllBrands() {
                     ecosystems: []
                 };
 
-                // Brandbook
-                const bbEcos = parseBrandbook(path.join(devDir, 'brandbook.json'));
-                brandData.ecosystems.push(...bbEcos);
+                // 1. Chroma Manifest (SOTA OKLCH first priority)
+                const chromaPath = path.join(devDir, 'chroma_manifest.json');
+                const chromaEcos = parseChromaManifest(chromaPath);
+                if (chromaEcos.length > 0) {
+                    brandData.ecosystems.push(...chromaEcos);
+                }
 
-                // Astrobranding
-                if (fs.existsSync(devDir)) {
+                // 2. Brandbook
+                const brandbookPath = path.join(devDir, 'brandbook.json');
+                const bbEcos = parseBrandbook(brandbookPath);
+                if (fs.existsSync(brandbookPath)) {
+                    try {
+                        brandData.brandbook = JSON.parse(fs.readFileSync(brandbookPath, 'utf8'));
+                    } catch {}
+                }
+                if (chromaEcos.length === 0) {
+                    brandData.ecosystems.push(...bbEcos);
+                }
+
+                // 3. Font Manifest (SOTA Typography)
+                const fontManifestPath = path.join(devDir, 'font_manifest.json');
+                if (fs.existsSync(fontManifestPath)) {
+                    try {
+                        brandData.fontManifest = JSON.parse(fs.readFileSync(fontManifestPath, 'utf8'));
+                    } catch {}
+                }
+
+                // 4. Astrobranding (fallback if no chroma)
+                if (chromaEcos.length === 0 && fs.existsSync(devDir)) {
                     const files = fs.readdirSync(devDir);
                     const match = files.find(f => f.startsWith('astrobranding_') && f.endsWith('.md'));
                     if (match) {

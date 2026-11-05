@@ -279,259 +279,1840 @@
           }
         ]
       }
-    ]
+    ],
+    "fontManifest": {
+      "candidate_ecosystems": [
+        {
+          "id": "eco-1",
+          "name": "Quiet Luxury Earth Authority (eco-1)",
+          "archetype": "Proyección Pública MC Virgo & Sol Capricorn",
+          "rationale": "Contraste editorial de alta gama entre la sofisticación de Royalist en titulares y el confort de lectura inmersiva de Newsreader. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Monogram Holder.",
+          "tokens": {
+            "display_primary": {
+              "$value": "Royalist",
+              "url": "https://elements.envato.com/royalist-luxury-editorial-serif-font-LRNK3LZ",
+              "source": "envato"
+            },
+            "ui_secondary": {
+              "$value": "Newsreader",
+              "url": "https://fonts.google.com/specimen/Newsreader",
+              "source": "google_fonts"
+            },
+            "accent_brand": {
+              "$value": "Monogram Holder",
+              "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
+              "source": "envato"
+            }
+          },
+          "layers": {
+            "logo": "Monogram Holder",
+            "slogan": "Royalist",
+            "h1": "Royalist",
+            "h2": "Royalist",
+            "body": "Newsreader",
+            "ui": "Newsreader"
+          }
+        },
+        {
+          "id": "eco-2",
+          "name": "High Performance Water Precision (eco-2)",
+          "archetype": "Rigor Técnico BaZi Ren & Dinámica Yang",
+          "rationale": "Arquitectura contemporánea con la fuerza estructural de Mardem. Emparejada con Instrument Sans para alta velocidad de lectura en interfaces interactivas y tracking regulado (0.01em).",
+          "tokens": {
+            "display_primary": {
+              "$value": "Mardem",
+              "url": "https://elements.envato.com/mardem-geometric-modern-grotesk-font-XJZYG8M",
+              "source": "envato"
+            },
+            "ui_secondary": {
+              "$value": "Instrument Sans",
+              "url": "https://fonts.google.com/specimen/Instrument+Sans",
+              "source": "google_fonts"
+            },
+            "accent_brand": {
+              "$value": "AUGOR",
+              "url": "https://elements.envato.com/augor-unique-display-monogram-logo-typeface-CEX96JM",
+              "source": "envato"
+            }
+          },
+          "layers": {
+            "logo": "AUGOR",
+            "slogan": "Mardem",
+            "h1": "Mardem",
+            "h2": "Mardem",
+            "body": "Instrument Sans",
+            "ui": "Instrument Sans"
+          }
+        },
+        {
+          "id": "eco-3",
+          "name": "Alchemical Ashwini Vanguard (eco-3)",
+          "archetype": "Esencia Védica Ashwini (dlig 1, ss01 1)",
+          "rationale": "Tensión estética rica y orgánica entre el dramatismo de Mellgro y la calidez tipográfica de Spectral. Acento caligráfico de alto impacto con Monogram Holder.",
+          "tokens": {
+            "display_primary": {
+              "$value": "Mellgro",
+              "url": "https://elements.envato.com/mellgro-high-contrast-modern-serif-PSPVML9",
+              "source": "envato"
+            },
+            "ui_secondary": {
+              "$value": "Spectral",
+              "url": "https://fonts.google.com/specimen/Spectral",
+              "source": "google_fonts"
+            },
+            "accent_brand": {
+              "$value": "Monogram Holder",
+              "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
+              "source": "envato"
+            }
+          },
+          "layers": {
+            "logo": "Monogram Holder",
+            "slogan": "Mellgro",
+            "h1": "Mellgro",
+            "h2": "Mellgro",
+            "body": "Spectral",
+            "ui": "Spectral"
+          }
+        }
+      ],
+      "selected_ecosystem": {
+        "id": "eco-1",
+        "name": "Quiet Luxury Earth Authority (eco-1)",
+        "archetype": "Proyección Pública MC Virgo & Sol Capricorn",
+        "rationale": "Contraste editorial de alta gama entre la sofisticación de Royalist en titulares y el confort de lectura inmersiva de Newsreader. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Monogram Holder.",
+        "tokens": {
+          "display_primary": {
+            "$value": "Royalist",
+            "url": "https://elements.envato.com/royalist-luxury-editorial-serif-font-LRNK3LZ",
+            "source": "envato"
+          },
+          "ui_secondary": {
+            "$value": "Newsreader",
+            "url": "https://fonts.google.com/specimen/Newsreader",
+            "source": "google_fonts"
+          },
+          "accent_brand": {
+            "$value": "Monogram Holder",
+            "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
+            "source": "envato"
+          }
+        },
+        "layers": {
+          "logo": "Monogram Holder",
+          "slogan": "Royalist",
+          "h1": "Royalist",
+          "h2": "Royalist",
+          "body": "Newsreader",
+          "ui": "Newsreader"
+        }
+      }
+    },
+    "brandbook": {
+      "$schema": "https://design-tokens.github.io/community-group/format/",
+      "metadata": {
+        "brand_name": "CATALINAGLAMUR",
+        "version": "1.0.0",
+        "title": "Brandbook Superfull — CATALINAGLAMUR",
+        "generator": "brandbook_pipeline_runner (fast-track)",
+        "generated_at": "2026-10-18T02:46:23.450318+00:00",
+        "astrological_signature": {
+          "western": {
+            "sun": "Capricorn 27.93° House 2",
+            "midheaven": "Virgo (Ruler: Mercury)",
+            "house_2": "Capricorn",
+            "dominant_element": "Earth"
+          },
+          "bazi": {
+            "day_master": "Ren (Water Yang)",
+            "yong_shen": "Metal"
+          },
+          "vedic": {
+            "nakshatra": "Ashwini (Pada 3)",
+            "deity": "Ashvins (Sanación, Rapidez, Iniciativa)",
+            "shadbala_dominant": "Mercury (7.35 Rupas)"
+          },
+          "human_design": {
+            "type": "Dream Generator",
+            "strategy": "Wait for the Sacral Response",
+            "authority": "Emotional (Solar Plexus)",
+            "profile": "2/4"
+          },
+          "numerology": {
+            "life_path": 7
+          }
+        }
+      },
+      "brand_architecture": {
+        "brand_essence": "Sovereign Mineral Radiance",
+        "purpose": "To transmute disciplined Earth ambition (Capricorn Sun in the 2nd) into rapid, healing activation (Ashwini Nakshatra), building unshakeable material legacies for those who are ready to be seen and valued.",
+        "mission": "To architect precision-engineered brand systems (Virgo Midheaven + Metal Yong Shen) that make Ren Water adaptability flow into high-ticket authority, so every client becomes a Leo Midheaven luminary—visible, influential, and rooted in measurable wealth.",
+        "vision": "To become the definitive authority for astrologically-aligned personal brand sovereignty, where every client transforms into a self-sustaining mineral monument of wealth, influence, and quiet luxury, recognized as the standard of premium personal branding worldwide.",
+        "values": [
+          "Mineral Integrity: Every word, promise, and deliverable is a load-bearing stone—durable, accountable, and without hidden fractures.",
+          "Precision Alchemy: Virgo Midheaven and Mercury's Shadbala dominance demand exact metrics, refined systems, and impeccable execution.",
+          "Swift Initiation: Ashwini Nakshatra's Ketu-ruled speed turns insight into immediate, healing action—no delay, no hesitation.",
+          "Sovereign Radiance: Leo Midheaven and Capricorn Sun command visible authority without apology, owning one's throne unapologetically.",
+          "Emotional Mastery: Human Design's Emotional Authority and TCM Water-Kidney wisdom convert reactive Scorpio control into calm, Taurus-like trust."
+        ],
+        "positioning_statement": "For high-ticket coaches, healers, and founders who need to convert their deep expertise into a magnetic, premium personal brand without sacrificing their soul, CATALINAGLAMUR is the astrologically-engineered brand architecture and sovereign identity system that delivers visible authority and effortless client attraction, unlike generic personal branding or surface-level glamour, because it is built from the founder's exact Earth-dominant Capricorn Stellium (Sun + Venus in 2nd), Ren Water Day Master with Metal Yong Shen, and Ashwini Nakshatra force—integrating Kabbalistic Taurus trust-engineering and Human Design Generator strategy.",
+        "brand_archetypes": [
+          {
+            "role": "Primary",
+            "name": "The Sovereign",
+            "description": "Capricorn Sun and Venus in the 2nd house of wealth bestow innate authority, long-term vision, and ownership of value; the founder naturally commands respect and builds legacy structures."
+          },
+          {
+            "role": "Secondary",
+            "name": "The Healer",
+            "description": "Ashwini Nakshatra's Ketu-ruled initiation brings rapid healing, pioneering courage, and the ability to catalyze breakthrough transformations, balancing the Sovereign's weight with swift, compassionate activation."
+          }
+        ]
+      },
+      "voice_tone_and_messaging": {
+        "primary_tone": "Sovereign Mineral Precision",
+        "voice_traits": [
+          "Uncompromisingly structured: Every sentence is built like a Capricorn stone arch—no fluff, only load-bearing articulation.",
+          "Rapid and catalytic: Ashwini's Ketu speed infuses directives with urgent, healing momentum—no dragging, only swift activation.",
+          "Emotionally authoritative: From Human Design's Emotional Authority, speak from the calm center of the solar plexus, never from reactive Scorpio control.",
+          "Precision-cut analysis: Virgo MC and Mercury's Shadbala dominance (7.35 rupas) demand exact numbers, clear frameworks, and surgical word choice."
+        ],
+        "preferred_vocabulary": [
+          "Sovereignty",
+          "Alchemy",
+          "Precision",
+          "Radiance",
+          "Legacy",
+          "Architecture"
+        ],
+        "forbidden_vocabulary": [
+          "hustle",
+          "authentic",
+          "empower",
+          "abundance",
+          "game-changer",
+          "secret sauce"
+        ],
+        "conversational_protocols": "Respect her 2/4 Generator strategy: present options and wait for her sacral response; never pressure her for immediate decisions, as her Emotional authority requires time to settle. Use precise data, structured outlines, and tangible ROI; her Capricorn Venus responds to demonstrable value, not vague inspiration. Keep communication concise and action-oriented—Ashwini Ketu wants immediate, implementable next steps, not philosophical meandering. Do not trigger Scorpio control patterns with scarcity or manipulation; instead build Taurus trust through consistent, reliable outcomes. Acknowledge her open Throat/G/Root by giving her space to articulate and never finishing her sentences; allow her to retreat and recharge as needed. Honor her 2/4 profile: offer private recognition and respect her need for solitude between public engagements."
+      },
+      "target_audience": {
+        "ideal_customer_profile": "Established high-ticket coaches, healers, and consultants (ages 35-55) already generating $10k+ months but struggling with visibility and brand differentiation; they are deeply emotionally intelligent (Cancer 8th house) and seek meaningful, exclusive partnerships (Gemini 7th) within elevated peer communities (Libra 11th). They value privacy, depth, and legacy over quick trends, and they are ready to invest in a sovereign brand that reflects their true authority.",
+        "core_pain_points": [
+          "They possess deep expertise but lack a commanding public presence (mirroring the founder's low Fire element at 12.5%), causing them to be overlooked for high-ticket opportunities despite measurable results.",
+          "They are trapped in emotional control dynamics or trust issues (Scorpio South Node) and yearn for stable, trust-based client relationships (Taurus North Node) but don't know how to build that in their brand.",
+          "They have invested in generic branding that feels inauthentic or unsustainable, with no structural foundation, leading to burnout and constant hustling instead of magnetic attraction."
+        ],
+        "aspirations": [
+          "To be seen as the undisputed authority in their niche, attracting premium clients who value their unique depth and pay without resistance.",
+          "To build an enduring legacy brand that compounds wealth and influence over time, freeing them from the hamster wheel of constant content creation.",
+          "To operate from emotional clarity and sovereign confidence, free from reactive control, while creating tangible, lasting value for their community and descendants."
+        ],
+        "conversion_triggers": [
+          "Demonstrated ROI frameworks and case studies that show precise, measurable transformations (Metal precision + Virgo MC).",
+          "Personalized astrological brand mapping that validates their unique value and shows exactly why they are the authority (Ashwini activation).",
+          "Private, high-touch onboarding and delivery that honor their 8th-house need for depth, intimacy, and trust (Cancer high-ticket).",
+          "Scarcity-free, integrity-based scheduling that triggers Taurus security rather than Scorpio urgency, allowing them to invest from calm certainty."
+        ]
+      },
+      "brand_narrative": "At the exact coordinates of Medellín, on January 18, 1986, a soul chose a blueprint of extreme Earth dominance: Sun and Venus conjoined in Capricorn at 27° in the second house of wealth, with a Capricorn stellium and a Moon in Taurus. This is not accidental; it is a mandate to build. In the Vedic sky, her Ascendant is Scorpio, her Midheaven is Leo, and her Moon fires through Ashwini Nakshatra—the celestial healer of swift action. Her BaZi Day Master is Yang Water (Ren), a river that carves canyons, yet her Yong Shen is Metal: the element of precision, structure, and virtuous power. From this convergence, CATALINAGLAMUR emerges as the embodiment of sovereign mineral radiance—a brand that turns disciplined ambition into unstoppable, healing influence.\n\nThe brand's mission is anchored in the Virgo Midheaven's demand for exacting service and the Leo Midheaven's call for visible authority. Catalina's Human Design as a 2/4 Dream Generator with Emotional Authority means she is designed to respond, not force; her defined Sacral and Spleen give her the stamina to build, while her open Throat, G, and Root teach that true presence is curated, not shouted. The 27-50 channel links Sacral to Spleen, infusing every brand system with instinctive preservation and generative power. Clients who step into CATALINAGLAMUR do not merely receive a logo or a tagline; they receive a structural alchemy—architected from their own charts—that transforms their Ren Water flow into a high-ticket, magnetically visible legacy. The Kabbalistic Tikkun is clear: move from Scorpio's control drama to Taurus's tangible peace. Thus, every brand deliverable is a trust-building monument, not a manipulation tactic.\n\nIn practice, this means every visual, every word, and every system is calibrated to the founder's computed quiet-luxury palette: Solar Essence Earth (#855a9c) at the core, Gilded Accent (#fd80c4) for divine radiance, and Homeostatic Metal (#8a99b2) for the balancing element. The voice is sovereign, precise, and healing—never hustling, never vague. Through the Mars Mahadasha and Jupiter Antardasha (2025–2026), the brand activates its 10th-house legacy mission, guiding clients to become the undisputed authority in their niche. The annual profection through the 5th house brings creative fire, but it is grounded fire—used not to burn out, but to illuminate. CATALINAGLAMUR does not chase; it commands. It does not persuade; it resonates.\n\nCatalina's life path number 7 and brand expression number 7 confirm her role as The Seeker-Analyst: one who goes deep, finds the hidden architecture, and returns to build. Her North Node in Taurus and South Node in Scorpio are the spiritual compass: she is here to build lasting value, not to reenact old dramas. The result is a brand that offers clients the same liberation: freedom from generic hustle, freedom from reactive control, and entrance into a sovereign economy where their value is undeniable. This is CATALINAGLAMUR—a mineral cathedral of personal power, where structure becomes radiance, and radiance becomes legacy. Enter, and be built.",
+      "ethical_pillars_and_anti_bias": {
+        "pillars": [
+          {
+            "name": "Sovereign Consent",
+            "commitment": "All diagnostic and astrological data is treated with informed consent and ethical boundaries."
+          },
+          {
+            "name": "Anti-Deterministic Rigor",
+            "commitment": "Astrological insights provide archetypal maps, never fatalistic claims or disempowering limits."
+          },
+          {
+            "name": "Radical Accessibility",
+            "commitment": "Digital interfaces meet WCAG AAA / APCA contrast standards across all viewports."
+          },
+          {
+            "name": "Anti-Slop Craft",
+            "commitment": "Zero generic templates; every asset is mathematically derived from the client's signature."
+          }
+        ]
+      },
+      "design_system": {
+        "color": {
+          "brand": {
+            "primary": {
+              "$type": "color",
+              "$value": "oklch(0.54 0.11 312.9)",
+              "$description": "Primary brand essence color (Earth)",
+              "$extensions": {
+                "hex": "#855a9c",
+                "name": "Solar Essence Earth"
+              }
+            },
+            "accent": {
+              "$type": "color",
+              "$value": "oklch(0.76 0.17 347.9)",
+              "$description": "High-conversion accent color",
+              "$extensions": {
+                "hex": "#fd80c4",
+                "name": "Gilded Accent"
+              }
+            },
+            "balance": {
+              "$type": "color",
+              "$value": "oklch(0.68 0.04 260.0)",
+              "$description": "Balancing Yong Shen color (Metal)",
+              "$extensions": {
+                "hex": "#8a99b2",
+                "name": "Homeostatic Metal"
+              }
+            }
+          },
+          "neutral": {
+            "bg": {
+              "$type": "color",
+              "$value": "oklch(0.13 0.02 260.0)",
+              "$description": "Canvas dark background",
+              "$extensions": {
+                "hex": "#04070f"
+              }
+            },
+            "surface": {
+              "$type": "color",
+              "$value": "oklch(0.19 0.03 260.0)",
+              "$description": "Card surface canvas",
+              "$extensions": {
+                "hex": "#0c1421"
+              }
+            },
+            "text": {
+              "$type": "color",
+              "$value": "oklch(0.97 0.01 312.9)",
+              "$description": "Primary crisp text",
+              "$extensions": {
+                "hex": "#f7f3fa"
+              }
+            },
+            "muted": {
+              "$type": "color",
+              "$value": "oklch(0.70 0.04 260.0)",
+              "$description": "Secondary muted text",
+              "$extensions": {
+                "hex": "#909fb8"
+              }
+            }
+          }
+        },
+        "typography": {
+          "fontFamily": {
+            "display": {
+              "$type": "fontFamily",
+              "$value": [
+                "Royalist",
+                "serif"
+              ],
+              "$description": "High-contrast editorial display font"
+            },
+            "body": {
+              "$type": "fontFamily",
+              "$value": [
+                "Newsreader",
+                "sans-serif"
+              ],
+              "$description": "Ultra-readable ergonomic body typography"
+            },
+            "mono": {
+              "$type": "fontFamily",
+              "$value": [
+                "JetBrains Mono",
+                "monospace"
+              ],
+              "$description": "Mathematical coordinate and token font"
+            },
+            "accent": {
+              "$type": "fontFamily",
+              "$value": [
+                "Monogram Holder",
+                "display"
+              ],
+              "$description": "Brand voice and monogram accent typography"
+            }
+          },
+          "ecosystems": [
+            {
+              "id": "eco-1",
+              "name": "Quiet Luxury Earth Authority",
+              "archetype": "Proyección Pública MC Virgo & Sol Capricorn",
+              "rationale": "Contraste editorial de alta gama entre la sofisticación de Royalist en titulares y el confort de lectura inmersiva de Newsreader. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Monogram Holder.",
+              "tokens": {
+                "display_primary": {
+                  "$value": "Royalist",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — High-fashion editorial serif with polished details and refined magazine headline presence.",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/royalist-luxury-editorial-serif-font-LRNK3LZ",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-luxury+editorial+serif",
+                  "weights": [
+                    "400",
+                    "600",
+                    "700"
+                  ]
+                },
+                "ui_secondary": {
+                  "$value": "Newsreader",
+                  "$type": "fontFamily",
+                  "$description": "Google Fonts v2 Variable — Workhorse tipográfico",
+                  "source": "google_fonts",
+                  "url": "https://fonts.google.com/specimen/Newsreader",
+                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap",
+                  "variable_axes": "ital,opsz,wght@0..1,6..72,200..800",
+                  "weights": [
+                    "200",
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700",
+                    "800"
+                  ]
+                },
+                "accent_brand": {
+                  "$value": "Monogram Holder",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Specialized monogram font engineered for interlocking two-letter logos, brand seals and luxury badges (450+ ligatures).",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-monogram+ligature+logo",
+                  "weights": [
+                    "700",
+                    "900"
+                  ]
+                }
+              },
+              "layers": {
+                "logo": "Monogram Holder (Weight 900)",
+                "slogan": "Royalist (Weight 400, Tracking +0.15em, Uppercase)",
+                "h1": "Royalist (Weight 600, Ratio 1.250)",
+                "h2": "Royalist (Weight 500, Scale 1.250x down)",
+                "body": "Newsreader (Variable Regular 400, Line-height 1.55)",
+                "ui": "Newsreader (Variable Medium 600, Tracking -0.01em)"
+              },
+              "cls_metric_overrides": {
+                "fallback_font": "Times New Roman",
+                "size_adjust": "98.0%",
+                "ascent_override": "93.0%",
+                "descent_override": "25.0%",
+                "line_gap_override": "0%"
+              },
+              "workbench_presets": {
+                "font_size_px": 64,
+                "letter_spacing_em": 0.04,
+                "line_height": 1.15,
+                "text_transform": "none",
+                "font_weight": "600",
+                "font_style": "normal",
+                "text_align": "left",
+                "ligatures_enabled": true,
+                "translate_x": 0,
+                "translate_y": 0,
+                "rotation_deg": 0,
+                "mirror_enabled": false
+              }
+            },
+            {
+              "id": "eco-2",
+              "name": "High Performance Water Precision",
+              "archetype": "Rigor Técnico BaZi Ren & Dinámica Yang",
+              "rationale": "Arquitectura contemporánea con la fuerza estructural de Mardem. Emparejada con Instrument Sans para alta velocidad de lectura en interfaces interactivas y tracking regulado (0.01em).",
+              "tokens": {
+                "display_primary": {
+                  "$value": "Mardem",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Industrial neo-grotesk with clean modular precision, sharp angular cuts and cutting-edge tech presence.",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/mardem-geometric-modern-grotesk-font-XJZYG8M",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-futuristic+grotesk+display",
+                  "weights": [
+                    "600",
+                    "700",
+                    "800"
+                  ]
+                },
+                "ui_secondary": {
+                  "$value": "Instrument Sans",
+                  "$type": "fontFamily",
+                  "$description": "Google Fonts v2 Variable — Ultra rendimiento de UI",
+                  "source": "google_fonts",
+                  "url": "https://fonts.google.com/specimen/Instrument+Sans",
+                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap",
+                  "variable_axes": "ital,wdth,wght@0..1,75..100,400..700",
+                  "weights": [
+                    "400",
+                    "500",
+                    "600",
+                    "700"
+                  ]
+                },
+                "accent_brand": {
+                  "$value": "AUGOR",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Architectural monogram display typeface with geometric cuts, interlocking glyphs and brand seal versatility.",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/augor-unique-display-monogram-logo-typeface-CEX96JM",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-monogram+display+logo",
+                  "weights": [
+                    "700",
+                    "800"
+                  ]
+                }
+              },
+              "layers": {
+                "logo": "AUGOR (Weight 800)",
+                "slogan": "Mardem (Weight 500, Tracking +0.20em, Uppercase)",
+                "h1": "Mardem (Weight 700, Ratio 1.250)",
+                "h2": "Mardem (Weight 600, Ratio 1.250)",
+                "body": "Instrument Sans (Variable Regular 400, Line-height 1.50)",
+                "ui": "Instrument Sans (Variable Bold 700, Tracking -0.02em)"
+              },
+              "cls_metric_overrides": {
+                "fallback_font": "Arial",
+                "size_adjust": "99.0%",
+                "ascent_override": "94.0%",
+                "descent_override": "23.0%",
+                "line_gap_override": "0%"
+              },
+              "workbench_presets": {
+                "font_size_px": 56,
+                "letter_spacing_em": 0.01,
+                "line_height": 1.1,
+                "text_transform": "uppercase",
+                "font_weight": "700",
+                "font_style": "normal",
+                "text_align": "left",
+                "ligatures_enabled": false,
+                "translate_x": 0,
+                "translate_y": 0,
+                "rotation_deg": 0,
+                "mirror_enabled": false
+              }
+            },
+            {
+              "id": "eco-3",
+              "name": "Alchemical Ashwini Vanguard",
+              "archetype": "Esencia Védica Ashwini (dlig 1, ss01 1)",
+              "rationale": "Tensión estética rica y orgánica entre el dramatismo de Mellgro y la calidez tipográfica de Spectral. Acento caligráfico de alto impacto con Monogram Holder.",
+              "tokens": {
+                "display_primary": {
+                  "$value": "Mellgro",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Sophisticated high-contrast Didone with razor-thin hairlines, dramatic thick-to-thin transitions and graceful curves.",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/mellgro-high-contrast-modern-serif-PSPVML9",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-didone+high+contrast+serif",
+                  "weights": [
+                    "400",
+                    "500",
+                    "700"
+                  ]
+                },
+                "ui_secondary": {
+                  "$value": "Spectral",
+                  "$type": "fontFamily",
+                  "$description": "Google Fonts v2 Variable — Calidez tipográfica orgánica",
+                  "source": "google_fonts",
+                  "url": "https://fonts.google.com/specimen/Spectral",
+                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200..800;1,200..800&display=swap",
+                  "variable_axes": "ital,wght@0..1,200..800",
+                  "weights": [
+                    "200",
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700",
+                    "800"
+                  ]
+                },
+                "accent_brand": {
+                  "$value": "Monogram Holder",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Specialized monogram font engineered for interlocking two-letter logos, brand seals and luxury badges (450+ ligatures).",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-monogram+ligature+logo",
+                  "weights": [
+                    "700",
+                    "900"
+                  ]
+                }
+              },
+              "layers": {
+                "logo": "Monogram Holder (Weight 900)",
+                "slogan": "Mellgro (Weight 400, Italic, Tracking +0.10em)",
+                "h1": "Mellgro (Weight 600, Ratio 1.250)",
+                "h2": "Mellgro (Weight 400, Italic)",
+                "body": "Spectral (Variable Regular 400, Line-height 1.60)",
+                "ui": "Spectral (Variable SemiBold 600, Tracking 0.00em)"
+              },
+              "cls_metric_overrides": {
+                "fallback_font": "Times New Roman",
+                "size_adjust": "99.5%",
+                "ascent_override": "94.5%",
+                "descent_override": "24.0%",
+                "line_gap_override": "0%"
+              },
+              "workbench_presets": {
+                "font_size_px": 68,
+                "letter_spacing_em": 0.02,
+                "line_height": 1.2,
+                "text_transform": "none",
+                "font_weight": "500",
+                "font_style": "italic",
+                "text_align": "left",
+                "ligatures_enabled": true,
+                "translate_x": 0,
+                "translate_y": 0,
+                "rotation_deg": 0,
+                "mirror_enabled": false
+              }
+            }
+          ],
+          "cls_metric_overrides": {
+            "fallback_font": "Times New Roman",
+            "size_adjust": "98.0%",
+            "ascent_override": "93.0%",
+            "descent_override": "25.0%",
+            "line_gap_override": "0%"
+          },
+          "fontSize": {
+            "display": {
+              "$type": "dimension",
+              "$value": "clamp(2.5rem, 5vw + 1rem, 4.5rem)"
+            },
+            "h1": {
+              "$type": "dimension",
+              "$value": "clamp(2rem, 4vw + 1rem, 3.5rem)"
+            },
+            "h2": {
+              "$type": "dimension",
+              "$value": "clamp(1.5rem, 3vw + 0.5rem, 2.5rem)"
+            },
+            "body": {
+              "$type": "dimension",
+              "$value": "1rem"
+            },
+            "small": {
+              "$type": "dimension",
+              "$value": "0.875rem"
+            }
+          }
+        },
+        "motion": {
+          "transitionDuration": {
+            "default": {
+              "$type": "duration",
+              "$value": "0.35s"
+            },
+            "fast": {
+              "$type": "duration",
+              "$value": "0.25s"
+            }
+          },
+          "transitionTimingFunction": {
+            "swift": {
+              "$type": "cubicBezier",
+              "$value": [
+                0.25,
+                1,
+                0.5,
+                1
+              ]
+            },
+            "smooth": {
+              "$type": "cubicBezier",
+              "$value": [
+                0.4,
+                0,
+                0.2,
+                1
+              ]
+            }
+          }
+        }
+      },
+      "llm_system_prompt_engine": {
+        "role": "Sovereign Brand Ambassador for CATALINAGLAMUR",
+        "core_identity": "Sovereign Mineral Radiance",
+        "communication_style": "Sovereign Mineral Precision",
+        "guardrails": [
+          "Never hallucinate services or products outside verified brand assets.",
+          "Respect the brand's tone and forbidden vocabulary at all times.",
+          "Prioritize genuine connection and value before conversion."
+        ]
+      }
+    }
   },
   "DAMAREN": {
     "id": "damaren",
     "name": "DAMAREN",
     "ecosystems": [
       {
-        "id": "bb_brand",
-        "title": "Brandbook: BRAND",
+        "id": "eco_sovereign_mineral_dark",
+        "title": "Sovereign Mineral & Imperial Gold (Chitra Vishwakarma) (Modo Oscuro)",
         "tokens": [
           {
             "role": "primary",
-            "oklch": "oklch(0.71 0.15 94.0)",
-            "hex": "#c09e00",
-            "name": "Solar Essence Air"
+            "oklch": "oklch(0.76 0.14 82)",
+            "hex": "#d4af37",
+            "name": "Oro Imperial Chitra - Deidad Vishwakarma"
+          },
+          {
+            "role": "secondary",
+            "oklch": "oklch(0.60 0.10 82)",
+            "hex": "#a3823f",
+            "name": "Bronce Arquitectónico"
           },
           {
             "role": "accent",
-            "oklch": "oklch(0.92 0.21 129.0)",
-            "hex": "#b8fe51",
-            "name": "Gilded Accent"
+            "oklch": "oklch(0.93 0.06 85)",
+            "hex": "#fae9ad",
+            "name": "Diamante Chitra Solar"
           },
           {
-            "role": "balance",
-            "oklch": "oklch(0.55 0.14 245.0)",
-            "hex": "#0077bd",
-            "name": "Homeostatic Water"
-          }
-        ]
-      },
-      {
-        "id": "bb_neutral",
-        "title": "Brandbook: NEUTRAL",
-        "tokens": [
-          {
-            "role": "bg",
-            "oklch": "oklch(0.13 0.02 245.0)",
-            "hex": "#03080f",
-            "name": "Canvas dark background"
+            "role": "background",
+            "oklch": "oklch(0.14 0.02 260)",
+            "hex": "#0a0d14",
+            "name": "Obsidiana Mineral Profunda"
           },
           {
             "role": "surface",
-            "oklch": "oklch(0.19 0.03 245.0)",
-            "hex": "#081520",
-            "name": "Card surface canvas"
+            "oklch": "oklch(0.20 0.02 260)",
+            "hex": "#151924",
+            "name": "Basalto Estructural"
           },
           {
-            "role": "text",
-            "oklch": "oklch(0.97 0.01 94.0)",
-            "hex": "#f7f5ee",
-            "name": "Primary crisp text"
+            "role": "text_primary",
+            "oklch": "oklch(0.97 0.01 90)",
+            "hex": "#f8f7f2",
+            "name": "Seda Alabastro Puro"
           },
           {
-            "role": "muted",
-            "oklch": "oklch(0.70 0.04 245.0)",
-            "hex": "#8aa2b6",
-            "name": "Secondary muted text"
+            "role": "text_muted",
+            "oklch": "oklch(0.70 0.02 250)",
+            "hex": "#9aa0ac",
+            "name": "Titanio Satinado"
           }
         ]
       },
       {
-        "id": "modo_oscuro___quiet_luxury",
-        "title": "Modo Oscuro — Quiet Luxury",
+        "id": "eco_sovereign_mineral_light",
+        "title": "Sovereign Mineral & Imperial Gold (Chitra Vishwakarma) (Modo Claro)",
         "tokens": [
           {
-            "role": "color-primary",
-            "oklch": "oklch(0.71 0.15 94.0)",
-            "hex": "#c09e00",
-            "name": "Solar Essence Air"
+            "role": "primary",
+            "oklch": "oklch(0.55 0.12 82)",
+            "hex": "#967423",
+            "name": "Oro Antiguo Pátina"
           },
           {
-            "role": "color-accent",
-            "oklch": "oklch(0.92 0.21 129.0)",
-            "hex": "#b8fe51",
-            "name": "Gilded Accent"
+            "role": "secondary",
+            "oklch": "oklch(0.40 0.08 82)",
+            "hex": "#685223",
+            "name": "Bronce Forjado"
           },
           {
-            "role": "color-balance",
-            "oklch": "oklch(0.55 0.14 245.0)",
-            "hex": "#0077bd",
-            "name": "Homeostatic Water"
+            "role": "accent",
+            "oklch": "oklch(0.68 0.13 82)",
+            "hex": "#be9a32",
+            "name": "Oro Chitra Brillante"
           },
           {
-            "role": "color-background",
-            "oklch": "oklch(0.13 0.02 245.0)",
-            "hex": "#03080f",
-            "name": "Obsidian Deep"
+            "role": "background",
+            "oklch": "oklch(0.98 0.01 90)",
+            "hex": "#faf9f6",
+            "name": "Mármol Blanco Cálido"
           },
           {
-            "role": "color-surface",
-            "oklch": "oklch(0.19 0.03 245.0)",
-            "hex": "#081520",
-            "name": "Basalt Surface"
+            "role": "surface",
+            "oklch": "oklch(0.94 0.01 90)",
+            "hex": "#eeece6",
+            "name": "Piedra Caliza Estructural"
           },
           {
-            "role": "color-text-primary",
-            "oklch": "oklch(0.97 0.01 94.0)",
-            "hex": "#f7f5ee",
-            "name": "Celestial Crisp"
+            "role": "text_primary",
+            "oklch": "oklch(0.18 0.02 260)",
+            "hex": "#131720",
+            "name": "Carbón Obsidiana"
           },
           {
-            "role": "color-text-muted",
-            "oklch": "oklch(0.70 0.04 245.0)",
-            "hex": "#8aa2b6",
-            "name": "Astral Slate"
+            "role": "text_muted",
+            "oklch": "oklch(0.48 0.02 260)",
+            "hex": "#606470",
+            "name": "Gris Pizarra Neutro"
           }
         ]
       },
       {
-        "id": "modo_claro___quiet_luxury",
-        "title": "Modo Claro — Quiet Luxury",
+        "id": "eco_blueprint_titanium_dark",
+        "title": "Architectural Blueprint & Titanium (Mercurio / Géminis) (Modo Oscuro)",
         "tokens": [
           {
-            "role": "color-primary",
-            "oklch": "oklch(0.71 0.15 94.0)",
-            "hex": "#c09e00",
-            "name": "Solar Essence Air"
+            "role": "primary",
+            "oklch": "oklch(0.78 0.11 225)",
+            "hex": "#5ec5e6",
+            "name": "Cian Mineral Mercurial"
           },
           {
-            "role": "color-accent",
-            "oklch": "oklch(0.92 0.21 129.0)",
-            "hex": "#b8fe51",
-            "name": "Gilded Accent"
+            "role": "secondary",
+            "oklch": "oklch(0.58 0.07 230)",
+            "hex": "#547f9c",
+            "name": "Cobalto Blueprint"
           },
           {
-            "role": "color-balance",
-            "oklch": "oklch(0.55 0.14 245.0)",
-            "hex": "#0077bd",
-            "name": "Homeostatic Water"
+            "role": "accent",
+            "oklch": "oklch(0.92 0.05 220)",
+            "hex": "#b8efff",
+            "name": "Zafiro Etéreo Mercurio"
           },
           {
-            "role": "color-background",
-            "oklch": "oklch(0.98 0.01 94.0)",
-            "hex": "#faf8f1",
-            "name": "Alabaster Light"
+            "role": "background",
+            "oklch": "oklch(0.13 0.02 230)",
+            "hex": "#090d12",
+            "name": "Noche Blueprint"
           },
           {
-            "role": "color-surface",
-            "oklch": "oklch(0.94 0.02 94.0)",
-            "hex": "#efebdd",
-            "name": "Parchment Surface"
+            "role": "surface",
+            "oklch": "oklch(0.19 0.02 230)",
+            "hex": "#141a22",
+            "name": "Titanio Profundo"
           },
           {
-            "role": "color-text-primary",
-            "oklch": "oklch(0.18 0.03 245.0)",
-            "hex": "#06131e",
-            "name": "Deep Charcoal"
+            "role": "text_primary",
+            "oklch": "oklch(0.97 0.01 230)",
+            "hex": "#f2f6fa",
+            "name": "Hielo Cristalino"
           },
           {
-            "role": "color-text-muted",
-            "oklch": "oklch(0.48 0.04 245.0)",
-            "hex": "#4b6073",
-            "name": "Granite Muted"
+            "role": "text_muted",
+            "oklch": "oklch(0.68 0.02 230)",
+            "hex": "#8e9aa5",
+            "name": "Niebla Blueprint"
           }
         ]
       },
       {
-        "id": "3_4_ecosistema_high_performance___vangua",
-        "title": "3.4 Ecosistema High Performance & Vanguardia Activa",
+        "id": "eco_blueprint_titanium_light",
+        "title": "Architectural Blueprint & Titanium (Mercurio / Géminis) (Modo Claro)",
         "tokens": [
           {
-            "role": "color-primary",
-            "oklch": "oklch(0.63 0.25 94.0)",
-            "hex": "#bb7d00",
-            "name": "Kinetic Vanguard"
+            "role": "primary",
+            "oklch": "oklch(0.52 0.12 230)",
+            "hex": "#1f6e91",
+            "name": "Azul Plano Profundo"
           },
           {
-            "role": "color-accent",
-            "oklch": "oklch(0.78 0.20 274.0)",
-            "hex": "#92a8ff",
-            "name": "Solar Flash"
+            "role": "secondary",
+            "oklch": "oklch(0.42 0.07 230)",
+            "hex": "#2c4f68",
+            "name": "Cobalto Acero"
           },
           {
-            "role": "color-balance",
-            "oklch": "oklch(0.65 0.18 245.0)",
-            "hex": "#0096f4",
-            "name": "Dynamic Water"
+            "role": "accent",
+            "oklch": "oklch(0.65 0.12 225)",
+            "hex": "#328eb0",
+            "name": "Cian Mercurial Enérgico"
           },
           {
-            "role": "color-background",
-            "oklch": "oklch(0.11 0.02 245.0)",
-            "hex": "#01050a",
-            "name": "Carbon Mineral"
+            "role": "background",
+            "oklch": "oklch(0.98 0.01 220)",
+            "hex": "#f5f8fa",
+            "name": "Papel Milimetrado Claro"
           },
           {
-            "role": "color-surface",
-            "oklch": "oklch(0.18 0.03 245.0)",
-            "hex": "#06131e",
-            "name": "Cobalt Void"
+            "role": "surface",
+            "oklch": "oklch(0.93 0.01 220)",
+            "hex": "#e4ebf0",
+            "name": "Superficie de Dibujo"
           },
           {
-            "role": "color-text-primary",
-            "oklch": "oklch(0.98 0.01 94.0)",
-            "hex": "#faf8f1",
-            "name": "Pure Crisp"
+            "role": "text_primary",
+            "oklch": "oklch(0.18 0.02 230)",
+            "hex": "#11171d",
+            "name": "Tinta Blueprint"
           },
           {
-            "role": "color-text-muted",
-            "oklch": "oklch(0.68 0.06 94.0)",
-            "hex": "#a4986e",
-            "name": "Cyan Tint Muted"
+            "role": "text_muted",
+            "oklch": "oklch(0.48 0.02 230)",
+            "hex": "#5a6672",
+            "name": "Acero Neutro"
           }
         ]
       },
       {
-        "id": "3_5_ecosistema_bio-sensual___calidez_org",
-        "title": "3.5 Ecosistema Bio-Sensual & Calidez Orgánica",
+        "id": "eco_alchemical_terra_dark",
+        "title": "Alchemical Terra & Raw Silk (Venus / Tauro Sideral) (Modo Oscuro)",
         "tokens": [
           {
-            "role": "color-primary",
-            "oklch": "oklch(0.68 0.12 74.0)",
-            "hex": "#c48c38",
-            "name": "Terracotta Velvet"
+            "role": "primary",
+            "oklch": "oklch(0.72 0.12 55)",
+            "hex": "#c97f4d",
+            "name": "Cobre Solar Alquímico"
           },
           {
-            "role": "color-accent",
-            "oklch": "oklch(0.84 0.12 62.3)",
-            "hex": "#ffb975",
-            "name": "Copper Ember"
+            "role": "secondary",
+            "oklch": "oklch(0.54 0.10 50)",
+            "hex": "#9c5d35",
+            "name": "Terracota Noble"
           },
           {
-            "role": "color-balance",
-            "oklch": "oklch(0.72 0.09 245.0)",
-            "hex": "#73abda",
-            "name": "Verdant Water"
+            "role": "accent",
+            "oklch": "oklch(0.88 0.07 60)",
+            "hex": "#f9be8f",
+            "name": "Ámbar Fundido Tauro"
           },
           {
-            "role": "color-background",
-            "oklch": "oklch(0.14 0.03 94.0)",
-            "hex": "#0d0900",
-            "name": "Dark Umber"
+            "role": "background",
+            "oklch": "oklch(0.14 0.02 45)",
+            "hex": "#140e0b",
+            "name": "Basalto Umber Profundo"
           },
           {
-            "role": "color-surface",
-            "oklch": "oklch(0.21 0.04 94.0)",
-            "hex": "#1e1802",
-            "name": "Earth Clay"
+            "role": "surface",
+            "oklch": "oklch(0.20 0.02 45)",
+            "hex": "#221813",
+            "name": "Arcilla Fósil"
           },
           {
-            "role": "color-text-primary",
-            "oklch": "oklch(0.95 0.02 245.0)",
-            "hex": "#e4f0fb",
-            "name": "Warm Sand"
+            "role": "text_primary",
+            "oklch": "oklch(0.97 0.01 50)",
+            "hex": "#faf4f0",
+            "name": "Seda Cruda Táctil"
           },
           {
-            "role": "color-text-muted",
-            "oklch": "oklch(0.72 0.04 94.0)",
-            "hex": "#ada589",
-            "name": "Ochre Muted"
+            "role": "text_muted",
+            "oklch": "oklch(0.69 0.02 50)",
+            "hex": "#a69a92",
+            "name": "Ceniza de Arcilla"
+          }
+        ]
+      },
+      {
+        "id": "eco_alchemical_terra_light",
+        "title": "Alchemical Terra & Raw Silk (Venus / Tauro Sideral) (Modo Claro)",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.52 0.12 55)",
+            "hex": "#8d4f26",
+            "name": "Cobre Pátina Cálido"
+          },
+          {
+            "role": "secondary",
+            "oklch": "oklch(0.40 0.08 50)",
+            "hex": "#63391d",
+            "name": "Tierra Arcillosa Sólida"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.65 0.12 55)",
+            "hex": "#b56937",
+            "name": "Terracota Solar"
+          },
+          {
+            "role": "background",
+            "oklch": "oklch(0.98 0.01 60)",
+            "hex": "#faf7f4",
+            "name": "Lino Natural Marfil"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.93 0.01 60)",
+            "hex": "#ece4dd",
+            "name": "Cerámica Cruda"
+          },
+          {
+            "role": "text_primary",
+            "oklch": "oklch(0.18 0.02 45)",
+            "hex": "#1c1410",
+            "name": "Umber Tostado"
+          },
+          {
+            "role": "text_muted",
+            "oklch": "oklch(0.48 0.02 50)",
+            "hex": "#695d56",
+            "name": "Piedra Cálida Neutra"
           }
         ]
       }
-    ]
+    ],
+    "fontManifest": {
+      "brand": "DAMAREN",
+      "selected_ecosystem_id": "eco-1",
+      "candidate_ecosystems": [
+        {
+          "id": "eco-1",
+          "name": "Sovereign Mineral & Imperial Gold (Chitra Vishwakarma)",
+          "archetype": "El Arquitecto Imperial (Nakshatra Chitra / Vishwakarma)",
+          "rationale": "Emparejamiento Gestalt de alta jerarquía: Kalieb Luxury aporta la autoridad escultórica con ligaduras clásicas en títulos y logomarca, equilibrada con la geometría neutra de Plus Jakarta Sans en el plano operativo y la severidad romana de Cinzel en coordenadas y lemas.",
+          "tokens": {
+            "display_primary": {
+              "$value": "Kalieb Luxury",
+              "$type": "fontFamily",
+              "$description": "Display Serif editorial con ligaduras de alta gama para cabeceras y logomarca",
+              "source": "local_upload",
+              "url": "/fonts/KaliebLuxury-Regular.otf",
+              "weights": [
+                "400",
+                "400i"
+              ]
+            },
+            "ui_secondary": {
+              "$value": "Plus Jakarta Sans",
+              "$type": "fontFamily",
+              "$description": "Sans geométrica contemporánea de alta legibilidad para UI y cuerpo de texto",
+              "source": "google_fonts",
+              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap",
+              "weights": [
+                "400",
+                "500",
+                "600",
+                "700"
+              ],
+              "variable_axes": "wght@200..800"
+            },
+            "accent_brand": {
+              "$value": "Cinzel",
+              "$type": "fontFamily",
+              "$description": "Roman lapidario inscriptional de proporciones clásicas para lemas, monogramas y coordenadas",
+              "source": "google_fonts",
+              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap",
+              "weights": [
+                "400",
+                "600",
+                "700"
+              ],
+              "variable_axes": "wght@400..900"
+            }
+          },
+          "layers": {
+            "logo": "Kalieb Luxury",
+            "slogan": "Cinzel",
+            "h1": "Kalieb Luxury",
+            "h2": "Cinzel",
+            "body": "Plus Jakarta Sans",
+            "ui": "Plus Jakarta Sans"
+          },
+          "cls_metric_overrides": {
+            "fallback_font": "Georgia",
+            "size_adjust": "102%",
+            "ascent_override": "96%",
+            "descent_override": "24%",
+            "line_gap_override": "0%"
+          },
+          "workbench_presets": {
+            "font_size_px": 72,
+            "letter_spacing_em": 0.04,
+            "line_height": 1.1,
+            "text_transform": "uppercase",
+            "font_weight": "400",
+            "font_style": "normal",
+            "text_align": "center",
+            "ligatures_enabled": true,
+            "translate_x": 0,
+            "translate_y": 0,
+            "rotation_deg": 0,
+            "mirror_enabled": false
+          }
+        },
+        {
+          "id": "eco-2",
+          "name": "Architectural Blueprint & Titanium (Mercurio / Géminis)",
+          "archetype": "El Diseñador de Sistemas (Sol Géminis Casa 10)",
+          "rationale": "Contraste dinámico entre la fluidez tipográfica y ligaduras complejas de Biancha con la precisión métrica semigeométrica suiza de Manrope y el ritmo editorial condensado de Monas.",
+          "tokens": {
+            "display_primary": {
+              "$value": "Biancha",
+              "$type": "fontFamily",
+              "$description": "Serif de autor con curvas orgánicas y ligaduras fluidas para display de lujo",
+              "source": "local_upload",
+              "url": "/fonts/Biancha.otf",
+              "weights": [
+                "400"
+              ]
+            },
+            "ui_secondary": {
+              "$value": "Manrope",
+              "$type": "fontFamily",
+              "$description": "Grotesca moderna precisa y funcional optimizada para interfaces densas",
+              "source": "google_fonts",
+              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap",
+              "weights": [
+                "400",
+                "500",
+                "600",
+                "700"
+              ],
+              "variable_axes": "wght@200..800"
+            },
+            "accent_brand": {
+              "$value": "Monas",
+              "$type": "fontFamily",
+              "$description": "Condensed modern serif para detalles arquitectónicos y señalética técnica",
+              "source": "local_upload",
+              "url": "/fonts/Monas.otf",
+              "weights": [
+                "400"
+              ]
+            }
+          },
+          "layers": {
+            "logo": "Biancha",
+            "slogan": "Monas",
+            "h1": "Biancha",
+            "h2": "Monas",
+            "body": "Manrope",
+            "ui": "Manrope"
+          },
+          "cls_metric_overrides": {
+            "fallback_font": "Times New Roman",
+            "size_adjust": "98%",
+            "ascent_override": "94%",
+            "descent_override": "22%",
+            "line_gap_override": "0%"
+          },
+          "workbench_presets": {
+            "font_size_px": 68,
+            "letter_spacing_em": 0.02,
+            "line_height": 1.15,
+            "text_transform": "none",
+            "font_weight": "400",
+            "font_style": "normal",
+            "text_align": "center",
+            "ligatures_enabled": true,
+            "translate_x": 0,
+            "translate_y": 0,
+            "rotation_deg": 0,
+            "mirror_enabled": false
+          }
+        },
+        {
+          "id": "eco-3",
+          "name": "Alchemical Terra & Raw Silk (Venus / Tauro Sideral)",
+          "archetype": "El Constructor de Valor Sólido (Sol Tauro Sideral)",
+          "rationale": "Solidez telúrica: Sagora Glamour proyecta peso y presencia monumental, respaldada por la elegancia neutra y geométrica de Urbanist y la planimetría analítica de Space Mono.",
+          "tokens": {
+            "display_primary": {
+              "$value": "Sagora Glamour",
+              "$type": "fontFamily",
+              "$description": "Display monumental de fuerte anclaje formal con ligaduras majestuosas",
+              "source": "local_upload",
+              "url": "/fonts/Sagora Glamour.otf",
+              "weights": [
+                "400"
+              ]
+            },
+            "ui_secondary": {
+              "$value": "Urbanist",
+              "$type": "fontFamily",
+              "$description": "Sans geométrica neo-grotesca de alta fidelidad para lectura prolongada",
+              "source": "google_fonts",
+              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap",
+              "weights": [
+                "400",
+                "500",
+                "600"
+              ],
+              "variable_axes": "wght@100..900"
+            },
+            "accent_brand": {
+              "$value": "Space Mono",
+              "$type": "fontFamily",
+              "$description": "Monoespaciado de planimetría y cálculo para coordenadas y datos estructurados",
+              "source": "google_fonts",
+              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap",
+              "weights": [
+                "400",
+                "700"
+              ]
+            }
+          },
+          "layers": {
+            "logo": "Sagora Glamour",
+            "slogan": "Space Mono",
+            "h1": "Sagora Glamour",
+            "h2": "Urbanist",
+            "body": "Urbanist",
+            "ui": "Urbanist"
+          },
+          "cls_metric_overrides": {
+            "fallback_font": "Georgia",
+            "size_adjust": "100%",
+            "ascent_override": "95%",
+            "descent_override": "23%",
+            "line_gap_override": "0%"
+          },
+          "workbench_presets": {
+            "font_size_px": 70,
+            "letter_spacing_em": 0.03,
+            "line_height": 1.1,
+            "text_transform": "uppercase",
+            "font_weight": "400",
+            "font_style": "normal",
+            "text_align": "center",
+            "ligatures_enabled": true,
+            "translate_x": 0,
+            "translate_y": 0,
+            "rotation_deg": 0,
+            "mirror_enabled": false
+          }
+        }
+      ],
+      "selected_ecosystem": {
+        "id": "eco-1",
+        "name": "Sovereign Mineral & Imperial Gold (Chitra Vishwakarma)",
+        "archetype": "El Arquitecto Imperial (Nakshatra Chitra / Vishwakarma)",
+        "rationale": "Emparejamiento Gestalt de alta jerarquía: Kalieb Luxury aporta la autoridad escultórica con ligaduras clásicas en títulos y logomarca, equilibrada con la geometría neutra de Plus Jakarta Sans en el plano operativo y la severidad romana de Cinzel en coordenadas y lemas.",
+        "tokens": {
+          "display_primary": {
+            "$value": "Kalieb Luxury",
+            "$type": "fontFamily",
+            "$description": "Display Serif editorial con ligaduras de alta gama para cabeceras y logomarca",
+            "source": "local_upload",
+            "url": "/fonts/KaliebLuxury-Regular.otf",
+            "weights": [
+              "400",
+              "400i"
+            ]
+          },
+          "ui_secondary": {
+            "$value": "Plus Jakarta Sans",
+            "$type": "fontFamily",
+            "$description": "Sans geométrica contemporánea de alta legibilidad para UI y cuerpo de texto",
+            "source": "google_fonts",
+            "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap",
+            "weights": [
+              "400",
+              "500",
+              "600",
+              "700"
+            ],
+            "variable_axes": "wght@200..800"
+          },
+          "accent_brand": {
+            "$value": "Cinzel",
+            "$type": "fontFamily",
+            "$description": "Roman lapidario inscriptional de proporciones clásicas para lemas, monogramas y coordenadas",
+            "source": "google_fonts",
+            "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap",
+            "weights": [
+              "400",
+              "600",
+              "700"
+            ],
+            "variable_axes": "wght@400..900"
+          }
+        },
+        "layers": {
+          "logo": "Kalieb Luxury",
+          "slogan": "Cinzel",
+          "h1": "Kalieb Luxury",
+          "h2": "Cinzel",
+          "body": "Plus Jakarta Sans",
+          "ui": "Plus Jakarta Sans"
+        },
+        "cls_metric_overrides": {
+          "fallback_font": "Georgia",
+          "size_adjust": "102%",
+          "ascent_override": "96%",
+          "descent_override": "24%",
+          "line_gap_override": "0%"
+        },
+        "workbench_presets": {
+          "font_size_px": 72,
+          "letter_spacing_em": 0.04,
+          "line_height": 1.1,
+          "text_transform": "uppercase",
+          "font_weight": "400",
+          "font_style": "normal",
+          "text_align": "center",
+          "ligatures_enabled": true,
+          "translate_x": 0,
+          "translate_y": 0,
+          "rotation_deg": 0,
+          "mirror_enabled": false
+        }
+      },
+      "inheritance": {
+        "logo": "Kalieb Luxury",
+        "slogan": "Cinzel",
+        "h1": "Kalieb Luxury",
+        "h2": "Cinzel",
+        "body": "Plus Jakarta Sans",
+        "ui": "Plus Jakarta Sans",
+        "ui_buttons": "Plus Jakarta Sans"
+      }
+    },
+    "brandbook": {
+      "$schema": "https://design-tokens.github.io/community-group/format/",
+      "metadata": {
+        "brand_name": "DAMAREN",
+        "version": "1.0.0",
+        "title": "Brandbook Superfull — DAMAREN",
+        "generator": "brandbook_pipeline_runner (fast-track)",
+        "generated_at": "2026-10-20T23:46:14.897087+00:00",
+        "astrological_signature": {
+          "western": {
+            "sun": "Gemini 19.01° House 10",
+            "midheaven": "Gemini (Ruler: Mercury)",
+            "house_2": "Libra",
+            "dominant_element": "Air"
+          },
+          "bazi": {
+            "day_master": "Jia (Wood Yang)",
+            "yong_shen": "Water"
+          },
+          "vedic": {
+            "nakshatra": "Chitra (Pada 4)",
+            "deity": "Vishwakarma (Arquitectura Divina, Artesanía Impecable, Diseño)",
+            "shadbala_dominant": "Sun (9.85 Rupas)"
+          },
+          "human_design": {
+            "type": "Dream Generator",
+            "strategy": "Wait for the Sacral Response & Inform",
+            "authority": "Sacral",
+            "profile": "3/5"
+          },
+          "numerology": {
+            "life_path": 1
+          }
+        }
+      },
+      "brand_architecture": {
+        "brand_essence": "Sovereign Precision & Living Architecture",
+        "purpose": "To bring Vishwakarma's divine craftsmanship into the marketplace, architecting brands that translate Juan's Gemini Sun intelligence and Chitra Nakshatra precision into lasting commercial sovereignty.",
+        "mission": "To build legacy-grade brand assets for high-ticket visionaries by weaving Midheaven communication, Yang Wood growth, and Water wisdom into every structure, ensuring clients command authority and premium pricing with rooted confidence.",
+        "vision": "To be the definitive brand architecture practice for sovereign founders worldwide, where cosmic intelligence meets strategic design, and where every brand becomes a living masterpiece of authority and resonance.",
+        "values": [
+          "Precision: We honor Vishwakarma's exacting standards, ensuring every brand element is measured and intentional.",
+          "Sovereignty: We architect from Sun in 10th and Life Path 1, empowering founders to own their throne without apology.",
+          "Integrity: Like Yang Wood, we grow straight and true, aligning every decision with the founder's core truth.",
+          "Resonance: We mirror Gemini/Mercury and Libra Moon, creating clear communication and harmonious aesthetics that deepen connection.",
+          "Evolution: As a 3/5 Generator, we experiment, adapt, and refine—turning each brand into a living system that matures with wisdom."
+        ],
+        "positioning_statement": "For high-ticket visionary founders who need to command premium pricing and community trust, DAMAREN is the precision brand architecture practice that integrates cosmic intelligence with meticulous design to build sovereign brand assets, unlike generic branding agencies that ignore the founder's unique blueprint, because every element is anchored in the founder's exact astrological, Human Design, and elemental coordinates—Chitra precision, Gemini communication, Yang Wood growth—ensuring unshakeable market authority.",
+        "brand_archetypes": [
+          {
+            "role": "Primary",
+            "name": "The Architect",
+            "description": "Embodied by Vishwakarma and Chitra Nakshatra, Juan is the divine architect who designs impeccable structures for brand sovereignty."
+          },
+          {
+            "role": "Secondary",
+            "name": "The Sovereign",
+            "description": "Fueled by Sun in 10th, Vedic Leo Ascendant, and Right Angle Cross of Rulership, DAMAREN commands the marketplace with quiet authority and regal strategy."
+          }
+        ]
+      },
+      "voice_tone_and_messaging": {
+        "primary_tone": "Precise, Authoritative, Luminous",
+        "voice_traits": [
+          "Architectural Precision: Every word is chosen like a load-bearing beam; no fluff, only structure.",
+          "Mercurial Clarity: Gemini Sun and Air dominance bring sharp, adaptable communication that distills complexity into elegant simplicity.",
+          "Sacral Integrity: As a Generator, communication must pass the sacral test—only truth and resonance are spoken.",
+          "Rooted Resilience: Yang Wood and Water yong shen ensure messages grow from deep roots and flow with wisdom, never brittle or reactive."
+        ],
+        "preferred_vocabulary": [
+          "Sovereignty",
+          "Blueprint",
+          "Precision",
+          "Resonance",
+          "Alchemy",
+          "Command"
+        ],
+        "forbidden_vocabulary": [
+          "Hustle",
+          "Grind",
+          "Synergy",
+          "Disrupt",
+          "Journey",
+          "Vibes"
+        ],
+        "conversational_protocols": "Communicate with Juan directly and concisely, respecting his Air-dominant Gemini mind; present options in structured formats and await his sacral response—never pressure for instant decisions. Honor his 3/5 profile by framing conversations as iterative experiments, asking for his experiential insights rather than imposing guru advice. Avoid hype, urgency, or vague motivational talk; instead, ground every claim in data, logic, and structural reasoning. Keep water balance by offering reflective pauses and acknowledging his depth, but never drown him in abstract theorizing. Mirror his precision: use clear action items, precise language, and follow up with written summaries. Do not tire him with repetitive queries; assume competence and provide only needed context."
+      },
+      "target_audience": {
+        "ideal_customer_profile": "High-ticket visionary founders—authors, consultants, coaches, practitioners, and conscious entrepreneurs—who possess deep expertise but struggle to translate it into premium authority. They are spiritually inclined (House 7 Pisces), bold investors in transformation (House 8 Aries), and community-centered leaders (House 11 Cancer), seeking brand architectures that reflect their soul's purpose and command top-tier fees.",
+        "core_pain_points": [
+          "Invisible or commoditized expertise: Their profound value is diluted by generic messaging, preventing them from charging what they're worth.",
+          "Disconnected brand assets: Their visuals, voice, and offers are misaligned, causing distrust and preventing premium positioning.",
+          "Overwhelm from generic advice: They're tired of one-size-fits-all branding that ignores their unique constitution, leaving them stuck in hustle mode."
+        ],
+        "aspirations": [
+          "To be recognized as the undisputed authority in their niche and confidently charge high-ticket prices without apology.",
+          "To build a legacy brand that scales through loyal community and elegant structures while preserving personal freedom.",
+          "To align their business with their cosmic blueprint and timing, achieving sovereign wealth and impact without burnout."
+        ],
+        "conversion_triggers": [
+          "Precision and personalization: They buy when they see their unique astrological and Human Design blueprint reflected in every brand element.",
+          "Demonstrated authority: Case studies and testimonials showing tangible high-ticket conversions and premium positioning.",
+          "Sovereign invitation: A clear, resonant call that aligns with their sacral yes and promises to remove guesswork, replacing it with unshakeable structure."
+        ]
+      },
+      "brand_narrative": "From the moment the Sun entered Gemini at 19.01° and took its seat in the 10th house, Juan was destined to speak sovereign truth into the world. Born under Chitra Nakshatra—Vishwakarma's domain—he carries the divine architect's blueprint in his bones. His Yang Wood Day Master drives an unstoppable upward growth, while the precision of Virgo Ascendant and the charisma of Vedic Leo Ascendant converge to form a rare alchemy: a creator who builds not just brands, but living architectures of authority. DAMAREN is the embodiment of this cosmic mandate—a practice where every logo, every message, every offer is a load-bearing wall in a temple of commercial sovereignty.\n\nAt the heart of DAMAREN lies the discipline of the Generator: wait, respond, inform. This sacral integrity ensures that every brand Juan touches is not imposed but revealed—aligned with the founder's true frequency. The Gemini Sun gifts fluid communication; the Libra Moon harmonizes aesthetics; the Water yong shen nourishes the roots of Yang Wood, preventing burnout and infusing wisdom. Through this elemental balance, DAMAREN transforms vague expertise into precise, market-ready authority. Juan's 3/5 profile means he has failed, iterated, and risen—he knows the terrain of experimentation and leads clients through their own evolution with grounded mastery.\n\nFor the high-ticket visionary founder—one who sees the world through Pisces empathy, invests through Aries boldness, and builds through Cancer community—DAMAREN offers more than branding. It offers a return to sovereignty. The master numbers 11 and 22 in DAMAREN's numerology mark it as a channel for intuitive vision and physical manifestation; the Right Angle Cross of Rulership ensures that those who align with this work step onto their own throne. Each brand is architected to command premium pricing, attract loyal communities, and leave a legacy that outlives trends.\n\nThis is the promise: no more invisible expertise, no more disconnected assets, no more hustle. DAMAREN builds from the blueprint of the stars, the elements, and the body's intelligence—creating brands that are precise, resonant, and unshakeable. As Juan continues to embody the divine architect, his clients become sovereign rulers in their domains. The world is waiting for their architecture. The blueprint is ready. Step into command.",
+      "ethical_pillars_and_anti_bias": {
+        "pillars": [
+          {
+            "name": "Sovereign Consent",
+            "commitment": "All diagnostic and astrological data is treated with informed consent and ethical boundaries."
+          },
+          {
+            "name": "Anti-Deterministic Rigor",
+            "commitment": "Astrological insights provide archetypal maps, never fatalistic claims or disempowering limits."
+          },
+          {
+            "name": "Radical Accessibility",
+            "commitment": "Digital interfaces meet WCAG AAA / APCA contrast standards across all viewports."
+          },
+          {
+            "name": "Anti-Slop Craft",
+            "commitment": "Zero generic templates; every asset is mathematically derived from the client's signature."
+          }
+        ]
+      },
+      "design_system": {
+        "color": {
+          "brand": {
+            "primary": {
+              "$type": "color",
+              "$value": "oklch(0.76 0.14 82)",
+              "$description": "Primary brand essence color - Oro Imperial Chitra (Vishwakarma)",
+              "$extensions": {
+                "hex": "#d4af37",
+                "name": "Oro Imperial Chitra"
+              }
+            },
+            "secondary": {
+              "$type": "color",
+              "$value": "oklch(0.60 0.10 82)",
+              "$description": "Secondary architectural bronze color",
+              "$extensions": {
+                "hex": "#a3823f",
+                "name": "Bronce Arquitectónico"
+              }
+            },
+            "accent": {
+              "$type": "color",
+              "$value": "oklch(0.93 0.06 85)",
+              "$description": "High-conversion accent color - Diamante Solar",
+              "$extensions": {
+                "hex": "#fae9ad",
+                "name": "Diamante Chitra Solar"
+              }
+            },
+            "balance": {
+              "$type": "color",
+              "$value": "oklch(0.78 0.11 225)",
+              "$description": "Balancing Mercurial Water color",
+              "$extensions": {
+                "hex": "#5ec5e6",
+                "name": "Cian Mineral Mercurial"
+              }
+            }
+          },
+          "neutral": {
+            "bg": {
+              "$type": "color",
+              "$value": "oklch(0.14 0.02 260)",
+              "$description": "Canvas dark background - Obsidiana Mineral",
+              "$extensions": {
+                "hex": "#0a0d14"
+              }
+            },
+            "surface": {
+              "$type": "color",
+              "$value": "oklch(0.20 0.02 260)",
+              "$description": "Card surface canvas - Basalto Estructural",
+              "$extensions": {
+                "hex": "#151924"
+              }
+            },
+            "text": {
+              "$type": "color",
+              "$value": "oklch(0.97 0.01 90)",
+              "$description": "Primary crisp text - Seda Alabastro",
+              "$extensions": {
+                "hex": "#f8f7f2"
+              }
+            },
+            "muted": {
+              "$type": "color",
+              "$value": "oklch(0.70 0.02 250)",
+              "$description": "Secondary muted text - Titanio Satinado",
+              "$extensions": {
+                "hex": "#9aa0ac"
+              }
+            }
+          }
+        },
+        "typography": {
+          "fontFamily": {
+            "display": {
+              "$type": "fontFamily",
+              "$value": [
+                "Kalieb Luxury",
+                "Georgia",
+                "serif"
+              ],
+              "$description": "Display Serif editorial con ligaduras de alta gama"
+            },
+            "body": {
+              "$type": "fontFamily",
+              "$value": [
+                "Plus Jakarta Sans",
+                "system-ui",
+                "-apple-system",
+                "sans-serif"
+              ],
+              "$description": "Sans geométrica contemporánea de alta legibilidad para UI y cuerpo"
+            },
+            "accent": {
+              "$type": "fontFamily",
+              "$value": [
+                "Cinzel",
+                "Georgia",
+                "serif"
+              ],
+              "$description": "Roman lapidario inscriptional de proporciones clásicas para lemas y monogramas"
+            },
+            "mono": {
+              "$type": "fontFamily",
+              "$value": [
+                "Space Mono",
+                "monospace"
+              ],
+              "$description": "Mathematical coordinate and architectural token font"
+            }
+          },
+          "ecosystems": [
+            {
+              "id": "eco-1",
+              "name": "Quiet Luxury Air Authority",
+              "archetype": "Proyección Pública MC Gemini & Sol Gemini",
+              "rationale": "Contraste editorial de alta gama entre la sofisticación de Brigata en titulares y el confort de lectura inmersiva de Manrope. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en George  Geometric.",
+              "tokens": {
+                "display_primary": {
+                  "$value": "Brigata",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Live verified Envato item: Brigata - Modern Luxury Branding Font, Serif ft. luxury & elegant - Envato (HTTP 200 OK).",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/brigata-modern-luxury-branding-font-V7MFWPN",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-modern+luxury+high",
+                  "weights": [
+                    "400",
+                    "600",
+                    "700"
+                  ]
+                },
+                "ui_secondary": {
+                  "$value": "Manrope",
+                  "$type": "fontFamily",
+                  "$description": "Google Fonts v2 Variable — Workhorse tipográfico",
+                  "source": "google_fonts",
+                  "url": "https://fonts.google.com/specimen/Manrope",
+                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap",
+                  "variable_axes": "wght@200..800",
+                  "weights": [
+                    "200",
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700",
+                    "800"
+                  ]
+                },
+                "accent_brand": {
+                  "$value": "George  Geometric",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Live verified Envato item: George Sans Geometric Typeface, Sans-Serif ft. font & grotesk - Envato (HTTP 200 OK).",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/george-sans-geometric-typeface-QVNZN8",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-modern+geometric+monogram",
+                  "weights": [
+                    "700",
+                    "800"
+                  ]
+                }
+              },
+              "layers": {
+                "logo": "George  Geometric (Weight 900)",
+                "slogan": "Brigata (Weight 400, Tracking +0.15em, Uppercase)",
+                "h1": "Brigata (Weight 600, Ratio 1.250)",
+                "h2": "Brigata (Weight 500, Scale 1.250x down)",
+                "body": "Manrope (Variable Regular 400, Line-height 1.55)",
+                "ui": "Manrope (Variable Medium 600, Tracking -0.01em)"
+              },
+              "cls_metric_overrides": {
+                "fallback_font": "Arial",
+                "size_adjust": "100.0%",
+                "ascent_override": "95.0%",
+                "descent_override": "24.0%",
+                "line_gap_override": "0%"
+              },
+              "workbench_presets": {
+                "font_size_px": 64,
+                "letter_spacing_em": 0.04,
+                "line_height": 1.15,
+                "text_transform": "none",
+                "font_weight": "600",
+                "font_style": "normal",
+                "text_align": "left",
+                "ligatures_enabled": true,
+                "translate_x": 0,
+                "translate_y": 0,
+                "rotation_deg": 0,
+                "mirror_enabled": false
+              }
+            },
+            {
+              "id": "eco-2",
+              "name": "High Performance Wood Precision",
+              "archetype": "Rigor Técnico BaZi Jia & Dinámica Yang",
+              "rationale": "Arquitectura contemporánea con la fuerza estructural de Just ® Clean Modern Minimal Geometric. Emparejada con Urbanist para alta velocidad de lectura en interfaces interactivas y tracking regulado (-0.01em).",
+              "tokens": {
+                "display_primary": {
+                  "$value": "Just ® Clean Modern Minimal Geometric",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Live verified Envato item: JUST Sans® Clean Modern Minimal Geometric Typeface, Sans-Serif ft. simple & minimal - Envato (HTTP 200 OK).",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/just-sans-clean-modern-minimal-geometric-typeface-ZW4QBZ9",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-clean+modern+geometric",
+                  "weights": [
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700"
+                  ]
+                },
+                "ui_secondary": {
+                  "$value": "Urbanist",
+                  "$type": "fontFamily",
+                  "$description": "Google Fonts v2 Variable — Ultra rendimiento de UI",
+                  "source": "google_fonts",
+                  "url": "https://fonts.google.com/specimen/Urbanist",
+                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap",
+                  "variable_axes": "ital,wght@0..1,100..900",
+                  "weights": [
+                    "100",
+                    "200",
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700",
+                    "800",
+                    "900"
+                  ]
+                },
+                "accent_brand": {
+                  "$value": "Tormek",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Live verified Envato item: Tormek - Industrial Geometric Urban Font, Decorative, Sans-Serif ft. automotive & decorative - Envato (HTTP 200 OK).",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/tormek-industrial-geometric-urban-font-699XJEM",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-architectural+geometric+display",
+                  "weights": [
+                    "700",
+                    "800"
+                  ]
+                }
+              },
+              "layers": {
+                "logo": "Tormek (Weight 800)",
+                "slogan": "Just ® Clean Modern Minimal Geometric (Weight 500, Tracking +0.20em, Uppercase)",
+                "h1": "Just ® Clean Modern Minimal Geometric (Weight 700, Ratio 1.250)",
+                "h2": "Just ® Clean Modern Minimal Geometric (Weight 600, Ratio 1.250)",
+                "body": "Urbanist (Variable Regular 400, Line-height 1.50)",
+                "ui": "Urbanist (Variable Bold 700, Tracking -0.02em)"
+              },
+              "cls_metric_overrides": {
+                "fallback_font": "Arial",
+                "size_adjust": "99.5%",
+                "ascent_override": "93.0%",
+                "descent_override": "22.0%",
+                "line_gap_override": "0%"
+              },
+              "workbench_presets": {
+                "font_size_px": 56,
+                "letter_spacing_em": -0.01,
+                "line_height": 1.1,
+                "text_transform": "uppercase",
+                "font_weight": "700",
+                "font_style": "normal",
+                "text_align": "left",
+                "ligatures_enabled": false,
+                "translate_x": 0,
+                "translate_y": 0,
+                "rotation_deg": 0,
+                "mirror_enabled": false
+              }
+            },
+            {
+              "id": "eco-3",
+              "name": "Alchemical Chitra Vanguard",
+              "archetype": "Esencia Védica Chitra (dlig 1, calt 1)",
+              "rationale": "Tensión estética rica y orgánica entre el dramatismo de Luxury Rigane y la calidez tipográfica de Fraunces. Acento caligráfico de alto impacto con Runethia.",
+              "tokens": {
+                "display_primary": {
+                  "$value": "Luxury Rigane",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Live verified Envato item: Luxury Rigane – Modern Elegant Sans Serif Font, Sans-Serif ft. luxury & brand - Envato (HTTP 200 OK).",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/luxury-rigane-modern-elegant-sans-serif-font-S7YXMM6",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-modern+luxury+organic",
+                  "weights": [
+                    "400",
+                    "600",
+                    "700"
+                  ]
+                },
+                "ui_secondary": {
+                  "$value": "Fraunces",
+                  "$type": "fontFamily",
+                  "$description": "Google Fonts v2 Variable — Calidez tipográfica orgánica",
+                  "source": "google_fonts",
+                  "url": "https://fonts.google.com/specimen/Fraunces",
+                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap",
+                  "variable_axes": "ital,opsz,wght,SOFT,WONK@0..1,9..144,100..900,0..100,0..1",
+                  "weights": [
+                    "100",
+                    "200",
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700",
+                    "800",
+                    "900"
+                  ]
+                },
+                "accent_brand": {
+                  "$value": "Runethia",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Live verified Envato item: Runethia - Calligraphy Font, Script and Handwritten ft. elegant & font - Envato (HTTP 200 OK).",
+                  "source": "envato",
+                  "url": "https://elements.envato.com/runethia-calligraphy-font-SCX64YS",
+                  "search_url": "https://elements.envato.com/all-items/fonts/tagged-luxury+romantic+calligraphy",
+                  "weights": [
+                    "700",
+                    "900"
+                  ]
+                }
+              },
+              "layers": {
+                "logo": "Runethia (Weight 900)",
+                "slogan": "Luxury Rigane (Weight 400, Italic, Tracking +0.10em)",
+                "h1": "Luxury Rigane (Weight 600, Ratio 1.250)",
+                "h2": "Luxury Rigane (Weight 400, Italic)",
+                "body": "Fraunces (Variable Regular 400, Line-height 1.60)",
+                "ui": "Fraunces (Variable SemiBold 600, Tracking 0.00em)"
+              },
+              "cls_metric_overrides": {
+                "fallback_font": "Times New Roman",
+                "size_adjust": "101.5%",
+                "ascent_override": "98.0%",
+                "descent_override": "27.0%",
+                "line_gap_override": "0%"
+              },
+              "workbench_presets": {
+                "font_size_px": 68,
+                "letter_spacing_em": 0.02,
+                "line_height": 1.2,
+                "text_transform": "none",
+                "font_weight": "500",
+                "font_style": "italic",
+                "text_align": "left",
+                "ligatures_enabled": true,
+                "translate_x": 0,
+                "translate_y": 0,
+                "rotation_deg": 0,
+                "mirror_enabled": false
+              }
+            }
+          ],
+          "cls_metric_overrides": {
+            "fallback_font": "Arial",
+            "size_adjust": "100.0%",
+            "ascent_override": "95.0%",
+            "descent_override": "24.0%",
+            "line_gap_override": "0%"
+          },
+          "fontSize": {
+            "display": {
+              "$type": "dimension",
+              "$value": "clamp(2.5rem, 5vw + 1rem, 4.5rem)"
+            },
+            "h1": {
+              "$type": "dimension",
+              "$value": "clamp(2rem, 4vw + 1rem, 3.5rem)"
+            },
+            "h2": {
+              "$type": "dimension",
+              "$value": "clamp(1.5rem, 3vw + 0.5rem, 2.5rem)"
+            },
+            "body": {
+              "$type": "dimension",
+              "$value": "1rem"
+            },
+            "small": {
+              "$type": "dimension",
+              "$value": "0.875rem"
+            }
+          }
+        },
+        "motion": {
+          "transitionDuration": {
+            "default": {
+              "$type": "duration",
+              "$value": "0.75s"
+            },
+            "fast": {
+              "$type": "duration",
+              "$value": "0.25s"
+            }
+          },
+          "transitionTimingFunction": {
+            "swift": {
+              "$type": "cubicBezier",
+              "$value": [
+                0.16,
+                1,
+                0.3,
+                1
+              ]
+            },
+            "smooth": {
+              "$type": "cubicBezier",
+              "$value": [
+                0.4,
+                0,
+                0.2,
+                1
+              ]
+            }
+          }
+        }
+      },
+      "llm_system_prompt_engine": {
+        "role": "Sovereign Brand Ambassador for DAMAREN",
+        "core_identity": "Sovereign Precision & Living Architecture",
+        "communication_style": "Precise, Authoritative, Luminous",
+        "guardrails": [
+          "Never hallucinate services or products outside verified brand assets.",
+          "Dynamic Business Data Invariant: Catalog, live prices, events, schedule availability, and payment URLs must be queried in real time via database/API tools (PostgreSQL 18 / Present Continuous); never hardcode or assume business data from this prompt.",
+          "Respect the brand's tone and forbidden vocabulary at all times.",
+          "Prioritize genuine connection and value before conversion."
+        ]
+      }
+    }
   },
   "ELPLACERDC": {
     "id": "elplacerdc",
@@ -699,7 +2280,424 @@
           }
         ]
       }
-    ]
+    ],
+    "brandbook": {
+      "$schema": "https://design-tokens.github.io/community-group/format/",
+      "metadata": {
+        "title": "Brandbook & Estrategia Integral El Placer de Compartir / The Corset Society",
+        "version": "2.0.0",
+        "author": "Antigravity Senior Architect & Segi Creative Direction",
+        "created_at": "2026-10-01T00:15:00Z",
+        "status": "approved",
+        "scope": "Umbrella Brand, Luxury Secret Society Sub-brand, Content Marketing & Web Strategy"
+      },
+      "brand_architecture": {
+        "umbrella_brand": {
+          "name": "El Placer de Compartir",
+          "short_name": "ElPlacerDC",
+          "social_handles": {
+            "x": "@ElPlacerDC",
+            "tiktok": "@elplacerdc",
+            "whatsapp": "+57 319 419 4785"
+          },
+          "tagline": "Comunidad de Sexualidad, Erotismo y Conexión para Adultos de Mente Abierta",
+          "essence": "Espacio seguro de libertad, exploración consensuada y bienestar relacional en Bogotá y Colombia.",
+          "mission": "Ofrecer un entorno seguro, higiénico, respetuoso y libre de juicios donde comunidades no monógamas, swingers, nudistas, BDSM ético, poliamorosas y LGBTIQ+ puedan explorar su sensualidad con autenticidad y alegría.",
+          "vision": "Dignificar el entretenimiento adulto de mente abierta en América Latina, erradicando el morbo comercial chatarra y sustituyéndolo por cultura del consentimiento, estética cuidada y comunidad genuina."
+        },
+        "leadership_and_ambassador": {
+          "name": "Segi",
+          "social_handles": {
+            "x": "@SegiSw"
+          },
+          "role": "Directora General, Curadora de Experiencias y Anfitriona de la Comunidad",
+          "brand_archetype": "La Amante Sensible & La Guardiana del Confort Femenino",
+          "voice_manifesto": "En el camino de la seducción, lo interesante está en lo que se siente con los ojos cerrados y los oídos despiertos.",
+          "key_focus": "Garantizar la centralidad del confort femenino, la escucha activa, la seguridad emocional y el placer libre de acoso o presiones."
+        },
+        "sub_brands": {
+          "the_corset_society": {
+            "name": "The Corset Society",
+            "segment": "Línea Luxury / Secret Society (+21)",
+            "handle_x": "@corsetsociety",
+            "official_url_x": "https://x.com/corsetsociety",
+            "tagline": "Una noche. Un código. Una sociedad.",
+            "motto": "El acceso se concede, no se anuncia.",
+            "concept": "Sociedad privada de etiqueta rigurosa inspirada en la sastrería clásica, el fetichismo elegante y las veladas de máscaras europeas. Aforo ultra reservado por postulación y entrevista previa.",
+            "hero_events": [
+              "Kiss Lounge (Edición Amor y Amistad)",
+              "Luna Llena de Halloween en la Penumbra",
+              "Black & Gold Ball",
+              "Veladas de Corset & Sastrería",
+              "Jornada Solidaria de Donaciones"
+            ]
+          },
+          "el_placer_comunidad": {
+            "name": "El Placer Comunidad & Escapes",
+            "segment": "Social, Cultural, Wellness & Naturaleza",
+            "tagline": "El placer de encontrarnos tal como somos.",
+            "concept": "Encuentros relajados, pedagógicos y festivos para estrechar lazos comunitarios sin la presión de la genitalidad inmediata.",
+            "hero_events": [
+              "Plan Cine & Debate Erótico",
+              "Noches de Luna Llena",
+              "Paseos de Finca & Piscina Nudista",
+              "Tarde de Spa, Sauna & Jacuzzi"
+            ]
+          }
+        }
+      },
+      "ethical_pillars_and_anti_bias": {
+        "the_commercial_swinger_trap": "El modelo de los clubes comerciales tradicionales basa su rentabilidad en abarrotar espacios, cobrar covers indiscriminados y permitir dinámicas depredadoras donde el hombre solo acosa y la mujer o la pareja se sienten cosificadas. Además, segregan con desdén o morbo sucio al BDSM, al nudismo y a las identidades no binarias/trans.",
+        "elplacerdc_antidote": {
+          "essential_consent": "La regla de oro: Solo un 'SÍ' explícito, lúcido y entusiasta es un sí. Un 'no' nunca requiere explicaciones ni justificaciones.",
+          "woman_first_comfort": "Si las mujeres (y las personas vulnerables) no se sienten enteramente protegidas y en control absoluto de su interacción, la velada ha fallado.",
+          "zero_pressure_genitality": "La sensualidad no es un contrato de intercambio sexual. Conversar, bailar, tomar una copa, contemplar o disfrutar de la piscina nudista sin interactuar genitalmente es 100% válido y respetado.",
+          "multidimensional_open_mind": "Integración armónica de Swinger Lifestyle, Nudismo Social (desnudez desexualizada y libre), BDSM ético bajo principios SSC (Sano, Seguro, Consensuado) o RACK (Riesgo Aceptado y Consensuado), Poliamor y Diversidad LGBTIQ+ sin fetichización."
+        }
+      },
+      "design_system": {
+        "color": {
+          "the_corset_society": {
+            "noir_abyssal": {
+              "$type": "color",
+              "$value": "#050505",
+              "$description": "Negro profundo de alta costura, fondo principal nocturno."
+            },
+            "gold_imperial": {
+              "$type": "color",
+              "$value": "#C5A059",
+              "$description": "Oro cepillado y acentos metálicos de distinción."
+            },
+            "gold_champagne": {
+              "$type": "color",
+              "$value": "#EAD397",
+              "$description": "Dorado tenue para tipografía sobre negro y cajas de destaque."
+            },
+            "gold_antique": {
+              "$type": "color",
+              "$value": "#8A6D3B",
+              "$description": "Bronce y oro viejo para bordes sutiles y subtextos."
+            },
+            "velvet_burgundy": {
+              "$type": "color",
+              "$value": "#4A0E17",
+              "$description": "Burdeos terciopelo, pasión refinada y misterio."
+            },
+            "wine_cabernet": {
+              "$type": "color",
+              "$value": "#721C24",
+              "$description": "Rojo vino intenso para alertas sobrias y separadores de honor."
+            }
+          },
+          "el_placer_dc_umbrella": {
+            "canvas_salon": {
+              "$type": "color",
+              "$value": "#180A1A",
+              "$description": "Lienzo oscuro cálido y sensual estilo salón nocturno de cóctel."
+            },
+            "canvas_card": {
+              "$type": "color",
+              "$value": "#250F22",
+              "$description": "Fondo de tarjetas y paneles en terciopelo vino oscuro."
+            },
+            "canvas_blush": {
+              "$type": "color",
+              "$value": "#F7D6CB",
+              "$description": "Lienzo cálido rosé y champán extraído del medallón del logo y flyer del Centro Cultural."
+            },
+            "canvas_light": {
+              "$type": "color",
+              "$value": "#FDF8F5",
+              "$description": "Blanco perla cálido y luminoso para fondos respirables de alta gama."
+            },
+            "velvet_wine": {
+              "$type": "color",
+              "$value": "#591F26",
+              "$description": "Vino tinto terciopelo para títulos principales, contraste noble y acentos."
+            },
+            "wine_deep": {
+              "$type": "color",
+              "$value": "#380913",
+              "$description": "Borgoña oscuro profundo para textos de máxima legibilidad sobre fondo claro."
+            },
+            "gold_champagne": {
+              "$type": "color",
+              "$value": "#C5A059",
+              "$description": "Oro champán y acentos metálicos luminosos."
+            },
+            "midnight_plum": {
+              "$type": "color",
+              "$value": "#180A22",
+              "$description": "Púrpura noche cálido, representativo de la sensualidad comunitaria."
+            },
+            "terracotta_sensual": {
+              "$type": "color",
+              "$value": "#B84A39",
+              "$description": "Terracota cálido y piel viva, alejado de lo estridente."
+            },
+            "amethyst_glow": {
+              "$type": "color",
+              "$value": "#682D7E",
+              "$description": "Amatista vibrante para eventos lunares y místicos."
+            },
+            "ivory_silk": {
+              "$type": "color",
+              "$value": "#F7F4EE",
+              "$description": "Blanco marfil cálido para textos de máxima legibilidad."
+            },
+            "allied_event_canvas": {
+              "$type": "color",
+              "$value": "#1E0C24",
+              "$description": "Lienzo oscuro sobrio y elegante para eventos aliados, sin estridencias."
+            },
+            "allied_event_accent": {
+              "$type": "color",
+              "$value": "#8E4A8C",
+              "$description": "Púrpura suave y distinguido para distintivos de aliados, preservando alto contraste."
+            },
+            "background_invariant_rule": {
+              "$type": "rule",
+              "$value": "from-[#180A1A] via-[#240D20] to-[#1C0A1B]",
+              "$description": "INVARIANTE ABSOLUTO: ElPlacerDC y Centro Cultural deben usar siempre el degradado terciopelo vino cálido. El negro profundo (#050505 / #0A050A) queda estrictamente restringido a The Corset Society."
+            },
+            "smoke_charcoal": {
+              "$type": "color",
+              "$value": "#1A1A1A",
+              "$description": "Gris carbón para tarjetas y bloques neutros."
+            }
+          },
+          "semantic_consent": {
+            "green_safe": {
+              "$type": "color",
+              "$value": "#2E7D32",
+              "$description": "Verde esmeralda para consentimiento confirmado y bienvenida."
+            },
+            "amber_caution": {
+              "$type": "color",
+              "$value": "#E65100",
+              "$description": "Ámbar para zonas de transición y consulta previa."
+            },
+            "red_boundary": {
+              "$type": "color",
+              "$value": "#B71C1C",
+              "$description": "Rojo carmesí para límites no negociables y espacios restringidos."
+            }
+          }
+        },
+        "typography": {
+          "the_corset_society": {
+            "display": {
+              "$type": "fontFamily",
+              "$value": "'Cinzel', 'Playfair Display', serif",
+              "$description": "Títulos solemnes, mayúsculas con tracking generoso."
+            },
+            "body": {
+              "$type": "fontFamily",
+              "$value": "'Plus Jakarta Sans', 'Lato', sans-serif",
+              "$description": "Cuerpo de texto legible, limpio y moderno."
+            },
+            "accent_signature": {
+              "$type": "fontFamily",
+              "$value": "'Pinyon Script', cursive",
+              "$description": "Firmas personales de Segi, citas y sellos de reserva."
+            }
+          },
+          "el_placer_dc_umbrella": {
+            "display": {
+              "$type": "fontFamily",
+              "$value": "'Cinzel', 'Playfair Display', serif",
+              "$description": "Tipografía con carácter noble, clásico y esculpido idéntica al logotipo oficial y al flyer del Centro Cultural."
+            },
+            "body": {
+              "$type": "fontFamily",
+              "$value": "'Inter', 'system-ui', sans-serif",
+              "$description": "Alta claridad para comunicación de eventos y reglas."
+            },
+            "quotes": {
+              "$type": "fontFamily",
+              "$value": "'Cormorant Garamond', serif",
+              "$description": "Reflexiones sobre sexualidad y citas poéticas de comunidad."
+            }
+          }
+        },
+        "visual_codes_and_assets": {
+          "brand_assets": {
+            "umbrella_logo_official": "media/logo_elplacerdc_x.jpg",
+            "the_corset_society_crest_official": "media/logo_corsetsociety_transparent.png",
+            "segi_avatar_official": "media/avatar_segisw_x.jpg",
+            "corset_hero_photography": "media/society_hero_opt.jpg"
+          },
+          "iconography": [
+            "Unicornio (símbolo heráldico y libertario de la mujer sola)",
+            "Corset con lazo de oro (símbolo de The Corset Society)",
+            "Llave antigua de bronce (acceso a las veladas privadas)",
+            "Fases lunares (eventos de Luna Llena)",
+            "Copa de cristal tallado (coctelería de autor)",
+            "Antifaz veneciano de encaje (discreción y juego de roles)",
+            "Pincel / Pluma de ave (arte sensorial y tacto)",
+            "Llama de fogata (encuentros en fincas)"
+          ],
+          "photography_rules": {
+            "lighting": "Claroscuro cinematográfico (Low-key lighting), sombras suaves, tonos ambarinos.",
+            "models": "Cuerpos reales, diversas edades y siluetas, poses empoderadas, nunca miradas cosificadas ni ángulos ginecológicos vulgares.",
+            "identity_protection": "Tomas de siluetas, espaldas, desenfoques artísticos, labios, manos entrelazadas o antifaces para salvaguardar la absoluta privacidad de los miembros."
+          }
+        }
+      },
+      "voice_tone_and_messaging": {
+        "triad_of_voices": {
+          "umbrella_voice": {
+            "name": "La Voz Comunitaria (El Placer de Compartir)",
+            "tone": [
+              "Cálido",
+              "Empático",
+              "Pedagógico",
+              "Desprejuiciado",
+              "Inclusivo",
+              "Celebratorio"
+            ],
+            "purpose": "Hacer que cualquier persona de mente abierta se sienta bienvenida, segura y validada en su deseo.",
+            "sample": "Aquí no venimos a cumplir expectativas ajenas ni a seguir guiones predecibles. Creamos un espacio donde tu curiosidad es bienvenida, tu ritmo es respetado y soberano, y tu libertad se celebra en tribu."
+          },
+          "director_voice": {
+            "name": "La Voz de Segi (Anfitriona & Embajadora)",
+            "tone": [
+              "Sensual",
+              "Cercana",
+              "Inteligente",
+              "Seductora",
+              "Protectora",
+              "Cómplice"
+            ],
+            "purpose": "Conectar de humano a humano, poner rostro y cuidado a la organización, e inspirar confianza a mujeres y parejas primerizas.",
+            "sample": "A veces me preguntan cuál es el secreto de una noche inolvidable. Y siempre respondo lo mismo: no es lo que ves, sino lo que despierta en tu piel cuando sabés que nadie te va a juzgar y que el control siempre es tuyo."
+          },
+          "luxury_voice": {
+            "name": "La Voz de Sociedad Secreta (The Corset Society)",
+            "tone": [
+              "Enigmático",
+              "Aristocrático",
+              "Ceremonioso",
+              "Formal",
+              "Selecto",
+              "Sugerente"
+            ],
+            "purpose": "Generar deseo de pertenencia, exclusividad radical y filtrar por respeto y elegancia.",
+            "sample": "El acceso a nuestras veladas no se compra como quien entra a un salón cualquiera; se concede a quienes comprenden que el misterio y el respeto mutuo son la máxima forma de sofisticación."
+          }
+        },
+        "communication_dictionary": {
+          "prohibited_words_commercial_bias": [
+            {
+              "word": "Clientes",
+              "why": "Despersonaliza y degrada la experiencia a una transacción comercial.",
+              "replacement": "Miembros, Invitados o Asistentes"
+            },
+            {
+              "word": "Fiesta loca / Descontrol / Sin frenos",
+              "why": "Atrae depredadores y genera pánico a los novatos.",
+              "replacement": "Velada íntima, Experiencia sensorial o Encuentro temático"
+            },
+            {
+              "word": "Puteo / Burdel / Cabina",
+              "why": "Confunde el erotismo consentido con la explotación o el comercio sexual.",
+              "replacement": "Espacio de libre exploración, Entorno reservado o Zonas de interacción íntima"
+            },
+            {
+              "word": "Promoción 2x1 / Liquidación",
+              "why": "Abarata la marca y atrae público cazador de ofertas sin filtro.",
+              "replacement": "Membresía combinada o Acceso exclusivo de temporada"
+            },
+            {
+              "word": "Caza de parejas / Chicas gratis",
+              "why": "Cosifica a la mujer utilizándola como carnada de hombres solos.",
+              "replacement": "Espacio equitativo, Comunidad segura o Convocatoria equilibrada"
+            },
+            {
+              "word": "Sagrado / Sagrada / Sacrosanto",
+              "why": "Inyecta sesgo religioso dogmático incompatible con el erotismo libre, laico y consentido.",
+              "replacement": "Innegociable, Soberano, Esencial o Fundamental"
+            }
+          ],
+          "power_phrases_and_slogans": [
+            "El placer es un derecho; el consentimiento, nuestro pacto esencial e innegociable.",
+            "Una noche. Un código. Una sociedad.",
+            "En el camino de la seducción, lo interesante está en lo que se siente con los ojos cerrados y los oídos despiertos.",
+            "Entre placer, confianza y discreción nace la auténtica libertad.",
+            "El acceso se concede, no se anuncia.",
+            "Tu cuerpo, tus límites, tus decisiones.",
+            "No todas las invitaciones son para todos: cuidamos la energía de quienes entran.",
+            "Donde la mente abierta se viste de elegancia."
+          ]
+        }
+      },
+      "value_ladder_and_business_architecture": {
+        "level_0_awareness": {
+          "channels": [
+            "TikTok (@elplacerdc)",
+            "X (@SegiSw, @ElPlacerDC)",
+            "Blog / Web AEO"
+          ],
+          "offer": "Contenido educativo, reflexiones de Segi sobre el deseo, guías de etiqueta swinger/BDSM, desmitificación de tabúes y detrás de escena elegante.",
+          "conversion_goal": "Llevar al canal de WhatsApp o al newsletter de la comunidad."
+        },
+        "level_1_entry_trust": {
+          "offer_name": "Encuentros Culturales & Plan Cine / Conversatorios",
+          "price_range_cop": "$50.000 - $80.000 COP",
+          "purpose": "Punto de entrada de baja fricción para personas o parejas tímidas que quieren conocer a los organizadores y al entorno sin desnudarse ni comprometerse sexualmente."
+        },
+        "level_2_core_community": {
+          "offer_name": "Eventos Temáticos en Sede (Sauna, Jacuzzi, Luna Llena) y Fincas de Naturaleza",
+          "price_range_cop": "$150.000 - $250.000 COP por pareja/miembro",
+          "purpose": "Experiencias inmersivas con zonas húmedas, piscina nudista, música curada y libertad de exploración en espacios controlados y seguros."
+        },
+        "level_3_high_ticket_luxury": {
+          "offer_name": "The Corset Society — Galas Privadas & Kiss Lounge",
+          "price_range_cop": "$230.000 - $450.000 COP (o membresía anual)",
+          "purpose": "Experiencia premium de élite. Dress code estricto, cóctel de bienvenida, cata sensorial, discreción garantizada y aforo ultralimitado."
+        },
+        "level_4_inner_circle": {
+          "offer_name": "Membresía Soberana Anual / Black Pass",
+          "price_range_cop": "$1.200.000 - $2.500.000 COP anual",
+          "purpose": "Pase preferente a todas las veladas del año, reservas prioritarias, acceso a viajes exclusivos y mesa reservada con Segi."
+        }
+      },
+      "content_marketing_and_channel_playbook": {
+        "tiktok_strategy": {
+          "algorithm_survival": "TikTok prohíbe explícitamente el contenido sexual directo. La estrategia consiste en apelar al lifestyle, la moda corset, la psicología de parejas y el humor inteligente.",
+          "content_pillars": [
+            "Moda & Siluetas: 'Cómo armar un look con corset sin sentirte incómoda'.",
+            "Psicología relacional: '¿Por qué hablar de fantasías mejora la confianza en la pareja?'.",
+            "Etiqueta de mente abierta: '3 reglas que separan un evento elegante de un desastre'.",
+            "Vlog de Segi: Un día preparando la ambientación, luces y aromas de una velada secreta."
+          ],
+          "hook_templates": [
+            "Lo que nadie te dice sobre entrar al mundo de mente abierta por primera vez...",
+            "3 cosas que jamás deberías tolerar en un evento swinger o de adultos...",
+            "El accesorio que transformó por completo nuestra seguridad..."
+          ]
+        },
+        "x_twitter_strategy": {
+          "channel_role": "Canal de interacción directa, seducción visual, debates picantes y confirmación de convocatorias.",
+          "content_pillars": [
+            "Sensualidad fotográfica y claroscuro de Segi y modelos invitadas.",
+            "Reflexiones directas sobre deseo y complicidad.",
+            "Anuncio de fechas y enlaces directos a WhatsApp para reservas."
+          ]
+        },
+        "whatsapp_conversion_protocol": {
+          "phone": "+57 319 419 4785",
+          "philosophy": "El WhatsApp no es un bot despachador frío; es el portero humano y respetuoso del club.",
+          "step_1_welcome": "Saludo cálido pero con tono de distinción, agradeciendo el interés por la comunidad.",
+          "step_2_curation": "Preguntas sutiles: ¿Es su primera vez en un espacio mente abierta? ¿Vienen solos o en pareja? ¿Qué tipo de velada les resuena más?",
+          "step_3_ethics_brief": "Envío de la carta de consentimiento y código de vestuario antes de solicitar cualquier pago de reserva.",
+          "step_4_booking": "Confirmación de reserva ($100.000 COP anticipo) y entrega de coordenadas 24h antes del evento para blindar la privacidad de la locación."
+        }
+      },
+      "llm_system_prompt_engine": {
+        "system_instruction_for_copywriting": "Actúa como el Director Creativo y Copywriter Maestro de 'El Placer de Compartir' y 'The Corset Society' bajo la mentoría de Segi. Tu objetivo es redactar textos, correos, landings y publicaciones de Instagram/TikTok/X que eleven el erotismo y la mente abierta al más alto estándar de respeto, elegancia y deseo. Jamás uses vulgaridades, lenguaje chabacano ni promesas de sexo fácil. Recuerda que la discreción, el consentimiento activo ('solo sí es sí') y la comodidad de las mujeres son tus principios fundamentales e innegociables. Adapta tu registro según la marca: cálido, libre e inclusivo para El Placer de Compartir; oscuro, aristocrático y enigmático para The Corset Society; y cómplice, sensual y protector para Segi."
+      }
+    }
   },
   "JUANDENKREISS": {
     "id": "juandenkreiss",
@@ -916,5 +2914,10 @@
         ]
       }
     ]
+  },
+  "MentorIA": {
+    "id": "mentoria",
+    "name": "MentorIA",
+    "ecosystems": []
   }
 }
