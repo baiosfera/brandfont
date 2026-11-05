@@ -758,41 +758,41 @@
         }
 
         .brand-canvas[data-theme="dark"] {
-            background: #090a0f;
-            border: 1px solid #1f2433;
-            color: #ffffff;
+            background: var(--brand-bg, #090a0f);
+            border: 1px solid var(--brand-surface, #1f2433);
+            color: var(--brand-text, #ffffff);
         }
-        .brand-canvas[data-theme="dark"] svg path { fill: #ffffff !important; }
-        .brand-canvas[data-theme="dark"] .monogram-circle { border-color: #d4af37 !important; }
+        .brand-canvas[data-theme="dark"] svg path { fill: var(--brand-text, #ffffff) !important; }
+        .brand-canvas[data-theme="dark"] .monogram-circle { border-color: var(--brand-primary, #d4af37) !important; }
         .brand-canvas[data-theme="dark"] .monogram-circle svg path,
-        .brand-canvas[data-theme="dark"] .monogram-minimal svg path { fill: #d4af37 !important; }
-        .brand-canvas[data-theme="dark"] .monogram-letter-span { color: #d4af37 !important; }
-        .brand-canvas[data-theme="dark"] .brand-descriptor-row svg path { fill: #848ea4 !important; }
+        .brand-canvas[data-theme="dark"] .monogram-minimal svg path { fill: var(--brand-primary, #d4af37) !important; }
+        .brand-canvas[data-theme="dark"] .monogram-letter-span { color: var(--brand-primary, #d4af37) !important; }
+        .brand-canvas[data-theme="dark"] .brand-descriptor-row svg path { fill: var(--brand-secondary, #848ea4) !important; }
 
         .brand-canvas[data-theme="light"] {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            color: #090a0f;
+            background: var(--brand-bg, #ffffff);
+            border: 1px solid var(--brand-surface, #e2e8f0);
+            color: var(--brand-text, #090a0f);
         }
-        .brand-canvas[data-theme="light"] svg path { fill: #090a0f !important; }
-        .brand-canvas[data-theme="light"] .monogram-circle { border-color: #090a0f !important; }
+        .brand-canvas[data-theme="light"] svg path { fill: var(--brand-text, #090a0f) !important; }
+        .brand-canvas[data-theme="light"] .monogram-circle { border-color: var(--brand-primary, #090a0f) !important; }
         .brand-canvas[data-theme="light"] .monogram-circle svg path,
-        .brand-canvas[data-theme="light"] .monogram-minimal svg path { fill: #090a0f !important; }
-        .brand-canvas[data-theme="light"] .monogram-letter-span { color: #090a0f !important; }
-        .brand-canvas[data-theme="light"] .brand-descriptor-row svg path { fill: #64748b !important; }
+        .brand-canvas[data-theme="light"] .monogram-minimal svg path { fill: var(--brand-primary, #090a0f) !important; }
+        .brand-canvas[data-theme="light"] .monogram-letter-span { color: var(--brand-primary, #090a0f) !important; }
+        .brand-canvas[data-theme="light"] .brand-descriptor-row svg path { fill: var(--brand-secondary, #64748b) !important; }
 
         .brand-canvas[data-theme="gold"] {
-            background: #040405;
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: var(--brand-bg, #040405);
+            border: 1px solid var(--brand-primary, rgba(212, 175, 55, 0.4));
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
-            color: #d4af37;
+            color: var(--brand-primary, #d4af37);
         }
-        .brand-canvas[data-theme="gold"] svg path { fill: #d4af37 !important; }
-        .brand-canvas[data-theme="gold"] .monogram-circle { border-color: #d4af37 !important; }
+        .brand-canvas[data-theme="gold"] svg path { fill: var(--brand-primary, #d4af37) !important; }
+        .brand-canvas[data-theme="gold"] .monogram-circle { border-color: var(--brand-primary, #d4af37) !important; }
         .brand-canvas[data-theme="gold"] .monogram-circle svg path,
-        .brand-canvas[data-theme="gold"] .monogram-minimal svg path { fill: #d4af37 !important; }
-        .brand-canvas[data-theme="gold"] .monogram-letter-span { color: #d4af37 !important; }
-        .brand-canvas[data-theme="gold"] .brand-descriptor-row svg path { fill: rgba(212, 175, 55, 0.7) !important; }
+        .brand-canvas[data-theme="gold"] .monogram-minimal svg path { fill: var(--brand-primary, #d4af37) !important; }
+        .brand-canvas[data-theme="gold"] .monogram-letter-span { color: var(--brand-primary, #d4af37) !important; }
+        .brand-canvas[data-theme="gold"] .brand-descriptor-row svg path { fill: var(--brand-accent, rgba(212, 175, 55, 0.7)) !important; }
 
         .brand-canvas[data-theme="ivory"] {
             background: #faf7f2;
@@ -1296,6 +1296,15 @@
                     <span>Identidad de Marca</span>
                     <span style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-gold);">EN VIVO</span>
                 </div>
+                <!-- SSoT Dynamic Brand & Palette Selector -->
+                <div class="input-row" style="margin-bottom: 8px;">
+                    <select id="selectBrandSsot" class="input-field" style="cursor: pointer; border-color: rgba(212,175,55,0.4);" onchange="onBrandSsotChange()">
+                        <option value="">🏢 Cargar Marca SSoT...</option>
+                    </select>
+                    <select id="selectPaletteSsot" class="input-field" style="display:none; cursor: pointer; border-color: rgba(212,175,55,0.4);" onchange="onPaletteSsotChange()">
+                        <option value="">🎨 Paleta SSoT...</option>
+                    </select>
+                </div>
                 <input 
                     type="text" 
                     id="inputBrandName" 
@@ -1751,11 +1760,119 @@
             "swsh", "salt", "titl", "calt", "dlig", "hlig"
         ];
 
+        // SSoT Brands & Palettes Cache
+        let ssotBrandsCache = [];
+        let currentBrandData = null;
+
+        async function loadSsotBrands() {
+            const selectBrand = document.getElementById("selectBrandSsot");
+            if (!selectBrand) return;
+            try {
+                const resp = await fetch(getApiUrl("api/brands"));
+                if (!resp.ok) return;
+                const data = await resp.json();
+                if (data.ok && Array.isArray(data.brands)) {
+                    ssotBrandsCache = data.brands;
+                    selectBrand.innerHTML = `<option value="">🏢 Cargar Marca SSoT...</option>` + 
+                        data.brands.map(b => `<option value="${b}">${b}</option>`).join("");
+                }
+            } catch (err) {
+                console.warn("Could not load SSoT brands:", err);
+            }
+        }
+
+        async function onBrandSsotChange() {
+            const selectBrand = document.getElementById("selectBrandSsot");
+            const selectPalette = document.getElementById("selectPaletteSsot");
+            const brandName = selectBrand.value;
+            if (!brandName) {
+                if (selectPalette) selectPalette.style.display = "none";
+                return;
+            }
+
+            try {
+                const resp = await fetch(getApiUrl(`api/brands/${encodeURIComponent(brandName)}`));
+                if (!resp.ok) return;
+                const data = await resp.json();
+                if (!data.ok) return;
+
+                currentBrandData = data;
+
+                // 1. Update brand name & initials in inputs
+                document.getElementById("inputBrandName").value = data.brand;
+                const initials = data.brand.split(/[\s._-]+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("");
+                document.getElementById("inputInitials").value = initials || "BM";
+                onBrandTextChange();
+
+                // 2. Populate palettes dropdown
+                if (selectPalette && Array.isArray(data.ecosystems) && data.ecosystems.length > 0) {
+                    selectPalette.style.display = "block";
+                    selectPalette.innerHTML = `<option value="">🎨 Paleta SSoT (${data.ecosystems.length})...</option>` +
+                        data.ecosystems.map((eco, idx) => `<option value="${idx}">${eco.title}</option>`).join("");
+                    selectPalette.selectedIndex = 1;
+                    onPaletteSsotChange();
+                } else if (selectPalette) {
+                    selectPalette.style.display = "none";
+                }
+
+                showToast(`✓ Cargada marca SSoT: ${data.brand}`);
+            } catch (err) {
+                console.error("Error loading brand SSoT:", err);
+            }
+        }
+
+        function onPaletteSsotChange() {
+            const selectPalette = document.getElementById("selectPaletteSsot");
+            if (!selectPalette || !currentBrandData || !currentBrandData.ecosystems) return;
+            const idx = parseInt(selectPalette.value, 10);
+            const eco = currentBrandData.ecosystems[idx];
+            if (!eco || !eco.tokens) return;
+
+            const root = document.documentElement;
+            const canvas = document.getElementById("brandCanvas");
+
+            eco.tokens.forEach(tok => {
+                const colorVal = tok.hex || tok.oklch;
+                if (!colorVal) return;
+                const r = tok.role.toLowerCase();
+                if (r.includes("primary")) {
+                    root.style.setProperty("--brand-primary", colorVal);
+                    if (canvas) canvas.style.setProperty("--brand-primary", colorVal);
+                } else if (r.includes("accent")) {
+                    root.style.setProperty("--brand-accent", colorVal);
+                    if (canvas) canvas.style.setProperty("--brand-accent", colorVal);
+                } else if (r.includes("secondary") || r.includes("balance")) {
+                    root.style.setProperty("--brand-secondary", colorVal);
+                    if (canvas) canvas.style.setProperty("--brand-secondary", colorVal);
+                } else if (r.includes("background") || r.includes("bg")) {
+                    root.style.setProperty("--brand-bg", colorVal);
+                    if (canvas) canvas.style.setProperty("--brand-bg", colorVal);
+                } else if (r.includes("surface")) {
+                    root.style.setProperty("--brand-surface", colorVal);
+                    if (canvas) canvas.style.setProperty("--brand-surface", colorVal);
+                } else if (r.includes("text-primary") || r.includes("text")) {
+                    root.style.setProperty("--brand-text", colorVal);
+                    if (canvas) canvas.style.setProperty("--brand-text", colorVal);
+                }
+            });
+
+            const t = eco.title.toLowerCase();
+            if (t.includes("claro") || t.includes("light")) {
+                setCanvasTheme("light");
+            } else if (t.includes("oscuro") || t.includes("dark")) {
+                setCanvasTheme("dark");
+            }
+
+            updateCanvasElements();
+            showToast(`✓ Paleta aplicada: ${eco.title}`);
+        }
+
         // Initialize App
         async function initApp() {
             rebuildComponentStores();
             await loadStoredFonts();
             loadSavedAssignments();
+            loadSsotBrands();
             populateAllFontDropdowns();
             renderStylisticSetChips();
             updateDetectedBrandPairs();
