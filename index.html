@@ -1555,13 +1555,18 @@
                     <span>Identidad de Marca</span>
                     <span style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-gold);">EN VIVO</span>
                 </div>
-                <!-- SSoT Dynamic Brand & Palette Selector -->
-                <div class="input-row" style="margin-bottom: 8px;">
+                <!-- SSoT Dynamic Brand, Palette & Typography Ecosystem Selector -->
+                <div class="input-row" style="margin-bottom: 6px;">
                     <select id="selectBrandSsot" class="input-field" style="cursor: pointer; border-color: rgba(212,175,55,0.4);" onchange="onBrandSsotChange()">
                         <option value="">🏢 Cargar Marca SSoT...</option>
                     </select>
                     <select id="selectPaletteSsot" class="input-field" style="display:none; cursor: pointer; border-color: rgba(212,175,55,0.4);" onchange="onPaletteSsotChange()">
                         <option value="">🎨 Paleta SSoT...</option>
+                    </select>
+                </div>
+                <div id="rowFontEcosystemSsot" style="display:none; margin-bottom: 8px;">
+                    <select id="selectFontEcosystemSsot" class="input-field" style="cursor: pointer; border-color: rgba(212,175,55,0.4);" onchange="onFontEcosystemSsotChange()">
+                        <option value="">🔤 Ecosistema Tipográfico SOTA...</option>
                     </select>
                 </div>
                 <input 
@@ -2308,7 +2313,7 @@
                 document.getElementById("inputInitials").value = initials || "BM";
                 onBrandTextChange();
 
-                // 2. Populate palettes dropdown
+                // 2. Populate palettes dropdown (Chroma & Brandbook)
                 if (selectPalette && Array.isArray(data.ecosystems) && data.ecosystems.length > 0) {
                     selectPalette.style.display = "block";
                     selectPalette.innerHTML = `<option value="">🎨 Paleta SSoT (${data.ecosystems.length})...</option>` +
@@ -2319,10 +2324,99 @@
                     selectPalette.style.display = "none";
                 }
 
+                // 3. Populate SOTA Font Ecosystems dropdown
+                const selectFontEco = document.getElementById("selectFontEcosystemSsot");
+                const rowFontEco = document.getElementById("rowFontEcosystemSsot");
+                if (data.fontManifest && Array.isArray(data.fontManifest.candidate_ecosystems) && data.fontManifest.candidate_ecosystems.length > 0) {
+                    const ecos = data.fontManifest.candidate_ecosystems;
+                    if (rowFontEco) rowFontEco.style.display = "block";
+                    if (selectFontEco) {
+                        selectFontEco.innerHTML = `<option value="">🔤 Ecosistema Tipográfico SOTA (${ecos.length})...</option>` +
+                            ecos.map((eco, idx) => `<option value="${idx}">${eco.name} (${eco.id})</option>`).join("");
+                        
+                        let defIdx = ecos.findIndex(e => e.id === data.fontManifest.selected_ecosystem_id);
+                        if (defIdx < 0) defIdx = 0;
+                        selectFontEco.selectedIndex = defIdx + 1;
+                        onFontEcosystemSsotChange();
+                    }
+                } else if (rowFontEco) {
+                    rowFontEco.style.display = "none";
+                }
+
+                // 4. Update descriptor from Brandbook essence if available
+                if (data.brandbook?.brand_architecture?.brand_essence) {
+                    const descInput = document.getElementById("inputDescriptor");
+                    if (descInput && (descInput.value === "ESTUDIO DE DISEÑO" || !descInput.value)) {
+                        descInput.value = data.brandbook.brand_architecture.brand_essence.toUpperCase();
+                        onBrandTextChange();
+                    }
+                }
+
                 showToast(`✓ Cargada marca SSoT: ${data.brand}`);
             } catch (err) {
                 console.error("Error loading brand SSoT:", err);
             }
+        }
+
+        async function onFontEcosystemSsotChange() {
+            const selectFontEco = document.getElementById("selectFontEcosystemSsot");
+            if (!selectFontEco || !currentBrandData || !currentBrandData.fontManifest) return;
+            const idx = parseInt(selectFontEco.value, 10);
+            const ecos = currentBrandData.fontManifest.candidate_ecosystems;
+            if (isNaN(idx) || !ecos || !ecos[idx]) return;
+            const eco = ecos[idx];
+
+            const toks = eco.tokens || {};
+            const primaryTok = toks.display_primary || toks.primary;
+            const secondaryTok = toks.ui_secondary || toks.secondary;
+            const accentTok = toks.accent_brand || toks.accent;
+
+            // 1. Primary -> Wordmark (Logotipo)
+            if (primaryTok) {
+                const fam = primaryTok.$value || primaryTok.family || "";
+                const url = primaryTok.url || "";
+                let found = state.fonts.find(f => (url && f.url && f.url.includes(url)) || (fam && f.title && f.title.toLowerCase().includes(fam.toLowerCase())));
+                if (found) {
+                    state.elements.wordmark.fontId = found.id;
+                    updateDropdownTriggerDisplay("wordmark", found.id);
+                    updateVariantBarForElement("wordmark");
+                }
+            }
+
+            // 2. Secondary -> Tagline (Descriptor)
+            if (secondaryTok) {
+                const fam = secondaryTok.$value || secondaryTok.family || "";
+                if (secondaryTok.source === "google_fonts" || secondaryTok.google_fonts_v2_url) {
+                    if (!document.querySelector(`link[href*="${fam}"]`)) {
+                        let link = document.createElement("link");
+                        link.rel = "stylesheet";
+                        link.href = secondaryTok.google_fonts_v2_url || `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fam)}:wght@300;400;500;600;700&display=swap`;
+                        document.head.appendChild(link);
+                    }
+                }
+                let found = state.fonts.find(f => (fam && f.title && f.title.toLowerCase().includes(fam.toLowerCase())) || (fam && f.family && f.family.toLowerCase().includes(fam.toLowerCase())));
+                if (found) {
+                    state.elements.tagline.fontId = found.id;
+                    updateDropdownTriggerDisplay("tagline", found.id);
+                    updateVariantBarForElement("tagline");
+                }
+            }
+
+            // 3. Accent -> Monogram (Isotipo)
+            if (accentTok) {
+                const fam = accentTok.$value || accentTok.family || "";
+                const url = accentTok.url || "";
+                let found = state.fonts.find(f => (url && f.url && f.url.includes(url)) || (fam && f.title && f.title.toLowerCase().includes(fam.toLowerCase())));
+                if (found) {
+                    state.elements.monogram.fontId = found.id;
+                    updateDropdownTriggerDisplay("monogram", found.id);
+                    updateVariantBarForElement("monogram");
+                }
+            }
+
+            updateCanvasElements();
+            renderFontCards();
+            showToast(`✓ Ecosistema Tipográfico SOTA cargado: ${eco.name}`);
         }
 
         function onPaletteSsotChange() {

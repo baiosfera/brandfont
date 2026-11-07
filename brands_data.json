@@ -2,56 +2,7 @@
   "BAIOSFERA.COM": {
     "id": "baiosfera.com",
     "name": "BAIOSFERA.COM",
-    "ecosystems": [
-      {
-        "id": "eco_sovereign_luxury",
-        "title": "Sovereign Gold & Obsidian",
-        "tokens": [
-          {
-            "role": "primary",
-            "oklch": "oklch(0.75 0.15 85)",
-            "hex": "#d4af37",
-            "name": "Imperial Gold"
-          },
-          {
-            "role": "secondary",
-            "oklch": "oklch(0.60 0.10 70)",
-            "hex": "#9b783e",
-            "name": "Aged Bronze"
-          },
-          {
-            "role": "accent",
-            "oklch": "oklch(0.85 0.12 90)",
-            "hex": "#f3e5ab",
-            "name": "Champagne Light"
-          },
-          {
-            "role": "background",
-            "oklch": "oklch(0.12 0.02 260)",
-            "hex": "#0b0d14",
-            "name": "Deep Obsidian"
-          },
-          {
-            "role": "surface",
-            "oklch": "oklch(0.18 0.03 260)",
-            "hex": "#161a26",
-            "name": "Charcoal Slate"
-          },
-          {
-            "role": "text",
-            "oklch": "oklch(0.96 0.01 260)",
-            "hex": "#f1f4fa",
-            "name": "Pure Light"
-          },
-          {
-            "role": "muted",
-            "oklch": "oklch(0.60 0.03 260)",
-            "hex": "#848ea4",
-            "name": "Muted Steel"
-          }
-        ]
-      }
-    ]
+    "ecosystems": []
   },
   "CATALINAGLAMUR": {
     "id": "catalinaglamur",
@@ -110,304 +61,8 @@
             "name": "Secondary muted text"
           }
         ]
-      },
-      {
-        "id": "ecosistema_1__quiet_luxury___soberan_a_m",
-        "title": "Ecosistema 1: Quiet Luxury & Soberanía Mineral (Seleccionado)",
-        "tokens": [
-          {
-            "role": "primary",
-            "oklch": "oklch(0.54 0.11 312.9)",
-            "hex": "#855a9c",
-            "name": "Solar Essence Earth"
-          },
-          {
-            "role": "accent",
-            "oklch": "oklch(0.76 0.17 347.9)",
-            "hex": "#fd80c4",
-            "name": "Gilded Accent"
-          },
-          {
-            "role": "balance",
-            "oklch": "oklch(0.68 0.04 260.0)",
-            "hex": "#8a99b2",
-            "name": "Homeostatic Metal"
-          },
-          {
-            "role": "background",
-            "oklch": "oklch(0.13 0.02 260.0)",
-            "hex": "#04070f",
-            "name": "Obsidian Deep"
-          },
-          {
-            "role": "surface",
-            "oklch": "oklch(0.19 0.03 260.0)",
-            "hex": "#0c1421",
-            "name": "Basalt Surface"
-          },
-          {
-            "role": "text-primary",
-            "oklch": "oklch(0.97 0.01 312.9)",
-            "hex": "#f7f3fa",
-            "name": "Celestial Crisp"
-          },
-          {
-            "role": "text-muted",
-            "oklch": "oklch(0.70 0.04 260.0)",
-            "hex": "#909fb8",
-            "name": "Astral Slate"
-          },
-          {
-            "role": "background",
-            "oklch": "oklch(0.98 0.01 312.9)",
-            "hex": "#fbf7fd",
-            "name": "Alabaster Light"
-          },
-          {
-            "role": "surface",
-            "oklch": "oklch(0.94 0.02 312.9)",
-            "hex": "#f0e8f5",
-            "name": "Parchment Surface"
-          },
-          {
-            "role": "text-primary",
-            "oklch": "oklch(0.18 0.03 260.0)",
-            "hex": "#0a121f",
-            "name": "Deep Charcoal"
-          },
-          {
-            "role": "text-muted",
-            "oklch": "oklch(0.48 0.04 260.0)",
-            "hex": "#515e75",
-            "name": "Granite Muted"
-          }
-        ]
-      },
-      {
-        "id": "ecosistema_2__high_performance___vanguar",
-        "title": "Ecosistema 2: High Performance & Vanguardia Activa",
-        "tokens": [
-          {
-            "role": "primary",
-            "oklch": "oklch(0.46 0.21 312.9)",
-            "hex": "#7f1aa8",
-            "name": "Kinetic Vanguard"
-          },
-          {
-            "role": "accent",
-            "oklch": "oklch(0.78 0.20 132.9)",
-            "hex": "#82d132",
-            "name": "Solar Flash"
-          },
-          {
-            "role": "balance",
-            "oklch": "oklch(0.65 0.18 260.0)",
-            "hex": "#488bfb",
-            "name": "Dynamic Metal"
-          },
-          {
-            "role": "background",
-            "oklch": "oklch(0.11 0.02 260.0)",
-            "hex": "#02040b",
-            "name": "Carbon Mineral"
-          },
-          {
-            "role": "surface",
-            "oklch": "oklch(0.18 0.03 260.0)",
-            "hex": "#0a121f",
-            "name": "Cobalt Void"
-          },
-          {
-            "role": "text-primary",
-            "oklch": "oklch(0.98 0.01 312.9)",
-            "hex": "#fbf7fd",
-            "name": "Pure Crisp"
-          },
-          {
-            "role": "text-muted",
-            "oklch": "oklch(0.68 0.06 312.9)",
-            "hex": "#a58eb3",
-            "name": "Cyan Tint Muted"
-          }
-        ]
-      },
-      {
-        "id": "ecosistema_3__bio-sensual___calidez_org_",
-        "title": "Ecosistema 3: Bio-Sensual & Calidez Orgánica",
-        "tokens": [
-          {
-            "role": "primary",
-            "oklch": "oklch(0.62 0.08 292.9)",
-            "hex": "#887db2",
-            "name": "Terracotta Velvet"
-          },
-          {
-            "role": "accent",
-            "oklch": "oklch(0.84 0.12 72.6)",
-            "hex": "#fabe6e",
-            "name": "Copper Ember"
-          },
-          {
-            "role": "balance",
-            "oklch": "oklch(0.72 0.09 260.0)",
-            "hex": "#84a6dd",
-            "name": "Verdant Metal"
-          },
-          {
-            "role": "background",
-            "oklch": "oklch(0.14 0.03 312.9)",
-            "hex": "#0d0612",
-            "name": "Dark Umber"
-          },
-          {
-            "role": "surface",
-            "oklch": "oklch(0.21 0.04 312.9)",
-            "hex": "#1f1225",
-            "name": "Earth Clay"
-          },
-          {
-            "role": "text-primary",
-            "oklch": "oklch(0.95 0.02 260.0)",
-            "hex": "#e7effc",
-            "name": "Warm Sand"
-          },
-          {
-            "role": "text-muted",
-            "oklch": "oklch(0.72 0.04 312.9)",
-            "hex": "#ad9eb7",
-            "name": "Ochre Muted"
-          }
-        ]
       }
     ],
-    "fontManifest": {
-      "candidate_ecosystems": [
-        {
-          "id": "eco-1",
-          "name": "Quiet Luxury Earth Authority (eco-1)",
-          "archetype": "Proyección Pública MC Virgo & Sol Capricorn",
-          "rationale": "Contraste editorial de alta gama entre la sofisticación de Royalist en titulares y el confort de lectura inmersiva de Newsreader. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Monogram Holder.",
-          "tokens": {
-            "display_primary": {
-              "$value": "Royalist",
-              "url": "https://elements.envato.com/royalist-luxury-editorial-serif-font-LRNK3LZ",
-              "source": "envato"
-            },
-            "ui_secondary": {
-              "$value": "Newsreader",
-              "url": "https://fonts.google.com/specimen/Newsreader",
-              "source": "google_fonts"
-            },
-            "accent_brand": {
-              "$value": "Monogram Holder",
-              "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
-              "source": "envato"
-            }
-          },
-          "layers": {
-            "logo": "Monogram Holder",
-            "slogan": "Royalist",
-            "h1": "Royalist",
-            "h2": "Royalist",
-            "body": "Newsreader",
-            "ui": "Newsreader"
-          }
-        },
-        {
-          "id": "eco-2",
-          "name": "High Performance Water Precision (eco-2)",
-          "archetype": "Rigor Técnico BaZi Ren & Dinámica Yang",
-          "rationale": "Arquitectura contemporánea con la fuerza estructural de Mardem. Emparejada con Instrument Sans para alta velocidad de lectura en interfaces interactivas y tracking regulado (0.01em).",
-          "tokens": {
-            "display_primary": {
-              "$value": "Mardem",
-              "url": "https://elements.envato.com/mardem-geometric-modern-grotesk-font-XJZYG8M",
-              "source": "envato"
-            },
-            "ui_secondary": {
-              "$value": "Instrument Sans",
-              "url": "https://fonts.google.com/specimen/Instrument+Sans",
-              "source": "google_fonts"
-            },
-            "accent_brand": {
-              "$value": "AUGOR",
-              "url": "https://elements.envato.com/augor-unique-display-monogram-logo-typeface-CEX96JM",
-              "source": "envato"
-            }
-          },
-          "layers": {
-            "logo": "AUGOR",
-            "slogan": "Mardem",
-            "h1": "Mardem",
-            "h2": "Mardem",
-            "body": "Instrument Sans",
-            "ui": "Instrument Sans"
-          }
-        },
-        {
-          "id": "eco-3",
-          "name": "Alchemical Ashwini Vanguard (eco-3)",
-          "archetype": "Esencia Védica Ashwini (dlig 1, ss01 1)",
-          "rationale": "Tensión estética rica y orgánica entre el dramatismo de Mellgro y la calidez tipográfica de Spectral. Acento caligráfico de alto impacto con Monogram Holder.",
-          "tokens": {
-            "display_primary": {
-              "$value": "Mellgro",
-              "url": "https://elements.envato.com/mellgro-high-contrast-modern-serif-PSPVML9",
-              "source": "envato"
-            },
-            "ui_secondary": {
-              "$value": "Spectral",
-              "url": "https://fonts.google.com/specimen/Spectral",
-              "source": "google_fonts"
-            },
-            "accent_brand": {
-              "$value": "Monogram Holder",
-              "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
-              "source": "envato"
-            }
-          },
-          "layers": {
-            "logo": "Monogram Holder",
-            "slogan": "Mellgro",
-            "h1": "Mellgro",
-            "h2": "Mellgro",
-            "body": "Spectral",
-            "ui": "Spectral"
-          }
-        }
-      ],
-      "selected_ecosystem": {
-        "id": "eco-1",
-        "name": "Quiet Luxury Earth Authority (eco-1)",
-        "archetype": "Proyección Pública MC Virgo & Sol Capricorn",
-        "rationale": "Contraste editorial de alta gama entre la sofisticación de Royalist en titulares y el confort de lectura inmersiva de Newsreader. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Monogram Holder.",
-        "tokens": {
-          "display_primary": {
-            "$value": "Royalist",
-            "url": "https://elements.envato.com/royalist-luxury-editorial-serif-font-LRNK3LZ",
-            "source": "envato"
-          },
-          "ui_secondary": {
-            "$value": "Newsreader",
-            "url": "https://fonts.google.com/specimen/Newsreader",
-            "source": "google_fonts"
-          },
-          "accent_brand": {
-            "$value": "Monogram Holder",
-            "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
-            "source": "envato"
-          }
-        },
-        "layers": {
-          "logo": "Monogram Holder",
-          "slogan": "Royalist",
-          "h1": "Royalist",
-          "h2": "Royalist",
-          "body": "Newsreader",
-          "ui": "Newsreader"
-        }
-      }
-    },
     "brandbook": {
       "$schema": "https://design-tokens.github.io/community-group/format/",
       "metadata": {
@@ -948,6 +603,134 @@
           "Prioritize genuine connection and value before conversion."
         ]
       }
+    },
+    "fontManifest": {
+      "candidate_ecosystems": [
+        {
+          "id": "eco-1",
+          "name": "Quiet Luxury Earth Authority (eco-1)",
+          "archetype": "Proyección Pública MC Virgo & Sol Capricorn",
+          "rationale": "Contraste editorial de alta gama entre la sofisticación de Royalist en titulares y el confort de lectura inmersiva de Newsreader. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Monogram Holder.",
+          "tokens": {
+            "display_primary": {
+              "$value": "Royalist",
+              "url": "https://elements.envato.com/royalist-luxury-editorial-serif-font-LRNK3LZ",
+              "source": "envato"
+            },
+            "ui_secondary": {
+              "$value": "Newsreader",
+              "url": "https://fonts.google.com/specimen/Newsreader",
+              "source": "google_fonts"
+            },
+            "accent_brand": {
+              "$value": "Monogram Holder",
+              "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
+              "source": "envato"
+            }
+          },
+          "layers": {
+            "logo": "Monogram Holder",
+            "slogan": "Royalist",
+            "h1": "Royalist",
+            "h2": "Royalist",
+            "body": "Newsreader",
+            "ui": "Newsreader"
+          }
+        },
+        {
+          "id": "eco-2",
+          "name": "High Performance Water Precision (eco-2)",
+          "archetype": "Rigor Técnico BaZi Ren & Dinámica Yang",
+          "rationale": "Arquitectura contemporánea con la fuerza estructural de Mardem. Emparejada con Instrument Sans para alta velocidad de lectura en interfaces interactivas y tracking regulado (0.01em).",
+          "tokens": {
+            "display_primary": {
+              "$value": "Mardem",
+              "url": "https://elements.envato.com/mardem-geometric-modern-grotesk-font-XJZYG8M",
+              "source": "envato"
+            },
+            "ui_secondary": {
+              "$value": "Instrument Sans",
+              "url": "https://fonts.google.com/specimen/Instrument+Sans",
+              "source": "google_fonts"
+            },
+            "accent_brand": {
+              "$value": "AUGOR",
+              "url": "https://elements.envato.com/augor-unique-display-monogram-logo-typeface-CEX96JM",
+              "source": "envato"
+            }
+          },
+          "layers": {
+            "logo": "AUGOR",
+            "slogan": "Mardem",
+            "h1": "Mardem",
+            "h2": "Mardem",
+            "body": "Instrument Sans",
+            "ui": "Instrument Sans"
+          }
+        },
+        {
+          "id": "eco-3",
+          "name": "Alchemical Ashwini Vanguard (eco-3)",
+          "archetype": "Esencia Védica Ashwini (dlig 1, ss01 1)",
+          "rationale": "Tensión estética rica y orgánica entre el dramatismo de Mellgro y la calidez tipográfica de Spectral. Acento caligráfico de alto impacto con Monogram Holder.",
+          "tokens": {
+            "display_primary": {
+              "$value": "Mellgro",
+              "url": "https://elements.envato.com/mellgro-high-contrast-modern-serif-PSPVML9",
+              "source": "envato"
+            },
+            "ui_secondary": {
+              "$value": "Spectral",
+              "url": "https://fonts.google.com/specimen/Spectral",
+              "source": "google_fonts"
+            },
+            "accent_brand": {
+              "$value": "Monogram Holder",
+              "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
+              "source": "envato"
+            }
+          },
+          "layers": {
+            "logo": "Monogram Holder",
+            "slogan": "Mellgro",
+            "h1": "Mellgro",
+            "h2": "Mellgro",
+            "body": "Spectral",
+            "ui": "Spectral"
+          }
+        }
+      ],
+      "selected_ecosystem": {
+        "id": "eco-1",
+        "name": "Quiet Luxury Earth Authority (eco-1)",
+        "archetype": "Proyección Pública MC Virgo & Sol Capricorn",
+        "rationale": "Contraste editorial de alta gama entre la sofisticación de Royalist en titulares y el confort de lectura inmersiva de Newsreader. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Monogram Holder.",
+        "tokens": {
+          "display_primary": {
+            "$value": "Royalist",
+            "url": "https://elements.envato.com/royalist-luxury-editorial-serif-font-LRNK3LZ",
+            "source": "envato"
+          },
+          "ui_secondary": {
+            "$value": "Newsreader",
+            "url": "https://fonts.google.com/specimen/Newsreader",
+            "source": "google_fonts"
+          },
+          "accent_brand": {
+            "$value": "Monogram Holder",
+            "url": "https://elements.envato.com/monogram-holder-display-font-NBZFH72",
+            "source": "envato"
+          }
+        },
+        "layers": {
+          "logo": "Monogram Holder",
+          "slogan": "Royalist",
+          "h1": "Royalist",
+          "h2": "Royalist",
+          "body": "Newsreader",
+          "ui": "Newsreader"
+        }
+      }
     }
   },
   "DAMAREN": {
@@ -1241,331 +1024,68 @@
             "name": "Gris Salvia Neutro"
           }
         ]
+      },
+      {
+        "id": "bb_brand",
+        "title": "Brandbook: BRAND",
+        "tokens": [
+          {
+            "role": "primary",
+            "oklch": "oklch(0.72 0.16 230)",
+            "hex": "#38b6ff",
+            "name": "Zafiro Mercurial"
+          },
+          {
+            "role": "secondary",
+            "oklch": "oklch(0.55 0.12 245)",
+            "hex": "#2b74b8",
+            "name": "Azul Arquitectónico"
+          },
+          {
+            "role": "accent",
+            "oklch": "oklch(0.88 0.12 215)",
+            "hex": "#7be5ff",
+            "name": "Chispa de Compás"
+          },
+          {
+            "role": "balance",
+            "oklch": "oklch(0.72 0.16 230)",
+            "hex": "#38b6ff",
+            "name": "Agua Yong Shen"
+          }
+        ]
+      },
+      {
+        "id": "bb_neutral",
+        "title": "Brandbook: NEUTRAL",
+        "tokens": [
+          {
+            "role": "bg",
+            "oklch": "oklch(0.12 0.02 250)",
+            "hex": "#080c14",
+            "name": "Canvas dark background - Tinta Abisal Profunda"
+          },
+          {
+            "role": "surface",
+            "oklch": "oklch(0.18 0.02 250)",
+            "hex": "#121824",
+            "name": "Card surface canvas - Grafito Azulado Estructural"
+          },
+          {
+            "role": "text",
+            "oklch": "oklch(0.97 0.01 240)",
+            "hex": "#f2f6fa",
+            "name": "Primary crisp text - Seda Alabastro"
+          },
+          {
+            "role": "muted",
+            "oklch": "oklch(0.70 0.03 245)",
+            "hex": "#8e9cb0",
+            "name": "Secondary muted text - Titanio Azulado Satinado"
+          }
+        ]
       }
     ],
-    "fontManifest": {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "brand": "DAMAREN",
-      "selected_ecosystem_id": "eco-1",
-      "candidate_ecosystems": [
-        {
-          "id": "eco-1",
-          "name": "Architectural Blueprint & Pure Geometry",
-          "archetype": "Vishwakarma (Chitra) & Mercurio MC (Precisión milimétrica y compás sagrado)",
-          "rationale": "Geometría arquitectónica futurista y escultural de Arteon (Envato Elements) en cabeceras hero y monograma, emparejada con la neutralidad de lectura técnica de Plus Jakarta Sans (Google Fonts v2) para interfaz y cuerpo, y planimetría matemática en Space Mono.",
-          "tokens": {
-            "display_primary": {
-              "$value": "Arteon",
-              "$type": "fontFamily",
-              "$description": "Envato Elements Pro — Modern Futuristic Sans Serif (UUID: 9675e800-0193-40bc-b3fa-edfc5876bfee)",
-              "source": "envato",
-              "url": "https://app.envato.com/fonts/9675e800-0193-40bc-b3fa-edfc5876bfee",
-              "weights": [
-                "400",
-                "700"
-              ]
-            },
-            "ui_secondary": {
-              "$value": "Plus Jakarta Sans",
-              "$type": "fontFamily",
-              "$description": "Google Fonts v2 Variable — Neutralidad suiza contemporánea de alta legibilidad",
-              "source": "google_fonts",
-              "url": "https://fonts.google.com/specimen/Plus+Jakarta+Sans",
-              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap",
-              "variable_axes": "wght@200..800",
-              "weights": [
-                "200",
-                "300",
-                "400",
-                "500",
-                "600",
-                "700",
-                "800"
-              ]
-            },
-            "accent_brand": {
-              "$value": "Space Mono",
-              "$type": "fontFamily",
-              "$description": "Google Fonts Monospace — Planimetría técnica, coordenadas y cifras arquitectónicas",
-              "source": "google_fonts",
-              "url": "https://fonts.google.com/specimen/Space+Mono",
-              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
-              "weights": [
-                "400",
-                "700"
-              ]
-            }
-          },
-          "layers": {
-            "logo": "Arteon (Weight 700, Tracking -0.02em)",
-            "slogan": "Space Mono (Weight 400, Tracking +0.16em, Uppercase)",
-            "h1": "Arteon (Weight 700, Ratio 1.250, Line-height 1.10)",
-            "h2": "Arteon (Weight 400, Ratio 1.200, Line-height 1.20)",
-            "body": "Plus Jakarta Sans (Variable Regular 400, Line-height 1.60)",
-            "ui": "Plus Jakarta Sans (Variable SemiBold 600, Tracking -0.01em)"
-          },
-          "cls_metric_overrides": {
-            "fallback_font": "Arial",
-            "size_adjust": "100.0%",
-            "ascent_override": "95.0%",
-            "descent_override": "24.0%",
-            "line_gap_override": "0%"
-          },
-          "workbench_presets": {
-            "font_size_px": 72,
-            "letter_spacing_em": -0.02,
-            "line_height": 1.1,
-            "text_transform": "none",
-            "font_weight": "700",
-            "font_style": "normal",
-            "text_align": "left",
-            "ligatures_enabled": true,
-            "translate_x": 0.0,
-            "translate_y": 0.0,
-            "rotation_deg": 0.0,
-            "mirror_enabled": false
-          }
-        },
-        {
-          "id": "eco-2",
-          "name": "Swiss Technical Grotesk & Editorial Precision",
-          "archetype": "Sol Géminis Casa 10 (Sistemas de información, claridad conceptual y síntesis)",
-          "rationale": "Rigor estructural contemporáneo de Qobar (Envato Elements) en titulares, contrastado con la fluidez humanista de DM Sans (Google Fonts v2) para párrafos y Space Mono en acentos de ingeniería.",
-          "tokens": {
-            "display_primary": {
-              "$value": "Qobar",
-              "$type": "fontFamily",
-              "$description": "Envato Elements Pro — Modern Sans Serif Font (UUID: 5f52efb4-f726-4925-bb0b-8946fb95f70b)",
-              "source": "envato",
-              "url": "https://app.envato.com/fonts/5f52efb4-f726-4925-bb0b-8946fb95f70b",
-              "weights": [
-                "400",
-                "700"
-              ]
-            },
-            "ui_secondary": {
-              "$value": "DM Sans",
-              "$type": "fontFamily",
-              "$description": "Google Fonts v2 Variable — Humanista geométrica de óptima legibilidad",
-              "source": "google_fonts",
-              "url": "https://fonts.google.com/specimen/DM+Sans",
-              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap",
-              "variable_axes": "opsz,wght@9..40,100..1000",
-              "weights": [
-                "300",
-                "400",
-                "500",
-                "600",
-                "700"
-              ]
-            },
-            "accent_brand": {
-              "$value": "Space Mono",
-              "$type": "fontFamily",
-              "$description": "Google Fonts Monospace — Acentos técnicos de compás",
-              "source": "google_fonts",
-              "url": "https://fonts.google.com/specimen/Space+Mono",
-              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
-              "weights": [
-                "400",
-                "700"
-              ]
-            }
-          },
-          "layers": {
-            "logo": "Qobar (Weight 700, Tracking -0.03em)",
-            "slogan": "Space Mono (Weight 400, Tracking +0.14em, Uppercase)",
-            "h1": "Qobar (Weight 700, Ratio 1.250, Line-height 1.15)",
-            "h2": "Qobar (Weight 400, Ratio 1.200)",
-            "body": "DM Sans (Variable Regular 400, Line-height 1.60)",
-            "ui": "DM Sans (Variable Medium 500, Tracking -0.01em)"
-          },
-          "cls_metric_overrides": {
-            "fallback_font": "Helvetica",
-            "size_adjust": "99.0%",
-            "ascent_override": "96.0%",
-            "descent_override": "23.0%",
-            "line_gap_override": "0%"
-          },
-          "workbench_presets": {
-            "font_size_px": 70,
-            "letter_spacing_em": -0.03,
-            "line_height": 1.15,
-            "text_transform": "none",
-            "font_weight": "700",
-            "font_style": "normal",
-            "text_align": "left",
-            "ligatures_enabled": true,
-            "translate_x": 0.0,
-            "translate_y": 0.0,
-            "rotation_deg": 0.0,
-            "mirror_enabled": false
-          }
-        },
-        {
-          "id": "eco-3",
-          "name": "Clean Minimal Bauhaus Geometric",
-          "archetype": "Sol Sideral Tauro & Day Master Jia (Estructura viva y permanencia mineral)",
-          "rationale": "Geometría editorial sobria y ultra-limpia con JUST Sans (Envato Elements), combinada con Urbanist (Google Fonts v2) para lectura moderna y acentos dinámicos de Arteon.",
-          "tokens": {
-            "display_primary": {
-              "$value": "JUST Sans",
-              "$type": "fontFamily",
-              "$description": "Envato Elements Pro — Clean Modern Minimal Geometric Typeface",
-              "source": "envato",
-              "url": "https://elements.envato.com/just-sans-clean-modern-minimal-geometric-typeface-ZW4QBZ9",
-              "weights": [
-                "400",
-                "600",
-                "700"
-              ]
-            },
-            "ui_secondary": {
-              "$value": "Urbanist",
-              "$type": "fontFamily",
-              "$description": "Google Fonts v2 Variable — Neo-grotesca limpia y aireada",
-              "source": "google_fonts",
-              "url": "https://fonts.google.com/specimen/Urbanist",
-              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap",
-              "variable_axes": "wght@100..900",
-              "weights": [
-                "300",
-                "400",
-                "500",
-                "600",
-                "700"
-              ]
-            },
-            "accent_brand": {
-              "$value": "Arteon",
-              "$type": "fontFamily",
-              "$description": "Envato Elements Pro — Acento de escultura geométrica futurista",
-              "source": "envato",
-              "url": "https://app.envato.com/fonts/9675e800-0193-40bc-b3fa-edfc5876bfee",
-              "weights": [
-                "700"
-              ]
-            }
-          },
-          "layers": {
-            "logo": "JUST Sans (Weight 700, Tracking -0.01em)",
-            "slogan": "Arteon (Weight 400, Tracking +0.12em, Uppercase)",
-            "h1": "JUST Sans (Weight 700, Ratio 1.250, Line-height 1.10)",
-            "h2": "JUST Sans (Weight 600, Ratio 1.200)",
-            "body": "Urbanist (Variable Regular 400, Line-height 1.60)",
-            "ui": "Urbanist (Variable SemiBold 600, Tracking 0.00em)"
-          },
-          "cls_metric_overrides": {
-            "fallback_font": "system-ui",
-            "size_adjust": "100.5%",
-            "ascent_override": "95.5%",
-            "descent_override": "24.0%",
-            "line_gap_override": "0%"
-          },
-          "workbench_presets": {
-            "font_size_px": 68,
-            "letter_spacing_em": -0.01,
-            "line_height": 1.15,
-            "text_transform": "none",
-            "font_weight": "700",
-            "font_style": "normal",
-            "text_align": "left",
-            "ligatures_enabled": true,
-            "translate_x": 0.0,
-            "translate_y": 0.0,
-            "rotation_deg": 0.0,
-            "mirror_enabled": false
-          }
-        }
-      ],
-      "selected_ecosystem": {
-        "id": "eco-1",
-        "name": "Architectural Blueprint & Pure Geometry",
-        "archetype": "Vishwakarma (Chitra) & Mercurio MC (Precisión milimétrica y compás sagrado)",
-        "rationale": "Geometría arquitectónica futurista y escultural de Arteon (Envato Elements) en cabeceras hero y monograma, emparejada con la neutralidad de lectura técnica de Plus Jakarta Sans (Google Fonts v2) para interfaz y cuerpo, y planimetría matemática en Space Mono.",
-        "tokens": {
-          "display_primary": {
-            "$value": "Arteon",
-            "$type": "fontFamily",
-            "$description": "Envato Elements Pro — Modern Futuristic Sans Serif (UUID: 9675e800-0193-40bc-b3fa-edfc5876bfee)",
-            "source": "envato",
-            "url": "https://app.envato.com/fonts/9675e800-0193-40bc-b3fa-edfc5876bfee",
-            "weights": [
-              "400",
-              "700"
-            ]
-          },
-          "ui_secondary": {
-            "$value": "Plus Jakarta Sans",
-            "$type": "fontFamily",
-            "$description": "Google Fonts v2 Variable — Neutralidad suiza contemporánea de alta legibilidad",
-            "source": "google_fonts",
-            "url": "https://fonts.google.com/specimen/Plus+Jakarta+Sans",
-            "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap",
-            "variable_axes": "wght@200..800",
-            "weights": [
-              "200",
-              "300",
-              "400",
-              "500",
-              "600",
-              "700",
-              "800"
-            ]
-          },
-          "accent_brand": {
-            "$value": "Space Mono",
-            "$type": "fontFamily",
-            "$description": "Google Fonts Monospace — Planimetría técnica, coordenadas y cifras arquitectónicas",
-            "source": "google_fonts",
-            "url": "https://fonts.google.com/specimen/Space+Mono",
-            "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
-            "weights": [
-              "400",
-              "700"
-            ]
-          }
-        },
-        "layers": {
-          "logo": "Arteon (Weight 700, Tracking -0.02em)",
-          "slogan": "Space Mono (Weight 400, Tracking +0.16em, Uppercase)",
-          "h1": "Arteon (Weight 700, Ratio 1.250, Line-height 1.10)",
-          "h2": "Arteon (Weight 400, Ratio 1.200, Line-height 1.20)",
-          "body": "Plus Jakarta Sans (Variable Regular 400, Line-height 1.60)",
-          "ui": "Plus Jakarta Sans (Variable SemiBold 600, Tracking -0.01em)"
-        },
-        "cls_metric_overrides": {
-          "fallback_font": "Arial",
-          "size_adjust": "100.0%",
-          "ascent_override": "95.0%",
-          "descent_override": "24.0%",
-          "line_gap_override": "0%"
-        },
-        "workbench_presets": {
-          "font_size_px": 72,
-          "letter_spacing_em": -0.02,
-          "line_height": 1.1,
-          "text_transform": "none",
-          "font_weight": "700",
-          "font_style": "normal",
-          "text_align": "left",
-          "ligatures_enabled": true,
-          "translate_x": 0.0,
-          "translate_y": 0.0,
-          "rotation_deg": 0.0,
-          "mirror_enabled": false
-        }
-      },
-      "inheritance": {
-        "logo": "Arteon (Weight 700, Tracking -0.02em)",
-        "slogan": "Space Mono (Weight 400, Tracking +0.16em, Uppercase)",
-        "h1": "Arteon (Weight 700, Ratio 1.250, Line-height 1.10)",
-        "h2": "Arteon (Weight 400, Ratio 1.200, Line-height 1.20)",
-        "body": "Plus Jakarta Sans (Variable Regular 400, Line-height 1.60)",
-        "ui": "Plus Jakarta Sans (Variable SemiBold 600, Tracking -0.01em)",
-        "ui_buttons": "Plus Jakarta Sans (Variable SemiBold 600, Tracking -0.01em)"
-      }
-    },
     "brandbook": {
       "$schema": "https://design-tokens.github.io/community-group/format/",
       "metadata": {
@@ -1772,64 +1292,55 @@
             "display": {
               "$type": "fontFamily",
               "$value": [
-                "Arteon",
-                "Arial",
-                "sans-serif"
+                "Blure",
+                "serif"
               ],
-              "$description": "Display Sans futurista geométrico de alta gama arquitectónica (Envato Elements)"
+              "$description": "Token Primario (Display) — Envato Elements Pro (https://app.envato.com/fonts/b193f130-0d7b-452f-945a-d4df3a56bda4)"
             },
             "body": {
               "$type": "fontFamily",
               "$value": [
-                "Plus Jakarta Sans",
-                "system-ui",
-                "-apple-system",
+                "Manrope",
                 "sans-serif"
               ],
-              "$description": "Sans geométrica contemporánea de alta legibilidad para UI y cuerpo"
+              "$description": "Token Secundario (UI/Body) — Google Fonts Variable v2 (https://fonts.google.com/specimen/Manrope)"
             },
             "accent": {
               "$type": "fontFamily",
               "$value": [
-                "Space Mono",
-                "monospace"
+                "Hookline Monogram Rounded Logo",
+                "cursive"
               ],
-              "$description": "Monospace matemático para coordenadas, lemas y sellos de compás"
-            },
-            "mono": {
-              "$type": "fontFamily",
-              "$value": [
-                "Space Mono",
-                "monospace"
-              ],
-              "$description": "Mathematical coordinate and architectural token font"
+              "$description": "Token de Acento (Brand Voice / Logo) — Envato Elements Pro (https://app.envato.com/fonts/db727697-931a-45ae-ae24-3a2310d33a81)"
             }
           },
           "ecosystems": [
             {
               "id": "eco-1",
-              "name": "Architectural Blueprint & Pure Geometry",
-              "archetype": "Vishwakarma (Chitra) & Mercurio MC (Precisión milimétrica y compás sagrado)",
-              "rationale": "Geometría arquitectónica futurista y escultural de Arteon (Envato Elements) en cabeceras hero y monograma, emparejada con la neutralidad de lectura técnica de Plus Jakarta Sans (Google Fonts v2) para interfaz y cuerpo, y planimetría matemática en Space Mono.",
+              "name": "Quiet Luxury Air Authority",
+              "archetype": "Proyección Pública MC Gemini & Sol Gemini",
+              "rationale": "Contraste editorial de alta gama entre la sofisticación de Blure en titulares y el confort de lectura inmersiva de Manrope. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Hookline Monogram Rounded Logo.",
               "tokens": {
                 "display_primary": {
-                  "$value": "Arteon",
+                  "$value": "Blure",
                   "$type": "fontFamily",
-                  "$description": "Envato Elements Pro — Modern Futuristic Sans Serif (UUID: 9675e800-0193-40bc-b3fa-edfc5876bfee)",
+                  "$description": "Envato Elements Pro — Blure - High Contrast Editorial Serif Font by roomspace on Envato Elements Pro.",
                   "source": "envato",
-                  "url": "https://app.envato.com/fonts/9675e800-0193-40bc-b3fa-edfc5876bfee",
+                  "url": "https://app.envato.com/fonts/b193f130-0d7b-452f-945a-d4df3a56bda4",
+                  "search_url": "https://app.envato.com/search?itemType=fonts&term=modern+luxury+editorial+high+contrast+serif+font",
                   "weights": [
                     "400",
+                    "600",
                     "700"
                   ]
                 },
                 "ui_secondary": {
-                  "$value": "Plus Jakarta Sans",
+                  "$value": "Manrope",
                   "$type": "fontFamily",
-                  "$description": "Google Fonts v2 Variable — Neutralidad suiza contemporánea de alta legibilidad",
+                  "$description": "Google Fonts v2 Variable — Workhorse tipográfico",
                   "source": "google_fonts",
-                  "url": "https://fonts.google.com/specimen/Plus+Jakarta+Sans",
-                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap",
+                  "url": "https://fonts.google.com/specimen/Manrope",
+                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap",
                   "variable_axes": "wght@200..800",
                   "weights": [
                     "200",
@@ -1842,25 +1353,26 @@
                   ]
                 },
                 "accent_brand": {
-                  "$value": "Space Mono",
+                  "$value": "Hookline Monogram Rounded Logo",
                   "$type": "fontFamily",
-                  "$description": "Google Fonts Monospace — Planimetría técnica, coordenadas y cifras arquitectónicas",
-                  "source": "google_fonts",
-                  "url": "https://fonts.google.com/specimen/Space+Mono",
-                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
+                  "$description": "Envato Elements Pro — HOOKLINE Monogram rounded logo font by wap_std on Envato Elements Pro.",
+                  "source": "envato",
+                  "url": "https://app.envato.com/fonts/db727697-931a-45ae-ae24-3a2310d33a81",
+                  "search_url": "https://app.envato.com/search?itemType=fonts&term=modern+geometric+monogram+brand+seal+font",
                   "weights": [
                     "400",
+                    "600",
                     "700"
                   ]
                 }
               },
               "layers": {
-                "logo": "Arteon (Weight 700, Tracking -0.02em)",
-                "slogan": "Space Mono (Weight 400, Tracking +0.16em, Uppercase)",
-                "h1": "Arteon (Weight 700, Ratio 1.250, Line-height 1.10)",
-                "h2": "Arteon (Weight 400, Ratio 1.200, Line-height 1.20)",
-                "body": "Plus Jakarta Sans (Variable Regular 400, Line-height 1.60)",
-                "ui": "Plus Jakarta Sans (Variable SemiBold 600, Tracking -0.01em)"
+                "logo": "Hookline Monogram Rounded Logo (Weight 900)",
+                "slogan": "Blure (Weight 400, Tracking +0.15em, Uppercase)",
+                "h1": "Blure (Weight 600, Ratio 1.250)",
+                "h2": "Blure (Weight 500, Scale 1.250x down)",
+                "body": "Manrope (Variable Regular 400, Line-height 1.55)",
+                "ui": "Manrope (Variable Medium 600, Tracking -0.01em)"
               },
               "cls_metric_overrides": {
                 "fallback_font": "Arial",
@@ -1870,108 +1382,33 @@
                 "line_gap_override": "0%"
               },
               "workbench_presets": {
-                "font_size_px": 72,
-                "letter_spacing_em": -0.02,
-                "line_height": 1.1,
+                "font_size_px": 64,
+                "letter_spacing_em": 0.04,
+                "line_height": 1.15,
                 "text_transform": "none",
-                "font_weight": "700",
+                "font_weight": "600",
                 "font_style": "normal",
                 "text_align": "left",
                 "ligatures_enabled": true,
-                "translate_x": 0.0,
-                "translate_y": 0.0,
-                "rotation_deg": 0.0,
+                "translate_x": 0,
+                "translate_y": 0,
+                "rotation_deg": 0,
                 "mirror_enabled": false
               }
             },
             {
               "id": "eco-2",
-              "name": "Swiss Technical Grotesk & Editorial Precision",
-              "archetype": "Sol Géminis Casa 10 (Sistemas de información, claridad conceptual y síntesis)",
-              "rationale": "Rigor estructural contemporáneo de Qobar (Envato Elements) en titulares, contrastado con la fluidez humanista de DM Sans (Google Fonts v2) para párrafos y Space Mono en acentos de ingeniería.",
+              "name": "High Performance Wood Precision",
+              "archetype": "Rigor Técnico BaZi Jia & Dinámica Yang",
+              "rationale": "Arquitectura contemporánea con la fuerza estructural de Kaluk. Emparejada con Urbanist para alta velocidad de lectura en interfaces interactivas y tracking regulado (-0.01em).",
               "tokens": {
                 "display_primary": {
-                  "$value": "Qobar",
+                  "$value": "Kaluk",
                   "$type": "fontFamily",
-                  "$description": "Envato Elements Pro — Modern Sans Serif Font (UUID: 5f52efb4-f726-4925-bb0b-8946fb95f70b)",
+                  "$description": "Envato Elements Pro — Kaluk Sans - Contemporary Geometric Sans Serif by PradiptaCreative on Envato Elements Pro.",
                   "source": "envato",
-                  "url": "https://app.envato.com/fonts/5f52efb4-f726-4925-bb0b-8946fb95f70b",
-                  "weights": [
-                    "400",
-                    "700"
-                  ]
-                },
-                "ui_secondary": {
-                  "$value": "DM Sans",
-                  "$type": "fontFamily",
-                  "$description": "Google Fonts v2 Variable — Humanista geométrica de óptima legibilidad",
-                  "source": "google_fonts",
-                  "url": "https://fonts.google.com/specimen/DM+Sans",
-                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap",
-                  "variable_axes": "opsz,wght@9..40,100..1000",
-                  "weights": [
-                    "300",
-                    "400",
-                    "500",
-                    "600",
-                    "700"
-                  ]
-                },
-                "accent_brand": {
-                  "$value": "Space Mono",
-                  "$type": "fontFamily",
-                  "$description": "Google Fonts Monospace — Acentos técnicos de compás",
-                  "source": "google_fonts",
-                  "url": "https://fonts.google.com/specimen/Space+Mono",
-                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
-                  "weights": [
-                    "400",
-                    "700"
-                  ]
-                }
-              },
-              "layers": {
-                "logo": "Qobar (Weight 700, Tracking -0.03em)",
-                "slogan": "Space Mono (Weight 400, Tracking +0.14em, Uppercase)",
-                "h1": "Qobar (Weight 700, Ratio 1.250, Line-height 1.15)",
-                "h2": "Qobar (Weight 400, Ratio 1.200)",
-                "body": "DM Sans (Variable Regular 400, Line-height 1.60)",
-                "ui": "DM Sans (Variable Medium 500, Tracking -0.01em)"
-              },
-              "cls_metric_overrides": {
-                "fallback_font": "Helvetica",
-                "size_adjust": "99.0%",
-                "ascent_override": "96.0%",
-                "descent_override": "23.0%",
-                "line_gap_override": "0%"
-              },
-              "workbench_presets": {
-                "font_size_px": 70,
-                "letter_spacing_em": -0.03,
-                "line_height": 1.15,
-                "text_transform": "none",
-                "font_weight": "700",
-                "font_style": "normal",
-                "text_align": "left",
-                "ligatures_enabled": true,
-                "translate_x": 0.0,
-                "translate_y": 0.0,
-                "rotation_deg": 0.0,
-                "mirror_enabled": false
-              }
-            },
-            {
-              "id": "eco-3",
-              "name": "Clean Minimal Bauhaus Geometric",
-              "archetype": "Sol Sideral Tauro & Day Master Jia (Estructura viva y permanencia mineral)",
-              "rationale": "Geometría editorial sobria y ultra-limpia con JUST Sans (Envato Elements), combinada con Urbanist (Google Fonts v2) para lectura moderna y acentos dinámicos de Arteon.",
-              "tokens": {
-                "display_primary": {
-                  "$value": "JUST Sans",
-                  "$type": "fontFamily",
-                  "$description": "Envato Elements Pro — Clean Modern Minimal Geometric Typeface",
-                  "source": "envato",
-                  "url": "https://elements.envato.com/just-sans-clean-modern-minimal-geometric-typeface-ZW4QBZ9",
+                  "url": "https://app.envato.com/fonts/047856e1-3570-425c-aab9-fd3f4157afbc",
+                  "search_url": "https://app.envato.com/search?itemType=fonts&term=clean+contemporary+geometric+sans+typeface",
                   "weights": [
                     "400",
                     "600",
@@ -1981,57 +1418,147 @@
                 "ui_secondary": {
                   "$value": "Urbanist",
                   "$type": "fontFamily",
-                  "$description": "Google Fonts v2 Variable — Neo-grotesca limpia y aireada",
+                  "$description": "Google Fonts v2 Variable — Ultra rendimiento de UI",
                   "source": "google_fonts",
                   "url": "https://fonts.google.com/specimen/Urbanist",
                   "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap",
-                  "variable_axes": "wght@100..900",
+                  "variable_axes": "ital,wght@0..1,100..900",
                   "weights": [
+                    "100",
+                    "200",
                     "300",
                     "400",
                     "500",
                     "600",
-                    "700"
+                    "700",
+                    "800",
+                    "900"
                   ]
                 },
                 "accent_brand": {
-                  "$value": "Arteon",
+                  "$value": "Apex",
                   "$type": "fontFamily",
-                  "$description": "Envato Elements Pro — Acento de escultura geométrica futurista",
+                  "$description": "Envato Elements Pro — Apex - Modern Branding Logo Font by SelarasWP on Envato Elements Pro.",
                   "source": "envato",
-                  "url": "https://app.envato.com/fonts/9675e800-0193-40bc-b3fa-edfc5876bfee",
+                  "url": "https://app.envato.com/fonts/300f4038-d919-49c6-99fc-19fb3d3c2745",
+                  "search_url": "https://app.envato.com/search?itemType=fonts&term=modern+architectural+brand+emblem+logo+font",
                   "weights": [
+                    "400",
+                    "600",
                     "700"
                   ]
                 }
               },
               "layers": {
-                "logo": "JUST Sans (Weight 700, Tracking -0.01em)",
-                "slogan": "Arteon (Weight 400, Tracking +0.12em, Uppercase)",
-                "h1": "JUST Sans (Weight 700, Ratio 1.250, Line-height 1.10)",
-                "h2": "JUST Sans (Weight 600, Ratio 1.200)",
-                "body": "Urbanist (Variable Regular 400, Line-height 1.60)",
-                "ui": "Urbanist (Variable SemiBold 600, Tracking 0.00em)"
+                "logo": "Apex (Weight 800)",
+                "slogan": "Kaluk (Weight 500, Tracking +0.20em, Uppercase)",
+                "h1": "Kaluk (Weight 700, Ratio 1.250)",
+                "h2": "Kaluk (Weight 600, Ratio 1.250)",
+                "body": "Urbanist (Variable Regular 400, Line-height 1.50)",
+                "ui": "Urbanist (Variable Bold 700, Tracking -0.02em)"
               },
               "cls_metric_overrides": {
-                "fallback_font": "system-ui",
-                "size_adjust": "100.5%",
-                "ascent_override": "95.5%",
-                "descent_override": "24.0%",
+                "fallback_font": "Arial",
+                "size_adjust": "99.5%",
+                "ascent_override": "93.0%",
+                "descent_override": "22.0%",
+                "line_gap_override": "0%"
+              },
+              "workbench_presets": {
+                "font_size_px": 56,
+                "letter_spacing_em": -0.01,
+                "line_height": 1.1,
+                "text_transform": "uppercase",
+                "font_weight": "700",
+                "font_style": "normal",
+                "text_align": "left",
+                "ligatures_enabled": false,
+                "translate_x": 0,
+                "translate_y": 0,
+                "rotation_deg": 0,
+                "mirror_enabled": false
+              }
+            },
+            {
+              "id": "eco-3",
+              "name": "Alchemical Chitra Vanguard",
+              "archetype": "Esencia Védica Chitra (dlig 1, calt 1)",
+              "rationale": "Tensión estética rica y orgánica entre el dramatismo de Ganito Fashion Editorial y la calidez tipográfica de Fraunces. Acento caligráfico de alto impacto con Mavra.",
+              "tokens": {
+                "display_primary": {
+                  "$value": "Ganito Fashion Editorial",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Ganito Fashion Editorial Serif Font by Graphicxell on Envato Elements Pro.",
+                  "source": "envato",
+                  "url": "https://app.envato.com/fonts/e7580a36-d645-41e8-95b5-75566e68ca4c",
+                  "search_url": "https://app.envato.com/search?itemType=fonts&term=flourished+artistic+editorial+serif+font+chitra",
+                  "weights": [
+                    "400",
+                    "600",
+                    "700"
+                  ]
+                },
+                "ui_secondary": {
+                  "$value": "Fraunces",
+                  "$type": "fontFamily",
+                  "$description": "Google Fonts v2 Variable — Calidez tipográfica orgánica",
+                  "source": "google_fonts",
+                  "url": "https://fonts.google.com/specimen/Fraunces",
+                  "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap",
+                  "variable_axes": "ital,opsz,wght,SOFT,WONK@0..1,9..144,100..900,0..100,0..1",
+                  "weights": [
+                    "100",
+                    "200",
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700",
+                    "800",
+                    "900"
+                  ]
+                },
+                "accent_brand": {
+                  "$value": "Mavra",
+                  "$type": "fontFamily",
+                  "$description": "Envato Elements Pro — Mavra – Elegant Calligraphic Script Font by VPcreativeshop on Envato Elements Pro.",
+                  "source": "envato",
+                  "url": "https://app.envato.com/fonts/3ca23391-622c-41aa-8340-80a10eedc793",
+                  "search_url": "https://app.envato.com/search?itemType=fonts&term=bespoke+flourish+luxury+script+calligraphy+font+chitra",
+                  "weights": [
+                    "400",
+                    "600",
+                    "700"
+                  ]
+                }
+              },
+              "layers": {
+                "logo": "Mavra (Weight 900)",
+                "slogan": "Ganito Fashion Editorial (Weight 400, Italic, Tracking +0.10em)",
+                "h1": "Ganito Fashion Editorial (Weight 600, Ratio 1.250)",
+                "h2": "Ganito Fashion Editorial (Weight 400, Italic)",
+                "body": "Fraunces (Variable Regular 400, Line-height 1.60)",
+                "ui": "Fraunces (Variable SemiBold 600, Tracking 0.00em)"
+              },
+              "cls_metric_overrides": {
+                "fallback_font": "Times New Roman",
+                "size_adjust": "101.5%",
+                "ascent_override": "98.0%",
+                "descent_override": "27.0%",
                 "line_gap_override": "0%"
               },
               "workbench_presets": {
                 "font_size_px": 68,
-                "letter_spacing_em": -0.01,
-                "line_height": 1.15,
+                "letter_spacing_em": 0.02,
+                "line_height": 1.2,
                 "text_transform": "none",
-                "font_weight": "700",
-                "font_style": "normal",
+                "font_weight": "500",
+                "font_style": "italic",
                 "text_align": "left",
                 "ligatures_enabled": true,
-                "translate_x": 0.0,
-                "translate_y": 0.0,
-                "rotation_deg": 0.0,
+                "translate_x": 0,
+                "translate_y": 0,
+                "rotation_deg": 0,
                 "mirror_enabled": false
               }
             }
@@ -2109,6 +1636,360 @@
           "Respect the brand's tone and forbidden vocabulary at all times.",
           "Prioritize genuine connection and value before conversion."
         ]
+      }
+    },
+    "fontManifest": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "brand": "DAMAREN",
+      "selected_ecosystem_id": "eco-1",
+      "candidate_ecosystems": [
+        {
+          "id": "eco-1",
+          "name": "Quiet Luxury Air Authority",
+          "archetype": "Proyección Pública MC Gemini & Sol Gemini",
+          "rationale": "Contraste editorial de alta gama entre la sofisticación de Blure en titulares y el confort de lectura inmersiva de Manrope. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Hookline Monogram Rounded Logo.",
+          "tokens": {
+            "display_primary": {
+              "$value": "Blure",
+              "$type": "fontFamily",
+              "$description": "Envato Elements Pro — Blure - High Contrast Editorial Serif Font by roomspace on Envato Elements Pro.",
+              "source": "envato",
+              "url": "https://app.envato.com/fonts/b193f130-0d7b-452f-945a-d4df3a56bda4",
+              "search_url": "https://app.envato.com/search?itemType=fonts&term=modern+luxury+editorial+high+contrast+serif+font",
+              "weights": [
+                "400",
+                "600",
+                "700"
+              ]
+            },
+            "ui_secondary": {
+              "$value": "Manrope",
+              "$type": "fontFamily",
+              "$description": "Google Fonts v2 Variable — Workhorse tipográfico",
+              "source": "google_fonts",
+              "url": "https://fonts.google.com/specimen/Manrope",
+              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap",
+              "variable_axes": "wght@200..800",
+              "weights": [
+                "200",
+                "300",
+                "400",
+                "500",
+                "600",
+                "700",
+                "800"
+              ]
+            },
+            "accent_brand": {
+              "$value": "Hookline Monogram Rounded Logo",
+              "$type": "fontFamily",
+              "$description": "Envato Elements Pro — HOOKLINE Monogram rounded logo font by wap_std on Envato Elements Pro.",
+              "source": "envato",
+              "url": "https://app.envato.com/fonts/db727697-931a-45ae-ae24-3a2310d33a81",
+              "search_url": "https://app.envato.com/search?itemType=fonts&term=modern+geometric+monogram+brand+seal+font",
+              "weights": [
+                "400",
+                "600",
+                "700"
+              ]
+            }
+          },
+          "layers": {
+            "logo": "Hookline Monogram Rounded Logo (Weight 900)",
+            "slogan": "Blure (Weight 400, Tracking +0.15em, Uppercase)",
+            "h1": "Blure (Weight 600, Ratio 1.250)",
+            "h2": "Blure (Weight 500, Scale 1.250x down)",
+            "body": "Manrope (Variable Regular 400, Line-height 1.55)",
+            "ui": "Manrope (Variable Medium 600, Tracking -0.01em)"
+          },
+          "cls_metric_overrides": {
+            "fallback_font": "Arial",
+            "size_adjust": "100.0%",
+            "ascent_override": "95.0%",
+            "descent_override": "24.0%",
+            "line_gap_override": "0%"
+          },
+          "workbench_presets": {
+            "font_size_px": 64,
+            "letter_spacing_em": 0.04,
+            "line_height": 1.15,
+            "text_transform": "none",
+            "font_weight": "600",
+            "font_style": "normal",
+            "text_align": "left",
+            "ligatures_enabled": true,
+            "translate_x": 0,
+            "translate_y": 0,
+            "rotation_deg": 0,
+            "mirror_enabled": false
+          }
+        },
+        {
+          "id": "eco-2",
+          "name": "High Performance Wood Precision",
+          "archetype": "Rigor Técnico BaZi Jia & Dinámica Yang",
+          "rationale": "Arquitectura contemporánea con la fuerza estructural de Kaluk. Emparejada con Urbanist para alta velocidad de lectura en interfaces interactivas y tracking regulado (-0.01em).",
+          "tokens": {
+            "display_primary": {
+              "$value": "Kaluk",
+              "$type": "fontFamily",
+              "$description": "Envato Elements Pro — Kaluk Sans - Contemporary Geometric Sans Serif by PradiptaCreative on Envato Elements Pro.",
+              "source": "envato",
+              "url": "https://app.envato.com/fonts/047856e1-3570-425c-aab9-fd3f4157afbc",
+              "search_url": "https://app.envato.com/search?itemType=fonts&term=clean+contemporary+geometric+sans+typeface",
+              "weights": [
+                "400",
+                "600",
+                "700"
+              ]
+            },
+            "ui_secondary": {
+              "$value": "Urbanist",
+              "$type": "fontFamily",
+              "$description": "Google Fonts v2 Variable — Ultra rendimiento de UI",
+              "source": "google_fonts",
+              "url": "https://fonts.google.com/specimen/Urbanist",
+              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap",
+              "variable_axes": "ital,wght@0..1,100..900",
+              "weights": [
+                "100",
+                "200",
+                "300",
+                "400",
+                "500",
+                "600",
+                "700",
+                "800",
+                "900"
+              ]
+            },
+            "accent_brand": {
+              "$value": "Apex",
+              "$type": "fontFamily",
+              "$description": "Envato Elements Pro — Apex - Modern Branding Logo Font by SelarasWP on Envato Elements Pro.",
+              "source": "envato",
+              "url": "https://app.envato.com/fonts/300f4038-d919-49c6-99fc-19fb3d3c2745",
+              "search_url": "https://app.envato.com/search?itemType=fonts&term=modern+architectural+brand+emblem+logo+font",
+              "weights": [
+                "400",
+                "600",
+                "700"
+              ]
+            }
+          },
+          "layers": {
+            "logo": "Apex (Weight 800)",
+            "slogan": "Kaluk (Weight 500, Tracking +0.20em, Uppercase)",
+            "h1": "Kaluk (Weight 700, Ratio 1.250)",
+            "h2": "Kaluk (Weight 600, Ratio 1.250)",
+            "body": "Urbanist (Variable Regular 400, Line-height 1.50)",
+            "ui": "Urbanist (Variable Bold 700, Tracking -0.02em)"
+          },
+          "cls_metric_overrides": {
+            "fallback_font": "Arial",
+            "size_adjust": "99.5%",
+            "ascent_override": "93.0%",
+            "descent_override": "22.0%",
+            "line_gap_override": "0%"
+          },
+          "workbench_presets": {
+            "font_size_px": 56,
+            "letter_spacing_em": -0.01,
+            "line_height": 1.1,
+            "text_transform": "uppercase",
+            "font_weight": "700",
+            "font_style": "normal",
+            "text_align": "left",
+            "ligatures_enabled": false,
+            "translate_x": 0,
+            "translate_y": 0,
+            "rotation_deg": 0,
+            "mirror_enabled": false
+          }
+        },
+        {
+          "id": "eco-3",
+          "name": "Alchemical Chitra Vanguard",
+          "archetype": "Esencia Védica Chitra (dlig 1, calt 1)",
+          "rationale": "Tensión estética rica y orgánica entre el dramatismo de Ganito Fashion Editorial y la calidez tipográfica de Fraunces. Acento caligráfico de alto impacto con Mavra.",
+          "tokens": {
+            "display_primary": {
+              "$value": "Ganito Fashion Editorial",
+              "$type": "fontFamily",
+              "$description": "Envato Elements Pro — Ganito Fashion Editorial Serif Font by Graphicxell on Envato Elements Pro.",
+              "source": "envato",
+              "url": "https://app.envato.com/fonts/e7580a36-d645-41e8-95b5-75566e68ca4c",
+              "search_url": "https://app.envato.com/search?itemType=fonts&term=flourished+artistic+editorial+serif+font+chitra",
+              "weights": [
+                "400",
+                "600",
+                "700"
+              ]
+            },
+            "ui_secondary": {
+              "$value": "Fraunces",
+              "$type": "fontFamily",
+              "$description": "Google Fonts v2 Variable — Calidez tipográfica orgánica",
+              "source": "google_fonts",
+              "url": "https://fonts.google.com/specimen/Fraunces",
+              "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap",
+              "variable_axes": "ital,opsz,wght,SOFT,WONK@0..1,9..144,100..900,0..100,0..1",
+              "weights": [
+                "100",
+                "200",
+                "300",
+                "400",
+                "500",
+                "600",
+                "700",
+                "800",
+                "900"
+              ]
+            },
+            "accent_brand": {
+              "$value": "Mavra",
+              "$type": "fontFamily",
+              "$description": "Envato Elements Pro — Mavra – Elegant Calligraphic Script Font by VPcreativeshop on Envato Elements Pro.",
+              "source": "envato",
+              "url": "https://app.envato.com/fonts/3ca23391-622c-41aa-8340-80a10eedc793",
+              "search_url": "https://app.envato.com/search?itemType=fonts&term=bespoke+flourish+luxury+script+calligraphy+font+chitra",
+              "weights": [
+                "400",
+                "600",
+                "700"
+              ]
+            }
+          },
+          "layers": {
+            "logo": "Mavra (Weight 900)",
+            "slogan": "Ganito Fashion Editorial (Weight 400, Italic, Tracking +0.10em)",
+            "h1": "Ganito Fashion Editorial (Weight 600, Ratio 1.250)",
+            "h2": "Ganito Fashion Editorial (Weight 400, Italic)",
+            "body": "Fraunces (Variable Regular 400, Line-height 1.60)",
+            "ui": "Fraunces (Variable SemiBold 600, Tracking 0.00em)"
+          },
+          "cls_metric_overrides": {
+            "fallback_font": "Times New Roman",
+            "size_adjust": "101.5%",
+            "ascent_override": "98.0%",
+            "descent_override": "27.0%",
+            "line_gap_override": "0%"
+          },
+          "workbench_presets": {
+            "font_size_px": 68,
+            "letter_spacing_em": 0.02,
+            "line_height": 1.2,
+            "text_transform": "none",
+            "font_weight": "500",
+            "font_style": "italic",
+            "text_align": "left",
+            "ligatures_enabled": true,
+            "translate_x": 0,
+            "translate_y": 0,
+            "rotation_deg": 0,
+            "mirror_enabled": false
+          }
+        }
+      ],
+      "selected_ecosystem": {
+        "id": "eco-1",
+        "name": "Quiet Luxury Air Authority",
+        "archetype": "Proyección Pública MC Gemini & Sol Gemini",
+        "rationale": "Contraste editorial de alta gama entre la sofisticación de Blure en titulares y el confort de lectura inmersiva de Manrope. Escala armónica modulada a ratio 1.250 (Mutable) con acento heráldico en Hookline Monogram Rounded Logo.",
+        "tokens": {
+          "display_primary": {
+            "$value": "Blure",
+            "$type": "fontFamily",
+            "$description": "Envato Elements Pro — Blure - High Contrast Editorial Serif Font by roomspace on Envato Elements Pro.",
+            "source": "envato",
+            "url": "https://app.envato.com/fonts/b193f130-0d7b-452f-945a-d4df3a56bda4",
+            "search_url": "https://app.envato.com/search?itemType=fonts&term=modern+luxury+editorial+high+contrast+serif+font",
+            "weights": [
+              "400",
+              "600",
+              "700"
+            ]
+          },
+          "ui_secondary": {
+            "$value": "Manrope",
+            "$type": "fontFamily",
+            "$description": "Google Fonts v2 Variable — Workhorse tipográfico",
+            "source": "google_fonts",
+            "url": "https://fonts.google.com/specimen/Manrope",
+            "google_fonts_v2_url": "https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap",
+            "variable_axes": "wght@200..800",
+            "weights": [
+              "200",
+              "300",
+              "400",
+              "500",
+              "600",
+              "700",
+              "800"
+            ]
+          },
+          "accent_brand": {
+            "$value": "Hookline Monogram Rounded Logo",
+            "$type": "fontFamily",
+            "$description": "Envato Elements Pro — HOOKLINE Monogram rounded logo font by wap_std on Envato Elements Pro.",
+            "source": "envato",
+            "url": "https://app.envato.com/fonts/db727697-931a-45ae-ae24-3a2310d33a81",
+            "search_url": "https://app.envato.com/search?itemType=fonts&term=modern+geometric+monogram+brand+seal+font",
+            "weights": [
+              "400",
+              "600",
+              "700"
+            ]
+          }
+        },
+        "layers": {
+          "logo": "Hookline Monogram Rounded Logo (Weight 900)",
+          "slogan": "Blure (Weight 400, Tracking +0.15em, Uppercase)",
+          "h1": "Blure (Weight 600, Ratio 1.250)",
+          "h2": "Blure (Weight 500, Scale 1.250x down)",
+          "body": "Manrope (Variable Regular 400, Line-height 1.55)",
+          "ui": "Manrope (Variable Medium 600, Tracking -0.01em)"
+        },
+        "cls_metric_overrides": {
+          "fallback_font": "Arial",
+          "size_adjust": "100.0%",
+          "ascent_override": "95.0%",
+          "descent_override": "24.0%",
+          "line_gap_override": "0%"
+        },
+        "workbench_presets": {
+          "font_size_px": 64,
+          "letter_spacing_em": 0.04,
+          "line_height": 1.15,
+          "text_transform": "none",
+          "font_weight": "600",
+          "font_style": "normal",
+          "text_align": "left",
+          "ligatures_enabled": true,
+          "translate_x": 0,
+          "translate_y": 0,
+          "rotation_deg": 0,
+          "mirror_enabled": false
+        }
+      },
+      "inheritance": {
+        "logo": "Hookline Monogram Rounded Logo (Weight 900)",
+        "slogan": "Blure (Weight 400, Tracking +0.15em, Uppercase)",
+        "h1": "Blure (Weight 600, Ratio 1.250)",
+        "h2": "Blure (Weight 500, Scale 1.250x down)",
+        "body": "Manrope (Variable Regular 400, Line-height 1.55)",
+        "ui": "Manrope (Variable Medium 600, Tracking -0.01em)",
+        "ui_buttons": "Manrope (Variable Medium 600, Tracking -0.01em)"
+      },
+      "metadata": {
+        "generator": "fontgen_engine.py v3.0 (Dynamic Live Envato + Verified Sourcing)",
+        "generated_at": "2026-11-07T16:03:18.297823+00:00",
+        "astrological_grounding": {
+          "sun": "Gemini (Air)",
+          "midheaven": "Gemini (Air)",
+          "day_master": "Jia",
+          "nakshatra": "Chitra"
+        }
       }
     }
   },
@@ -2700,218 +2581,22 @@
   "JUANDENKREISS": {
     "id": "juandenkreiss",
     "name": "JUANDENKREISS",
-    "ecosystems": [
-      {
-        "id": "eco_sovereign_luxury",
-        "title": "Sovereign Gold & Obsidian",
-        "tokens": [
-          {
-            "role": "primary",
-            "oklch": "oklch(0.75 0.15 85)",
-            "hex": "#d4af37",
-            "name": "Imperial Gold"
-          },
-          {
-            "role": "secondary",
-            "oklch": "oklch(0.60 0.10 70)",
-            "hex": "#9b783e",
-            "name": "Aged Bronze"
-          },
-          {
-            "role": "accent",
-            "oklch": "oklch(0.85 0.12 90)",
-            "hex": "#f3e5ab",
-            "name": "Champagne Light"
-          },
-          {
-            "role": "background",
-            "oklch": "oklch(0.12 0.02 260)",
-            "hex": "#0b0d14",
-            "name": "Deep Obsidian"
-          },
-          {
-            "role": "surface",
-            "oklch": "oklch(0.18 0.03 260)",
-            "hex": "#161a26",
-            "name": "Charcoal Slate"
-          },
-          {
-            "role": "text",
-            "oklch": "oklch(0.96 0.01 260)",
-            "hex": "#f1f4fa",
-            "name": "Pure Light"
-          },
-          {
-            "role": "muted",
-            "oklch": "oklch(0.60 0.03 260)",
-            "hex": "#848ea4",
-            "name": "Muted Steel"
-          }
-        ]
-      }
-    ]
+    "ecosystems": []
   },
   "JUANTRABAJO": {
     "id": "juantrabajo",
     "name": "JUANTRABAJO",
-    "ecosystems": [
-      {
-        "id": "eco_sovereign_luxury",
-        "title": "Sovereign Gold & Obsidian",
-        "tokens": [
-          {
-            "role": "primary",
-            "oklch": "oklch(0.75 0.15 85)",
-            "hex": "#d4af37",
-            "name": "Imperial Gold"
-          },
-          {
-            "role": "secondary",
-            "oklch": "oklch(0.60 0.10 70)",
-            "hex": "#9b783e",
-            "name": "Aged Bronze"
-          },
-          {
-            "role": "accent",
-            "oklch": "oklch(0.85 0.12 90)",
-            "hex": "#f3e5ab",
-            "name": "Champagne Light"
-          },
-          {
-            "role": "background",
-            "oklch": "oklch(0.12 0.02 260)",
-            "hex": "#0b0d14",
-            "name": "Deep Obsidian"
-          },
-          {
-            "role": "surface",
-            "oklch": "oklch(0.18 0.03 260)",
-            "hex": "#161a26",
-            "name": "Charcoal Slate"
-          },
-          {
-            "role": "text",
-            "oklch": "oklch(0.96 0.01 260)",
-            "hex": "#f1f4fa",
-            "name": "Pure Light"
-          },
-          {
-            "role": "muted",
-            "oklch": "oklch(0.60 0.03 260)",
-            "hex": "#848ea4",
-            "name": "Muted Steel"
-          }
-        ]
-      }
-    ]
+    "ecosystems": []
   },
   "MENTORDEMARCA.COM": {
     "id": "mentordemarca.com",
     "name": "MENTORDEMARCA.COM",
-    "ecosystems": [
-      {
-        "id": "eco_sovereign_luxury",
-        "title": "Sovereign Gold & Obsidian",
-        "tokens": [
-          {
-            "role": "primary",
-            "oklch": "oklch(0.75 0.15 85)",
-            "hex": "#d4af37",
-            "name": "Imperial Gold"
-          },
-          {
-            "role": "secondary",
-            "oklch": "oklch(0.60 0.10 70)",
-            "hex": "#9b783e",
-            "name": "Aged Bronze"
-          },
-          {
-            "role": "accent",
-            "oklch": "oklch(0.85 0.12 90)",
-            "hex": "#f3e5ab",
-            "name": "Champagne Light"
-          },
-          {
-            "role": "background",
-            "oklch": "oklch(0.12 0.02 260)",
-            "hex": "#0b0d14",
-            "name": "Deep Obsidian"
-          },
-          {
-            "role": "surface",
-            "oklch": "oklch(0.18 0.03 260)",
-            "hex": "#161a26",
-            "name": "Charcoal Slate"
-          },
-          {
-            "role": "text",
-            "oklch": "oklch(0.96 0.01 260)",
-            "hex": "#f1f4fa",
-            "name": "Pure Light"
-          },
-          {
-            "role": "muted",
-            "oklch": "oklch(0.60 0.03 260)",
-            "hex": "#848ea4",
-            "name": "Muted Steel"
-          }
-        ]
-      }
-    ]
+    "ecosystems": []
   },
   "METODO_APOTELOS": {
     "id": "metodo_apotelos",
     "name": "METODO_APOTELOS",
-    "ecosystems": [
-      {
-        "id": "eco_sovereign_luxury",
-        "title": "Sovereign Gold & Obsidian",
-        "tokens": [
-          {
-            "role": "primary",
-            "oklch": "oklch(0.75 0.15 85)",
-            "hex": "#d4af37",
-            "name": "Imperial Gold"
-          },
-          {
-            "role": "secondary",
-            "oklch": "oklch(0.60 0.10 70)",
-            "hex": "#9b783e",
-            "name": "Aged Bronze"
-          },
-          {
-            "role": "accent",
-            "oklch": "oklch(0.85 0.12 90)",
-            "hex": "#f3e5ab",
-            "name": "Champagne Light"
-          },
-          {
-            "role": "background",
-            "oklch": "oklch(0.12 0.02 260)",
-            "hex": "#0b0d14",
-            "name": "Deep Obsidian"
-          },
-          {
-            "role": "surface",
-            "oklch": "oklch(0.18 0.03 260)",
-            "hex": "#161a26",
-            "name": "Charcoal Slate"
-          },
-          {
-            "role": "text",
-            "oklch": "oklch(0.96 0.01 260)",
-            "hex": "#f1f4fa",
-            "name": "Pure Light"
-          },
-          {
-            "role": "muted",
-            "oklch": "oklch(0.60 0.03 260)",
-            "hex": "#848ea4",
-            "name": "Muted Steel"
-          }
-        ]
-      }
-    ]
+    "ecosystems": []
   },
   "MentorIA": {
     "id": "mentoria",
