@@ -779,10 +779,9 @@
             border: 1px solid var(--brand-surface, #1f2433);
             color: var(--brand-text, #ffffff);
         }
-        .brand-canvas[data-theme="dark"] svg path { fill: var(--brand-text, #ffffff) !important; }
+        .brand-canvas[data-theme="dark"] .wordmark-row svg path { fill: var(--brand-text, #ffffff) !important; }
         .brand-canvas[data-theme="dark"] .monogram-circle { border-color: var(--brand-primary, #d4af37) !important; }
-        .brand-canvas[data-theme="dark"] .monogram-circle svg path,
-        .brand-canvas[data-theme="dark"] .monogram-minimal svg path { fill: var(--brand-primary, #d4af37) !important; }
+        .brand-canvas[data-theme="dark"] .monogram-letters-row svg path { fill: var(--brand-primary, #d4af37) !important; }
         .brand-canvas[data-theme="dark"] .monogram-letter-span { color: var(--brand-primary, #d4af37) !important; }
         .brand-canvas[data-theme="dark"] .brand-descriptor-row svg path { fill: var(--brand-secondary, #848ea4) !important; }
 
@@ -791,10 +790,9 @@
             border: 1px solid var(--brand-surface, #e2e8f0);
             color: var(--brand-text, #090a0f);
         }
-        .brand-canvas[data-theme="light"] svg path { fill: var(--brand-text, #090a0f) !important; }
+        .brand-canvas[data-theme="light"] .wordmark-row svg path { fill: var(--brand-text, #090a0f) !important; }
         .brand-canvas[data-theme="light"] .monogram-circle { border-color: var(--brand-primary, #090a0f) !important; }
-        .brand-canvas[data-theme="light"] .monogram-circle svg path,
-        .brand-canvas[data-theme="light"] .monogram-minimal svg path { fill: var(--brand-primary, #090a0f) !important; }
+        .brand-canvas[data-theme="light"] .monogram-letters-row svg path { fill: var(--brand-primary, #090a0f) !important; }
         .brand-canvas[data-theme="light"] .monogram-letter-span { color: var(--brand-primary, #090a0f) !important; }
         .brand-canvas[data-theme="light"] .brand-descriptor-row svg path { fill: var(--brand-secondary, #64748b) !important; }
 
@@ -804,10 +802,9 @@
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
             color: var(--brand-primary, #d4af37);
         }
-        .brand-canvas[data-theme="gold"] svg path { fill: var(--brand-primary, #d4af37) !important; }
+        .brand-canvas[data-theme="gold"] .wordmark-row svg path { fill: var(--brand-primary, #d4af37) !important; }
         .brand-canvas[data-theme="gold"] .monogram-circle { border-color: var(--brand-primary, #d4af37) !important; }
-        .brand-canvas[data-theme="gold"] .monogram-circle svg path,
-        .brand-canvas[data-theme="gold"] .monogram-minimal svg path { fill: var(--brand-primary, #d4af37) !important; }
+        .brand-canvas[data-theme="gold"] .monogram-letters-row svg path { fill: var(--brand-primary, #d4af37) !important; }
         .brand-canvas[data-theme="gold"] .monogram-letter-span { color: var(--brand-primary, #d4af37) !important; }
         .brand-canvas[data-theme="gold"] .brand-descriptor-row svg path { fill: var(--brand-accent, rgba(212, 175, 55, 0.7)) !important; }
 
@@ -816,12 +813,29 @@
             border: 1px solid #e7ded4;
             color: #2e241c;
         }
-        .brand-canvas[data-theme="ivory"] svg path { fill: #2e241c !important; }
+        .brand-canvas[data-theme="ivory"] .wordmark-row svg path { fill: #2e241c !important; }
         .brand-canvas[data-theme="ivory"] .monogram-circle { border-color: #785a3c !important; }
-        .brand-canvas[data-theme="ivory"] .monogram-circle svg path,
-        .brand-canvas[data-theme="ivory"] .monogram-minimal svg path { fill: #785a3c !important; }
+        .brand-canvas[data-theme="ivory"] .monogram-letters-row svg path { fill: #785a3c !important; }
         .brand-canvas[data-theme="ivory"] .monogram-letter-span { color: #785a3c !important; }
         .brand-canvas[data-theme="ivory"] .brand-descriptor-row svg path { fill: #8c735b !important; }
+
+        /* Vector Icon Isolation: NEVER force typography fills onto stroke/vector icon paths */
+        .monogram-icon-layer svg [fill="none"],
+        .monogram-icon-layer svg path[fill="none"],
+        .monogram-icon-layer svg g[fill="none"] path,
+        .monogram-icon-layer svg g[fill="none"] circle,
+        .monogram-icon-layer svg g[fill="none"] rect,
+        .monogram-icon-layer svg[fill="none"] path,
+        .monogram-icon-layer svg[fill="none"] circle,
+        .monogram-icon-layer svg[fill="none"] rect,
+        .monogram-icon-layer svg[fill="none"] polygon,
+        .icon-chip-btn svg [fill="none"],
+        .icon-chip-btn svg path[fill="none"],
+        .icon-chip-btn svg g[fill="none"] path,
+        .icon-chip-btn svg g[fill="none"] circle,
+        .icon-chip-btn svg[fill="none"] path {
+            fill: none !important;
+        }
 
         /* Lockup Elements */
         .brand-lockup {
@@ -1579,6 +1593,34 @@
                         oninput="onBrandTextChange()"
                     />
                 </div>
+
+                <!-- Text Casing Controls -->
+                <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-muted);">
+                        <span>Caja Tipográfica:</span>
+                        <span id="activeCasingLabel" style="font-family: var(--font-mono); font-size: 9px; color: var(--accent-gold);">MAYÚS</span>
+                    </div>
+                    <div class="segmented-btn-group" style="grid-template-columns: repeat(4, 1fr);">
+                        <button type="button" class="segmented-btn active" data-case="upper" onclick="applyTextCasing('upper')" title="TODO EN MAYÚSCULAS">MAYÚS</button>
+                        <button type="button" class="segmented-btn" data-case="title" onclick="applyTextCasing('title')" title="Primera Letra Mayúscula (Title Case)">Título</button>
+                        <button type="button" class="segmented-btn" data-case="sentence" onclick="applyTextCasing('sentence')" title="Primera letra en mayúscula de la frase">Oración</button>
+                        <button type="button" class="segmented-btn" data-case="lower" onclick="applyTextCasing('lower')" title="todo en minúsculas">minús</button>
+                    </div>
+                </div>
+
+                <!-- Quick Typography Style Controls (Normal, Bold, Italic, Bold Italic) -->
+                <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-muted);">
+                        <span>Estilo &amp; Peso Tipográfico:</span>
+                        <span id="activeStyleLabel" style="font-family: var(--font-mono); font-size: 9px; color: var(--accent-gold);">REGULAR</span>
+                    </div>
+                    <div class="segmented-btn-group" style="grid-template-columns: repeat(4, 1fr);">
+                        <button type="button" class="segmented-btn active" data-style="regular" onclick="applyQuickStyle('regular')" title="Normal / Regular (400)">Normal</button>
+                        <button type="button" class="segmented-btn" data-style="bold" onclick="applyQuickStyle('bold')" title="Negrita / Bold (700)" style="font-weight: 700;">Bold</button>
+                        <button type="button" class="segmented-btn" data-style="italic" onclick="applyQuickStyle('italic')" title="Cursiva / Itálica" style="font-style: italic;">Italic</button>
+                        <button type="button" class="segmented-btn" data-style="bold-italic" onclick="applyQuickStyle('bold-italic')" title="Negrita Cursiva / Bold Italic" style="font-weight: 700; font-style: italic;">Bold It.</button>
+                    </div>
+                </div>
             </div>
 
             <!-- 2. Independent Font Selectors with Rich Visual Previews in Menus -->
@@ -1653,8 +1695,7 @@
                                 autocomplete="off"
                             />
                             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: var(--text-muted);">
-                                <span id="iconSearchStatus">200,000+ íconos vectoriales</span>
-                                <span style="color: var(--accent-gold); font-weight: 600;">🖱️ Arrastrable en lienzo</span>
+                                <span id="iconSearchStatus">Lucide, Tabler &amp; FontAwesome nativos</span>
                             </div>
                         </div>
 
@@ -1752,8 +1793,9 @@
                             <div style="display: flex; flex-direction: column; gap: 4px;">
                                 <span style="font-size: 10px; color: var(--text-muted);">Modo Visual:</span>
                                 <select id="selectIconRenderMode" class="input-field" onchange="onIconSettingChange()">
+                                    <option value="auto">Auto (Detección trazo/relleno)</option>
+                                    <option value="stroke">Solo Trazo (Contorno limpio)</option>
                                     <option value="fill">Relleno Sólido</option>
-                                    <option value="stroke">Contorno Trazo</option>
                                     <option value="both">Relleno + Trazo</option>
                                 </select>
                             </div>
@@ -2156,6 +2198,8 @@
             monogramShape: "minimal", // minimal (clean)
             canvasTheme: "dark", // dark | light | gold | ivory
             gap: 24,
+            quickCasing: "upper", // upper | title | sentence | lower
+            quickStyle: "regular", // regular | bold | italic | bold-italic
 
             // Active Target & Granular Level
             activeTarget: "wordmark", // wordmark | monogram | tagline
@@ -2180,7 +2224,7 @@
                 opacity: 100,
                 colorType: "primary", // primary | secondary | accent | text | custom
                 customColor: "#d4af37",
-                renderMode: "fill", // fill | stroke | both
+                renderMode: "auto", // auto | stroke | fill | both
                 strokeWidth: 1.5
             },
 
@@ -2481,7 +2525,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             if (badge) badge.textContent = checked ? "[ACTIVO]" : "[OFF]";
             if (ctrl) ctrl.style.display = checked ? "flex" : "none";
             updateCanvasElements();
-            showToast(checked ? "✓ Capa de ícono activada (arrastrable en el lienzo)" : "Capa de ícono desactivada");
+            showToast(checked ? "✓ Capa de ícono activada" : "Capa de ícono desactivada");
         }
 
         async function handleIconSearch(query) {
@@ -2705,7 +2749,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             return customColor || "#d4af37";
         }
 
-        function formatIconSvg(svgRaw, sizePx, color, renderMode = "fill", strokeWidth = 1.5) {
+        function formatIconSvg(svgRaw, sizePx, color, renderMode = "auto", strokeWidth = 1.5) {
             if (!svgRaw) return "";
             const isStrokeBased = svgRaw.includes('stroke="currentColor"') || svgRaw.includes('stroke-width') || svgRaw.includes('fill="none"');
             return svgRaw.replace(/<svg\b([^>]*)>/i, (match, attrs) => {
@@ -2715,14 +2759,18 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 let strokeAttr = "none";
                 let swAttr = "0";
 
-                if (renderMode === "stroke" || (renderMode !== "fill" && isStrokeBased) || (renderMode === "fill" && isStrokeBased)) {
+                if (renderMode === "stroke" || (renderMode === "auto" && isStrokeBased)) {
                     fillAttr = "none";
                     strokeAttr = color;
                     swAttr = strokeWidth || 1.75;
-                } else if (renderMode === "stroke") {
-                    fillAttr = "none";
+                } else if (renderMode === "both") {
+                    fillAttr = color;
                     strokeAttr = color;
                     swAttr = strokeWidth || 1.5;
+                } else if (renderMode === "fill") {
+                    fillAttr = color;
+                    strokeAttr = "none";
+                    swAttr = "0";
                 } else {
                     fillAttr = color;
                     strokeAttr = "none";
@@ -3471,6 +3519,95 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             document.getElementById("brandCanvas").setAttribute("data-theme", theme);
         }
 
+        // ==========================================
+        // QUICK CASING & TYPOGRAPHY STYLE CONTROLS
+        // ==========================================
+        function findMatchingVariant(fontObj, targetStyle) {
+            if (!fontObj || !fontObj.variants || fontObj.variants.length === 0) return null;
+            const vars = fontObj.variants;
+            if (targetStyle === "bold") {
+                return vars.find(v => (v.weight >= 600 || String(v.variantId).toLowerCase().includes("bold") || String(v.styleName).toLowerCase().includes("bold")) && !v.italic && !String(v.variantId).toLowerCase().includes("italic"))
+                    || vars.find(v => v.weight >= 600 || String(v.variantId).toLowerCase().includes("bold"));
+            }
+            if (targetStyle === "italic") {
+                return vars.find(v => (v.italic || String(v.variantId).toLowerCase().includes("italic") || String(v.styleName).toLowerCase().includes("italic")) && v.weight < 600 && !String(v.variantId).toLowerCase().includes("bold"))
+                    || vars.find(v => v.italic || String(v.variantId).toLowerCase().includes("italic"));
+            }
+            if (targetStyle === "bold-italic") {
+                return vars.find(v => (v.weight >= 600 || String(v.variantId).toLowerCase().includes("bold")) && (v.italic || String(v.variantId).toLowerCase().includes("italic")))
+                    || vars.find(v => String(v.variantId).toLowerCase().includes("bolditalic") || String(v.variantId).toLowerCase().includes("bold_italic"));
+            }
+            // regular / normal
+            return vars.find(v => v.variantId === "regular" || String(v.styleName).toLowerCase() === "regular" || (!v.italic && (v.weight === 400 || !v.weight)))
+                || vars[0];
+        }
+
+        function applyQuickStyle(styleMode) {
+            state.quickStyle = styleMode;
+            document.querySelectorAll(".segmented-btn[data-style]").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-style") === styleMode);
+            });
+            const label = document.getElementById("activeStyleLabel");
+            if (label) label.textContent = styleMode.toUpperCase();
+
+            // Try to match font variants across wordmark, monogram, tagline
+            ['wordmark', 'monogram', 'tagline'].forEach(targetKey => {
+                const el = state.elements[targetKey];
+                const f = resolveFont(el.fontId);
+                if (f && f.variants && f.variants.length > 1) {
+                    const matchedVar = findMatchingVariant(f, styleMode);
+                    if (matchedVar) {
+                        el.variantId = matchedVar.variantId;
+                        updateVariantBarForElement(targetKey);
+                    }
+                }
+            });
+
+            updateCanvasElements();
+            showToast(`✓ Estilo tipográfico: ${styleMode.toUpperCase()}`);
+        }
+
+        function applyTextCasing(mode) {
+            state.quickCasing = mode;
+            document.querySelectorAll(".segmented-btn[data-case]").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-case") === mode);
+            });
+            const label = document.getElementById("activeCasingLabel");
+            if (label) label.textContent = mode.toUpperCase();
+
+            const inputName = document.getElementById("inputBrandName");
+            const inputInit = document.getElementById("inputInitials");
+            const inputDesc = document.getElementById("inputDescriptor");
+
+            const transform = (str) => {
+                if (!str) return "";
+                if (mode === "upper") return str.toUpperCase();
+                if (mode === "lower") return str.toLowerCase();
+                if (mode === "title") {
+                    return str.replace(/\b\w+/g, s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase());
+                }
+                if (mode === "sentence") {
+                    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+                }
+                return str;
+            };
+
+            if (inputName) inputName.value = transform(inputName.value);
+            if (inputDesc) inputDesc.value = transform(inputDesc.value);
+            if (inputInit) {
+                if (mode === "upper") inputInit.value = inputInit.value.toUpperCase();
+                else if (mode === "lower") inputInit.value = inputInit.value.toLowerCase();
+                else if (mode === "title" || mode === "sentence") {
+                    inputInit.value = inputInit.value.length > 1 
+                        ? inputInit.value.charAt(0).toUpperCase() + inputInit.value.slice(1).toLowerCase() 
+                        : inputInit.value.toUpperCase();
+                }
+            }
+
+            onBrandTextChange();
+            showToast(`✓ Caja tipográfica cambiada a ${mode.toUpperCase()}`);
+        }
+
         // Live text change listener (Preserves uppercase and lowercase for Monogram & Tagline)
         let debounceTimer;
         function onBrandTextChange() {
@@ -3969,7 +4106,11 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             if (mgFont && (mgFont.isLocalFont || mgFont.isGoogleFont || mgFont.family)) {
                 const v = mg.variantId || (mgFont.variants[0] ? mgFont.variants[0].variantId : "regular");
-                const { weight: fWeight, italic: isItalic } = parseFontVariant(v);
+                let { weight: fWeight, italic: isItalic } = parseFontVariant(v);
+                if (state.quickStyle === "bold") fWeight = Math.max(fWeight, 700);
+                else if (state.quickStyle === "italic") isItalic = true;
+                else if (state.quickStyle === "bold-italic") { fWeight = Math.max(fWeight, 700); isItalic = true; }
+                else if (state.quickStyle === "regular" && fWeight > 500 && (!mg.variantId || mg.variantId === "regular")) fWeight = 400;
                 const fontFam = mgFont.family || mgFont.title;
                 const fontStyle = `font-family: '${fontFam}', serif; font-size: ${badgeSize * 0.52}px; font-weight: ${fWeight}; font-style: ${isItalic ? 'italic' : 'normal'}; line-height: 1; ${fontFeaturesCss}`;
 
@@ -4053,7 +4194,11 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             if (wmFont && (wmFont.isLocalFont || wmFont.isGoogleFont || wmFont.family)) {
                 const v = wm.variantId || (wmFont.variants[0] ? wmFont.variants[0].variantId : "regular");
-                const { weight: fWeight, italic: isItalic } = parseFontVariant(v);
+                let { weight: fWeight, italic: isItalic } = parseFontVariant(v);
+                if (state.quickStyle === "bold") fWeight = Math.max(fWeight, 700);
+                else if (state.quickStyle === "italic") isItalic = true;
+                else if (state.quickStyle === "bold-italic") { fWeight = Math.max(fWeight, 700); isItalic = true; }
+                else if (state.quickStyle === "regular" && fWeight > 500 && (!wm.variantId || wm.variantId === "regular")) fWeight = 400;
                 const fontFam = wmFont.family || wmFont.title;
                 const spVal = wm.block.spacing || 0;
                 const spCss = spVal === 0 ? 'letter-spacing: normal;' : `letter-spacing: ${spVal}px;`;
@@ -4161,7 +4306,11 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             if (tlFont && (tlFont.isGoogleFont || tlFont.isLocalFont || tlFont.family)) {
                 const v = tl.variantId || "regular";
-                const { weight: fWeight, italic: isItalic } = parseFontVariant(v);
+                let { weight: fWeight, italic: isItalic } = parseFontVariant(v);
+                if (state.quickStyle === "bold") fWeight = Math.max(fWeight, 700);
+                else if (state.quickStyle === "italic") isItalic = true;
+                else if (state.quickStyle === "bold-italic") { fWeight = Math.max(fWeight, 700); isItalic = true; }
+                else if (state.quickStyle === "regular" && fWeight > 500 && (!tl.variantId || tl.variantId === "regular")) fWeight = 400;
                 const famName = tlFont.family || tlFont.title;
                 const fontStyle = `font-family: '${famName}', sans-serif; font-size: ${tlBaseH}px; font-weight: ${fWeight}; font-style: ${isItalic ? 'italic' : 'normal'}; letter-spacing: ${tl.block.spacing || 0}px; ${fontFeaturesCss}`;
                 descRow.innerHTML = `<span class="descriptor-letter-span" style="${fontStyle}">${state.descriptor}</span>`;

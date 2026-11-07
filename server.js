@@ -310,7 +310,61 @@ const SPANISH_ICON_DICTIONARY = {
     "destello": "sparkles", "destellos": "sparkles", "brillo": "sparkles",
     "magia": "magic", "varita": "wand",
     "ajedrez": "chess", "rey": "king", "reina": "queen",
-    "dragon": "dragon", "dragón": "dragon"
+    "dragon": "dragon", "dragón": "dragon",
+    "arbol": "tree", "árbol": "tree", "bosque": "forest"
+};
+
+const EXPANDED_ICON_THESAURUS = {
+    "flor": ["flower", "rose", "rosette", "tulip", "lotus", "plant", "leaf", "clover", "seedling", "blossom", "bloom", "petal", "sprout", "sunflower"],
+    "flores": ["flower", "rose", "rosette", "tulip", "lotus", "plant", "leaf", "clover", "seedling", "blossom", "bloom", "petal", "sprout", "sunflower"],
+    "flower": ["flower", "rose", "rosette", "tulip", "lotus", "plant", "leaf", "clover", "seedling", "blossom", "bloom", "petal", "sprout", "sunflower"],
+    "flowers": ["flower", "rose", "rosette", "tulip", "lotus", "plant", "leaf", "clover", "seedling", "blossom", "bloom", "petal", "sprout", "sunflower"],
+    "rosa": ["rose", "rosette", "flower", "tulip", "lotus", "blossom", "bloom", "petal", "plant", "leaf"],
+    "rose": ["rose", "rosette", "flower", "tulip", "lotus", "blossom", "bloom", "petal", "plant", "leaf"],
+    "hoja": ["leaf", "plant", "clover", "seedling", "flower", "tree", "sprout", "botany"],
+    "hojas": ["leaf", "plant", "clover", "seedling", "flower", "tree", "sprout", "botany"],
+    "planta": ["plant", "leaf", "seedling", "sprout", "flower", "tree", "botany"],
+    "plantas": ["plant", "leaf", "seedling", "sprout", "flower", "tree", "botany"],
+    "corona": ["crown", "king", "queen", "tiara", "royal", "royalty", "scepter", "monarch", "throne"],
+    "coronas": ["crown", "king", "queen", "tiara", "royal", "royalty", "scepter", "monarch", "throne"],
+    "crown": ["crown", "king", "queen", "tiara", "royal", "royalty", "scepter", "monarch", "throne"],
+    "escudo": ["shield", "armor", "defense", "security", "protect", "badge", "crest", "guard"],
+    "escudos": ["shield", "armor", "defense", "security", "protect", "badge", "crest", "guard"],
+    "shield": ["shield", "armor", "defense", "security", "protect", "badge", "crest", "guard"],
+    "estrella": ["star", "sparkles", "sparkle", "shine", "glow", "galaxy", "constellation", "nova", "meteor"],
+    "estrellas": ["star", "sparkles", "sparkle", "shine", "glow", "galaxy", "constellation", "nova", "meteor"],
+    "star": ["star", "sparkles", "sparkle", "shine", "glow", "galaxy", "constellation", "nova", "meteor"],
+    "diamante": ["diamond", "gem", "jewel", "crystal", "ruby", "emerald", "sapphire", "ring", "stone"],
+    "diamantes": ["diamond", "gem", "jewel", "crystal", "ruby", "emerald", "sapphire", "ring", "stone"],
+    "diamond": ["diamond", "gem", "jewel", "crystal", "ruby", "emerald", "sapphire", "ring", "stone"],
+    "fuego": ["fire", "flame", "blaze", "burn", "spark", "torch", "bonfire"],
+    "llama": ["flame", "fire", "blaze", "burn", "spark", "torch"],
+    "llamas": ["flame", "fire", "blaze", "burn", "spark", "torch"],
+    "fire": ["fire", "flame", "blaze", "burn", "spark", "torch", "bonfire"],
+    "sol": ["sun", "sunny", "solar", "sunrise", "sunset", "bright", "ray", "light", "day"],
+    "sun": ["sun", "sunny", "solar", "sunrise", "sunset", "bright", "ray", "light", "day"],
+    "luna": ["moon", "lunar", "crescent", "night", "eclipse"],
+    "moon": ["moon", "lunar", "crescent", "night", "eclipse"],
+    "corazon": ["heart", "love", "like"],
+    "corazón": ["heart", "love", "like"],
+    "heart": ["heart", "love", "like"],
+    "reloj": ["clock", "time", "hourglass", "watch", "timer"],
+    "clock": ["clock", "time", "hourglass", "watch", "timer"],
+    "trofeo": ["trophy", "award", "medal", "cup", "winner"],
+    "trophy": ["trophy", "award", "medal", "cup", "winner"],
+    "leon": ["lion", "cat", "paw", "animal"],
+    "león": ["lion", "cat", "paw", "animal"],
+    "lion": ["lion", "cat", "paw", "animal"],
+    "aguila": ["eagle", "falcon", "hawk", "bird", "wing", "feather"],
+    "águila": ["eagle", "falcon", "hawk", "bird", "wing", "feather"],
+    "eagle": ["eagle", "falcon", "hawk", "bird", "wing", "feather"],
+    "mariposa": ["butterfly", "bug", "wing"],
+    "butterfly": ["butterfly", "bug", "wing"],
+    "mar": ["wave", "sea", "ocean", "water", "drop", "droplet", "anchor", "fish", "shell"],
+    "agua": ["water", "drop", "droplet", "wave", "sea", "ocean"],
+    "musica": ["music", "volume", "sound", "note", "headphones"],
+    "música": ["music", "volume", "sound", "note", "headphones"],
+    "music": ["music", "volume", "sound", "note", "headphones"]
 };
 
 function translateSearchQuery(query) {
@@ -321,19 +375,41 @@ function translateSearchQuery(query) {
     return words.map(w => SPANISH_ICON_DICTIONARY[w] || w).join(" ");
 }
 
-function matchScore(key, term) {
-    if (key === term) return 100;
-    if (key.startsWith(term + "-") || key.endsWith("-" + term)) return 80;
-    if (key.includes("-" + term + "-")) return 70;
-    if (key.startsWith(term)) return 50;
-    if (key.includes(term)) return 30;
+function matchScore(key, term, isPrimary = true) {
+    if (key === term) return isPrimary ? 100 : 70;
+    if (key.startsWith(term + "-") || key.endsWith("-" + term)) return isPrimary ? 80 : 50;
+    if (key.includes("-" + term + "-")) return isPrimary ? 70 : 40;
+    if (key.startsWith(term)) return isPrimary ? 60 : 35;
+    if (key.includes(term)) return isPrimary ? 40 : 25;
     return 0;
 }
 
-function searchLocalIcons(query, category = "all", limit = 48) {
+function isIrrelevantIcon(key, rawQuery) {
+    // Filter out numeric badges (e.g. rosette-number-0..9, rosette-number-10, number-1) unless user explicitly typed digits
+    if (/rosette-number-\d/.test(key) || /number-\d/.test(key) || /-badge-\d/.test(key)) {
+        return !/\d/.test(rawQuery);
+    }
+    // Filter out disabled variants (-off) unless query explicitly requests off
+    if (key.endsWith("-off") && !rawQuery.includes("off")) {
+        return true;
+    }
+    return false;
+}
+
+function searchLocalIcons(query, category = "all", limit = 60) {
     const rawQ = (query || "").trim().toLowerCase();
+    const cleanQ = rawQ.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const transQ = translateSearchQuery(rawQ);
-    const searchTerms = Array.from(new Set([rawQ, transQ])).filter(Boolean);
+    const primaryTerms = Array.from(new Set([rawQ, cleanQ, transQ])).filter(Boolean);
+
+    // Expand through semantic thesaurus
+    let expandedTerms = [];
+    for (const term of [rawQ, cleanQ, transQ]) {
+        if (EXPANDED_ICON_THESAURUS[term]) {
+            expandedTerms = expandedTerms.concat(EXPANDED_ICON_THESAURUS[term]);
+        }
+    }
+    const secondaryTerms = Array.from(new Set(expandedTerms)).filter(t => !primaryTerms.includes(t));
 
     const collections = [];
     if ((category === "all" || category === "lucide") && lucideData) collections.push({ name: "lucide", data: lucideData });
@@ -342,27 +418,36 @@ function searchLocalIcons(query, category = "all", limit = 48) {
 
     const scoredMatches = [];
 
-    for (const term of searchTerms) {
-        for (const col of collections) {
-            const keys = Object.keys(col.data.icons);
-            for (const key of keys) {
-                const score = matchScore(key, term);
-                if (score > 0) {
-                    const id = `${col.name}_${key}`;
-                    if (!scoredMatches.some(m => m.id === id)) {
-                        const icon = col.data.icons[key];
-                        const w = icon.width || col.data.width || 24;
-                        const h = icon.height || col.data.height || 24;
-                        scoredMatches.push({
-                            id,
-                            name: key,
-                            prefix: col.name,
-                            category: col.name,
-                            score,
-                            svg: `<svg viewBox="0 0 ${w} ${h}">${icon.body}</svg>`
-                        });
-                    }
-                }
+    for (const col of collections) {
+        const keys = Object.keys(col.data.icons);
+        for (const key of keys) {
+            if (isIrrelevantIcon(key, rawQ)) continue;
+
+            let bestScore = 0;
+            // Primary matches
+            for (const term of primaryTerms) {
+                const s = matchScore(key, term, true);
+                if (s > bestScore) bestScore = s;
+            }
+            // Secondary (thesaurus) matches
+            for (const term of secondaryTerms) {
+                const s = matchScore(key, term, false);
+                if (s > bestScore) bestScore = s;
+            }
+
+            if (bestScore > 0) {
+                const id = `${col.name}_${key}`;
+                const icon = col.data.icons[key];
+                const w = icon.width || col.data.width || 24;
+                const h = icon.height || col.data.height || 24;
+                scoredMatches.push({
+                    id,
+                    name: key,
+                    prefix: col.name,
+                    category: col.name,
+                    score: bestScore,
+                    svg: `<svg viewBox="0 0 ${w} ${h}">${icon.body}</svg>`
+                });
             }
         }
     }
