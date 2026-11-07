@@ -4800,32 +4800,104 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         // 100% ACCURATE STANDALONE SVG BUILDER
         // ==========================================
         function buildCombinedSvgString() {
-            const includeBg = document.getElementById("chkIncludeBg").checked;
+            const includeBg = document.getElementById("chkIncludeBg") ? document.getElementById("chkIncludeBg").checked : true;
             
-            const themeColors = {
-                dark: { bg: "#090a0f", fg: "#ffffff", accent: "#d4af37", desc: "#848ea4" },
-                light: { bg: "#ffffff", fg: "#090a0f", accent: "#090a0f", desc: "#64748b" },
-                gold: { bg: "#040405", fg: "#d4af37", accent: "#d4af37", desc: "rgba(212, 175, 55, 0.7)" },
-                ivory: { bg: "#faf7f2", fg: "#2e241c", accent: "#785a3c", desc: "#8c735b" }
-            };
-            const col = themeColors[state.canvasTheme] || themeColors.dark;
+            // 1. Live Colors from Canvas CSS Variables (100% faithful to live preview & SSoT Chroma)
+            const canvasEl = document.getElementById("brandCanvas") || document.documentElement;
+            const cs = getComputedStyle(canvasEl);
+            const primaryColor = cs.getPropertyValue("--brand-primary").trim() || "#d4af37";
+            const secondaryColor = cs.getPropertyValue("--brand-secondary").trim() || "#9b783e";
+            const accentColor = cs.getPropertyValue("--brand-accent").trim() || "#f3e5ab";
+            const textColor = cs.getPropertyValue("--brand-text").trim() || (state.canvasTheme === "light" ? "#090a0f" : "#ffffff");
+            const bgColor = cs.getPropertyValue("--brand-bg").trim() || (state.canvasTheme === "light" ? "#ffffff" : "#090a0f");
+            const descColor = cs.getPropertyValue("--brand-secondary").trim() || secondaryColor || "#848ea4";
 
             const lockup = document.getElementById("brandLockup");
             const lockupBox = lockup.getBoundingClientRect();
             
             const padX = 64;
             const padY = 48;
-            const totalW = Math.round(lockupBox.width + padX * 2);
-            const totalH = Math.round(lockupBox.height + padY * 2);
+            const totalW = Math.max(320, Math.round(lockupBox.width + padX * 2));
+            const totalH = Math.max(160, Math.round(lockupBox.height + padY * 2));
 
             let bgSvg = "";
             if (includeBg) {
-                bgSvg = `<rect width="${totalW}" height="${totalH}" rx="16" fill="${col.bg}"/>`;
+                bgSvg = `<rect width="${totalW}" height="${totalH}" rx="16" fill="${bgColor}"/>`;
+            }
+
+            // 2. Dynamic Web Font Imports
+            const usedFonts = new Set();
+            usedFonts.add("Cinzel");
+            usedFonts.add("Plus Jakarta Sans");
+            ["wordmark", "monogram", "tagline"].forEach(k => {
+                const el = state.elements[k];
+                const f = resolveFont(el.fontId);
+                if (f) {
+                    if (f.family) usedFonts.add(f.family);
+                    else if (f.title && (f.isGoogleFont || !f.isEnvatoCloud)) usedFonts.add(f.title);
+                }
+            });
+            const fontImports = Array.from(usedFonts).map(fam => {
+                return `@import url('https://fonts.googleapis.com/css2?family=${encodeURIComponent(fam.replace(/ /g, "+"))}:ital,wght@0,300..900;1,300..900&amp;display=swap');`;
+            }).join("\n        ");
+
+            // 3. Helper to render any unit/glyph preserving exact transforms (mirror, scale, rotate, font & color)
+            function renderUnitSvg(unitEl, defaultColor, defaultFontFam, letterObj = null) {
+                if (!unitEl) return "";
+                const uBox = unitEl.getBoundingClientRect();
+                const uW = Math.max(1, Math.round(uBox.width));
+                const uH = Math.max(1, Math.round(uBox.height));
+
+                let transformAttr = "";
+                if (letterObj) {
+                    const mH = letterObj.mirrorH ? -1 : 1;
+                    const mV = letterObj.mirrorV ? -1 : 1;
+                    const rot = letterObj.rotate || 0;
+                    const sc = (letterObj.scale || 100) / 100;
+                    if (mH !== 1 || mV !== 1 || rot !== 0 || sc !== 1) {
+                        transformAttr = `transform="translate(${uW / 2}, ${uH / 2}) rotate(${rot}) scale(${mH * sc}, ${mV * sc}) translate(${-uW / 2}, ${-uH / 2})"`;
+                    }
+                }
+
+                let innerContent = "";
+                const svgs = unitEl.querySelectorAll("svg");
+                if (svgs.length > 0) {
+                    svgs.forEach(s => {
+                        const cl = s.cloneNode(true);
+                        cl.setAttribute("width", uW);
+                        cl.setAttribute("height", uH);
+                        cl.querySelectorAll("path, circle, rect, polygon").forEach(p => {
+                            const f = p.getAttribute("fill");
+                            if (!f || f !== "none") {
+                                p.setAttribute("fill", defaultColor);
+                            }
+                            const s = p.getAttribute("stroke");
+                            if (s && s !== "none") {
+                                p.setAttribute("stroke", defaultColor);
+                            }
+                        });
+                        innerContent += cl.outerHTML;
+                    });
+                } else {
+                    const span = unitEl.querySelector(".monogram-letter-span, .letter-span, .descriptor-letter-span") || unitEl;
+                    const csSpan = window.getComputedStyle(span);
+                    const fam = csSpan.fontFamily || `'${defaultFontFam}', serif`;
+                    const fSize = parseFloat(csSpan.fontSize) || Math.round(uH * 0.8);
+                    const fWeight = csSpan.fontWeight || "700";
+                    const fStyle = csSpan.fontStyle || "normal";
+                    const txt = span.textContent || "";
+                    innerContent = `<text x="${uW / 2}" y="${Math.round(uH * 0.8)}" text-anchor="middle" font-family="${fam}" font-weight="${fWeight}" font-style="${fStyle}" font-size="${fSize}px" fill="${defaultColor}">${txt}</text>`;
+                }
+
+                if (transformAttr) {
+                    return `<g ${transformAttr}>${innerContent}</g>`;
+                }
+                return innerContent;
             }
 
             let elementsGroup = `<g transform="translate(${padX}, ${padY})">`;
 
-            // 1. Monogram Export
+            // 4. Monogram Unit Export
             if (state.layout !== "wordmark-only") {
                 const monoBadge = document.getElementById("monogramBadge");
                 const bBox = monoBadge.getBoundingClientRect();
@@ -4836,52 +4908,45 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 const r = Math.round(w / 2);
 
                 const monoShape = state.monogramShape === "circle" 
-                    ? `<circle cx="${r}" cy="${r}" r="${r - 2}" fill="none" stroke="${col.accent}" stroke-width="2"/>` 
+                    ? `<circle cx="${r}" cy="${r}" r="${r - 2}" fill="none" stroke="${primaryColor}" stroke-width="2"/>` 
                     : "";
 
+                // Letters
                 let lettersSvg = "";
-                const monoUnits = monoBadge.querySelectorAll(".monogram-unit");
-                if (monoUnits.length > 0) {
-                    monoUnits.forEach(mUnit => {
+                const mgFont = resolveFont(state.elements.monogram.fontId);
+                const mgFontFam = mgFont ? (mgFont.family || mgFont.title) : "Cinzel";
+                const mgUnits = monoBadge.querySelectorAll(".monogram-unit, .monogram-letters-row > span");
+                
+                if (mgUnits.length > 0) {
+                    mgUnits.forEach((mUnit, idx) => {
                         const mBox = mUnit.getBoundingClientRect();
                         const mX = Math.round(mBox.left - bBox.left);
                         const mY = Math.round(mBox.top - bBox.top);
-                        
-                        let unitGlyph = "";
-                        mUnit.querySelectorAll("svg").forEach(s => {
-                            const cl = s.cloneNode(true);
-                            cl.querySelectorAll("path").forEach(p => p.setAttribute("fill", col.accent));
-                            unitGlyph += cl.outerHTML;
-                        });
-                        if (!unitGlyph) {
-                            const span = mUnit.querySelector(".monogram-letter-span, .letter-span");
-                            if (span) {
-                                unitGlyph = `<text x="0" y="${Math.round(mBox.height * 0.8)}" font-family="'Cinzel', serif" font-weight="700" font-size="${Math.round(mBox.height * 0.8)}" fill="${col.accent}">${span.textContent}</text>`;
-                            }
-                        }
-                        lettersSvg += `<g transform="translate(${mX}, ${mY})">${unitGlyph}</g>`;
-                    });
-                } else {
-                    const spans = monoBadge.querySelectorAll(".monogram-letter-span");
-                    spans.forEach(sp => {
-                        const sBox = sp.getBoundingClientRect();
-                        const sX = Math.round(sBox.left - bBox.left);
-                        const sY = Math.round(sBox.top - bBox.top);
-                        lettersSvg += `<text x="${sX}" y="${sY + Math.round(sBox.height * 0.75)}" font-family="'Cinzel', serif" font-weight="700" font-size="${Math.round(sBox.height * 0.8)}" fill="${col.accent}">${sp.textContent}</text>`;
+                        const letterObj = state.elements.monogram.letters[idx] || null;
+                        const glyph = renderUnitSvg(mUnit, primaryColor, mgFontFam, letterObj);
+                        lettersSvg += `<g transform="translate(${mX}, ${mY})">${glyph}</g>`;
                     });
                 }
 
-                // Monogram Vector Icon Export
+                // Vector Icon Layer
                 let iconVectorSvg = "";
                 const iconLayerEl = monoBadge.querySelector("#monogramIconLayer");
                 if (state.monogramIcon && state.monogramIcon.enabled && iconLayerEl && iconLayerEl.style.display !== "none") {
-                    const iBox = iconLayerEl.getBoundingClientRect();
-                    const iX = Math.round(iBox.left - bBox.left);
-                    const iY = Math.round(iBox.top - bBox.top);
-                    const iSvg = iconLayerEl.querySelector("svg");
-                    if (iSvg) {
-                        const cl = iSvg.cloneNode(true);
-                        iconVectorSvg = `<g transform="translate(${iX}, ${iY})">${cl.outerHTML}</g>`;
+                    const iconConfig = state.monogramIcon;
+                    const iconSvg = iconLayerEl.querySelector("svg");
+                    if (iconSvg) {
+                        const cl = iconSvg.cloneNode(true);
+                        const iBox = iconLayerEl.getBoundingClientRect();
+                        const iX = Math.round(iBox.left - bBox.left);
+                        const iY = Math.round(iBox.top - bBox.top);
+                        const iW = Math.round(iBox.width);
+                        const iH = Math.round(iBox.height);
+                        
+                        let rotTransform = "";
+                        if (iconConfig.rotate !== 0) {
+                            rotTransform = `transform="rotate(${iconConfig.rotate}, ${iW / 2}, ${iH / 2})"`;
+                        }
+                        iconVectorSvg = `<g transform="translate(${iX}, ${iY})" opacity="${(iconConfig.opacity || 100) / 100}"><g ${rotTransform}>${cl.outerHTML}</g></g>`;
                     }
                 }
 
@@ -4902,76 +4967,82 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 `;
             }
 
-            // 2. Wordmark Export
+            // 5. Wordmark Export
             if (state.layout !== "monogram-only") {
                 const wmRow = document.getElementById("wordmarkRow");
                 const wmBox = wmRow.getBoundingClientRect();
                 const wmX = Math.round(wmBox.left - lockupBox.left);
                 const wmY = Math.round(wmBox.top - lockupBox.top);
 
+                const wmFont = resolveFont(state.elements.wordmark.fontId);
+                const wmFontFam = wmFont ? (wmFont.family || wmFont.title) : "Cinzel";
+                const wmColor = (state.canvasTheme === "gold") ? primaryColor : textColor;
+
                 let wordmarkInner = "";
                 const wordUnits = wmRow.querySelectorAll(".word-unit");
                 if (wordUnits.length > 0) {
-                    wordUnits.forEach(wUnit => {
+                    let charOffset = 0;
+                    wordUnits.forEach((wUnit, wIdx) => {
                         const uBox = wUnit.getBoundingClientRect();
                         const uX = Math.round(uBox.left - wmBox.left);
                         const uY = Math.round(uBox.top - wmBox.top);
-
-                        let unitSvg = "";
-                        wUnit.querySelectorAll("svg").forEach(s => {
-                            const cl = s.cloneNode(true);
-                            cl.querySelectorAll("path").forEach(p => p.setAttribute("fill", col.fg));
-                            unitSvg += cl.outerHTML;
-                        });
-                        if (!unitSvg) {
-                            const span = wUnit.querySelector(".letter-span");
-                            if (span) {
-                                unitSvg = `<text x="0" y="${Math.round(uBox.height * 0.8)}" font-family="'Cinzel', serif" font-weight="700" font-size="${Math.round(uBox.height * 0.8)}" fill="${col.fg}">${span.textContent}</text>`;
-                            }
+                        
+                        const letterSpans = wUnit.querySelectorAll(".letter-span");
+                        if (letterSpans.length > 1) {
+                            let lettersInWordSvg = "";
+                            letterSpans.forEach((lSpan, lIdx) => {
+                                const lsBox = lSpan.getBoundingClientRect();
+                                const lsX = Math.round(lsBox.left - uBox.left);
+                                const lsY = Math.round(lsBox.top - uBox.top);
+                                const letterObj = state.elements.wordmark.letters[charOffset + lIdx] || null;
+                                const glyph = renderUnitSvg(lSpan, wmColor, wmFontFam, letterObj);
+                                lettersInWordSvg += `<g transform="translate(${lsX}, ${lsY})">${glyph}</g>`;
+                            });
+                            charOffset += letterSpans.length;
+                            wordmarkInner += `<g transform="translate(${uX}, ${uY})">${lettersInWordSvg}</g>`;
+                        } else {
+                            const letterObj = letterSpans.length === 1 ? state.elements.wordmark.letters[charOffset] : null;
+                            if (letterSpans.length === 1) charOffset += 1;
+                            const glyph = renderUnitSvg(wUnit, wmColor, wmFontFam, letterObj);
+                            wordmarkInner += `<g transform="translate(${uX}, ${uY})">${glyph}</g>`;
                         }
-                        wordmarkInner += `<g transform="translate(${uX}, ${uY})">${unitSvg}</g>`;
                     });
                 } else {
-                    const svgs = wmRow.querySelectorAll("svg");
-                    if (svgs.length > 0) {
-                        svgs.forEach(s => {
-                            const cl = s.cloneNode(true);
-                            cl.querySelectorAll("path").forEach(p => p.setAttribute("fill", col.fg));
-                            wordmarkInner += cl.outerHTML;
-                        });
-                    } else {
-                        wordmarkInner = `<text x="0" y="${Math.round(wmBox.height * 0.8)}" font-family="'Cinzel', serif" font-weight="700" font-size="${Math.round(wmBox.height * 0.8)}" fill="${col.fg}">${state.brandName}</text>`;
-                    }
+                    const glyph = renderUnitSvg(wmRow, wmColor, wmFontFam, null);
+                    wordmarkInner = glyph;
                 }
 
                 elementsGroup += `<g transform="translate(${wmX}, ${wmY})">${wordmarkInner}</g>`;
 
-                // 3. Tagline Export
+                // 6. Tagline (Descriptor) Export
                 if (state.descriptor) {
                     const descRow = document.getElementById("descriptorRow");
-                    const dBox = descRow.getBoundingClientRect();
-                    const dX = Math.round(dBox.left - lockupBox.left);
-                    const dY = Math.round(dBox.top - lockupBox.top);
+                    if (descRow && descRow.style.display !== "none") {
+                        const dBox = descRow.getBoundingClientRect();
+                        const dX = Math.round(dBox.left - lockupBox.left);
+                        const dY = Math.round(dBox.top - lockupBox.top);
 
-                    let descInner = "";
-                    descRow.querySelectorAll(".descriptor-unit, .descriptor-letter-span").forEach(dUnit => {
-                        const duBox = dUnit.getBoundingClientRect();
-                        const duX = Math.round(duBox.left - dBox.left);
-                        const duY = Math.round(duBox.top - dBox.top);
+                        const tlFont = resolveFont(state.elements.tagline.fontId);
+                        const tlFontFam = tlFont ? (tlFont.family || tlFont.title) : "Plus Jakarta Sans";
+                        const tlColor = (state.canvasTheme === "gold") ? accentColor : descColor;
 
-                        let duSvg = "";
-                        dUnit.querySelectorAll("svg").forEach(s => {
-                            const cl = s.cloneNode(true);
-                            cl.querySelectorAll("path").forEach(p => p.setAttribute("fill", col.desc));
-                            duSvg += cl.outerHTML;
-                        });
-                        if (!duSvg) {
-                            duSvg = `<text x="0" y="${Math.round(duBox.height * 0.8)}" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="${Math.round(duBox.height * 0.8)}" fill="${col.desc}">${dUnit.textContent}</text>`;
+                        let descInner = "";
+                        const descUnits = descRow.querySelectorAll(".descriptor-unit, .descriptor-letter-span");
+                        if (descUnits.length > 0) {
+                            descUnits.forEach((dUnit, dIdx) => {
+                                const duBox = dUnit.getBoundingClientRect();
+                                const duX = Math.round(duBox.left - dBox.left);
+                                const duY = Math.round(duBox.top - dBox.top);
+                                const letterObj = state.elements.tagline.letters[dIdx] || null;
+                                const glyph = renderUnitSvg(dUnit, tlColor, tlFontFam, letterObj);
+                                descInner += `<g transform="translate(${duX}, ${duY})">${glyph}</g>`;
+                            });
+                        } else {
+                            descInner = renderUnitSvg(descRow, tlColor, tlFontFam, null);
                         }
-                        descInner += `<g transform="translate(${duX}, ${duY})">${duSvg}</g>`;
-                    });
 
-                    elementsGroup += `<g transform="translate(${dX}, ${dY})">${descInner}</g>`;
+                        elementsGroup += `<g transform="translate(${dX}, ${dY})">${descInner}</g>`;
+                    }
                 }
             }
 
@@ -4981,8 +5052,8 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalW} ${totalH}" width="${totalW}" height="${totalH}">
     <defs>
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&amp;family=Plus+Jakarta+Sans:wght@600&amp;display=swap');
-            text { text-anchor: start; dominant-baseline: alphabetic; }
+            ${fontImports}
+            text { text-anchor: middle; dominant-baseline: alphabetic; }
         </style>
     </defs>
     ${bgSvg}
