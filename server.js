@@ -1,4 +1,5 @@
 import http from 'node:http';
+import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -258,6 +259,182 @@ function loadAllBrands() {
     }
 
     return brands;
+}
+
+
+const require = createRequire(import.meta.url);
+let lucideData = null;
+let tablerData = null;
+let faData = null;
+
+try {
+    lucideData = require('@iconify-json/lucide/icons.json');
+    tablerData = require('@iconify-json/tabler/icons.json');
+    faData = require('@iconify-json/fa6-solid/icons.json');
+} catch (e) {
+    console.warn('Notice: Local iconify collections will be loaded on demand:', e.message);
+}
+
+const SPANISH_ICON_DICTIONARY = {
+    "corona": "crown", "coronas": "crown",
+    "escudo": "shield", "escudos": "shield",
+    "estrella": "star", "estrellas": "star",
+    "diamante": "diamond", "diamantes": "diamond", "gema": "gem", "joya": "gem",
+    "fuego": "fire", "llama": "flame", "llamas": "flame",
+    "sol": "sun", "soles": "sun",
+    "luna": "moon", "lunas": "moon",
+    "leon": "lion", "león": "lion", "leones": "lion",
+    "aguila": "eagle", "águila": "eagle",
+    "pluma": "feather", "plumas": "feather",
+    "llave": "key", "llaves": "key",
+    "trofeo": "trophy", "trofeos": "trophy", "copa": "trophy",
+    "reloj": "clock", "tiempo": "time",
+    "flor": "flower", "flores": "flower", "hoja": "leaf", "planta": "plant",
+    "corazon": "heart", "corazón": "heart",
+    "ojo": "eye", "ojos": "eye",
+    "circulo": "circle", "círculo": "circle",
+    "cruz": "cross", "cruces": "cross",
+    "espada": "sword", "espadas": "sword",
+    "castillo": "castle", "torre": "tower",
+    "anillo": "ring", "anillos": "ring",
+    "brujula": "compass", "brújula": "compass",
+    "rayo": "lightning", "trueno": "bolt",
+    "libro": "book", "libros": "book",
+    "ala": "wing", "alas": "wing",
+    "medalla": "medal", "premio": "award",
+    "mariposa": "butterfly", "rosa": "rose",
+    "infinito": "infinity", "ancla": "anchor",
+    "casa": "home", "edificio": "building",
+    "maletin": "briefcase", "maletín": "briefcase",
+    "globo": "globe", "mundo": "world",
+    "destello": "sparkles", "destellos": "sparkles", "brillo": "sparkles",
+    "magia": "magic", "varita": "wand",
+    "ajedrez": "chess", "rey": "king", "reina": "queen",
+    "dragon": "dragon", "dragón": "dragon"
+};
+
+function translateSearchQuery(query) {
+    if (!query) return "";
+    const clean = query.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (SPANISH_ICON_DICTIONARY[clean]) return SPANISH_ICON_DICTIONARY[clean];
+    const words = clean.split(/\s+/);
+    return words.map(w => SPANISH_ICON_DICTIONARY[w] || w).join(" ");
+}
+
+function matchScore(key, term) {
+    if (key === term) return 100;
+    if (key.startsWith(term + "-") || key.endsWith("-" + term)) return 80;
+    if (key.includes("-" + term + "-")) return 70;
+    if (key.startsWith(term)) return 50;
+    if (key.includes(term)) return 30;
+    return 0;
+}
+
+function searchLocalIcons(query, category = "all", limit = 48) {
+    const rawQ = (query || "").trim().toLowerCase();
+    const transQ = translateSearchQuery(rawQ);
+    const searchTerms = Array.from(new Set([rawQ, transQ])).filter(Boolean);
+
+    const collections = [];
+    if ((category === "all" || category === "lucide") && lucideData) collections.push({ name: "lucide", data: lucideData });
+    if ((category === "all" || category === "tabler") && tablerData) collections.push({ name: "tabler", data: tablerData });
+    if ((category === "all" || category === "fa") && faData) collections.push({ name: "fa", data: faData });
+
+    const scoredMatches = [];
+
+    for (const term of searchTerms) {
+        for (const col of collections) {
+            const keys = Object.keys(col.data.icons);
+            for (const key of keys) {
+                const score = matchScore(key, term);
+                if (score > 0) {
+                    const id = `${col.name}_${key}`;
+                    if (!scoredMatches.some(m => m.id === id)) {
+                        const icon = col.data.icons[key];
+                        const w = icon.width || col.data.width || 24;
+                        const h = icon.height || col.data.height || 24;
+                        scoredMatches.push({
+                            id,
+                            name: key,
+                            prefix: col.name,
+                            category: col.name,
+                            score,
+                            svg: `<svg viewBox="0 0 ${w} ${h}">${icon.body}</svg>`
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    scoredMatches.sort((a, b) => b.score - a.score);
+    return scoredMatches.slice(0, limit);
+}
+
+const POPULAR_BRAND_ICONS = [
+    "crown", "shield", "shield-check", "shield-halved", "diamond", "gem",
+    "award", "trophy", "star", "sparkles", "compass", "feather", "feather-pointed",
+    "fire", "flame", "sun", "sun-high", "moon", "anchor", "key", "castle",
+    "dragon", "eye", "bolt", "ring", "heart", "swords", "wand", "medal",
+    "cross", "chess-king", "flower", "infinity", "pyramid", "clover", "target", "globe"
+];
+
+function getCollectionIcons(category = "all", limit = 48, offset = 0) {
+    const collections = [];
+    if ((category === "all" || category === "lucide") && lucideData) collections.push({ name: "lucide", data: lucideData });
+    if ((category === "all" || category === "tabler") && tablerData) collections.push({ name: "tabler", data: tablerData });
+    if ((category === "all" || category === "fa") && faData) collections.push({ name: "fa", data: faData });
+
+    const results = [];
+    const addedIds = new Set();
+
+    // Priority 1: Popular brandmark icons first
+    if (offset === 0) {
+        for (const popName of POPULAR_BRAND_ICONS) {
+            for (const col of collections) {
+                if (col.data.icons[popName]) {
+                    const id = `${col.name}_${popName}`;
+                    if (!addedIds.has(id)) {
+                        addedIds.add(id);
+                        const icon = col.data.icons[popName];
+                        const w = icon.width || col.data.width || 24;
+                        const h = icon.height || col.data.height || 24;
+                        results.push({
+                            id,
+                            name: popName,
+                            prefix: col.name,
+                            category: col.name,
+                            svg: `<svg viewBox="0 0 ${w} ${h}">${icon.body}</svg>`
+                        });
+                        if (results.length >= limit) return results;
+                    }
+                }
+            }
+        }
+    }
+
+    // Priority 2: General alphabetical browse
+    for (const col of collections) {
+        const keys = Object.keys(col.data.icons);
+        for (const key of keys) {
+            const id = `${col.name}_${key}`;
+            if (!addedIds.has(id)) {
+                addedIds.add(id);
+                const icon = col.data.icons[key];
+                const w = icon.width || col.data.width || 24;
+                const h = icon.height || col.data.height || 24;
+                results.push({
+                    id,
+                    name: key,
+                    prefix: col.name,
+                    category: col.name,
+                    svg: `<svg viewBox="0 0 ${w} ${h}">${icon.body}</svg>`
+                });
+                if (results.length >= limit) return results;
+            }
+        }
+    }
+    return results;
 }
 
 const server = http.createServer(async (req, res) => {
@@ -622,6 +799,30 @@ const server = http.createServer(async (req, res) => {
                 brandbook: brandData.brandbook || null,
                 fontManifest: brandData.fontManifest || null
             }));
+            return;
+        }
+
+        
+        // 5.5 Native Icon Directory & Search API (/api/icons, /api/icons/search)
+        if (pathname === '/api/icons/search') {
+            const q = reqUrl.searchParams.get('q') || '';
+            const cat = reqUrl.searchParams.get('category') || 'all';
+            const limit = parseInt(reqUrl.searchParams.get('limit') || '48', 10);
+
+            const matches = searchLocalIcons(q, cat, limit);
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ ok: true, count: matches.length, query: q, icons: matches }));
+            return;
+        }
+
+        if (pathname === '/api/icons') {
+            const cat = reqUrl.searchParams.get('category') || 'all';
+            const limit = parseInt(reqUrl.searchParams.get('limit') || '48', 10);
+            const offset = parseInt(reqUrl.searchParams.get('offset') || '0', 10);
+
+            const icons = getCollectionIcons(cat, limit, offset);
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ ok: true, count: icons.length, category: cat, icons: icons }));
             return;
         }
 

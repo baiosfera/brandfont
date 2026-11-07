@@ -1427,6 +1427,49 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+    
+        /* Reset Buttons for Slider Controls */
+        .btn-slider-reset {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 11px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            line-height: 1.2;
+            transition: all 0.15s ease;
+        }
+        .btn-slider-reset:hover {
+            color: var(--accent-gold);
+            border-color: var(--accent-gold);
+            background: var(--accent-gold-soft);
+        }
+        .btn-slider-reset-full {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            font-size: 10px;
+            font-family: var(--font-mono);
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .btn-slider-reset-full:hover {
+            color: var(--accent-gold);
+            border-color: var(--accent-gold);
+            background: var(--accent-gold-soft);
+        }
+        .slider-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
     </style>
 </head>
 <body>
@@ -1637,7 +1680,10 @@
 
                         <!-- Layer Stacking Disposition -->
                         <div style="display: flex; flex-direction: column; gap: 4px;">
-                            <span style="font-size: 10px; color: var(--text-muted); font-weight: 600;">Disposición de Capas:</span>
+                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 2px;">
+        <span style="font-size: 10px; color: var(--text-muted); font-weight: 600;">Disposición de Capas:</span>
+        <button type="button" class="btn-slider-reset-full" onclick="resetIconSettings()" title="Restablecer todos los ajustes del ícono">↺ Restablecer Ícono</button>
+    </div>
                             <select id="selectIconLayerOrder" class="input-field" onchange="onIconSettingChange()">
                                 <option value="behind">Detrás de iniciales (Fondo / Sello)</option>
                                 <option value="front">Frente a iniciales (Superpuesto)</option>
@@ -1652,7 +1698,7 @@
                         <div class="slider-control">
                             <div class="slider-header">
                                 <span>Escala del Ícono</span>
-                                <span id="valIconScale">100%</span>
+                                <div class="slider-header-actions"><span id="valIconScale">100%</span><button type="button" class="btn-slider-reset" onclick="resetSlider('iconScale')" title="Restablecer escala a 100%">↺</button></div>
                             </div>
                             <input type="range" id="sliderIconScale" min="20" max="250" value="100" oninput="onIconSettingChange()">
                         </div>
@@ -1661,14 +1707,14 @@
                             <div class="slider-control">
                                 <div class="slider-header">
                                     <span>Offset X</span>
-                                    <span id="valIconShiftX">0px</span>
+                                    <div class="slider-header-actions"><span id="valIconShiftX">0px</span><button type="button" class="btn-slider-reset" onclick="resetSlider('iconShiftX')" title="Restablecer Offset X a 0px">↺</button></div>
                                 </div>
                                 <input type="range" id="sliderIconShiftX" min="-120" max="120" value="0" oninput="onIconSettingChange()">
                             </div>
                             <div class="slider-control">
                                 <div class="slider-header">
                                     <span>Offset Y</span>
-                                    <span id="valIconShiftY">0px</span>
+                                    <div class="slider-header-actions"><span id="valIconShiftY">0px</span><button type="button" class="btn-slider-reset" onclick="resetSlider('iconShiftY')" title="Restablecer Offset Y a 0px">↺</button></div>
                                 </div>
                                 <input type="range" id="sliderIconShiftY" min="-120" max="120" value="0" oninput="onIconSettingChange()">
                             </div>
@@ -1678,14 +1724,14 @@
                             <div class="slider-control">
                                 <div class="slider-header">
                                     <span>Rotación</span>
-                                    <span id="valIconRotate">0°</span>
+                                    <div class="slider-header-actions"><span id="valIconRotate">0°</span><button type="button" class="btn-slider-reset" onclick="resetSlider('iconRotate')" title="Restablecer rotación a 0°">↺</button></div>
                                 </div>
                                 <input type="range" id="sliderIconRotate" min="-180" max="180" value="0" oninput="onIconSettingChange()">
                             </div>
                             <div class="slider-control">
                                 <div class="slider-header">
                                     <span>Opacidad</span>
-                                    <span id="valIconOpacity">100%</span>
+                                    <div class="slider-header-actions"><span id="valIconOpacity">100%</span><button type="button" class="btn-slider-reset" onclick="resetSlider('iconOpacity')" title="Restablecer opacidad a 100%">↺</button></div>
                                 </div>
                                 <input type="range" id="sliderIconOpacity" min="10" max="100" value="100" oninput="onIconSettingChange()">
                             </div>
@@ -1803,7 +1849,7 @@
                 <div class="slider-control">
                     <div class="slider-header">
                         <span id="lblScale">Escala / Altura</span>
-                        <span id="valScale">100%</span>
+                        <div class="slider-header-actions"><span id="valScale">100%</span><button type="button" class="btn-slider-reset" onclick="resetSlider('scale')" title="Restablecer escala a 100%">↺</button></div>
                     </div>
                     <input type="range" id="sliderScale" min="30" max="250" value="100" oninput="onSliderChange()">
                 </div>
@@ -1812,16 +1858,16 @@
                 <div class="slider-control" id="ctrlSpacing">
                     <div class="slider-header">
                         <span>Espaciado de Letras (Tracking)</span>
-                        <span id="valSpacing">4px</span>
+                        <div class="slider-header-actions"><span id="valSpacing">0px</span><button type="button" class="btn-slider-reset" onclick="resetSlider('spacing')" title="Restablecer tracking a 0px">↺</button></div>
                     </div>
-                    <input type="range" id="sliderSpacing" min="-10" max="80" value="4" oninput="onSliderChange()">
+                    <input type="range" id="sliderSpacing" min="-10" max="80" value="0" oninput="onSliderChange()">
                 </div>
 
                 <!-- Shift Y Slider -->
                 <div class="slider-control" id="ctrlShiftY">
                     <div class="slider-header">
                         <span>Desplazamiento Vertical (Baseline Y)</span>
-                        <span id="valShiftY">0px</span>
+                        <div class="slider-header-actions"><span id="valShiftY">0px</span><button type="button" class="btn-slider-reset" onclick="resetSlider('shiftY')" title="Restablecer Baseline Y a 0px">↺</button></div>
                     </div>
                     <input type="range" id="sliderShiftY" min="-100" max="100" value="0" oninput="onSliderChange()">
                 </div>
@@ -1830,7 +1876,7 @@
                 <div class="slider-control" id="ctrlShiftX">
                     <div class="slider-header">
                         <span>Desplazamiento Horizontal (Offset X)</span>
-                        <span id="valShiftX">0px</span>
+                        <div class="slider-header-actions"><span id="valShiftX">0px</span><button type="button" class="btn-slider-reset" onclick="resetSlider('shiftX')" title="Restablecer Offset X a 0px">↺</button></div>
                     </div>
                     <input type="range" id="sliderShiftX" min="-100" max="100" value="0" oninput="onSliderChange()">
                 </div>
@@ -1839,7 +1885,7 @@
                 <div class="slider-control" id="ctrlRotate" style="display: none;">
                     <div class="slider-header">
                         <span>Rotación de Glifo</span>
-                        <span id="valRotate">0°</span>
+                        <div class="slider-header-actions"><span id="valRotate">0°</span><button type="button" class="btn-slider-reset" onclick="resetSlider('rotate')" title="Restablecer rotación a 0°">↺</button></div>
                     </div>
                     <input type="range" id="sliderRotate" min="-180" max="180" value="0" oninput="onSliderChange()">
                 </div>
@@ -1934,7 +1980,7 @@
                 <div class="slider-control" id="ctrlGap" style="margin-top: 6px;">
                     <div class="slider-header">
                         <span>Separación entre Elementos (Gap)</span>
-                        <span id="valGap">24px</span>
+                        <div class="slider-header-actions"><span id="valGap">24px</span><button type="button" class="btn-slider-reset" onclick="resetSlider('gap')" title="Restablecer separación a 24px">↺</button></div>
                     </div>
                     <input type="range" id="sliderGap" min="0" max="100" value="24" oninput="onGapChange()">
                 </div>
@@ -2444,7 +2490,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             const q = (query || "").trim();
 
             if (!q) {
-                if (statusEl) statusEl.textContent = "200,000+ íconos vectoriales";
+                if (statusEl) statusEl.textContent = "9,800+ íconos locales (Lucide, Tabler, FA)";
                 filterIcons(activeIconCategory);
                 return;
             }
@@ -2453,30 +2499,25 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             iconSearchDebounceTimer = setTimeout(async () => {
                 try {
-                    let url = `https://api.iconify.design/search?query=${encodeURIComponent(q)}&limit=36`;
-                    if (activeIconCategory === "lucide") url += `&prefixes=lucide`;
-                    else if (activeIconCategory === "tabler") url += `&prefixes=tabler`;
-                    else if (activeIconCategory === "fa") url += `&prefixes=fa6-solid,fa6-regular`;
-
-                    const resp = await fetch(url);
-                    if (!resp.ok) throw new Error("Iconify search unavailable");
+                    const resp = await fetch(`/api/icons/search?q=${encodeURIComponent(q)}&category=${encodeURIComponent(activeIconCategory)}&limit=48`);
+                    if (!resp.ok) throw new Error("Search API error");
                     const data = await resp.json();
                     const icons = data.icons || [];
 
                     if (statusEl) {
-                        statusEl.textContent = icons.length > 0 ? `${icons.length} íconos de ${data.total || icons.length}` : "0 íconos encontrados";
+                        statusEl.textContent = `${icons.length} íconos encontrados`;
                     }
 
-                    renderDynamicIconResults(icons);
+                    renderLoadedIconResults(icons);
                 } catch (err) {
-                    if (statusEl) statusEl.textContent = "Buscando en catálogo local...";
+                    if (statusEl) statusEl.textContent = "Catálogo local...";
                     const localMatches = ICON_LIBRARY.filter(i => i.name.toLowerCase().includes(q.toLowerCase()) || i.id.toLowerCase().includes(q.toLowerCase()));
                     renderLocalIconMatches(localMatches);
                 }
-            }, 250);
+            }, 120);
         }
 
-        function renderDynamicIconResults(iconNames) {
+        function renderLoadedIconResults(icons) {
             const grid = document.getElementById("iconPickerGrid");
             const customBox = document.getElementById("customSvgBox");
             if (!grid) return;
@@ -2484,23 +2525,18 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             grid.style.display = "grid";
             if (customBox) customBox.style.display = "none";
 
-            if (!iconNames || iconNames.length === 0) {
-                grid.innerHTML = `<div style="grid-column: 1 / -1; font-size: 11px; color: var(--text-muted); text-align: center; padding: 12px;">No se encontraron íconos para este término.</div>`;
+            if (!icons || icons.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1 / -1; font-size: 11px; color: var(--text-muted); text-align: center; padding: 12px;">No se encontraron íconos. Probá buscando "corona", "escudo", "estrella", "fuego", "diamante", "trofeo", "sol", "luna"...</div>`;
                 return;
             }
 
-            grid.innerHTML = iconNames.map(fullName => {
-                const parts = fullName.split(":");
-                const prefix = parts[0];
-                const name = parts[1] || parts[0];
-                const cleanId = `iconify_${prefix}_${name}`;
-                const isActive = state.monogramIcon.iconId === cleanId || state.monogramIcon.iconId === fullName;
-                const svgUrl = `https://api.iconify.design/${prefix}/${name}.svg`;
-
+            grid.innerHTML = icons.map(item => {
+                iconCache.set(item.id, item.svg);
+                const isActive = state.monogramIcon.iconId === item.id;
                 return `
-                    <button type="button" class="icon-chip-btn ${isActive ? 'active' : ''}" onclick="selectIconifyIcon('${prefix}', '${name}', '${cleanId}')" title="${fullName}">
-                        <img src="${svgUrl}" alt="${name}" style="width:20px; height:20px; display:block;" />
-                        <span class="icon-chip-label">${name}</span>
+                    <button type="button" class="icon-chip-btn ${isActive ? 'active' : ''}" onclick="selectIcon('${item.id}')" title="${item.name} (${item.prefix || item.category})">
+                        ${item.svg}
+                        <span class="icon-chip-label">${item.name}</span>
                     </button>
                 `;
             }).join("");
@@ -2509,77 +2545,66 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         function renderLocalIconMatches(items) {
             const grid = document.getElementById("iconPickerGrid");
             if (!grid) return;
-            grid.innerHTML = items.map(item => `
-                <button type="button" class="icon-chip-btn ${state.monogramIcon.iconId === item.id ? 'active' : ''}" onclick="selectIcon('${item.id}')" title="${item.name}">
-                    ${item.svg}
-                    <span class="icon-chip-label">${item.name}</span>
-                </button>
-            `).join("");
+            grid.innerHTML = items.map(item => {
+                iconCache.set(item.id, item.svg);
+                return `
+                    <button type="button" class="icon-chip-btn ${state.monogramIcon.iconId === item.id ? 'active' : ''}" onclick="selectIcon('${item.id}')" title="${item.name}">
+                        ${item.svg}
+                        <span class="icon-chip-label">${item.name}</span>
+                    </button>
+                `;
+            }).join("");
         }
 
-        async function selectIconifyIcon(prefix, name, cleanId) {
-            const fullName = `${prefix}:${name}`;
-            state.monogramIcon.iconId = cleanId;
-
-            document.querySelectorAll(".icon-chip-btn").forEach(b => b.classList.remove("active"));
-            const btn = document.querySelector(`.icon-chip-btn[onclick*="'${name}'"]`);
-            if (btn) btn.classList.add("active");
-
-            if (!iconCache.has(cleanId)) {
-                try {
-                    const svgUrl = `https://api.iconify.design/${prefix}/${name}.svg`;
-                    const resp = await fetch(svgUrl);
-                    if (resp.ok) {
-                        const svgText = await resp.text();
-                        iconCache.set(cleanId, svgText);
-                        iconCache.set(fullName, svgText);
-                    }
-                } catch (e) {
-                    console.warn("Could not fetch Iconify SVG:", e);
-                }
-            }
-
-            if (!state.monogramIcon.enabled) {
-                const chk = document.getElementById("chkMonogramIcon");
-                if (chk) { chk.checked = true; toggleMonogramIcon(true); }
-            } else {
-                updateCanvasElements();
-            }
-            showToast(`✓ Ícono seleccionado: ${fullName}`);
-        }
-
-        function filterIcons(cat) {
+        async function filterIcons(cat) {
             activeIconCategory = cat;
             const grid = document.getElementById("iconPickerGrid");
             const customBox = document.getElementById("customSvgBox");
             const searchInput = document.getElementById("iconSearchInput");
-            if (searchInput && searchInput.value.trim().length > 0) {
-                handleIconSearch(searchInput.value);
-                return;
-            }
-            if (!grid) return;
+            const statusEl = document.getElementById("iconSearchStatus");
 
             document.querySelectorAll("[data-cat]").forEach(b => {
                 b.classList.toggle("active", b.getAttribute("data-cat") === cat);
             });
 
             if (cat === "custom") {
-                grid.style.display = "none";
+                if (grid) grid.style.display = "none";
                 if (customBox) customBox.style.display = "flex";
                 selectIcon("custom");
                 return;
             }
 
-            grid.style.display = "grid";
+            if (grid) grid.style.display = "grid";
             if (customBox) customBox.style.display = "none";
 
-            const filtered = cat === "all" ? ICON_LIBRARY : ICON_LIBRARY.filter(i => i.category === cat);
-            grid.innerHTML = filtered.map(item => `
-                <button type="button" class="icon-chip-btn ${state.monogramIcon.iconId === item.id ? 'active' : ''}" onclick="selectIcon('${item.id}')" title="${item.name}">
-                    ${item.svg}
-                    <span class="icon-chip-label">${item.name}</span>
-                </button>
-            `).join("");
+            if (searchInput && searchInput.value.trim().length > 0) {
+                handleIconSearch(searchInput.value);
+                return;
+            }
+
+            if (cat === "luxury" || cat === "sacred") {
+                const filtered = ICON_LIBRARY.filter(i => i.category === cat);
+                if (statusEl) statusEl.textContent = `${filtered.length} íconos de ${cat === 'luxury' ? 'Heráldica' : 'Sagrada'}`;
+                renderLocalIconMatches(filtered);
+                return;
+            }
+
+            if (statusEl) statusEl.textContent = `Cargando colección ${cat.toUpperCase()}...`;
+            try {
+                const resp = await fetch(`/api/icons?category=${encodeURIComponent(cat)}&limit=48`);
+                if (resp.ok) {
+                    const data = await resp.json();
+                    const icons = data.icons || [];
+                    if (statusEl) statusEl.textContent = `${icons.length} íconos de ${cat.toUpperCase()} listos`;
+                    renderLoadedIconResults(icons);
+                    return;
+                }
+            } catch (err) {
+                console.warn("Could not load /api/icons:", err);
+            }
+
+            const fallback = cat === "all" ? ICON_LIBRARY : ICON_LIBRARY.filter(i => i.category === cat);
+            renderLocalIconMatches(fallback);
         }
 
         function selectIcon(iconId) {
@@ -3222,6 +3247,80 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         }
 
         // Reset Transform Controls to Initial Default Values
+        
+        // Universal Slider Reset Engine
+        function resetSlider(type) {
+            const comp = state.elements[state.activeTarget];
+            if (type === 'iconScale') {
+                state.monogramIcon.scale = 100;
+                if (document.getElementById("sliderIconScale")) document.getElementById("sliderIconScale").value = 100;
+                if (document.getElementById("valIconScale")) document.getElementById("valIconScale").textContent = "100%";
+            } else if (type === 'iconShiftX') {
+                state.monogramIcon.shiftX = 0;
+                if (document.getElementById("sliderIconShiftX")) document.getElementById("sliderIconShiftX").value = 0;
+                if (document.getElementById("valIconShiftX")) document.getElementById("valIconShiftX").textContent = "0px";
+            } else if (type === 'iconShiftY') {
+                state.monogramIcon.shiftY = 0;
+                if (document.getElementById("sliderIconShiftY")) document.getElementById("sliderIconShiftY").value = 0;
+                if (document.getElementById("valIconShiftY")) document.getElementById("valIconShiftY").textContent = "0px";
+            } else if (type === 'iconRotate') {
+                state.monogramIcon.rotate = 0;
+                if (document.getElementById("sliderIconRotate")) document.getElementById("sliderIconRotate").value = 0;
+                if (document.getElementById("valIconRotate")) document.getElementById("valIconRotate").textContent = "0°";
+            } else if (type === 'iconOpacity') {
+                state.monogramIcon.opacity = 100;
+                if (document.getElementById("sliderIconOpacity")) document.getElementById("sliderIconOpacity").value = 100;
+                if (document.getElementById("valIconOpacity")) document.getElementById("valIconOpacity").textContent = "100%";
+            } else if (type === 'scale') {
+                if (state.granularLevel === "block") comp.block.scale = 100;
+                else if (state.granularLevel === "word" && comp.words[state.selectedWordIndex]) comp.words[state.selectedWordIndex].scale = 100;
+                else if (state.granularLevel === "letter" && comp.letters[state.selectedLetterIndex]) comp.letters[state.selectedLetterIndex].scale = 100;
+                if (document.getElementById("sliderScale")) document.getElementById("sliderScale").value = 100;
+                if (document.getElementById("valScale")) document.getElementById("valScale").textContent = "100%";
+            } else if (type === 'spacing') {
+                comp.block.spacing = 0;
+                if (document.getElementById("sliderSpacing")) document.getElementById("sliderSpacing").value = 0;
+                if (document.getElementById("valSpacing")) document.getElementById("valSpacing").textContent = "0px";
+            } else if (type === 'shiftY') {
+                if (state.granularLevel === "block") comp.block.shiftY = 0;
+                else if (state.granularLevel === "word" && comp.words[state.selectedWordIndex]) comp.words[state.selectedWordIndex].shiftY = 0;
+                else if (state.granularLevel === "letter" && comp.letters[state.selectedLetterIndex]) comp.letters[state.selectedLetterIndex].shiftY = 0;
+                if (document.getElementById("sliderShiftY")) document.getElementById("sliderShiftY").value = 0;
+                if (document.getElementById("valShiftY")) document.getElementById("valShiftY").textContent = "0px";
+            } else if (type === 'shiftX') {
+                if (state.granularLevel === "block") comp.block.shiftX = 0;
+                else if (state.granularLevel === "word" && comp.words[state.selectedWordIndex]) comp.words[state.selectedWordIndex].shiftX = 0;
+                else if (state.granularLevel === "letter" && comp.letters[state.selectedLetterIndex]) comp.letters[state.selectedLetterIndex].shiftX = 0;
+                if (document.getElementById("sliderShiftX")) document.getElementById("sliderShiftX").value = 0;
+                if (document.getElementById("valShiftX")) document.getElementById("valShiftX").textContent = "0px";
+            } else if (type === 'rotate') {
+                if (state.granularLevel === "letter" && comp.letters[state.selectedLetterIndex]) comp.letters[state.selectedLetterIndex].rotate = 0;
+                if (document.getElementById("sliderRotate")) document.getElementById("sliderRotate").value = 0;
+                if (document.getElementById("valRotate")) document.getElementById("valRotate").textContent = "0°";
+            } else if (type === 'gap') {
+                const brandLockup = document.getElementById("brandLockup");
+                if (brandLockup) brandLockup.style.gap = "24px";
+                if (document.getElementById("sliderGap")) document.getElementById("sliderGap").value = 24;
+                if (document.getElementById("valGap")) document.getElementById("valGap").textContent = "24px";
+            }
+            updateCanvasElements();
+            showToast(`↺ Control restablecido`);
+        }
+
+        function resetIconSettings() {
+            state.monogramIcon.scale = 100;
+            state.monogramIcon.shiftX = 0;
+            state.monogramIcon.shiftY = 0;
+            state.monogramIcon.rotate = 0;
+            state.monogramIcon.opacity = 100;
+            state.monogramIcon.layerOrder = "behind";
+            state.monogramIcon.colorType = "primary";
+            state.monogramIcon.renderMode = "fill";
+            updateIconUIFromState();
+            updateCanvasElements();
+            showToast("↺ Ajustes del ícono restablecidos a valores iniciales");
+        }
+
         function resetTransformControls() {
             const comp = state.elements[state.activeTarget];
             if (state.granularLevel === "block") {
