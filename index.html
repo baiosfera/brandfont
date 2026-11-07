@@ -837,6 +837,200 @@
             fill: none !important;
         }
 
+        
+        /* Multi-Lienzo (Boards / Artboards Engine) */
+        .boards-management-bar {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 51px;
+            z-index: 25;
+        }
+        .boards-tabs-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            max-width: 65%;
+        }
+        .boards-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 0.8px;
+            font-family: var(--font-mono);
+            white-space: nowrap;
+        }
+        .boards-tabs-list {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .board-tab {
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+        .board-tab:hover {
+            border-color: var(--border-hover);
+            color: var(--text-main);
+        }
+        .board-tab.active {
+            background: var(--bg-surface-elevated);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+        }
+        .board-tab.pinned-badge::before {
+            content: "📌";
+            font-size: 10px;
+        }
+        .btn-board-tool {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.15s;
+        }
+        .btn-board-tool:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        .btn-board-tool.active {
+            background: var(--accent-gold);
+            color: #07080b;
+            border-color: var(--accent-gold);
+        }
+        .btn-add-board {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px dashed var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        .btn-add-board:hover {
+            background: rgba(212, 175, 55, 0.2);
+        }
+        .btn-danger-board:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        .boards-actions-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Independent Mini Casing Buttons */
+        .btn-case-mini {
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: var(--font-mono);
+        }
+        .btn-case-mini:hover {
+            color: var(--text-main);
+            border-color: var(--border-hover);
+        }
+        .btn-case-mini.active {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* Granular Visibility Toggle */
+        .btn-visibility-toggle {
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            color: #4ade80;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.15s;
+        }
+        .btn-visibility-toggle.is-hidden {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #f87171;
+        }
+        .pill-btn.is-hidden {
+            opacity: 0.35;
+            text-decoration: line-through;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        /* Compare Mode Artboards Grid */
+        .boards-compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            width: 100%;
+            padding: 10px;
+        }
+        .board-compare-card {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.2s ease;
+        }
+        .board-compare-card.active-card {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .board-compare-header {
+            padding: 10px 14px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .board-compare-body {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+            overflow: hidden;
+        }
+
         /* Lockup Elements */
         .brand-lockup {
             display: flex;
@@ -1569,52 +1763,68 @@
                         <option value="">🔤 Ecosistema Tipográfico SOTA...</option>
                     </select>
                 </div>
-                <input 
-                    type="text" 
-                    id="inputBrandName" 
-                    class="input-field" 
-                    placeholder="NOMBRE DE MARCA" 
-                    value="MI MARCA" 
-                    oninput="onBrandTextChange()"
-                />
-                <div class="input-row">
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 10px; color: var(--text-muted); font-weight: 600;">1. Nombre de Marca (Logotipo):</span>
+                        <div class="segmented-btn-group" style="display: inline-flex; width: auto; gap: 3px;">
+                            <button type="button" class="btn-case-mini active" data-wm-case="upper" onclick="applyLogotypeCasing('upper')" title="TODO EN MAYÚSCULAS">MAYÚS</button>
+                            <button type="button" class="btn-case-mini" data-wm-case="title" onclick="applyLogotypeCasing('title')" title="Primera Letra Mayúscula">Título</button>
+                            <button type="button" class="btn-case-mini" data-wm-case="lower" onclick="applyLogotypeCasing('lower')" title="todo en minúsculas">minús</button>
+                        </div>
+                    </div>
                     <input 
                         type="text" 
-                        id="inputInitials" 
+                        id="inputBrandName" 
                         class="input-field" 
-                        placeholder="Iniciales (Aa)" 
-                        value="MM" 
-                        maxlength="6"
-                        style="width: 35%; text-align: center;" 
-                        oninput="onBrandTextChange()"
-                    />
-                    <input 
-                        type="text" 
-                        id="inputDescriptor" 
-                        class="input-field" 
-                        placeholder="Tagline / Descriptor (Aa)" 
-                        value="ESTUDIO DE DISEÑO" 
-                        style="width: 65%;" 
+                        placeholder="NOMBRE DE MARCA" 
+                        value="MI MARCA" 
                         oninput="onBrandTextChange()"
                     />
                 </div>
 
-                <!-- Text Casing Controls -->
-                <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-muted);">
-                        <span>Caja Tipográfica:</span>
-                        <span id="activeCasingLabel" style="font-family: var(--font-mono); font-size: 9px; color: var(--accent-gold);">MAYÚS</span>
+                <div class="input-row" style="margin-top: 4px;">
+                    <div style="display: flex; flex-direction: column; gap: 4px; width: 38%;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 9px; color: var(--text-muted); font-weight: 600;">2. Monograma:</span>
+                            <div class="segmented-btn-group" style="display: inline-flex; width: auto; gap: 2px;">
+                                <button type="button" class="btn-case-mini active" data-mg-case="upper" onclick="applyMonogramCasing('upper')" title="MAYÚSCULAS">M</button>
+                                <button type="button" class="btn-case-mini" data-mg-case="title" onclick="applyMonogramCasing('title')" title="Título">Aa</button>
+                                <button type="button" class="btn-case-mini" data-mg-case="lower" onclick="applyMonogramCasing('lower')" title="minúsculas">m</button>
+                            </div>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="inputInitials" 
+                            class="input-field" 
+                            placeholder="Iniciales (Aa)" 
+                            value="MM" 
+                            maxlength="6"
+                            style="text-align: center;" 
+                            oninput="onBrandTextChange()"
+                        />
                     </div>
-                    <div class="segmented-btn-group" style="grid-template-columns: repeat(4, 1fr);">
-                        <button type="button" class="segmented-btn active" data-case="upper" onclick="applyTextCasing('upper')" title="TODO EN MAYÚSCULAS">MAYÚS</button>
-                        <button type="button" class="segmented-btn" data-case="title" onclick="applyTextCasing('title')" title="Primera Letra Mayúscula (Title Case)">Título</button>
-                        <button type="button" class="segmented-btn" data-case="sentence" onclick="applyTextCasing('sentence')" title="Primera letra en mayúscula de la frase">Oración</button>
-                        <button type="button" class="segmented-btn" data-case="lower" onclick="applyTextCasing('lower')" title="todo en minúsculas">minús</button>
+                    <div style="display: flex; flex-direction: column; gap: 4px; width: 62%;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 9px; color: var(--text-muted); font-weight: 600;">3. Tagline:</span>
+                            <div class="segmented-btn-group" style="display: inline-flex; width: auto; gap: 2px;">
+                                <button type="button" class="btn-case-mini active" data-tl-case="upper" onclick="applyTaglineCasing('upper')" title="MAYÚSCULAS">MAYÚS</button>
+                                <button type="button" class="btn-case-mini" data-tl-case="title" onclick="applyTaglineCasing('title')" title="Título">Título</button>
+                                <button type="button" class="btn-case-mini" data-tl-case="lower" onclick="applyTaglineCasing('lower')" title="minúsculas">minús</button>
+                            </div>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="inputDescriptor" 
+                            class="input-field" 
+                            placeholder="Tagline / Descriptor (Aa)" 
+                            value="ESTUDIO DE DISEÑO" 
+                            oninput="onBrandTextChange()"
+                        />
                     </div>
                 </div>
 
                 <!-- Quick Typography Style Controls (Normal, Bold, Italic, Bold Italic) -->
-                <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
+                <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);">
                     <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-muted);">
                         <span>Estilo &amp; Peso Tipográfico:</span>
                         <span id="activeStyleLabel" style="font-family: var(--font-mono); font-size: 9px; color: var(--accent-gold);">REGULAR</span>
@@ -1847,6 +2057,14 @@
                     <button type="button" class="segmented-btn" data-target="tagline" onclick="setActiveTarget('tagline')">Tagline</button>
                 </div>
 
+                <!-- Unit Visibility Toggle -->
+                <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-deep); padding: 7px 10px; border-radius: 6px; border: 1px solid var(--border); margin-top: 4px;">
+                    <span style="font-size: 10px; color: var(--text-muted); font-weight: 600;">Visibilidad de esta unidad:</span>
+                    <button type="button" id="btnToggleVisibility" class="btn-visibility-toggle" onclick="toggleCurrentUnitVisibility()">
+                        <span id="txtVisibility">👁️ Visible</span>
+                    </button>
+                </div>
+
                 <!-- Level Tabs -->
                 <div class="tabs-nav" style="margin-top: 4px;">
                     <button type="button" class="tab-btn active" data-level="block" onclick="setGranularLevel('block')">Bloque</button>
@@ -1928,10 +2146,10 @@
                     <input type="range" id="sliderShiftX" min="-100" max="100" value="0" oninput="onSliderChange()">
                 </div>
 
-                <!-- Rotation Slider (Only for letter mode) -->
-                <div class="slider-control" id="ctrlRotate" style="display: none;">
+                <!-- Rotation Slider (Block, Word, Letter) -->
+                <div class="slider-control" id="ctrlRotate">
                     <div class="slider-header">
-                        <span>Rotación de Glifo</span>
+                        <span id="lblRotate">Rotación</span>
                         <div class="slider-header-actions"><span id="valRotate">0°</span><button type="button" class="btn-slider-reset" onclick="resetSlider('rotate')" title="Restablecer rotación a 0°">↺</button></div>
                     </div>
                     <input type="range" id="sliderRotate" min="-180" max="180" value="0" oninput="onSliderChange()">
@@ -2076,6 +2294,32 @@
                 </div>
             </div>
 
+            
+            <!-- Multi-Lienzo (Boards Management Bar) -->
+            <div class="boards-management-bar" id="boardsManagementBar">
+                <div class="boards-tabs-wrapper">
+                    <span class="boards-label">LIENZOS:</span>
+                    <div class="boards-tabs-list" id="boardsTabsList"></div>
+                    <button type="button" class="btn-board-tool btn-add-board" onclick="addNewCleanBoard()" title="Fijar el actual y agregar un nuevo lienzo limpio">
+                        ➕ Nuevo Lienzo Limpio
+                    </button>
+                </div>
+                <div class="boards-actions-group">
+                    <button type="button" class="btn-board-tool" id="btnPinCurrentBoard" onclick="togglePinCurrentBoard()" title="Fijar/Desfijar este lienzo">
+                        📌 Fijar Lienzo
+                    </button>
+                    <button type="button" class="btn-board-tool" onclick="duplicateCurrentBoard()" title="Duplicar este lienzo con sus transformaciones">
+                        📋 Duplicar
+                    </button>
+                    <button type="button" class="btn-board-tool" id="btnCompareBoards" onclick="toggleCompareMode()" title="Ver todos los lienzos fijados juntos para comparar">
+                        👁️ Comparar
+                    </button>
+                    <button type="button" class="btn-board-tool btn-danger-board" onclick="deleteCurrentBoard()" title="Eliminar este lienzo">
+                        🗑️
+                    </button>
+                </div>
+            </div>
+
             <div class="canvas-container">
                 <div id="brandCanvas" class="brand-canvas" data-theme="dark">
                     <div id="brandLockup" class="brand-lockup" data-layout="stacked" style="gap: 24px;">
@@ -2203,8 +2447,18 @@
             monogramShape: "minimal", // minimal (clean)
             canvasTheme: "dark", // dark | light | gold | ivory
             gap: 24,
-            quickCasing: "upper", // upper | title | sentence | lower
+            quickCasing: "upper", // legacy fallback
+            casing: {
+                wordmark: "upper", // upper | title | lower
+                monogram: "upper", // upper | title | lower
+                tagline: "upper"
+            },
             quickStyle: "regular", // regular | bold | italic | bold-italic
+
+            // Multi-Lienzo (Boards Engine)
+            boards: [],
+            activeBoardId: "board-1",
+            compareMode: false,
 
             // Active Target & Granular Level
             activeTarget: "wordmark", // wordmark | monogram | tagline
@@ -2238,21 +2492,21 @@
                 wordmark: {
                     fontId: null,
                     variantId: null,
-                    block: { scale: 100, spacing: 0, shiftX: 0, shiftY: 0 },
+                    block: { scale: 100, spacing: 0, shiftX: 0, shiftY: 0, rotate: 0, visible: true },
                     words: [],
                     letters: []
                 },
                 monogram: {
                     fontId: null,
                     variantId: null,
-                    block: { scale: 100, spacing: 0, shiftX: 0, shiftY: 0 },
+                    block: { scale: 100, spacing: 0, shiftX: 0, shiftY: 0, rotate: 0, visible: true },
                     words: [],
                     letters: []
                 },
                 tagline: {
                     fontId: null,
                     variantId: null,
-                    block: { scale: 100, spacing: 4, shiftX: 0, shiftY: 0 },
+                    block: { scale: 100, spacing: 4, shiftX: 0, shiftY: 0, rotate: 0, visible: true },
                     words: [],
                     letters: []
                 }
@@ -2980,11 +3234,444 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             wmRow.addEventListener("pointerdown", (e) => onPointerDown(e, 'wordmark'));
         }
 
+
+        // ==========================================
+        // INDEPENDENT CASING CONTROLS
+        // ==========================================
+        function applyLogotypeCasing(mode) {
+            state.casing.wordmark = mode;
+            document.querySelectorAll(".btn-case-mini[data-wm-case]").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-wm-case") === mode);
+            });
+            const input = document.getElementById("inputBrandName");
+            if (input) {
+                if (mode === "upper") input.value = input.value.toUpperCase();
+                else if (mode === "lower") input.value = input.value.toLowerCase();
+                else if (mode === "title") input.value = input.value.replace(/\b\w+/g, s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase());
+                onBrandTextChange();
+            }
+            scheduleAutoSaveWorkspace();
+            showToast(`✓ Caja Logotipo: ${mode.toUpperCase()}`);
+        }
+
+        function applyMonogramCasing(mode) {
+            state.casing.monogram = mode;
+            document.querySelectorAll(".btn-case-mini[data-mg-case]").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-mg-case") === mode);
+            });
+            const input = document.getElementById("inputInitials");
+            if (input) {
+                if (mode === "upper") input.value = input.value.toUpperCase();
+                else if (mode === "lower") input.value = input.value.toLowerCase();
+                else if (mode === "title") input.value = input.value.length > 1 ? input.value.charAt(0).toUpperCase() + input.value.slice(1).toLowerCase() : input.value.toUpperCase();
+                onBrandTextChange();
+            }
+            scheduleAutoSaveWorkspace();
+            showToast(`✓ Caja Monograma: ${mode.toUpperCase()}`);
+        }
+
+        function applyTaglineCasing(mode) {
+            state.casing.tagline = mode;
+            document.querySelectorAll(".btn-case-mini[data-tl-case]").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-tl-case") === mode);
+            });
+            const input = document.getElementById("inputDescriptor");
+            if (input) {
+                if (mode === "upper") input.value = input.value.toUpperCase();
+                else if (mode === "lower") input.value = input.value.toLowerCase();
+                else if (mode === "title") input.value = input.value.replace(/\b\w+/g, s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase());
+                onBrandTextChange();
+            }
+            scheduleAutoSaveWorkspace();
+            showToast(`✓ Caja Tagline: ${mode.toUpperCase()}`);
+        }
+
+        // ==========================================
+        // GRANULAR VISIBILITY TOGGLE ENGINE
+        // ==========================================
+        function toggleCurrentUnitVisibility() {
+            const comp = state.elements[state.activeTarget];
+            let newVisible = true;
+            if (state.granularLevel === "block") {
+                comp.block.visible = (comp.block.visible === false ? true : false);
+                newVisible = comp.block.visible;
+            } else if (state.granularLevel === "word") {
+                const w = comp.words[state.selectedWordIndex];
+                if (w) {
+                    w.visible = (w.visible === false ? true : false);
+                    newVisible = w.visible;
+                }
+            } else if (state.granularLevel === "letter") {
+                const l = comp.letters[state.selectedLetterIndex];
+                if (l) {
+                    l.visible = (l.visible === false ? true : false);
+                    newVisible = l.visible;
+                }
+            }
+            updateVisibilityUI(newVisible);
+            renderPills();
+            updateCanvasElements();
+            scheduleAutoSaveWorkspace();
+            showToast(`✓ Visibilidad: ${newVisible ? 'Visible 👁️' : 'Oculto 🚫'}`);
+        }
+
+        function updateVisibilityUI(isVisible) {
+            const btn = document.getElementById("btnToggleVisibility");
+            const txt = document.getElementById("txtVisibility");
+            if (!btn || !txt) return;
+            btn.classList.toggle("is-hidden", !isVisible);
+            txt.textContent = isVisible ? "👁️ Visible" : "🚫 Oculto";
+        }
+
+        // ==========================================
+        // MULTI-LIENZO (BOARDS / ARTBOARDS ENGINE)
+        // ==========================================
+        function serializeCurrentBoardData() {
+            return {
+                brandName: state.brandName,
+                initials: state.initials,
+                descriptor: state.descriptor,
+                layout: state.layout,
+                monogramShape: state.monogramShape,
+                canvasTheme: state.canvasTheme,
+                gap: state.gap,
+                casing: JSON.parse(JSON.stringify(state.casing || {})),
+                quickStyle: state.quickStyle,
+                monogramIcon: JSON.parse(JSON.stringify(state.monogramIcon)),
+                elements: JSON.parse(JSON.stringify(state.elements)),
+                globalLigatures: state.globalLigatures,
+                activeStylisticSets: Array.from(state.activeStylisticSets)
+            };
+        }
+
+        function applyBoardData(data) {
+            if (!data) return;
+            state.brandName = data.brandName || "MI MARCA";
+            state.initials = data.initials || "MM";
+            state.descriptor = data.descriptor || "";
+            state.layout = data.layout || "stacked";
+            state.monogramShape = data.monogramShape || "minimal";
+            state.canvasTheme = data.canvasTheme || "dark";
+            state.gap = data.gap !== undefined ? data.gap : 24;
+            state.casing = data.casing || { wordmark: "upper", monogram: "upper", tagline: "upper" };
+            state.quickStyle = data.quickStyle || "regular";
+            if (data.monogramIcon) state.monogramIcon = JSON.parse(JSON.stringify(data.monogramIcon));
+            if (data.elements) state.elements = JSON.parse(JSON.stringify(data.elements));
+            state.globalLigatures = data.globalLigatures !== undefined ? data.globalLigatures : true;
+            if (Array.isArray(data.activeStylisticSets)) state.activeStylisticSets = new Set(data.activeStylisticSets);
+
+            // Sync Inputs
+            const inName = document.getElementById("inputBrandName");
+            if (inName) inName.value = state.brandName;
+            const inInit = document.getElementById("inputInitials");
+            if (inInit) inInit.value = state.initials;
+            const inDesc = document.getElementById("inputDescriptor");
+            if (inDesc) inDesc.value = state.descriptor;
+
+            setLayout(state.layout);
+            setCanvasTheme(state.canvasTheme);
+            const slGap = document.getElementById("sliderGap");
+            if (slGap) slGap.value = state.gap;
+            const vGap = document.getElementById("valGap");
+            if (vGap) vGap.textContent = `${state.gap}px`;
+            const bLock = document.getElementById("brandLockup");
+            if (bLock) bLock.style.gap = `${state.gap}px`;
+
+            updateIconUIFromState();
+            updateDropdownTriggerDisplay("wordmark", state.elements.wordmark.fontId);
+            updateDropdownTriggerDisplay("monogram", state.elements.monogram.fontId);
+            updateDropdownTriggerDisplay("tagline", state.elements.tagline.fontId);
+            updateVariantBarForElement("wordmark");
+            updateVariantBarForElement("monogram");
+            updateVariantBarForElement("tagline");
+
+            renderPills();
+            updateSidebarUI();
+            updateCanvasElements();
+        }
+
+        function renderBoardsTabs() {
+            const list = document.getElementById("boardsTabsList");
+            if (!list) return;
+            list.innerHTML = "";
+            if (!Array.isArray(state.boards) || state.boards.length === 0) {
+                state.boards = [{ id: "board-1", name: "Lienzo 1", pinned: true, data: serializeCurrentBoardData() }];
+                state.activeBoardId = "board-1";
+            }
+
+            state.boards.forEach(b => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = `board-tab ${b.id === state.activeBoardId ? 'active' : ''} ${b.pinned ? 'pinned-badge' : ''}`;
+                btn.innerHTML = `<span>${b.name}</span>`;
+                btn.onclick = () => switchBoard(b.id);
+                list.appendChild(btn);
+            });
+
+            const pinBtn = document.getElementById("btnPinCurrentBoard");
+            if (pinBtn) {
+                const activeB = state.boards.find(b => b.id === state.activeBoardId);
+                pinBtn.classList.toggle("active", !!(activeB && activeB.pinned));
+                pinBtn.innerHTML = (activeB && activeB.pinned) ? "📌 Lienzo Fijado" : "📍 Fijar Lienzo";
+            }
+        }
+
+        function switchBoard(boardId) {
+            if (boardId === state.activeBoardId) return;
+            const currentB = state.boards.find(b => b.id === state.activeBoardId);
+            if (currentB) currentB.data = serializeCurrentBoardData();
+
+            state.activeBoardId = boardId;
+            const nextB = state.boards.find(b => b.id === boardId);
+            if (nextB && nextB.data) {
+                applyBoardData(nextB.data);
+            }
+            renderBoardsTabs();
+            scheduleAutoSaveWorkspace();
+            showToast(`✓ Cambiado a ${nextB ? nextB.name : 'Lienzo'}`);
+        }
+
+        function togglePinCurrentBoard() {
+            const activeB = state.boards.find(b => b.id === state.activeBoardId);
+            if (!activeB) return;
+            activeB.pinned = !activeB.pinned;
+            activeB.data = serializeCurrentBoardData();
+            renderBoardsTabs();
+            scheduleAutoSaveWorkspace();
+            showToast(`✓ ${activeB.name}: ${activeB.pinned ? 'Fijado con éxito 📌' : 'Desfijado 📍'}`);
+        }
+
+        function addNewCleanBoard() {
+            const currentB = state.boards.find(b => b.id === state.activeBoardId);
+            if (currentB) {
+                currentB.pinned = true;
+                currentB.data = serializeCurrentBoardData();
+            }
+
+            const newIdx = state.boards.length + 1;
+            const newId = `board-${Date.now()}`;
+            const newBoard = {
+                id: newId,
+                name: `Lienzo ${newIdx}`,
+                pinned: true,
+                data: null
+            };
+
+            state.boards.push(newBoard);
+            state.activeBoardId = newId;
+
+            // Clean transforms
+            ['wordmark', 'monogram', 'tagline'].forEach(k => {
+                state.elements[k].block = { scale: 100, spacing: k === 'monogram' ? 0 : 4, shiftX: 0, shiftY: 0, rotate: 0, visible: true };
+                state.elements[k].words.forEach(w => { w.scale = 100; w.shiftX = 0; w.shiftY = 0; w.rotate = 0; w.visible = true; });
+                state.elements[k].letters.forEach(l => { l.scale = 100; l.shiftX = 0; l.shiftY = 0; l.rotate = 0; l.mirrorH = false; l.mirrorV = false; l.visible = true; });
+            });
+            state.monogramIcon.shiftX = 0;
+            state.monogramIcon.shiftY = 0;
+            state.monogramIcon.rotate = 0;
+            state.monogramIcon.scale = 100;
+
+            newBoard.data = serializeCurrentBoardData();
+
+            renderBoardsTabs();
+            updateSidebarUI();
+            updateCanvasElements();
+            scheduleAutoSaveWorkspace();
+            showToast(`✨ Nuevo lienzo limpio agregado (#${newIdx})`);
+        }
+
+        function duplicateCurrentBoard() {
+            const currentB = state.boards.find(b => b.id === state.activeBoardId);
+            if (!currentB) return;
+            currentB.data = serializeCurrentBoardData();
+
+            const newIdx = state.boards.length + 1;
+            const newId = `board-${Date.now()}`;
+            const cloneData = JSON.parse(JSON.stringify(currentB.data));
+            const newBoard = {
+                id: newId,
+                name: `${currentB.name} (Copia)`,
+                pinned: true,
+                data: cloneData
+            };
+            state.boards.push(newBoard);
+            state.activeBoardId = newId;
+            renderBoardsTabs();
+            scheduleAutoSaveWorkspace();
+            showToast(`📋 Lienzo duplicado: ${newBoard.name}`);
+        }
+
+        function deleteCurrentBoard() {
+            if (state.boards.length <= 1) {
+                showToast("⚠️ Debe existir al menos un lienzo");
+                return;
+            }
+            const activeB = state.boards.find(b => b.id === state.activeBoardId);
+            if (!confirm(`¿Eliminar ${activeB ? activeB.name : 'este lienzo'}?`)) return;
+
+            state.boards = state.boards.filter(b => b.id !== state.activeBoardId);
+            state.activeBoardId = state.boards[0].id;
+            if (state.boards[0].data) {
+                applyBoardData(state.boards[0].data);
+            }
+            renderBoardsTabs();
+            scheduleAutoSaveWorkspace();
+            showToast("🗑️ Lienzo eliminado");
+        }
+
+        function toggleCompareMode() {
+            state.compareMode = !state.compareMode;
+            const btn = document.getElementById("btnCompareBoards");
+            if (btn) btn.classList.toggle("active", state.compareMode);
+
+            const canvasContainer = document.querySelector(".canvas-container");
+            const brandCanvas = document.getElementById("brandCanvas");
+            let compareGrid = document.getElementById("boardsCompareGrid");
+
+            if (state.compareMode) {
+                const currentB = state.boards.find(b => b.id === state.activeBoardId);
+                if (currentB) currentB.data = serializeCurrentBoardData();
+
+                if (brandCanvas) brandCanvas.style.display = "none";
+                if (!compareGrid) {
+                    compareGrid = document.createElement("div");
+                    compareGrid.id = "boardsCompareGrid";
+                    compareGrid.className = "boards-compare-grid";
+                    canvasContainer.appendChild(compareGrid);
+                }
+                compareGrid.style.display = "grid";
+                renderCompareGrid();
+                showToast("👁️ Modo Comparador: Vista simultánea");
+            } else {
+                if (compareGrid) compareGrid.style.display = "none";
+                if (brandCanvas) brandCanvas.style.display = "flex";
+                showToast("✓ Modo Edición");
+            }
+        }
+
+        function renderCompareGrid() {
+            const grid = document.getElementById("boardsCompareGrid");
+            if (!grid) return;
+            grid.innerHTML = "";
+            state.boards.forEach(b => {
+                const card = document.createElement("div");
+                card.className = `board-compare-card ${b.id === state.activeBoardId ? 'active-card' : ''}`;
+                const bTheme = b.data?.canvasTheme || "dark";
+                const bgCol = bTheme === 'light' ? '#ffffff' : (bTheme === 'gold' ? '#040405' : (bTheme === 'ivory' ? '#faf7f2' : '#090a0f'));
+                const txtCol = bTheme === 'light' ? '#090a0f' : (bTheme === 'gold' ? '#d4af37' : (bTheme === 'ivory' ? '#2e241c' : '#ffffff'));
+
+                card.innerHTML = `
+                    <div class="board-compare-header">
+                        <span>${b.name} ${b.pinned ? '📌' : ''}</span>
+                        <button type="button" class="btn-board-tool" style="padding: 2px 8px; font-size: 10px;" onclick="selectAndEditBoard('${b.id}')">✏️ Editar</button>
+                    </div>
+                    <div class="board-compare-body" style="background: ${bgCol}; color: ${txtCol};">
+                        <div style="font-family: var(--font-serif); font-size: 24px; text-align: center;">
+                            ${b.data?.brandName || state.brandName}
+                            <div style="font-size: 11px; opacity: 0.7; font-family: var(--font-ui); margin-top: 6px;">${b.data?.descriptor || ''}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function selectAndEditBoard(boardId) {
+            if (state.compareMode) {
+                toggleCompareMode();
+            }
+            switchBoard(boardId);
+        }
+
+        // ==========================================
+        // WORKSPACE AUTO-SAVE & RESTORE (LOCALSTORAGE)
+        // ==========================================
+        const WORKSPACE_STORAGE_KEY = "SOVEREIGN_BRANDFONT_WORKSPACE_V2";
+        let autoSaveTimer = null;
+
+        function scheduleAutoSaveWorkspace() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                saveWorkspaceToLocalStorage();
+            }, 250);
+        }
+
+        function saveWorkspaceToLocalStorage() {
+            try {
+                const currentB = state.boards.find(b => b.id === state.activeBoardId);
+                if (currentB) currentB.data = serializeCurrentBoardData();
+
+                const payload = {
+                    version: 2,
+                    timestamp: Date.now(),
+                    state: {
+                        brandName: state.brandName,
+                        initials: state.initials,
+                        descriptor: state.descriptor,
+                        layout: state.layout,
+                        monogramShape: state.monogramShape,
+                        canvasTheme: state.canvasTheme,
+                        gap: state.gap,
+                        casing: state.casing,
+                        quickStyle: state.quickStyle,
+                        activeTarget: state.activeTarget,
+                        granularLevel: state.granularLevel,
+                        globalLigatures: state.globalLigatures,
+                        activeStylisticSets: Array.from(state.activeStylisticSets),
+                        monogramIcon: state.monogramIcon,
+                        elements: state.elements,
+                        boards: state.boards,
+                        activeBoardId: state.activeBoardId
+                    }
+                };
+                localStorage.setItem(WORKSPACE_STORAGE_KEY, JSON.stringify(payload));
+                saveAssignments();
+            } catch (e) {
+                console.warn("Auto-save storage failed:", e);
+            }
+        }
+
+        function loadWorkspaceFromLocalStorage() {
+            try {
+                const raw = localStorage.getItem(WORKSPACE_STORAGE_KEY);
+                if (!raw) return false;
+                const parsed = JSON.parse(raw);
+                if (!parsed || !parsed.state) return false;
+                const s = parsed.state;
+
+                if (s.brandName) state.brandName = s.brandName;
+                if (s.initials) state.initials = s.initials;
+                if (s.descriptor) state.descriptor = s.descriptor;
+                if (s.layout) state.layout = s.layout;
+                if (s.monogramShape) state.monogramShape = s.monogramShape;
+                if (s.canvasTheme) state.canvasTheme = s.canvasTheme;
+                if (s.gap !== undefined) state.gap = s.gap;
+                if (s.casing) state.casing = s.casing;
+                if (s.quickStyle) state.quickStyle = s.quickStyle;
+                if (s.activeTarget) state.activeTarget = s.activeTarget;
+                if (s.granularLevel) state.granularLevel = s.granularLevel;
+                if (s.globalLigatures !== undefined) state.globalLigatures = s.globalLigatures;
+                if (Array.isArray(s.activeStylisticSets)) state.activeStylisticSets = new Set(s.activeStylisticSets);
+                if (s.monogramIcon) state.monogramIcon = s.monogramIcon;
+                if (s.elements) state.elements = s.elements;
+                if (Array.isArray(s.boards) && s.boards.length > 0) state.boards = s.boards;
+                if (s.activeBoardId) state.activeBoardId = s.activeBoardId;
+
+                return true;
+            } catch (e) {
+                console.warn("Could not load workspace state:", e);
+                return false;
+            }
+        }
+
         // Initialize App
         async function initApp() {
             rebuildComponentStores();
             await loadStoredFonts();
-            loadSavedAssignments();
+            const restored = loadWorkspaceFromLocalStorage();
+            if (!restored) {
+                loadSavedAssignments();
+            }
             loadSsotBrands();
             initIconPicker();
             initCanvasMouseDrag();
@@ -2993,10 +3680,26 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             renderStylisticSetChips();
             updateDetectedBrandPairs();
             renderFontCards();
+
+            // Sync Inputs from Restored State
+            const inName = document.getElementById("inputBrandName");
+            if (inName) inName.value = state.brandName;
+            const inInit = document.getElementById("inputInitials");
+            if (inInit) inInit.value = state.initials;
+            const inDesc = document.getElementById("inputDescriptor");
+            if (inDesc) inDesc.value = state.descriptor;
+
+            setLayout(state.layout);
+            setCanvasTheme(state.canvasTheme);
+            renderBoardsTabs();
             updateSidebarUI();
             updateCanvasElements();
             testLigaturePair("Th");
             setupCanvasDragAndDrop();
+
+            if (restored) {
+                showToast("✓ Sesión de trabajo restaurada automáticamente");
+            }
 
             // Global click-outside listener to close custom dropdowns
             document.addEventListener("click", (e) => {
@@ -3096,8 +3799,9 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             wContainer.innerHTML = "";
             comp.words.forEach((w, idx) => {
                 const btn = document.createElement("button");
-                btn.className = `pill-btn ${idx === state.selectedWordIndex ? 'active' : ''}`;
-                btn.textContent = `${idx + 1}. ${w.text}`;
+                const isHidden = w.visible === false;
+                btn.className = `pill-btn ${idx === state.selectedWordIndex ? 'active' : ''} ${isHidden ? 'is-hidden' : ''}`;
+                btn.textContent = `${idx + 1}. ${w.text} ${isHidden ? '🚫' : ''}`;
                 btn.onclick = () => { 
                     state.selectedWordIndex = idx; 
                     renderPills(); 
@@ -3111,8 +3815,9 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             lContainer.innerHTML = "";
             comp.letters.forEach((l, idx) => {
                 const btn = document.createElement("button");
-                btn.className = `pill-btn ${idx === state.selectedLetterIndex ? 'active' : ''}`;
-                btn.textContent = l.char === " " ? "␣" : l.char;
+                const isHidden = l.visible === false;
+                btn.className = `pill-btn ${idx === state.selectedLetterIndex ? 'active' : ''} ${isHidden ? 'is-hidden' : ''}`;
+                btn.textContent = `${l.char === " " ? "␣" : l.char} ${isHidden ? '🚫' : ''}`;
                 btn.onclick = () => { 
                     state.selectedLetterIndex = idx; 
                     renderPills(); 
@@ -3358,7 +4063,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             document.getElementById("wordSelectorRow").style.display = lvl === "word" ? "flex" : "none";
             document.getElementById("letterSelectorRow").style.display = lvl === "letter" ? "flex" : "none";
-            document.getElementById("ctrlRotate").style.display = lvl === "letter" ? "flex" : "none";
+            document.getElementById("ctrlRotate").style.display = "flex"; // Rotation available for Block, Word, and Letter!
             document.getElementById("ctrlMirror").style.display = lvl === "letter" ? "flex" : "none";
             document.getElementById("ctrlSpacing").style.display = lvl === "block" ? "flex" : "none";
 
@@ -3436,9 +4141,12 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 if (document.getElementById("sliderShiftX")) document.getElementById("sliderShiftX").value = 0;
                 if (document.getElementById("valShiftX")) document.getElementById("valShiftX").textContent = "0px";
             } else if (type === 'rotate') {
-                if (state.granularLevel === "letter" && comp.letters[state.selectedLetterIndex]) comp.letters[state.selectedLetterIndex].rotate = 0;
+                if (state.granularLevel === "block") comp.block.rotate = 0;
+                else if (state.granularLevel === "word" && comp.words[state.selectedWordIndex]) comp.words[state.selectedWordIndex].rotate = 0;
+                else if (state.granularLevel === "letter" && comp.letters[state.selectedLetterIndex]) comp.letters[state.selectedLetterIndex].rotate = 0;
                 if (document.getElementById("sliderRotate")) document.getElementById("sliderRotate").value = 0;
                 if (document.getElementById("valRotate")) document.getElementById("valRotate").textContent = "0°";
+                scheduleAutoSaveWorkspace();
             } else if (type === 'gap') {
                 const brandLockup = document.getElementById("brandLockup");
                 if (brandLockup) brandLockup.style.gap = "24px";
@@ -3470,12 +4178,14 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 comp.block.spacing = (state.activeTarget === "monogram" ? 0 : 4);
                 comp.block.shiftX = 0;
                 comp.block.shiftY = 0;
+                comp.block.rotate = 0;
             } else if (state.granularLevel === "word") {
                 const w = comp.words[state.selectedWordIndex];
                 if (w) {
                     w.scale = 100;
                     w.shiftX = 0;
                     w.shiftY = 0;
+                    w.rotate = 0;
                 }
             } else if (state.granularLevel === "letter") {
                 const l = comp.letters[state.selectedLetterIndex];
@@ -3488,6 +4198,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     l.mirrorV = false;
                 }
             }
+            scheduleAutoSaveWorkspace();
             updateSidebarUI();
             updateCanvasElements();
             showToast(`✓ Valores de tamaño y posición restablecidos (${state.granularLevel.toUpperCase()})`);
@@ -3513,7 +4224,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 document.getElementById("granularOverrideLabel").textContent = `Sobrescribir fuente para glifo "${l ? l.char : ''}":`;
             }
 
-            if (!target) target = { scale: 100, shiftX: 0, shiftY: 0 };
+            if (!target) target = { scale: 100, shiftX: 0, shiftY: 0, rotate: 0 };
 
             document.getElementById("sliderScale").value = target.scale || 100;
             document.getElementById("valScale").textContent = `${target.scale || 100}%`;
@@ -3529,6 +4240,21 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             document.getElementById("sliderRotate").value = target.rotate || 0;
             document.getElementById("valRotate").textContent = `${target.rotate || 0}°`;
+
+            const rotateTitles = {
+                block: `Rotación de ${state.activeTarget.toUpperCase()} (Bloque Completo)`,
+                word: `Rotación de Palabra`,
+                letter: `Rotación de Glifo`
+            };
+            const lblRot = document.getElementById("lblRotate");
+            if (lblRot) lblRot.textContent = rotateTitles[state.granularLevel] || "Rotación";
+
+            // Update Visibility Button
+            let isCurrentVisible = true;
+            if (state.granularLevel === "block") isCurrentVisible = comp.block.visible !== false;
+            else if (state.granularLevel === "word") isCurrentVisible = comp.words[state.selectedWordIndex] ? comp.words[state.selectedWordIndex].visible !== false : true;
+            else if (state.granularLevel === "letter") isCurrentVisible = comp.letters[state.selectedLetterIndex] ? comp.letters[state.selectedLetterIndex].visible !== false : true;
+            updateVisibilityUI(isCurrentVisible);
 
             if (state.granularLevel === "letter") {
                 const l = comp.letters[state.selectedLetterIndex] || comp.letters[0];
@@ -3574,13 +4300,15 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 comp.block.spacing = spacing;
                 comp.block.shiftX = shiftX;
                 comp.block.shiftY = shiftY;
+                comp.block.rotate = rotate;
             } else if (state.granularLevel === "word") {
                 const w = comp.words[state.selectedWordIndex];
-                if (w) { w.scale = scale; w.shiftX = shiftX; w.shiftY = shiftY; }
+                if (w) { w.scale = scale; w.shiftX = shiftX; w.shiftY = shiftY; w.rotate = rotate; }
             } else {
                 const l = comp.letters[state.selectedLetterIndex];
                 if (l) { l.scale = scale; l.shiftX = shiftX; l.shiftY = shiftY; l.rotate = rotate; }
             }
+            scheduleAutoSaveWorkspace();
 
             document.getElementById("valScale").textContent = `${scale}%`;
             document.getElementById("valSpacing").textContent = `${spacing}px`;
@@ -4271,7 +4999,12 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             // ==========================================
             const wmRow = document.getElementById("wordmarkRow");
             const wm = state.elements.wordmark;
-            wmRow.style.transform = `translate(${wm.block.shiftX}px, ${wm.block.shiftY}px)`;
+            if (wm.block.visible === false) {
+                wmRow.style.display = "none";
+            } else {
+                wmRow.style.display = "flex";
+                wmRow.style.transform = `translate(${wm.block.shiftX}px, ${wm.block.shiftY}px) rotate(${wm.block.rotate || 0}deg)`;
+            }
             wmRow.style.gap = `${(wm.block.spacing || 0) * 2}px`;
             if (wm.block.spacing && wm.block.spacing !== 0) {
                 wmRow.style.letterSpacing = `${wm.block.spacing}px`;
@@ -4303,21 +5036,21 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 if (!hasLetterSpecificTransforms) {
                     // Unbroken text runs per word: OpenType ligatures form cleanly!
                     wmRow.innerHTML = wm.words.map(w => {
-                        const s = `display: inline-block; transform: translate(${w.shiftX}px, ${w.shiftY}px) scale(${w.scale / 100}); margin-right: ${(wm.block.spacing || 0) * 2}px; ${fontStyle}`;
-                        return `<div class="word-unit"><span class="letter-span" style="${s}">${w.text}</span></div>`;
+                        const s = `display: ${w.visible === false ? 'none' : 'inline-block'}; transform: translate(${w.shiftX}px, ${w.shiftY}px) scale(${w.scale / 100}) rotate(${w.rotate || 0}deg); margin-right: ${(wm.block.spacing || 0) * 2}px; ${fontStyle}`;
+                        return `<div class="word-unit" style="display: ${w.visible === false ? 'none' : 'inline-block'};"><span class="letter-span" style="${s}">${w.text}</span></div>`;
                     }).join("");
                 } else {
                     let charOffset = 0;
                     wmRow.innerHTML = wm.words.map((word, wIdx) => {
                         const wordChars = Array.from(word.text);
                         const lettersHtml = wordChars.map((ch, cIdx) => {
-                            const l = wm.letters[charOffset + cIdx] || { scale: 100, shiftX: 0, shiftY: 0, rotate: 0, mirrorH: false, mirrorV: false };
+                            const l = wm.letters[charOffset + cIdx] || { scale: 100, shiftX: 0, shiftY: 0, rotate: 0, mirrorH: false, mirrorV: false, visible: true };
                             const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
-                            const s = `display: inline-block; transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; ${fontStyle}`;
+                            const s = `display: ${l.visible === false ? 'none' : 'inline-block'}; transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; ${fontStyle}`;
                             return `<span class="letter-span" style="${s}">${ch}</span>`;
                         }).join("");
                         charOffset += wordChars.length + 1;
-                        return `<div class="word-unit" style="transform: translate(${word.shiftX}px, ${word.shiftY}px) scale(${word.scale / 100}); margin-right: ${(wm.block.spacing || 0) * 2}px;">${lettersHtml}</div>`;
+                        return `<div class="word-unit" style="display: ${word.visible === false ? 'none' : 'inline-block'}; transform: translate(${word.shiftX}px, ${word.shiftY}px) scale(${word.scale / 100}) rotate(${word.rotate || 0}deg); margin-right: ${(wm.block.spacing || 0) * 2}px;">${lettersHtml}</div>`;
                     }).join("");
                 }
             } else if (wmFont && wmFont.unsupported) {
@@ -4844,6 +5577,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             // 3. Helper to render any unit/glyph preserving exact transforms (mirror, scale, rotate, font & color)
             function renderUnitSvg(unitEl, defaultColor, defaultFontFam, letterObj = null) {
                 if (!unitEl) return "";
+                if (letterObj && letterObj.visible === false) return "";
                 const uBox = unitEl.getBoundingClientRect();
                 const uW = Math.max(1, Math.round(uBox.width));
                 const uH = Math.max(1, Math.round(uBox.height));
@@ -4898,7 +5632,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             let elementsGroup = `<g transform="translate(${padX}, ${padY})">`;
 
             // 4. Monogram Unit Export
-            if (state.layout !== "wordmark-only") {
+            if (state.layout !== "wordmark-only" && state.elements.monogram.block.visible !== false) {
                 const monoBadge = document.getElementById("monogramBadge");
                 const bBox = monoBadge.getBoundingClientRect();
                 const relX = Math.round(bBox.left - lockupBox.left);
@@ -4959,8 +5693,10 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     finalMonoInner = `${iconVectorSvg}${lettersSvg}`;
                 }
 
+                const mgRot = state.elements.monogram.block.rotate || 0;
+                const mgRotAttr = mgRot !== 0 ? ` rotate(${mgRot}, ${w/2}, ${h/2})` : "";
                 elementsGroup += `
-                    <g transform="translate(${relX}, ${relY})">
+                    <g transform="translate(${relX}, ${relY})${mgRotAttr}">
                         ${monoShape}
                         ${finalMonoInner}
                     </g>
@@ -4968,7 +5704,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             }
 
             // 5. Wordmark Export
-            if (state.layout !== "monogram-only") {
+            if (state.layout !== "monogram-only" && state.elements.wordmark.block.visible !== false) {
                 const wmRow = document.getElementById("wordmarkRow");
                 const wmBox = wmRow.getBoundingClientRect();
                 const wmX = Math.round(wmBox.left - lockupBox.left);
@@ -4987,6 +5723,10 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                         const uX = Math.round(uBox.left - wmBox.left);
                         const uY = Math.round(uBox.top - wmBox.top);
                         
+                        const wordObj = state.elements.wordmark.words[wIdx];
+                        if (wordObj && wordObj.visible === false) return;
+                        const wRot = wordObj && wordObj.rotate ? wordObj.rotate : 0;
+                        const wRotAttr = wRot !== 0 ? ` rotate(${wRot}, ${uBox.width/2}, ${uBox.height/2})` : "";
                         const letterSpans = wUnit.querySelectorAll(".letter-span");
                         if (letterSpans.length > 1) {
                             let lettersInWordSvg = "";
@@ -4999,12 +5739,12 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                                 lettersInWordSvg += `<g transform="translate(${lsX}, ${lsY})">${glyph}</g>`;
                             });
                             charOffset += letterSpans.length;
-                            wordmarkInner += `<g transform="translate(${uX}, ${uY})">${lettersInWordSvg}</g>`;
+                            wordmarkInner += `<g transform="translate(${uX}, ${uY})${wRotAttr}">${lettersInWordSvg}</g>`;
                         } else {
                             const letterObj = letterSpans.length === 1 ? state.elements.wordmark.letters[charOffset] : null;
                             if (letterSpans.length === 1) charOffset += 1;
                             const glyph = renderUnitSvg(wUnit, wmColor, wmFontFam, letterObj);
-                            wordmarkInner += `<g transform="translate(${uX}, ${uY})">${glyph}</g>`;
+                            wordmarkInner += `<g transform="translate(${uX}, ${uY})${wRotAttr}">${glyph}</g>`;
                         }
                     });
                 } else {
@@ -5012,10 +5752,12 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     wordmarkInner = glyph;
                 }
 
-                elementsGroup += `<g transform="translate(${wmX}, ${wmY})">${wordmarkInner}</g>`;
+                const wmRot = state.elements.wordmark.block.rotate || 0;
+                const wmRotAttr = wmRot !== 0 ? ` rotate(${wmRot}, ${wmBox.width/2}, ${wmBox.height/2})` : "";
+                elementsGroup += `<g transform="translate(${wmX}, ${wmY})${wmRotAttr}">${wordmarkInner}</g>`;
 
                 // 6. Tagline (Descriptor) Export
-                if (state.descriptor) {
+                if (state.descriptor && state.elements.tagline.block.visible !== false) {
                     const descRow = document.getElementById("descriptorRow");
                     if (descRow && descRow.style.display !== "none") {
                         const dBox = descRow.getBoundingClientRect();
@@ -5041,7 +5783,9 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                             descInner = renderUnitSvg(descRow, tlColor, tlFontFam, null);
                         }
 
-                        elementsGroup += `<g transform="translate(${dX}, ${dY})">${descInner}</g>`;
+                        const tlRot = state.elements.tagline.block.rotate || 0;
+                        const tlRotAttr = tlRot !== 0 ? ` rotate(${tlRot}, ${dBox.width/2}, ${dBox.height/2})` : "";
+                        elementsGroup += `<g transform="translate(${dX}, ${dY})${tlRotAttr}">${descInner}</g>`;
                     }
                 }
             }
