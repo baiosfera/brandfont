@@ -400,7 +400,11 @@ const server = http.createServer(async (req, res) => {
 
             try {
                 if (!envatoUrl.startsWith('http')) {
-                    envatoUrl = `https://${envatoUrl}`;
+                    if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(envatoUrl)) {
+                        envatoUrl = `https://app.envato.com/fonts/${envatoUrl}`;
+                    } else {
+                        envatoUrl = `https://${envatoUrl}`;
+                    }
                 }
 
                 const pageResp = await fetch(envatoUrl, {
@@ -408,28 +412,59 @@ const server = http.createServer(async (req, res) => {
                 });
 
                 if (!pageResp.ok) {
-                    throw new Error(`HTTP ${pageResp.status} desde Envato Elements`);
+                    throw new Error(`HTTP ${pageResp.status} desde Envato`);
                 }
 
                 const htmlContent = await pageResp.text();
+
+                let itemUuid = '';
+                let title = 'Fuente Envato';
+                let author = '';
+                let authorUrl = '';
+                let coverImage = '';
+                let sampleImages = [];
+                let itemAttributes = {};
+                let variants = [];
+                let totalStyleCount = 1;
+                let defaultStyleName = 'Regular';
+
                 const m = htmlContent.match(/window\.INITIAL_HYDRATION_DATA="([^"]+)"/);
-                if (!m) {
-                    throw new Error('No se encontró INITIAL_HYDRATION_DATA en la página de Envato Elements');
+                const uuidMatch = envatoUrl.match(/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i);
+
+                if (m) {
+                    // Modo clásico elements.envato.com
+                    const decodedJson = Buffer.from(m[1], 'base64').toString('utf-8');
+                    const data = JSON.parse(decodedJson);
+                    const item = data?.page?.data?.data?.item || {};
+                    itemUuid = item.itemUuid;
+                    title = item.title || 'Fuente Envato';
+                    const fontPreview = item.fontPreview || {};
+                    variants = fontPreview.variants || [];
+                    itemAttributes = item.itemAttributes || {};
+                    totalStyleCount = fontPreview.totalStyleCount || variants.length || 1;
+                    defaultStyleName = fontPreview.defaultStyleName || 'Regular';
+                    coverImage = item.coverImageUrls?.w900 || item.coverImageUrls?.w632 || item.coverImageUrls?.og1200x630 || item.openGraphImageUrl || '';
+                    sampleImages = (item.previewImageSrcSets || []).map(s => s.split(' ')[0]).slice(0, 6);
+                    author = item.author || '';
+                    authorUrl = item.authorUrl ? `https://elements.envato.com${item.authorUrl}` : '';
+                } else if (uuidMatch || envatoUrl.includes('app.envato.com')) {
+                    // Modo moderno app.envato.com / Newvato
+                    itemUuid = uuidMatch ? uuidMatch[1] : '';
+                    const titleMatch = htmlContent.match(/data-analytics-item_title="([^"]+)"/) || htmlContent.match(/<title>([^<]+) - Fonts - Envato<\/title>/);
+                    title = titleMatch ? titleMatch[1].trim() : 'Fuente Envato';
+
+                    const authorMatch = htmlContent.match(/data-analytics-item_author="([^"]+)"/);
+                    author = authorMatch ? authorMatch[1].trim() : '';
+                    authorUrl = author ? `https://app.envato.com/search?itemType=fonts&includeAuthor=${encodeURIComponent(author)}` : '';
+
+                    const imgMatches = [...htmlContent.matchAll(new RegExp(`https://elements-resized\\.envatousercontent\\.com/elements-content-platform-public-assets/[^"'\\s\\\\]+/fonts/${itemUuid}/assets/[^"'\\s\\\\]+`, 'g'))].map(x => x[0]);
+                    if (imgMatches.length > 0) {
+                        coverImage = imgMatches[0];
+                        sampleImages = imgMatches.slice(1, 6);
+                    }
+                } else {
+                    throw new Error('No se encontró INITIAL_HYDRATION_DATA ni formato compatible de Envato');
                 }
-
-                const decodedJson = Buffer.from(m[1], 'base64').toString('utf-8');
-                const data = JSON.parse(decodedJson);
-                const item = data?.page?.data?.data?.item || {};
-                const itemUuid = item.itemUuid;
-                const title = item.title || 'Fuente Envato';
-                const fontPreview = item.fontPreview || {};
-                let variants = fontPreview.variants || [];
-                const itemAttributes = item.itemAttributes || {};
-                const totalStyleCount = fontPreview.totalStyleCount || variants.length || 1;
-                const defaultStyleName = fontPreview.defaultStyleName || 'Regular';
-
-                const coverImage = item.coverImageUrls?.w900 || item.coverImageUrls?.w632 || item.coverImageUrls?.og1200x630 || item.openGraphImageUrl || '';
-                const sampleImages = (item.previewImageSrcSets || []).map(s => s.split(' ')[0]).slice(0, 6);
 
                 if (!itemUuid) {
                     throw new Error('No se pudo obtener el itemUuid del ítem');
@@ -486,8 +521,8 @@ const server = http.createServer(async (req, res) => {
                     unsupportedReason: unsupported ? 'font_preview_unsupported' : undefined,
                     coverImage: coverImage,
                     sampleImages: sampleImages,
-                    author: item.author || '',
-                    authorUrl: item.authorUrl ? `https://elements.envato.com${item.authorUrl}` : '',
+                    author: author,
+                    authorUrl: authorUrl,
                     itemAttributes: {
                         ligatures: !!itemAttributes.ligatures,
                         stylisticSet: !!itemAttributes.stylisticSet,
@@ -516,8 +551,8 @@ const server = http.createServer(async (req, res) => {
                         unsupportedReason: unsupported ? 'font_preview_unsupported' : undefined,
                         coverImage: coverImage,
                         sampleImages: sampleImages,
-                        author: item.author || '',
-                        authorUrl: item.authorUrl ? `https://elements.envato.com${item.authorUrl}` : ''
+                        author: author,
+                        authorUrl: authorUrl
                     };
 
                     let catalog = [];
