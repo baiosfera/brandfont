@@ -1991,7 +1991,820 @@
           "nakshatra": "Chitra"
         }
       }
-    }
+    },
+    "chroma": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "brand": "DAMAREN",
+      "color_space": "oklch",
+      "selected_ecosystem_id": "eco_solar_architect",
+      "ecosystems": [
+        {
+          "id": "eco_solar_architect",
+          "name": "Solar Architect & Warm Alabaster (Tauro Sideral & Sol 9.85 Rupas)",
+          "concept": "Ecosistema rector de quiet luxury, autoridad radiante y solidez material. Oro solar cincelado y bronce arquitectónico sobre obsidiana cálida y seda marfil (lino y alabastro cálido). Encarna la máxima jerarquía del Sol en Shadbala y la elegancia tangible de Tauro y Venus en Casa 10.",
+          "themes": {
+            "dark": {
+              "primary": {
+                "$value": "oklch(0.75 0.12 75)",
+                "$type": "color",
+                "$description": "Oro Solar Mate / Bronce Arquitectónico",
+                "components": {
+                  "lightness": 0.75,
+                  "chroma": 0.12,
+                  "hue": 75.0
+                },
+                "hex": "#daa24f",
+                "p3": "color(display-p3 0.82 0.65 0.36)"
+              },
+              "secondary": {
+                "$value": "oklch(0.58 0.09 65)",
+                "$type": "color",
+                "$description": "Bronce Cincelado / Ocre Estructural",
+                "components": {
+                  "lightness": 0.58,
+                  "chroma": 0.09,
+                  "hue": 65.0
+                },
+                "hex": "#9f6f3d",
+                "p3": "color(display-p3 0.60 0.44 0.27)"
+              },
+              "accent": {
+                "$value": "oklch(0.88 0.13 85)",
+                "$type": "color",
+                "$description": "Chispa Solar Áurea",
+                "components": {
+                  "lightness": 0.88,
+                  "chroma": 0.13,
+                  "hue": 85.0
+                },
+                "hex": "#ffd16b",
+                "p3": "color(display-p3 0.97 0.83 0.48)"
+              },
+              "background": {
+                "$value": "oklch(0.12 0.01 60)",
+                "$type": "color",
+                "$description": "Obsidiana Cálida Ébano",
+                "components": {
+                  "lightness": 0.12,
+                  "chroma": 0.01,
+                  "hue": 60.0
+                },
+                "hex": "#090502",
+                "p3": "color(display-p3 0.03 0.02 0.01)"
+              },
+              "surface": {
+                "$value": "oklch(0.18 0.02 60)",
+                "$type": "color",
+                "$description": "Basalto Pardo Cálido",
+                "components": {
+                  "lightness": 0.18,
+                  "chroma": 0.02,
+                  "hue": 60.0
+                },
+                "hex": "#181009",
+                "p3": "color(display-p3 0.09 0.06 0.04)"
+              },
+              "text_primary": {
+                "$value": "oklch(0.97 0.01 80)",
+                "$type": "color",
+                "$description": "Seda Marfil Nítida",
+                "components": {
+                  "lightness": 0.97,
+                  "chroma": 0.01,
+                  "hue": 80.0
+                },
+                "hex": "#f9f4ec",
+                "p3": "color(display-p3 0.97 0.96 0.93)"
+              },
+              "text_muted": {
+                "$value": "oklch(0.70 0.03 70)",
+                "$type": "color",
+                "$description": "Lino Satinado / Cuero Suave",
+                "components": {
+                  "lightness": 0.7,
+                  "chroma": 0.03,
+                  "hue": 70.0
+                },
+                "hex": "#ab9c8b",
+                "p3": "color(display-p3 0.66 0.61 0.55)"
+              }
+            },
+            "light": {
+              "primary": {
+                "$value": "oklch(0.42 0.11 65)",
+                "$type": "color",
+                "$description": "Bronce Monumental / Sello Imperial",
+                "components": {
+                  "lightness": 0.42,
+                  "chroma": 0.11,
+                  "hue": 65.0
+                },
+                "hex": "#753d00",
+                "p3": "color(display-p3 0.43 0.25 0.07)"
+              },
+              "secondary": {
+                "$value": "oklch(0.52 0.09 75)",
+                "$type": "color",
+                "$description": "Ámbar Arquitectónico Profundo",
+                "components": {
+                  "lightness": 0.52,
+                  "chroma": 0.09,
+                  "hue": 75.0
+                },
+                "hex": "#876125",
+                "p3": "color(display-p3 0.51 0.39 0.19)"
+              },
+              "accent": {
+                "$value": "oklch(0.35 0.12 60)",
+                "$type": "color",
+                "$description": "Oro Cincelado Intenso",
+                "components": {
+                  "lightness": 0.35,
+                  "chroma": 0.12,
+                  "hue": 60.0
+                },
+                "hex": "#652400",
+                "p3": "color(display-p3 0.36 0.16 0.04)"
+              },
+              "background": {
+                "$value": "oklch(0.98 0.01 80)",
+                "$type": "color",
+                "$description": "Papel Pergamino Marfil",
+                "components": {
+                  "lightness": 0.98,
+                  "chroma": 0.01,
+                  "hue": 80.0
+                },
+                "hex": "#fbf8f3",
+                "p3": "color(display-p3 0.98 0.97 0.95)"
+              },
+              "surface": {
+                "$value": "oklch(0.93 0.01 80)",
+                "$type": "color",
+                "$description": "Mármol Travertino Claro",
+                "components": {
+                  "lightness": 0.93,
+                  "chroma": 0.01,
+                  "hue": 80.0
+                },
+                "hex": "#ece7df",
+                "p3": "color(display-p3 0.92 0.91 0.88)"
+              },
+              "text_primary": {
+                "$value": "oklch(0.14 0.01 60)",
+                "$type": "color",
+                "$description": "Tinta Sepia Ébano",
+                "components": {
+                  "lightness": 0.14,
+                  "chroma": 0.01,
+                  "hue": 60.0
+                },
+                "hex": "#0e0804",
+                "p3": "color(display-p3 0.05 0.03 0.02)"
+              },
+              "text_muted": {
+                "$value": "oklch(0.46 0.03 70)",
+                "$type": "color",
+                "$description": "Gris Arcilla Arquitectónico",
+                "components": {
+                  "lightness": 0.46,
+                  "chroma": 0.03,
+                  "hue": 70.0
+                },
+                "hex": "#615649",
+                "p3": "color(display-p3 0.37 0.34 0.29)"
+              }
+            }
+          },
+          "audit": {
+            "wcag_aaa_ratio": 17.1,
+            "apca_lc": 103.8
+          }
+        },
+        {
+          "id": "eco_abyssal_ink",
+          "name": "Abyssal Ink & Blueprint Sapphire (Yong Shen Agua / Vishwakarma Chitra)",
+          "concept": "Precisión analítica y rigor técnico de Vishwakarma. Nutre el Yong Shen Agua con azules estructurales de compás, zafiro mercurial y tinta abisal profunda, contrastados con seda alabastro pura (50% Aire de Géminis).",
+          "themes": {
+            "dark": {
+              "primary": {
+                "$value": "oklch(0.72 0.16 230)",
+                "$type": "color",
+                "$description": "Zafiro Mercurial / Azul Compás Chitra",
+                "components": {
+                  "lightness": 0.72,
+                  "chroma": 0.16,
+                  "hue": 230.0
+                },
+                "hex": "#00b5f5",
+                "p3": "color(display-p3 0.32 0.70 0.94)"
+              },
+              "secondary": {
+                "$value": "oklch(0.55 0.12 245)",
+                "$type": "color",
+                "$description": "Azul Arquitectónico Estructural",
+                "components": {
+                  "lightness": 0.55,
+                  "chroma": 0.12,
+                  "hue": 245.0
+                },
+                "hex": "#2677b2",
+                "p3": "color(display-p3 0.24 0.46 0.68)"
+              },
+              "accent": {
+                "$value": "oklch(0.88 0.12 215)",
+                "$type": "color",
+                "$description": "Chispa de Compás Eléctrico",
+                "components": {
+                  "lightness": 0.88,
+                  "chroma": 0.12,
+                  "hue": 215.0
+                },
+                "hex": "#6aecff",
+                "p3": "color(display-p3 0.55 0.91 1.00)"
+              },
+              "background": {
+                "$value": "oklch(0.12 0.02 250)",
+                "$type": "color",
+                "$description": "Tinta Abisal Profunda (Yong Shen Agua)",
+                "components": {
+                  "lightness": 0.12,
+                  "chroma": 0.02,
+                  "hue": 250.0
+                },
+                "hex": "#02060d",
+                "p3": "color(display-p3 0.01 0.02 0.05)"
+              },
+              "surface": {
+                "$value": "oklch(0.18 0.02 250)",
+                "$type": "color",
+                "$description": "Grafito Azulado Estructural",
+                "components": {
+                  "lightness": 0.18,
+                  "chroma": 0.02,
+                  "hue": 250.0
+                },
+                "hex": "#0b121a",
+                "p3": "color(display-p3 0.05 0.07 0.10)"
+              },
+              "text_primary": {
+                "$value": "oklch(0.97 0.01 240)",
+                "$type": "color",
+                "$description": "Seda Alabastro Nítida (50% Aire)",
+                "components": {
+                  "lightness": 0.97,
+                  "chroma": 0.01,
+                  "hue": 240.0
+                },
+                "hex": "#eff6fb",
+                "p3": "color(display-p3 0.94 0.96 0.98)"
+              },
+              "text_muted": {
+                "$value": "oklch(0.70 0.03 245)",
+                "$type": "color",
+                "$description": "Titanio Azulado Satinado",
+                "components": {
+                  "lightness": 0.7,
+                  "chroma": 0.03,
+                  "hue": 245.0
+                },
+                "hex": "#8fa1b0",
+                "p3": "color(display-p3 0.58 0.63 0.69)"
+              }
+            },
+            "light": {
+              "primary": {
+                "$value": "oklch(0.40 0.16 245)",
+                "$type": "color",
+                "$description": "Índigo Puro Arquitectónico",
+                "components": {
+                  "lightness": 0.4,
+                  "chroma": 0.16,
+                  "hue": 245.0
+                },
+                "hex": "#004996",
+                "p3": "color(display-p3 0.11 0.28 0.57)"
+              },
+              "secondary": {
+                "$value": "oklch(0.52 0.12 240)",
+                "$type": "color",
+                "$description": "Cobalto Técnico Estructural",
+                "components": {
+                  "lightness": 0.52,
+                  "chroma": 0.12,
+                  "hue": 240.0
+                },
+                "hex": "#0070a6",
+                "p3": "color(display-p3 0.19 0.43 0.63)"
+              },
+              "accent": {
+                "$value": "oklch(0.35 0.18 245)",
+                "$type": "color",
+                "$description": "Azul Abisal Intenso",
+                "components": {
+                  "lightness": 0.35,
+                  "chroma": 0.18,
+                  "hue": 245.0
+                },
+                "hex": "#003890",
+                "p3": "color(display-p3 0.08 0.21 0.54)"
+              },
+              "background": {
+                "$value": "oklch(0.98 0.01 240)",
+                "$type": "color",
+                "$description": "Papel Arquitectónico Hielo",
+                "components": {
+                  "lightness": 0.98,
+                  "chroma": 0.01,
+                  "hue": 240.0
+                },
+                "hex": "#f3faff",
+                "p3": "color(display-p3 0.96 0.98 1.00)"
+              },
+              "surface": {
+                "$value": "oklch(0.94 0.01 240)",
+                "$type": "color",
+                "$description": "Mármol Técnico Blanco",
+                "components": {
+                  "lightness": 0.94,
+                  "chroma": 0.01,
+                  "hue": 240.0
+                },
+                "hex": "#e5ecf1",
+                "p3": "color(display-p3 0.90 0.93 0.94)"
+              },
+              "text_primary": {
+                "$value": "oklch(0.14 0.02 250)",
+                "$type": "color",
+                "$description": "Tinta China Negra",
+                "components": {
+                  "lightness": 0.14,
+                  "chroma": 0.02,
+                  "hue": 250.0
+                },
+                "hex": "#040a11",
+                "p3": "color(display-p3 0.02 0.04 0.06)"
+              },
+              "text_muted": {
+                "$value": "oklch(0.45 0.03 250)",
+                "$type": "color",
+                "$description": "Gris Pizarra Gráfico",
+                "components": {
+                  "lightness": 0.45,
+                  "chroma": 0.03,
+                  "hue": 250.0
+                },
+                "hex": "#495766",
+                "p3": "color(display-p3 0.30 0.34 0.39)"
+              }
+            }
+          },
+          "audit": {
+            "wcag_aaa_ratio": 16.8,
+            "apca_lc": 102.5
+          }
+        },
+        {
+          "id": "eco_terracotta_forge",
+          "name": "Terracotta Forge & Mineral Bronze (Casa 8 Aries / Iniciación High-Ticket)",
+          "concept": "Fuego iniciático y transformación radical. Cobre forjado, terracota noble y ámbar ahumado sobre carbón mineral y pergamino tostado. Diseñado para activar la gravedad y el poder de decisión de inversión en ofertas high-ticket.",
+          "themes": {
+            "dark": {
+              "primary": {
+                "$value": "oklch(0.70 0.16 45)",
+                "$type": "color",
+                "$description": "Terracota Noble / Cobre Forjado",
+                "components": {
+                  "lightness": 0.7,
+                  "chroma": 0.16,
+                  "hue": 45.0
+                },
+                "hex": "#ed7940",
+                "p3": "color(display-p3 0.87 0.50 0.30)"
+              },
+              "secondary": {
+                "$value": "oklch(0.54 0.12 40)",
+                "$type": "color",
+                "$description": "Cobre Bruñido Arquitectónico",
+                "components": {
+                  "lightness": 0.54,
+                  "chroma": 0.12,
+                  "hue": 40.0
+                },
+                "hex": "#a85334",
+                "p3": "color(display-p3 0.61 0.34 0.23)"
+              },
+              "accent": {
+                "$value": "oklch(0.86 0.14 55)",
+                "$type": "color",
+                "$description": "Chispa Ámbar Fuego",
+                "components": {
+                  "lightness": 0.86,
+                  "chroma": 0.14,
+                  "hue": 55.0
+                },
+                "hex": "#ffb773",
+                "p3": "color(display-p3 1.00 0.73 0.50)"
+              },
+              "background": {
+                "$value": "oklch(0.12 0.01 35)",
+                "$type": "color",
+                "$description": "Carbón Mineral Volcánico",
+                "components": {
+                  "lightness": 0.12,
+                  "chroma": 0.01,
+                  "hue": 35.0
+                },
+                "hex": "#0a0403",
+                "p3": "color(display-p3 0.04 0.02 0.01)"
+              },
+              "surface": {
+                "$value": "oklch(0.18 0.02 35)",
+                "$type": "color",
+                "$description": "Pizarra Arcilla Oscura",
+                "components": {
+                  "lightness": 0.18,
+                  "chroma": 0.02,
+                  "hue": 35.0
+                },
+                "hex": "#190e0c",
+                "p3": "color(display-p3 0.09 0.06 0.05)"
+              },
+              "text_primary": {
+                "$value": "oklch(0.97 0.01 60)",
+                "$type": "color",
+                "$description": "Seda Marfil Cálido",
+                "components": {
+                  "lightness": 0.97,
+                  "chroma": 0.01,
+                  "hue": 60.0
+                },
+                "hex": "#faf4ef",
+                "p3": "color(display-p3 0.98 0.96 0.94)"
+              },
+              "text_muted": {
+                "$value": "oklch(0.68 0.03 50)",
+                "$type": "color",
+                "$description": "Arcilla Satinada Mate",
+                "components": {
+                  "lightness": 0.68,
+                  "chroma": 0.03,
+                  "hue": 50.0
+                },
+                "hex": "#a89388",
+                "p3": "color(display-p3 0.65 0.58 0.54)"
+              }
+            },
+            "light": {
+              "primary": {
+                "$value": "oklch(0.44 0.14 40)",
+                "$type": "color",
+                "$description": "Terracota Imperial Profunda",
+                "components": {
+                  "lightness": 0.44,
+                  "chroma": 0.14,
+                  "hue": 40.0
+                },
+                "hex": "#8e2d00",
+                "p3": "color(display-p3 0.52 0.20 0.07)"
+              },
+              "secondary": {
+                "$value": "oklch(0.54 0.10 45)",
+                "$type": "color",
+                "$description": "Ladrillo Técnico Estructural",
+                "components": {
+                  "lightness": 0.54,
+                  "chroma": 0.1,
+                  "hue": 45.0
+                },
+                "hex": "#9e5a3b",
+                "p3": "color(display-p3 0.58 0.37 0.25)"
+              },
+              "accent": {
+                "$value": "oklch(0.36 0.15 35)",
+                "$type": "color",
+                "$description": "Cobre Quemado de Alto Impacto",
+                "components": {
+                  "lightness": 0.36,
+                  "chroma": 0.15,
+                  "hue": 35.0
+                },
+                "hex": "#780100",
+                "p3": "color(display-p3 0.43 0.08 0.04)"
+              },
+              "background": {
+                "$value": "oklch(0.98 0.01 60)",
+                "$type": "color",
+                "$description": "Papel Algodón Crema",
+                "components": {
+                  "lightness": 0.98,
+                  "chroma": 0.01,
+                  "hue": 60.0
+                },
+                "hex": "#fdf7f3",
+                "p3": "color(display-p3 0.99 0.97 0.96)"
+              },
+              "surface": {
+                "$value": "oklch(0.93 0.01 55)",
+                "$type": "color",
+                "$description": "Piedra Arena Pálida",
+                "components": {
+                  "lightness": 0.93,
+                  "chroma": 0.01,
+                  "hue": 55.0
+                },
+                "hex": "#efe6e0",
+                "p3": "color(display-p3 0.93 0.90 0.88)"
+              },
+              "text_primary": {
+                "$value": "oklch(0.14 0.02 35)",
+                "$type": "color",
+                "$description": "Carbón Tostado Oscuro",
+                "components": {
+                  "lightness": 0.14,
+                  "chroma": 0.02,
+                  "hue": 35.0
+                },
+                "hex": "#100705",
+                "p3": "color(display-p3 0.06 0.03 0.02)"
+              },
+              "text_muted": {
+                "$value": "oklch(0.46 0.03 45)",
+                "$type": "color",
+                "$description": "Gris Siena Arquitectónico",
+                "components": {
+                  "lightness": 0.46,
+                  "chroma": 0.03,
+                  "hue": 45.0
+                },
+                "hex": "#65544d",
+                "p3": "color(display-p3 0.38 0.33 0.30)"
+              }
+            }
+          },
+          "audit": {
+            "wcag_aaa_ratio": 16.6,
+            "apca_lc": 101.9
+          }
+        }
+      ],
+      "palettes": [
+        {
+          "id": "eco_solar_architect",
+          "name": "Solar Architect & Warm Alabaster",
+          "primary": "#daa24f",
+          "secondary": "#9f6f3d",
+          "accent": "#ffd16b",
+          "background": "#090502",
+          "surface": "#181009",
+          "text": "#f9f4ec"
+        },
+        {
+          "id": "eco_abyssal_ink",
+          "name": "Abyssal Ink & Blueprint Sapphire",
+          "primary": "#00b5f5",
+          "secondary": "#2677b2",
+          "accent": "#6aecff",
+          "background": "#02060d",
+          "surface": "#0b121a",
+          "text": "#eff6fb"
+        },
+        {
+          "id": "eco_terracotta_forge",
+          "name": "Terracotta Forge & Mineral Bronze",
+          "primary": "#ed7940",
+          "secondary": "#a85334",
+          "accent": "#ffb773",
+          "background": "#0a0403",
+          "surface": "#190e0c",
+          "text": "#faf4ef"
+        }
+      ],
+      "themes": {
+        "dark": {
+          "primary": {
+            "$value": "oklch(0.75 0.12 75)",
+            "$type": "color",
+            "$description": "Oro Solar Mate / Bronce Arquitectónico",
+            "components": {
+              "lightness": 0.75,
+              "chroma": 0.12,
+              "hue": 75.0
+            },
+            "hex": "#daa24f",
+            "p3": "color(display-p3 0.82 0.65 0.36)"
+          },
+          "secondary": {
+            "$value": "oklch(0.58 0.09 65)",
+            "$type": "color",
+            "$description": "Bronce Cincelado / Ocre Estructural",
+            "components": {
+              "lightness": 0.58,
+              "chroma": 0.09,
+              "hue": 65.0
+            },
+            "hex": "#9f6f3d",
+            "p3": "color(display-p3 0.60 0.44 0.27)"
+          },
+          "accent": {
+            "$value": "oklch(0.88 0.13 85)",
+            "$type": "color",
+            "$description": "Chispa Solar Áurea",
+            "components": {
+              "lightness": 0.88,
+              "chroma": 0.13,
+              "hue": 85.0
+            },
+            "hex": "#ffd16b",
+            "p3": "color(display-p3 0.97 0.83 0.48)"
+          },
+          "background": {
+            "$value": "oklch(0.12 0.01 60)",
+            "$type": "color",
+            "$description": "Obsidiana Cálida Ébano",
+            "components": {
+              "lightness": 0.12,
+              "chroma": 0.01,
+              "hue": 60.0
+            },
+            "hex": "#090502",
+            "p3": "color(display-p3 0.03 0.02 0.01)"
+          },
+          "surface": {
+            "$value": "oklch(0.18 0.02 60)",
+            "$type": "color",
+            "$description": "Basalto Pardo Cálido",
+            "components": {
+              "lightness": 0.18,
+              "chroma": 0.02,
+              "hue": 60.0
+            },
+            "hex": "#181009",
+            "p3": "color(display-p3 0.09 0.06 0.04)"
+          },
+          "text_primary": {
+            "$value": "oklch(0.97 0.01 80)",
+            "$type": "color",
+            "$description": "Seda Marfil Nítida",
+            "components": {
+              "lightness": 0.97,
+              "chroma": 0.01,
+              "hue": 80.0
+            },
+            "hex": "#f9f4ec",
+            "p3": "color(display-p3 0.97 0.96 0.93)"
+          },
+          "text_muted": {
+            "$value": "oklch(0.70 0.03 70)",
+            "$type": "color",
+            "$description": "Lino Satinado / Cuero Suave",
+            "components": {
+              "lightness": 0.7,
+              "chroma": 0.03,
+              "hue": 70.0
+            },
+            "hex": "#ab9c8b",
+            "p3": "color(display-p3 0.66 0.61 0.55)"
+          }
+        },
+        "light": {
+          "primary": {
+            "$value": "oklch(0.42 0.11 65)",
+            "$type": "color",
+            "$description": "Bronce Monumental / Sello Imperial",
+            "components": {
+              "lightness": 0.42,
+              "chroma": 0.11,
+              "hue": 65.0
+            },
+            "hex": "#753d00",
+            "p3": "color(display-p3 0.43 0.25 0.07)"
+          },
+          "secondary": {
+            "$value": "oklch(0.52 0.09 75)",
+            "$type": "color",
+            "$description": "Ámbar Arquitectónico Profundo",
+            "components": {
+              "lightness": 0.52,
+              "chroma": 0.09,
+              "hue": 75.0
+            },
+            "hex": "#876125",
+            "p3": "color(display-p3 0.51 0.39 0.19)"
+          },
+          "accent": {
+            "$value": "oklch(0.35 0.12 60)",
+            "$type": "color",
+            "$description": "Oro Cincelado Intenso",
+            "components": {
+              "lightness": 0.35,
+              "chroma": 0.12,
+              "hue": 60.0
+            },
+            "hex": "#652400",
+            "p3": "color(display-p3 0.36 0.16 0.04)"
+          },
+          "background": {
+            "$value": "oklch(0.98 0.01 80)",
+            "$type": "color",
+            "$description": "Papel Pergamino Marfil",
+            "components": {
+              "lightness": 0.98,
+              "chroma": 0.01,
+              "hue": 80.0
+            },
+            "hex": "#fbf8f3",
+            "p3": "color(display-p3 0.98 0.97 0.95)"
+          },
+          "surface": {
+            "$value": "oklch(0.93 0.01 80)",
+            "$type": "color",
+            "$description": "Mármol Travertino Claro",
+            "components": {
+              "lightness": 0.93,
+              "chroma": 0.01,
+              "hue": 80.0
+            },
+            "hex": "#ece7df",
+            "p3": "color(display-p3 0.92 0.91 0.88)"
+          },
+          "text_primary": {
+            "$value": "oklch(0.14 0.01 60)",
+            "$type": "color",
+            "$description": "Tinta Sepia Ébano",
+            "components": {
+              "lightness": 0.14,
+              "chroma": 0.01,
+              "hue": 60.0
+            },
+            "hex": "#0e0804",
+            "p3": "color(display-p3 0.05 0.03 0.02)"
+          },
+          "text_muted": {
+            "$value": "oklch(0.46 0.03 70)",
+            "$type": "color",
+            "$description": "Gris Arcilla Arquitectónico",
+            "components": {
+              "lightness": 0.46,
+              "chroma": 0.03,
+              "hue": 70.0
+            },
+            "hex": "#615649",
+            "p3": "color(display-p3 0.37 0.34 0.29)"
+          }
+        }
+      },
+      "accessibility_audit": {
+        "wcag_2_2_compliance": {
+          "body_to_bg_ratio": 17.1,
+          "headings_to_bg_ratio": 17.1,
+          "button_to_bg_ratio": 8.8,
+          "status_aaa": true
+        },
+        "apca_compliance": {
+          "body_lc": 103.8,
+          "headings_lc": 96.2,
+          "ui_components_lc": 74.5
+        }
+      },
+      "css_integration": {
+        "tailwind_v4_theme_block": "@theme {\n  --color-brand-primary: var(--brand-primary);\n  --color-brand-secondary: var(--brand-secondary);\n  --color-brand-accent: var(--brand-accent);\n  --color-brand-background: var(--brand-background);\n  --color-brand-surface: var(--brand-surface);\n  --color-brand-text: var(--brand-text-primary);\n  --color-brand-muted: var(--brand-text-muted);\n}",
+        "css_variables_root": ":root {\n  --brand-primary: #daa24f;\n  --brand-secondary: #9f6f3d;\n  --brand-accent: #ffd16b;\n  --brand-background: #090502;\n  --brand-surface: #181009;\n  --brand-text-primary: #f9f4ec;\n  --brand-text-muted: #ab9c8b;\n}",
+        "gradient_interpolation": "in oklch"
+      }
+    },
+    "brand_colors": [
+      {
+        "name": "Oro Solar Mate (Primario)",
+        "hex": "#daa24f",
+        "role": "primary"
+      },
+      {
+        "name": "Bronce Cincelado (Secundario)",
+        "hex": "#9f6f3d",
+        "role": "secondary"
+      },
+      {
+        "name": "Chispa Solar Áurea (Acento)",
+        "hex": "#ffd16b",
+        "role": "accent"
+      },
+      {
+        "name": "Obsidiana Cálida Ébano (Fondo)",
+        "hex": "#090502",
+        "role": "background"
+      },
+      {
+        "name": "Basalto Pardo Cálido (Superficie)",
+        "hex": "#181009",
+        "role": "surface"
+      },
+      {
+        "name": "Seda Marfil Nítida (Texto)",
+        "hex": "#f9f4ec",
+        "role": "text"
+      }
+    ]
   },
   "ELPLACERDC": {
     "id": "elplacerdc",
