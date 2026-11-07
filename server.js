@@ -626,7 +626,11 @@ const server = http.createServer(async (req, res) => {
         }
 
         // 6. Static File Serving
-        let relativePath = pathname === '/' ? 'index.html' : pathname.replace(/^\/+/, '');
+        let decodedPathname = pathname;
+        try {
+            decodedPathname = decodeURIComponent(pathname);
+        } catch {}
+        let relativePath = decodedPathname === '/' ? 'index.html' : decodedPathname.replace(/^\/+/, '');
         const safePath = path.normalize(path.join(__dirname, relativePath));
 
         if (!safePath.startsWith(__dirname)) {
