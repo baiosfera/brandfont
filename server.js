@@ -522,6 +522,39 @@ function getCollectionIcons(category = "all", limit = 48, offset = 0) {
     return results;
 }
 
+// In-memory cache for rendered SVG previews
+const svgRenderCache = new Map();
+
+// Helper to pre-populate svgRenderCache from catalog.json
+try {
+    if (fs.existsSync(CATALOG_FILE)) {
+        const catRaw = fs.readFileSync(CATALOG_FILE, 'utf8');
+        const catFonts = JSON.parse(catRaw);
+        if (Array.isArray(catFonts)) {
+            for (const font of catFonts) {
+                if (font.itemUuid && Array.isArray(font.variants)) {
+                    for (const v of font.variants) {
+                        if (v.svgContent && v.svgUrl) {
+                            try {
+                                const u = new URL(v.svgUrl);
+                                const txt = u.searchParams.get('text') || '';
+                                const varId = u.searchParams.get('variant') || v.variantId || '';
+                                if (txt) {
+                                    svgRenderCache.set(`${font.itemUuid}_${varId}_${txt}`, v.svgContent);
+                                    svgRenderCache.set(`${font.itemUuid}__${txt}`, v.svgContent);
+                                }
+                            } catch {}
+                        }
+                    }
+                }
+            }
+            console.log(`✓ Pre-hydrated ${svgRenderCache.size} SVG previews into svgRenderCache`);
+        }
+    }
+} catch (e) {
+    console.warn('Could not pre-populate svgRenderCache:', e.message);
+}
+
 const server = http.createServer(async (req, res) => {
     // Universal CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -594,60 +627,110 @@ const server = http.createServer(async (req, res) => {
             }
         }
 
-        // 3. SVG Proxy (/api/render) — Exact 1:1 with workbench_server.py
-        if (pathname === '/api/render' && req.method === 'GET') {
-            const itemUuid = reqUrl.searchParams.get('itemUuid') || '';
-            const text = reqUrl.searchParams.get('text') || 'BRAND';
-            const variantId = reqUrl.searchParams.get('variant') || '';
+        // 3. SVG Proxy (/api/render) — High Performance with Server-side In-Memory Cache
+if (pathname === '/api/render' && req.method === 'GET') {
+    const itemUuid = reqUrl.searchParams.get('itemUuid') || '';
+    const text = reqUrl.searchParams.get('text') || 'BRAND';
+    const variantId = reqUrl.searchParams.get('variant') || '';
 
-            if (!itemUuid) {
-                res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: 'itemUuid requerido' }));
-                return;
+    if (!itemUuid) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'itemUuid requerido' }));
+        return;
+    }
+
+    const cacheKey = `${itemUuid.trim()}_${variantId.trim()}_${text.trim()}`;
+    const fallbackKey = `${itemUuid.trim()}__${text.trim()}`;
+
+    if (svgRenderCache.has(cacheKey)) {
+        res.writeHead(200, {
+            'Content-Type': 'image/svg+xml; charset=utf-8',
+            'Cache-Control': 'public, max-age=86400',
+            'X-Cache': 'HIT'
+        });
+        res.end(svgRenderCache.get(cacheKey));
+        return;
+    }
+    if (svgRenderCache.has(fallbackKey)) {
+        res.writeHead(200, {
+            'Content-Type': 'image/svg+xml; charset=utf-8',
+            'Cache-Control': 'public, max-age=86400',
+            'X-Cache': 'HIT-FALLBACK'
+        });
+        res.end(svgRenderCache.get(fallbackKey));
+        return;
+    }
+
+    const params = new URLSearchParams({
+        itemUuid: itemUuid.trim(),
+        text: text.trim(),
+        typed: '1'
+    });
+    if (variantId.trim()) {
+        params.set('variant', variantId.trim());
+    }
+
+    const svgUrl = `https://elements.envato.com/font-preview.svg?${params.toString()}`;
+
+    try {
+        const proxyResp = await fetch(svgUrl, {
+            headers: {
+                'User-Agent': USER_AGENT,
+                'Referer': 'https://elements.envato.com/'
             }
+        });
 
-            const params = new URLSearchParams({
-                itemUuid: itemUuid.trim(),
-                text: text.trim(),
-                typed: '1'
+        if (proxyResp.ok) {
+            const svgData = await proxyResp.text();
+            svgRenderCache.set(cacheKey, svgData);
+            res.writeHead(200, {
+                'Content-Type': 'image/svg+xml; charset=utf-8',
+                'Cache-Control': 'public, max-age=3600',
+                'X-Cache': 'MISS'
             });
-            if (variantId.trim()) {
-                params.set('variant', variantId.trim());
-            }
-
-            const svgUrl = `https://elements.envato.com/font-preview.svg?${params.toString()}`;
-
-            try {
-                const proxyResp = await fetch(svgUrl, {
-                    headers: {
-                        'User-Agent': USER_AGENT,
-                        'Referer': 'https://elements.envato.com/'
-                    }
-                });
-
-                if (proxyResp.ok) {
-                    const svgData = await proxyResp.text();
-                    res.writeHead(200, {
-                        'Content-Type': 'image/svg+xml; charset=utf-8',
-                        'Cache-Control': 'public, max-age=3600'
-                    });
-                    res.end(svgData);
-                    return;
-                }
-                const errData = await proxyResp.text();
-                let errCode = 'font_preview_error';
-                try {
-                    const parsed = JSON.parse(errData);
-                    if (parsed.errorCode) errCode = parsed.errorCode;
-                } catch {}
-                res.writeHead(proxyResp.status, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ ok: false, errorCode: errCode, error: `Error desde Envato (${proxyResp.status}): ${proxyResp.statusText}` }));
-            } catch (err) {
-                res.writeHead(502, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ ok: false, error: `Error conectando con Envato: ${err.message}` }));
-            }
+            res.end(svgData);
             return;
         }
+
+        // If Envato returned an error but we have any cached preview for this font, use it as fallback!
+        for (const [k, v] of svgRenderCache.entries()) {
+            if (k.startsWith(`${itemUuid.trim()}_`)) {
+                res.writeHead(200, {
+                    'Content-Type': 'image/svg+xml; charset=utf-8',
+                    'Cache-Control': 'public, max-age=600',
+                    'X-Cache': 'STALE-FALLBACK'
+                });
+                res.end(v);
+                return;
+            }
+        }
+
+        const errData = await proxyResp.text();
+        let errCode = 'font_preview_error';
+        try {
+            const parsed = JSON.parse(errData);
+            if (parsed.errorCode) errCode = parsed.errorCode;
+        } catch {}
+        res.writeHead(proxyResp.status, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, errorCode: errCode, error: `Error desde Envato (${proxyResp.status}): ${proxyResp.statusText}` }));
+    } catch (err) {
+        // Fallback on network error
+        for (const [k, v] of svgRenderCache.entries()) {
+            if (k.startsWith(`${itemUuid.trim()}_`)) {
+                res.writeHead(200, {
+                    'Content-Type': 'image/svg+xml; charset=utf-8',
+                    'Cache-Control': 'public, max-age=600',
+                    'X-Cache': 'NETWORK-FALLBACK'
+                });
+                res.end(v);
+                return;
+            }
+        }
+        res.writeHead(502, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: `Error conectando con Envato: ${err.message}` }));
+    }
+    return;
+}
 
         // 4. Envato Extraction (/api/extract) — Exact 1:1 with workbench_server.py (Base64 INITIAL_HYDRATION_DATA)
         if (pathname === '/api/extract' && req.method === 'GET') {

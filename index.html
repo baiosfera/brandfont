@@ -1678,6 +1678,393 @@
             gap: 6px;
         }
 
+        /* ==========================================
+           FULLSCREEN MODE & GUIDE ARROWS (SOTA WORKBENCH)
+           ========================================== */
+        .btn-fullscreen-launch {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.08)) !important;
+            border: 1px solid var(--accent-gold) !important;
+            color: var(--accent-gold) !important;
+            font-weight: 700 !important;
+        }
+        .btn-fullscreen-launch:hover {
+            background: var(--accent-gold) !important;
+            color: #07080b !important;
+            box-shadow: 0 0 16px rgba(212, 175, 55, 0.4) !important;
+        }
+
+        .btn-canvas-fullscreen-float {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 10;
+            background: rgba(14, 17, 24, 0.85);
+            border: 1px solid var(--border);
+            color: var(--accent-gold);
+            padding: 7px 13px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+        }
+        .btn-canvas-fullscreen-float:hover {
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .fullscreen-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            display: flex;
+            flex-direction: column;
+            background: #07080b;
+            color: #f1f4fa;
+            font-family: var(--font-ui);
+            overflow: hidden;
+            user-select: none;
+            transition: background 0.25s ease;
+        }
+        .fullscreen-overlay[data-theme="light"] {
+            background: #f8fafc;
+            color: #090a0f;
+        }
+        .fullscreen-overlay[data-theme="gold"] {
+            background: #040405;
+            color: #d4af37;
+        }
+        .fullscreen-overlay[data-theme="ivory"] {
+            background: #faf7f2;
+            color: #2e241c;
+        }
+
+        /* Top HUD Bar */
+        .fs-hud-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            background: rgba(14, 17, 24, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            z-index: 20;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .fullscreen-overlay[data-theme="light"] .fs-hud-bar {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .fullscreen-overlay[data-theme="ivory"] .fs-hud-bar {
+            background: rgba(250, 247, 242, 0.95);
+            border-bottom: 1px solid #e7ded4;
+        }
+
+        .fs-hud-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .fs-btn-exit {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #ef4444;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .fs-btn-exit:hover {
+            background: #ef4444;
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+        }
+        .fs-brand-title {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .fs-brand-tag {
+            font-size: 9px;
+            font-family: var(--font-mono);
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        .fs-brand-name {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        /* Center Font Navigator */
+        .fs-font-navigator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .fullscreen-overlay[data-theme="light"] .fs-font-navigator {
+            background: #ffffff;
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .fs-nav-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #f1f4fa;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+        .fullscreen-overlay[data-theme="light"] .fs-nav-btn {
+            background: #f1f5f9;
+            border-color: #e2e8f0;
+            color: #0f172a;
+        }
+        .fs-nav-btn:hover {
+            background: var(--accent-gold);
+            color: #07080b;
+            border-color: var(--accent-gold);
+            transform: scale(1.04);
+        }
+        .fs-font-info-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 240px;
+            text-align: center;
+            padding: 0 8px;
+        }
+        .fs-font-counter {
+            font-size: 10px;
+            font-family: var(--font-mono);
+            color: var(--accent-gold);
+            font-weight: 700;
+            letter-spacing: 0.8px;
+        }
+        .fs-font-title {
+            font-size: 13px;
+            font-weight: 700;
+            max-width: 320px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .fs-font-badge {
+            font-size: 9px;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent-gold);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* Right HUD controls */
+        .fs-hud-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .fs-scope-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .fs-control-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin: 0 4px;
+            font-weight: 600;
+        }
+        .fs-pill-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .fs-pill-btn.active {
+            background: var(--accent-gold);
+            color: #07080b;
+        }
+        .fs-theme-group {
+            display: flex;
+            gap: 4px;
+        }
+        .fs-theme-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 5px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.15s ease;
+        }
+        .fs-theme-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--accent-gold);
+        }
+
+        /* Giant Floating Side Guide Arrows */
+        .fs-side-guide-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+            background: rgba(14, 17, 24, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            color: #f1f4fa;
+            width: 80px;
+            height: 130px;
+            border-radius: 18px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            backdrop-filter: blur(16px);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+        }
+        .fullscreen-overlay[data-theme="light"] .fs-side-guide-arrow {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(0, 0, 0, 0.15);
+            color: #090a0f;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .fs-side-guide-arrow:hover {
+            width: 96px;
+            background: rgba(212, 175, 55, 0.22);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.45);
+        }
+        .fs-guide-left {
+            left: 20px;
+        }
+        .fs-guide-right {
+            right: 20px;
+        }
+        .fs-arrow-icon {
+            font-size: 42px;
+            line-height: 1;
+            font-weight: 300;
+        }
+        .fs-arrow-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 4px;
+        }
+        .fs-arrow-hint {
+            font-size: 9px;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            letter-spacing: 0.8px;
+            color: var(--accent-gold);
+        }
+        .fs-arrow-font-name {
+            font-size: 9px;
+            max-width: 80px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: 0.85;
+            font-weight: 600;
+        }
+
+        /* Central Fullscreen Stage */
+        .fs-canvas-stage {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: auto;
+            padding: 40px 110px;
+        }
+        .fs-canvas-stage .brand-canvas {
+            transform: scale(1.22);
+            transform-origin: center center;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.85);
+            border-radius: 16px;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Bottom Bar */
+        .fs-bottom-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            padding: 8px 16px;
+            background: rgba(14, 17, 24, 0.85);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 11px;
+            color: var(--text-muted);
+            backdrop-filter: blur(8px);
+            z-index: 20;
+        }
+        .fullscreen-overlay[data-theme="light"] .fs-bottom-bar {
+            background: rgba(255, 255, 255, 0.9);
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+        .fs-hint-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .fs-hint-item kbd {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: #f1f4fa;
+        }
+        .fullscreen-overlay[data-theme="light"] .fs-hint-item kbd {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+
     </style>
 </head>
 <body>
@@ -2305,6 +2692,9 @@
                     </button>
                 </div>
                 <div class="boards-actions-group">
+                    <button type="button" class="btn-board-tool btn-fullscreen-launch" id="btnLaunchFullscreen" onclick="toggleFullscreenView()" title="Ver en ventana completa con flechas guías para cambiar de fuente sin salir">
+                        ⛶ Pantalla Completa
+                    </button>
                     <button type="button" class="btn-board-tool" id="btnPinCurrentBoard" onclick="togglePinCurrentBoard()" title="Fijar/Desfijar este lienzo">
                         📌 Fijar Lienzo
                     </button>
@@ -2321,6 +2711,9 @@
             </div>
 
             <div class="canvas-container">
+                <button type="button" class="btn-canvas-fullscreen-float" onclick="toggleFullscreenView()" title="Pantalla Completa (Ver grande con flechas guías)">
+                    ⛶ Pantalla Completa
+                </button>
                 <div id="brandCanvas" class="brand-canvas" data-theme="dark">
                     <div id="brandLockup" class="brand-lockup" data-layout="stacked" style="gap: 24px;">
                         
@@ -2358,6 +2751,81 @@
         </div>
 
     </main>
+
+    <!-- Fullscreen Mode Overlay with Live Font Navigation -->
+    <div id="fullscreenOverlay" class="fullscreen-overlay" style="display: none;">
+        <!-- Top HUD Navigation Bar -->
+        <header class="fs-hud-bar">
+            <div class="fs-hud-left">
+                <button type="button" class="fs-btn-exit" onclick="toggleFullscreenView(true)" title="Salir de pantalla completa (Esc)">
+                    <span>✕</span> Salir
+                </button>
+                <div class="fs-brand-title">
+                    <span class="fs-brand-tag">PANTALLA COMPLETA</span>
+                    <span id="fsBrandNameDisplay" class="fs-brand-name">MI MARCA</span>
+                </div>
+            </div>
+
+            <!-- Center Font Navigator -->
+            <div class="fs-font-navigator">
+                <button type="button" class="fs-nav-btn fs-nav-prev" onclick="navigateFullscreenFont(-1)" title="Fuente anterior (Flecha Izquierda ←)">
+                    <span>‹</span> Anterior
+                </button>
+                <div class="fs-font-info-card">
+                    <div class="fs-font-counter" id="fsFontCounter">1 / 1</div>
+                    <div class="fs-font-title" id="fsFontTitle">Fuente</div>
+                    <div class="fs-font-badge" id="fsFontBadge">Envato Cloud</div>
+                </div>
+                <button type="button" class="fs-nav-btn fs-nav-next" onclick="navigateFullscreenFont(1)" title="Fuente siguiente (Flecha Derecha →)">
+                    Siguiente <span>›</span>
+                </button>
+            </div>
+
+            <!-- Right HUD Controls: Scope & Theme -->
+            <div class="fs-hud-right">
+                <div class="fs-scope-group">
+                    <span class="fs-control-label">Aplicar a:</span>
+                    <button type="button" class="fs-pill-btn active fs-scope-btn" data-scope="both" onclick="setFullscreenScope('both')" title="Aplica a Logotipo y Monograma simultáneamente">★ Ambos</button>
+                    <button type="button" class="fs-pill-btn fs-scope-btn" data-scope="wordmark" onclick="setFullscreenScope('wordmark')" title="Aplica solo al Logotipo">Logo</button>
+                    <button type="button" class="fs-pill-btn fs-scope-btn" data-scope="monogram" onclick="setFullscreenScope('monogram')" title="Aplica solo al Monograma">Mono</button>
+                </div>
+                <div class="fs-theme-group">
+                    <button type="button" class="fs-theme-btn" data-theme="dark" onclick="setFullscreenTheme('dark')" title="Tema Oscuro">🌙</button>
+                    <button type="button" class="fs-theme-btn" data-theme="light" onclick="setFullscreenTheme('light')" title="Tema Claro">☀️</button>
+                    <button type="button" class="fs-theme-btn" data-theme="gold" onclick="setFullscreenTheme('gold')" title="Tema Dorado">✨</button>
+                    <button type="button" class="fs-theme-btn" data-theme="ivory" onclick="setFullscreenTheme('ivory')" title="Tema Marfil">📜</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Giant Floating Side Guide Arrows -->
+        <button type="button" class="fs-side-guide-arrow fs-guide-left" onclick="navigateFullscreenFont(-1)" title="Fuente anterior (Flecha Izquierda ←)">
+            <div class="fs-arrow-icon">‹</div>
+            <div class="fs-arrow-label">
+                <span class="fs-arrow-hint">← ANTERIOR</span>
+                <span class="fs-arrow-font-name" id="fsPrevFontHint">Anterior</span>
+            </div>
+        </button>
+
+        <button type="button" class="fs-side-guide-arrow fs-guide-right" onclick="navigateFullscreenFont(1)" title="Fuente siguiente (Flecha Derecha →)">
+            <div class="fs-arrow-icon">›</div>
+            <div class="fs-arrow-label">
+                <span class="fs-arrow-hint">SIGUIENTE →</span>
+                <span class="fs-arrow-font-name" id="fsNextFontHint">Siguiente</span>
+            </div>
+        </button>
+
+        <!-- Central Fullscreen Stage hosting #brandCanvas -->
+        <main class="fs-canvas-stage" id="fsCanvasStage"></main>
+
+        <!-- Bottom Keyboard & Touch Navigation Hints -->
+        <footer class="fs-bottom-bar">
+            <div class="fs-hint-item"><kbd>←</kbd> <kbd>→</kbd> Navegar fuentes</div>
+            <div class="fs-hint-item"><kbd>1</kbd> Ambos <kbd>2</kbd> Logo <kbd>3</kbd> Mono</div>
+            <div class="fs-hint-item"><kbd>T</kbd> Cambiar tema</div>
+            <div class="fs-hint-item"><kbd>Esc</kbd> Salir</div>
+        </footer>
+    </div>
 
     <!-- Notification Toast -->
     <div id="toast" class="toast">Mensaje</div>
@@ -3691,7 +4159,28 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             setLayout(state.layout);
             setCanvasTheme(state.canvasTheme);
+            setActiveTarget(state.activeTarget || 'wordmark');
             renderBoardsTabs();
+
+            // Pre-hydrate in-memory SVG cache from local/catalog font variants
+            state.fonts.forEach(f => {
+                if (f && f.itemUuid && Array.isArray(f.variants)) {
+                    f.variants.forEach(v => {
+                        if (v.svgContent && v.svgUrl) {
+                            try {
+                                const u = new URL(v.svgUrl);
+                                const txt = u.searchParams.get('text') || '';
+                                const varId = u.searchParams.get('variant') || v.variantId || '';
+                                if (txt) {
+                                    svgCache.set(`${f.itemUuid}_${varId}_${txt}`, v.svgContent);
+                                    svgCache.set(`${f.itemUuid}__${txt}`, v.svgContent);
+                                }
+                            } catch {}
+                        }
+                    });
+                }
+            });
+
             updateSidebarUI();
             updateCanvasElements();
             testLigaturePair("Th");
@@ -4014,16 +4503,22 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         // Change Font for a specific Element
         function onElementFontChanged(elementKey, fontId) {
             const comp = state.elements[elementKey];
+            if (!comp) return;
             comp.fontId = fontId || null;
 
             const fontObj = state.fonts.find(f => f.id === fontId);
             comp.variantId = fontObj && fontObj.variants.length > 0 ? fontObj.variants[0].variantId : null;
+
+            // Clear granular overrides on words & letters so the whole element gets the new font cleanly!
+            if (comp.words) comp.words.forEach(w => { w.fontId = null; w.variantId = null; });
+            if (comp.letters) comp.letters.forEach(l => { l.fontId = null; l.variantId = null; });
 
             updateDropdownTriggerDisplay(elementKey, fontId);
             updateVariantBarForElement(elementKey);
             saveAssignments();
             renderFontCards();
             updateCanvasElements();
+            if (typeof updateFullscreenHUD === 'function') updateFullscreenHUD();
             showToast(`✓ Fuente asignada a ${elementKey.toUpperCase()}: ${fontObj ? fontObj.title : 'Por defecto'}`);
         }
 
@@ -4658,13 +5153,17 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             const fontObj = state.fonts.find(f => f.id === fontId);
             const defVarId = fontObj && fontObj.variants && fontObj.variants.length > 0 ? fontObj.variants[0].variantId : null;
 
-            // 1. Assign to wordmark
+            // 1. Assign to wordmark & clear granular overrides so whole brandmark updates cleanly
             state.elements.wordmark.fontId = fontId;
             state.elements.wordmark.variantId = defVarId;
+            if (state.elements.wordmark.words) state.elements.wordmark.words.forEach(w => { w.fontId = null; w.variantId = null; });
+            if (state.elements.wordmark.letters) state.elements.wordmark.letters.forEach(l => { l.fontId = null; l.variantId = null; });
 
-            // 2. Assign to monogram
+            // 2. Assign to monogram & clear granular overrides
             state.elements.monogram.fontId = fontId;
             state.elements.monogram.variantId = defVarId;
+            if (state.elements.monogram.words) state.elements.monogram.words.forEach(w => { w.fontId = null; w.variantId = null; });
+            if (state.elements.monogram.letters) state.elements.monogram.letters.forEach(l => { l.fontId = null; l.variantId = null; });
 
             // 3. Tagline remains 100% UNTOUCHED (contract: "(no al tagline)")
 
@@ -4676,6 +5175,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             saveAssignments();
             renderFontCards();
             updateCanvasElements();
+            if (typeof updateFullscreenHUD === 'function') updateFullscreenHUD();
             showToast(`✓ Fuente "${fontObj ? fontObj.title : fontId}" aplicada a Logotipo y Monograma`);
         }
 
@@ -4795,12 +5295,27 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         // ==========================================
         async function getSvgForText(font, text, variantId = "") {
             if (!font || !text || font.isGoogleFont) return null;
-            const cacheKey = `${font.itemUuid}_${variantId || ''}_${text}`;
+            const cleanText = text.trim();
+            const cacheKey = `${font.itemUuid}_${variantId || ''}_${cleanText}`;
             if (svgCache.has(cacheKey)) {
                 return svgCache.get(cacheKey);
             }
 
-            const renderUrl = getApiUrl(`api/render?itemUuid=${encodeURIComponent(font.itemUuid)}&text=${encodeURIComponent(text)}&variant=${encodeURIComponent(variantId || '')}`);
+            // Check if font object already has an extracted variant with matching text and svgContent!
+            if (font.variants && Array.isArray(font.variants)) {
+                const cleanT = cleanText.toLowerCase().replace(/\s+/g, '+');
+                const matchedVar = font.variants.find(v => {
+                    const matchV = !variantId || v.variantId === variantId;
+                    const matchUrl = v.svgUrl && (v.svgUrl.toLowerCase().includes(`text=${cleanT}`) || v.svgUrl.toLowerCase().includes(`text=${encodeURIComponent(cleanText).toLowerCase()}`));
+                    return matchV && matchUrl && v.svgContent;
+                });
+                if (matchedVar && matchedVar.svgContent) {
+                    svgCache.set(cacheKey, matchedVar.svgContent);
+                    return matchedVar.svgContent;
+                }
+            }
+
+            const renderUrl = getApiUrl(`api/render?itemUuid=${encodeURIComponent(font.itemUuid)}&text=${encodeURIComponent(cleanText)}&variant=${encodeURIComponent(variantId || '')}`);
             try {
                 const resp = await fetch(renderUrl);
                 if (resp.ok) {
@@ -4810,6 +5325,14 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 }
             } catch (err) {
                 console.warn("Render fetch error:", err);
+            }
+
+            // Fallback: If network failed or offline, try font's first variant svgContent or previewSvg
+            if (font.variants && font.variants[0] && font.variants[0].svgContent) {
+                return font.variants[0].svgContent;
+            }
+            if (font.previewSvg && font.previewSvg.includes("<svg")) {
+                return font.previewSvg;
             }
             return null;
         }
@@ -5071,7 +5594,8 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 // Connected brandmark SVG from Envato cloud
                 const v = wm.variantId || (wmFont.variants[0] ? wmFont.variants[0].variantId : "");
                 const fullBrandSvg = await getSvgForText(wmFont, state.brandName, v);
-                const content = fullBrandSvg ? formatSvg(fullBrandSvg, baseWordH) : `<span class="letter-span" style="font-size:${baseWordH}px;">${state.brandName}</span>`;
+                const fontFam = wmFont.family || wmFont.title;
+                const content = fullBrandSvg ? formatSvg(fullBrandSvg, baseWordH) : `<span class="letter-span" style="font-size:${baseWordH}px; font-family: '${fontFam}', var(--font-serif);">${state.brandName}</span>`;
                 wmRow.innerHTML = `<div class="word-unit">${content}</div>`;
             } else if (wmFont) {
                 // Word by word or letter by letter
@@ -5093,7 +5617,8 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                         const lettersHtml = wordLetters.map((l, i) => {
                             const targetH = Math.round(baseWordH * (word.scale / 100) * (l.scale / 100));
                             const rawSvg = letterSvgs[i];
-                            const content = rawSvg ? formatSvg(rawSvg, targetH) : `<span class="letter-span" style="font-size:${targetH}px;">${l.char}</span>`;
+                            const f = resolveFont(l.fontId) || resolveFont(word.fontId) || wmFont;
+                            const content = rawSvg ? formatSvg(rawSvg, targetH) : `<span class="letter-span" style="font-size:${targetH}px; font-family: '${f.family || f.title}', var(--font-serif);">${l.char}</span>`;
                             const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
                             return `<div class="letter-unit" style="transform: translate(${l.shiftX}px, ${l.shiftY}px) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; margin-right: ${wm.block.spacing || 0}px;">${content}</div>`;
                         }).join("");
@@ -5104,7 +5629,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                         const v = word.variantId || wm.variantId || (f.variants[0] ? f.variants[0].variantId : "");
                         const wordSvg = await getSvgForText(f, word.text, v);
                         const targetH = Math.round(baseWordH * (word.scale / 100));
-                        const content = wordSvg ? formatSvg(wordSvg, targetH) : `<span class="letter-span" style="font-size:${targetH}px;">${word.text}</span>`;
+                        const content = wordSvg ? formatSvg(wordSvg, targetH) : `<span class="letter-span" style="font-size:${targetH}px; font-family: '${f.family || f.title}', var(--font-serif);">${word.text}</span>`;
                         return `<div class="word-unit" style="transform: translate(${word.shiftX}px, ${word.shiftY}px);">${content}</div>`;
                     }
                 }));
@@ -5171,7 +5696,13 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 
                 card.onclick = (e) => {
                     if (e.target.closest('.font-card-btn-delete') || e.target.closest('.font-card-actions') || e.target.closest('button')) return;
-                    onElementFontChanged(state.activeTarget, f.id);
+                    if (state.activeTarget === 'monogram') {
+                        onElementFontChanged('monogram', f.id);
+                    } else if (state.activeTarget === 'tagline') {
+                        onElementFontChanged('tagline', f.id);
+                    } else {
+                        applyFontToLogoAndMonogram(f.id);
+                    }
                 };
 
                 let capsHtml = "";
@@ -5826,6 +6357,219 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             URL.revokeObjectURL(url);
             showToast("✓ Archivo SVG vectorial descargado.");
         }
+
+        // ==========================================
+        // SOTA FULLSCREEN WORKBENCH & FONT NAVIGATOR
+        // ==========================================
+        let isFullscreenActive = false;
+        let fullscreenScope = 'both'; // 'both' | 'wordmark' | 'monogram'
+
+        function setFullscreenScope(scope) {
+            fullscreenScope = scope;
+            document.querySelectorAll(".fs-scope-btn").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-scope") === scope);
+            });
+            const labels = {
+                both: "Logo + Monograma",
+                wordmark: "Solo Logotipo",
+                monogram: "Solo Monograma"
+            };
+            showToast(`✓ Flechas guías cambiarán: ${labels[scope] || scope}`);
+            updateFullscreenHUD();
+        }
+
+        function setFullscreenTheme(theme) {
+            setCanvasTheme(theme);
+            const overlay = document.getElementById("fullscreenOverlay");
+            if (overlay) overlay.setAttribute("data-theme", theme);
+        }
+
+        function getCurrentFontIndex() {
+            if (!state.fonts || state.fonts.length === 0) return 0;
+            let activeFontId = null;
+            if (fullscreenScope === 'monogram') {
+                activeFontId = state.elements.monogram.fontId;
+            } else {
+                activeFontId = state.elements.wordmark.fontId || state.elements.monogram.fontId;
+            }
+            const idx = state.fonts.findIndex(f => f.id === activeFontId);
+            return idx >= 0 ? idx : 0;
+        }
+
+        function updateFullscreenHUD() {
+            const overlay = document.getElementById("fullscreenOverlay");
+            if (!overlay || overlay.style.display === "none") return;
+
+            const nameDisplay = document.getElementById("fsBrandNameDisplay");
+            if (nameDisplay) nameDisplay.textContent = state.brandName || "MI MARCA";
+
+            if (!state.fonts || state.fonts.length === 0) {
+                const titleEl = document.getElementById("fsFontTitle");
+                const cntEl = document.getElementById("fsFontCounter");
+                if (titleEl) titleEl.textContent = "Sin fuentes en catálogo";
+                if (cntEl) cntEl.textContent = "0 / 0";
+                return;
+            }
+
+            const total = state.fonts.length;
+            const currentIdx = getCurrentFontIndex();
+            const currentFont = state.fonts[currentIdx] || state.fonts[0];
+
+            // Counter & Title
+            const cntEl = document.getElementById("fsFontCounter");
+            if (cntEl) cntEl.textContent = `${currentIdx + 1} / ${total}`;
+            const titleEl = document.getElementById("fsFontTitle");
+            if (titleEl) titleEl.textContent = currentFont.title || currentFont.id;
+
+            // Badges
+            const badgeEl = document.getElementById("fsFontBadge");
+            if (badgeEl) {
+                if (currentFont.isLocalFont) {
+                    badgeEl.textContent = "Local OpenType";
+                    badgeEl.style.color = "#10b981";
+                    badgeEl.style.background = "rgba(16, 185, 129, 0.15)";
+                } else if (currentFont.isGoogleFont) {
+                    badgeEl.textContent = "Google Font";
+                    badgeEl.style.color = "#60a5fa";
+                    badgeEl.style.background = "rgba(96, 165, 250, 0.15)";
+                } else if (currentFont.unsupported) {
+                    badgeEl.textContent = "Envato No-Vector";
+                    badgeEl.style.color = "#f59e0b";
+                    badgeEl.style.background = "rgba(245, 158, 11, 0.15)";
+                } else {
+                    badgeEl.textContent = "Envato Cloud";
+                    badgeEl.style.color = "#d4af37";
+                    badgeEl.style.background = "rgba(212, 175, 55, 0.15)";
+                }
+            }
+
+            // Update Side Guide Hints
+            const prevIdx = (currentIdx - 1 + total) % total;
+            const nextIdx = (currentIdx + 1) % total;
+            const prevFont = state.fonts[prevIdx];
+            const nextFont = state.fonts[nextIdx];
+
+            const prevHint = document.getElementById("fsPrevFontHint");
+            if (prevHint && prevFont) prevHint.textContent = prevFont.title || `Fuente ${prevIdx + 1}`;
+
+            const nextHint = document.getElementById("fsNextFontHint");
+            if (nextHint && nextFont) nextHint.textContent = nextFont.title || `Fuente ${nextIdx + 1}`;
+
+            // Scope buttons
+            document.querySelectorAll(".fs-scope-btn").forEach(b => {
+                b.classList.toggle("active", b.getAttribute("data-scope") === fullscreenScope);
+            });
+
+            // Theme sync
+            overlay.setAttribute("data-theme", state.canvasTheme || "dark");
+        }
+
+        async function navigateFullscreenFont(direction) {
+            if (!state.fonts || state.fonts.length === 0) return;
+            const total = state.fonts.length;
+            const currentIdx = getCurrentFontIndex();
+            const newIdx = (currentIdx + direction + total) % total;
+            const targetFont = state.fonts[newIdx];
+            if (!targetFont) return;
+
+            if (fullscreenScope === 'both') {
+                applyFontToLogoAndMonogram(targetFont.id);
+            } else if (fullscreenScope === 'wordmark') {
+                onElementFontChanged('wordmark', targetFont.id);
+            } else if (fullscreenScope === 'monogram') {
+                onElementFontChanged('monogram', targetFont.id);
+            }
+
+            updateFullscreenHUD();
+        }
+
+        function toggleFullscreenView(forceClose = false) {
+            const overlay = document.getElementById("fullscreenOverlay");
+            const brandCanvas = document.getElementById("brandCanvas");
+            const fsCanvasStage = document.getElementById("fsCanvasStage");
+            const canvasContainer = document.querySelector(".canvas-container");
+
+            if (!overlay || !brandCanvas) return;
+
+            if (isFullscreenActive || forceClose) {
+                // EXIT FULLSCREEN
+                isFullscreenActive = false;
+                overlay.style.display = "none";
+                if (canvasContainer) {
+                    canvasContainer.appendChild(brandCanvas);
+                }
+                document.body.style.overflow = "";
+
+                if (document.fullscreenElement) {
+                    try { document.exitFullscreen(); } catch (e) {}
+                }
+                updateCanvasElements();
+                showToast("✓ Saliste de pantalla completa");
+            } else {
+                // ENTER FULLSCREEN
+                isFullscreenActive = true;
+                if (fsCanvasStage) {
+                    fsCanvasStage.innerHTML = "";
+                    fsCanvasStage.appendChild(brandCanvas);
+                }
+                overlay.style.display = "flex";
+                document.body.style.overflow = "hidden";
+
+                try {
+                    if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
+                        document.documentElement.requestFullscreen().catch(() => {});
+                    }
+                } catch (e) {}
+
+                updateFullscreenHUD();
+                updateCanvasElements();
+                showToast("⛶ Pantalla completa activa. Usá las flechas laterales o del teclado para cambiar fuentes.");
+            }
+        }
+
+        // Global Keydown Handler for Fullscreen & Quick Navigation
+        window.addEventListener("keydown", (e) => {
+            // Ignore when user is typing in inputs or textareas
+            if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) {
+                return;
+            }
+
+            if (isFullscreenActive) {
+                if (e.key === "ArrowLeft") {
+                    e.preventDefault();
+                    navigateFullscreenFont(-1);
+                } else if (e.key === "ArrowRight") {
+                    e.preventDefault();
+                    navigateFullscreenFont(1);
+                } else if (e.key === "Escape") {
+                    e.preventDefault();
+                    toggleFullscreenView(true);
+                } else if (e.key === "1") {
+                    setFullscreenScope('both');
+                } else if (e.key === "2") {
+                    setFullscreenScope('wordmark');
+                } else if (e.key === "3") {
+                    setFullscreenScope('monogram');
+                } else if (e.key.toLowerCase() === "t") {
+                    const themes = ["dark", "light", "gold", "ivory"];
+                    const curIdx = themes.indexOf(state.canvasTheme);
+                    const nextT = themes[(curIdx + 1) % themes.length];
+                    setFullscreenTheme(nextT);
+                }
+            } else {
+                if (e.key === "f" || e.key === "F") {
+                    // Quick shortcut 'F' to toggle fullscreen
+                    toggleFullscreenView();
+                }
+            }
+        });
+
+        // Sync with browser native fullscreen exit
+        document.addEventListener("fullscreenchange", () => {
+            if (!document.fullscreenElement && isFullscreenActive) {
+                toggleFullscreenView(true);
+            }
+        });
 
         function showToast(msg) {
             const toast = document.getElementById("toast");
