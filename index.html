@@ -2783,6 +2783,12 @@
 
             <!-- Right HUD Controls: Scope & Theme -->
             <div class="fs-hud-right">
+                <div class="fs-case-group" style="display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.06); padding: 3px 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.12);">
+                    <span class="fs-control-label" style="font-size: 10px; color: var(--text-muted); font-weight: 600;">Caja:</span>
+                    <button type="button" class="fs-pill-btn fs-case-btn active" data-case="upper" onclick="applyLogotypeCasing('upper')" title="TODO EN MAYÚSCULAS">MAYÚS</button>
+                    <button type="button" class="fs-pill-btn fs-case-btn" data-case="title" onclick="applyLogotypeCasing('title')" title="Primera Letra Mayúscula">Título</button>
+                    <button type="button" class="fs-pill-btn fs-case-btn" data-case="lower" onclick="applyLogotypeCasing('lower')" title="todo en minúsculas">minús</button>
+                </div>
                 <div class="fs-scope-group">
                     <span class="fs-control-label">Aplicar a:</span>
                     <button type="button" class="fs-pill-btn active fs-scope-btn" data-scope="both" onclick="setFullscreenScope('both')" title="Aplica a Logotipo y Monograma simultáneamente">★ Ambos</button>
@@ -2822,6 +2828,7 @@
         <footer class="fs-bottom-bar">
             <div class="fs-hint-item"><kbd>←</kbd> <kbd>→</kbd> Navegar fuentes</div>
             <div class="fs-hint-item"><kbd>1</kbd> Ambos <kbd>2</kbd> Logo <kbd>3</kbd> Mono</div>
+            <div class="fs-hint-item"><kbd>C</kbd> Cambiar mayús/minús</div>
             <div class="fs-hint-item"><kbd>T</kbd> Cambiar tema</div>
             <div class="fs-hint-item"><kbd>Esc</kbd> Salir</div>
         </footer>
@@ -3706,17 +3713,36 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         // ==========================================
         // INDEPENDENT CASING CONTROLS
         // ==========================================
+        function syncCasingUI() {
+            if (state.casing) {
+                document.querySelectorAll(".btn-case-mini[data-wm-case]").forEach(b => {
+                    b.classList.toggle("active", b.getAttribute("data-wm-case") === (state.casing.wordmark || 'upper'));
+                });
+                document.querySelectorAll(".btn-case-mini[data-mg-case]").forEach(b => {
+                    b.classList.toggle("active", b.getAttribute("data-mg-case") === (state.casing.monogram || 'upper'));
+                });
+                document.querySelectorAll(".btn-case-mini[data-tl-case]").forEach(b => {
+                    b.classList.toggle("active", b.getAttribute("data-tl-case") === (state.casing.tagline || 'upper'));
+                });
+                document.querySelectorAll(".fs-case-btn[data-case]").forEach(b => {
+                    b.classList.toggle("active", b.getAttribute("data-case") === (state.casing.wordmark || 'upper'));
+                });
+            }
+        }
+
         function applyLogotypeCasing(mode) {
             state.casing.wordmark = mode;
-            document.querySelectorAll(".btn-case-mini[data-wm-case]").forEach(b => {
-                b.classList.toggle("active", b.getAttribute("data-wm-case") === mode);
-            });
+            syncCasingUI();
             const input = document.getElementById("inputBrandName");
             if (input) {
-                if (mode === "upper") input.value = input.value.toUpperCase();
-                else if (mode === "lower") input.value = input.value.toLowerCase();
-                else if (mode === "title") input.value = input.value.replace(/\b\w+/g, s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase());
-                onBrandTextChange();
+                if (mode === "upper") {
+                    input.value = input.value.toUpperCase();
+                } else if (mode === "lower") {
+                    input.value = input.value.toLowerCase();
+                } else if (mode === "title") {
+                    input.value = input.value.split(" ").map(w => w ? w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() : "").join(" ");
+                }
+                onBrandTextChange(true);
             }
             scheduleAutoSaveWorkspace();
             showToast(`✓ Caja Logotipo: ${mode.toUpperCase()}`);
@@ -3724,15 +3750,19 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
         function applyMonogramCasing(mode) {
             state.casing.monogram = mode;
-            document.querySelectorAll(".btn-case-mini[data-mg-case]").forEach(b => {
-                b.classList.toggle("active", b.getAttribute("data-mg-case") === mode);
-            });
+            syncCasingUI();
             const input = document.getElementById("inputInitials");
             if (input) {
-                if (mode === "upper") input.value = input.value.toUpperCase();
-                else if (mode === "lower") input.value = input.value.toLowerCase();
-                else if (mode === "title") input.value = input.value.length > 1 ? input.value.charAt(0).toUpperCase() + input.value.slice(1).toLowerCase() : input.value.toUpperCase();
-                onBrandTextChange();
+                if (mode === "upper") {
+                    input.value = input.value.toUpperCase();
+                } else if (mode === "lower") {
+                    input.value = input.value.toLowerCase();
+                } else if (mode === "title") {
+                    input.value = input.value.length > 1 
+                        ? input.value.charAt(0).toUpperCase() + input.value.slice(1).toLowerCase() 
+                        : input.value.toUpperCase();
+                }
+                onBrandTextChange(true);
             }
             scheduleAutoSaveWorkspace();
             showToast(`✓ Caja Monograma: ${mode.toUpperCase()}`);
@@ -3740,15 +3770,17 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
         function applyTaglineCasing(mode) {
             state.casing.tagline = mode;
-            document.querySelectorAll(".btn-case-mini[data-tl-case]").forEach(b => {
-                b.classList.toggle("active", b.getAttribute("data-tl-case") === mode);
-            });
+            syncCasingUI();
             const input = document.getElementById("inputDescriptor");
             if (input) {
-                if (mode === "upper") input.value = input.value.toUpperCase();
-                else if (mode === "lower") input.value = input.value.toLowerCase();
-                else if (mode === "title") input.value = input.value.replace(/\b\w+/g, s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase());
-                onBrandTextChange();
+                if (mode === "upper") {
+                    input.value = input.value.toUpperCase();
+                } else if (mode === "lower") {
+                    input.value = input.value.toLowerCase();
+                } else if (mode === "title") {
+                    input.value = input.value.split(" ").map(w => w ? w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() : "").join(" ");
+                }
+                onBrandTextChange(true);
             }
             scheduleAutoSaveWorkspace();
             showToast(`✓ Caja Tagline: ${mode.toUpperCase()}`);
@@ -4160,16 +4192,17 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             setLayout(state.layout);
             setCanvasTheme(state.canvasTheme);
             setActiveTarget(state.activeTarget || 'wordmark');
+            syncCasingUI();
             renderBoardsTabs();
 
-            // Pre-hydrate in-memory SVG cache from local/catalog font variants
+            // Pre-hydrate in-memory SVG cache from local/catalog font variants (exact case-sensitive keys)
             state.fonts.forEach(f => {
                 if (f && f.itemUuid && Array.isArray(f.variants)) {
                     f.variants.forEach(v => {
                         if (v.svgContent && v.svgUrl) {
                             try {
                                 const u = new URL(v.svgUrl);
-                                const txt = u.searchParams.get('text') || '';
+                                const txt = (u.searchParams.get('text') || '').replace(/\+/g, ' ').trim();
                                 const varId = u.searchParams.get('variant') || v.variantId || '';
                                 if (txt) {
                                     svgCache.set(`${f.itemUuid}_${varId}_${txt}`, v.svgContent);
@@ -4886,48 +4919,14 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
         function applyTextCasing(mode) {
             state.quickCasing = mode;
-            document.querySelectorAll(".segmented-btn[data-case]").forEach(b => {
-                b.classList.toggle("active", b.getAttribute("data-case") === mode);
-            });
-            const label = document.getElementById("activeCasingLabel");
-            if (label) label.textContent = mode.toUpperCase();
-
-            const inputName = document.getElementById("inputBrandName");
-            const inputInit = document.getElementById("inputInitials");
-            const inputDesc = document.getElementById("inputDescriptor");
-
-            const transform = (str) => {
-                if (!str) return "";
-                if (mode === "upper") return str.toUpperCase();
-                if (mode === "lower") return str.toLowerCase();
-                if (mode === "title") {
-                    return str.replace(/\b\w+/g, s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase());
-                }
-                if (mode === "sentence") {
-                    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-                }
-                return str;
-            };
-
-            if (inputName) inputName.value = transform(inputName.value);
-            if (inputDesc) inputDesc.value = transform(inputDesc.value);
-            if (inputInit) {
-                if (mode === "upper") inputInit.value = inputInit.value.toUpperCase();
-                else if (mode === "lower") inputInit.value = inputInit.value.toLowerCase();
-                else if (mode === "title" || mode === "sentence") {
-                    inputInit.value = inputInit.value.length > 1 
-                        ? inputInit.value.charAt(0).toUpperCase() + inputInit.value.slice(1).toLowerCase() 
-                        : inputInit.value.toUpperCase();
-                }
-            }
-
-            onBrandTextChange();
-            showToast(`✓ Caja tipográfica cambiada a ${mode.toUpperCase()}`);
+            applyLogotypeCasing(mode);
+            applyMonogramCasing(mode);
+            applyTaglineCasing(mode);
         }
 
         // Live text change listener (Preserves uppercase and lowercase for Monogram & Tagline)
         let debounceTimer;
-        function onBrandTextChange() {
+        function onBrandTextChange(immediate = false) {
             state.brandName = document.getElementById("inputBrandName").value.trim() || "MARCA";
             let initialsVal = document.getElementById("inputInitials").value;
             if (!initialsVal) {
@@ -4941,9 +4940,15 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             updateDetectedBrandPairs();
 
             clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
+            if (immediate) {
                 updateCanvasElements();
-            }, 180);
+                if (typeof updateFullscreenHUD === 'function') updateFullscreenHUD();
+            } else {
+                debounceTimer = setTimeout(() => {
+                    updateCanvasElements();
+                    if (typeof updateFullscreenHUD === 'function') updateFullscreenHUD();
+                }, 180);
+            }
         }
 
         // ==========================================
@@ -5302,12 +5307,18 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             }
 
             // Check if font object already has an extracted variant with matching text and svgContent!
+            // STRICT EXACT CASE-SENSITIVE MATCH: Never returns all-caps SVG when user selects lowercase or titlecase!
             if (font.variants && Array.isArray(font.variants)) {
-                const cleanT = cleanText.toLowerCase().replace(/\s+/g, '+');
                 const matchedVar = font.variants.find(v => {
                     const matchV = !variantId || v.variantId === variantId;
-                    const matchUrl = v.svgUrl && (v.svgUrl.toLowerCase().includes(`text=${cleanT}`) || v.svgUrl.toLowerCase().includes(`text=${encodeURIComponent(cleanText).toLowerCase()}`));
-                    return matchV && matchUrl && v.svgContent;
+                    if (!matchV || !v.svgContent || !v.svgUrl) return false;
+                    try {
+                        const u = new URL(v.svgUrl);
+                        const urlText = (u.searchParams.get('text') || '').replace(/\+/g, ' ').trim();
+                        return urlText === cleanText;
+                    } catch {
+                        return false;
+                    }
                 });
                 if (matchedVar && matchedVar.svgContent) {
                     svgCache.set(cacheKey, matchedVar.svgContent);
@@ -5327,13 +5338,6 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 console.warn("Render fetch error:", err);
             }
 
-            // Fallback: If network failed or offline, try font's first variant svgContent or previewSvg
-            if (font.variants && font.variants[0] && font.variants[0].svgContent) {
-                return font.variants[0].svgContent;
-            }
-            if (font.previewSvg && font.previewSvg.includes("<svg")) {
-                return font.previewSvg;
-            }
             return null;
         }
 
@@ -6550,6 +6554,11 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     setFullscreenScope('wordmark');
                 } else if (e.key === "3") {
                     setFullscreenScope('monogram');
+                } else if (e.key.toLowerCase() === "c") {
+                    const order = ["upper", "title", "lower"];
+                    const curIdx = order.indexOf(state.casing.wordmark || "upper");
+                    const nextMode = order[(curIdx + 1) % order.length];
+                    applyLogotypeCasing(nextMode);
                 } else if (e.key.toLowerCase() === "t") {
                     const themes = ["dark", "light", "gold", "ivory"];
                     const curIdx = themes.indexOf(state.canvasTheme);

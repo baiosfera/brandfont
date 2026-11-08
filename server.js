@@ -692,9 +692,9 @@ if (pathname === '/api/render' && req.method === 'GET') {
             return;
         }
 
-        // If Envato returned an error but we have any cached preview for this font, use it as fallback!
+        // If Envato returned an error but we have any cached preview for this font and EXACT text, use it as fallback!
         for (const [k, v] of svgRenderCache.entries()) {
-            if (k.startsWith(`${itemUuid.trim()}_`)) {
+            if (k.startsWith(`${itemUuid.trim()}_`) && k.endsWith(`_${text.trim()}`)) {
                 res.writeHead(200, {
                     'Content-Type': 'image/svg+xml; charset=utf-8',
                     'Cache-Control': 'public, max-age=600',
@@ -714,9 +714,9 @@ if (pathname === '/api/render' && req.method === 'GET') {
         res.writeHead(proxyResp.status, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: false, errorCode: errCode, error: `Error desde Envato (${proxyResp.status}): ${proxyResp.statusText}` }));
     } catch (err) {
-        // Fallback on network error
+        // Fallback on network error only if exact text match exists
         for (const [k, v] of svgRenderCache.entries()) {
-            if (k.startsWith(`${itemUuid.trim()}_`)) {
+            if (k.startsWith(`${itemUuid.trim()}_`) && k.endsWith(`_${text.trim()}`)) {
                 res.writeHead(200, {
                     'Content-Type': 'image/svg+xml; charset=utf-8',
                     'Cache-Control': 'public, max-age=600',
