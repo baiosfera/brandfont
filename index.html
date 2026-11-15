@@ -1400,6 +1400,53 @@
             color: #07080b;
         }
 
+        .btn-export-print {
+            flex-basis: 100%;
+            background: #ffffff;
+            color: #090a0f;
+            border: 1px solid #d4af37;
+            font-weight: 700;
+        }
+
+        .btn-export-print:hover {
+            background: #f5f5f5;
+            color: #000000;
+            border-color: #b89327;
+        }
+
+        .btn-lock-monogram {
+            border-color: rgba(212, 175, 55, 0.5) !important;
+            color: var(--accent-gold) !important;
+        }
+
+        .btn-lock-monogram.locked {
+            background: rgba(16, 185, 129, 0.16) !important;
+            border-color: #10b981 !important;
+            color: #34d399 !important;
+            font-weight: 700;
+        }
+
+        .monogram-locked-pill {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.45);
+            color: #6ee7b7;
+            font-size: 11px;
+            font-weight: 600;
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 12;
+        }
+
+        .monogram-locked-pill.visible {
+            display: inline-flex;
+        }
+
         .toast {
             position: fixed;
             bottom: 24px;
@@ -2649,8 +2696,16 @@
                 </div>
             </div>
 
-            <!-- 8. Export Actions -->
+            <!-- 8. Final Monogram Lock & Export Actions -->
             <div class="export-actions">
+                <div style="display: flex; gap: 6px; width: 100%; margin-bottom: 4px;">
+                    <button type="button" id="btnLockFinalMonogramSidebar" class="btn-export btn-lock-monogram" onclick="toggleFinalMonogramLock()" title="Fijar y bloquear el monograma actual con todas sus posiciones en el servidor">
+                        <span>📌 Fijar Monograma Definitivo</span>
+                    </button>
+                    <button type="button" id="btnRestoreFinalMonogramSidebar" class="btn-export" style="flex: 0 0 auto; display: none;" onclick="restoreFinalMonogram()" title="Cargar el último monograma definitivo guardado">
+                        <span>↩️ Fijado</span>
+                    </button>
+                </div>
                 <label style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted); width: 100%; margin-bottom: 4px; cursor: pointer;">
                     <input type="checkbox" id="chkIncludeBg" checked>
                     <span>Incluir fondo de contraste en el SVG exportado</span>
@@ -2659,7 +2714,13 @@
                     <span>📋 Copiar SVG</span>
                 </button>
                 <button type="button" class="btn-export btn-export-primary" onclick="downloadCombinedSvg()">
-                    <span>💾 Descargar SVG</span>
+                    <span>💾 SVG Completo</span>
+                </button>
+                <button type="button" class="btn-export" onclick="downloadMonogramSvg()" title="Descargar solo el monograma a escala vectorial completa (1024px)">
+                    <span>💎 Monograma SVG</span>
+                </button>
+                <button type="button" class="btn-export btn-export-print" onclick="downloadMonogramPdf()" title="Descargar monograma en PDF Carta, fondo blanco y trazo negro puro para impresión">
+                    <span>📄 Descargar PDF Carta B/N (Página Completa)</span>
                 </button>
             </div>
 
@@ -2692,6 +2753,9 @@
                     </button>
                 </div>
                 <div class="boards-actions-group">
+                    <button type="button" class="btn-board-tool btn-lock-monogram" id="btnLockFinalMonogramBar" onclick="toggleFinalMonogramLock()" title="Fijar y bloquear el monograma definitivo en servidor">
+                        📌 Fijar Monograma
+                    </button>
                     <button type="button" class="btn-board-tool btn-fullscreen-launch" id="btnLaunchFullscreen" onclick="toggleFullscreenView()" title="Ver en ventana completa con flechas guías para cambiar de fuente sin salir">
                         ⛶ Pantalla Completa
                     </button>
@@ -2711,6 +2775,10 @@
             </div>
 
             <div class="canvas-container">
+                <div id="monogramLockedPill" class="monogram-locked-pill">
+                    <span>🔒 Monograma Definitivo Fijado</span>
+                    <button type="button" class="btn-chip-action" onclick="toggleFinalMonogramLock()" style="padding:2px 6px; font-size:10px;">Desbloquear</button>
+                </div>
                 <button type="button" class="btn-canvas-fullscreen-float" onclick="toggleFullscreenView()" title="Pantalla Completa (Ver grande con flechas guías)">
                     ⛶ Pantalla Completa
                 </button>
@@ -2944,6 +3012,10 @@
             // Global Ligature Engine Settings
             globalLigatures: true,
             activeStylisticSets: new Set(),
+
+            // Final Monogram Lock & Server Preset
+            monogramLocked: false,
+            finalMonogram: null,
 
             // Monogram Icon Layer Settings (Super Editable & Layered)
             monogramIcon: {
@@ -3342,6 +3414,11 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         }
 
         function toggleMonogramIcon(checked) {
+            if (!guardMonogramUnlocked("monogram")) {
+                const chk = document.getElementById("chkMonogramIcon");
+                if (chk) chk.checked = !!state.monogramIcon.enabled;
+                return;
+            }
             state.monogramIcon.enabled = checked;
             const badge = document.getElementById("iconToggleBadge");
             const ctrl = document.getElementById("monogramIconControls");
@@ -3475,6 +3552,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         }
 
         function selectIcon(iconId) {
+            if (!guardMonogramUnlocked("monogram")) return;
             state.monogramIcon.iconId = iconId;
             document.querySelectorAll(".icon-chip-btn").forEach(b => {
                 b.classList.remove("active");
@@ -3491,12 +3569,17 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         }
 
         function onCustomSvgInput(val) {
+            if (!guardMonogramUnlocked("monogram")) return;
             state.monogramIcon.customSvg = val;
             state.monogramIcon.iconId = "custom";
             updateCanvasElements();
         }
 
         function onIconSettingChange() {
+            if (!guardMonogramUnlocked("monogram")) {
+                updateIconUIFromState();
+                return;
+            }
             const mgI = state.monogramIcon;
             mgI.layerOrder = document.getElementById("selectIconLayerOrder").value;
             mgI.scale = parseInt(document.getElementById("sliderIconScale").value, 10);
@@ -3525,6 +3608,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         }
 
         function onIconCustomColorInput(val) {
+            if (!guardMonogramUnlocked("monogram")) return;
             state.monogramIcon.customColor = val;
             updateCanvasElements();
         }
@@ -3535,6 +3619,8 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             if (chk) chk.checked = mgI.enabled;
             const badge = document.getElementById("iconToggleBadge");
             if (badge) badge.textContent = mgI.enabled ? "[ACTIVO]" : "[OFF]";
+            const panel = document.getElementById("monogramIconControls");
+            if (panel) panel.style.display = mgI.enabled ? "flex" : "none";
 
             if (document.getElementById("selectIconLayerOrder")) document.getElementById("selectIconLayerOrder").value = mgI.layerOrder;
             if (document.getElementById("sliderIconScale")) document.getElementById("sliderIconScale").value = mgI.scale;
@@ -3544,6 +3630,15 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             if (document.getElementById("sliderIconOpacity")) document.getElementById("sliderIconOpacity").value = mgI.opacity;
             if (document.getElementById("selectIconColor")) document.getElementById("selectIconColor").value = mgI.colorType;
             if (document.getElementById("selectIconRenderMode")) document.getElementById("selectIconRenderMode").value = mgI.renderMode;
+            if (document.getElementById("pickerIconCustomColor") && mgI.customColor) document.getElementById("pickerIconCustomColor").value = mgI.customColor;
+
+            const customRow = document.getElementById("iconCustomColorRow");
+            if (customRow) customRow.style.display = mgI.colorType === "custom" ? "flex" : "none";
+            if (document.getElementById("valIconScale")) document.getElementById("valIconScale").textContent = `${mgI.scale}%`;
+            if (document.getElementById("valIconShiftX")) document.getElementById("valIconShiftX").textContent = `${mgI.shiftX}px`;
+            if (document.getElementById("valIconShiftY")) document.getElementById("valIconShiftY").textContent = `${mgI.shiftY}px`;
+            if (document.getElementById("valIconRotate")) document.getElementById("valIconRotate").textContent = `${mgI.rotate}°`;
+            if (document.getElementById("valIconOpacity")) document.getElementById("valIconOpacity").textContent = `${mgI.opacity}%`;
         }
 
         function getIconSvgContent(iconId, customSvg = "") {
@@ -3615,19 +3710,33 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
             let isDragging = false;
             let dragTarget = null;
+            let dragLetterIdx = -1;
             let startX = 0, startY = 0;
             let initShiftX = 0, initShiftY = 0;
 
-            function onPointerDown(e, target) {
+            function onPointerDown(e, target, letterIdx = -1) {
                 if (e.button && e.button !== 0) return;
+                if (state.monogramLocked && (target === 'icon' || target === 'monogram' || target === 'monogram-letter')) {
+                    showToast("🔒 Monograma definitivo fijado. Desbloquealo para mover posiciones.");
+                    e.stopPropagation();
+                    return;
+                }
                 isDragging = true;
                 dragTarget = target;
+                dragLetterIdx = letterIdx;
                 startX = e.clientX;
                 startY = e.clientY;
 
                 if (target === 'icon') {
                     initShiftX = state.monogramIcon.shiftX || 0;
                     initShiftY = state.monogramIcon.shiftY || 0;
+                } else if (target === 'monogram-letter' && letterIdx >= 0 && state.elements.monogram.letters[letterIdx]) {
+                    state.selectedLetterIndex = letterIdx;
+                    initShiftX = state.elements.monogram.letters[letterIdx].shiftX || 0;
+                    initShiftY = state.elements.monogram.letters[letterIdx].shiftY || 0;
+                    setActiveTarget('monogram');
+                    renderPills();
+                    updateSidebarUI();
                 } else if (target === 'monogram') {
                     initShiftX = state.elements.monogram.block.shiftX || 0;
                     initShiftY = state.elements.monogram.block.shiftY || 0;
@@ -3661,6 +3770,18 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     const vY = document.getElementById("valIconShiftY");
                     if (vX) vX.textContent = `${state.monogramIcon.shiftX}px`;
                     if (vY) vY.textContent = `${state.monogramIcon.shiftY}px`;
+                } else if (dragTarget === 'monogram-letter' && dragLetterIdx >= 0 && state.elements.monogram.letters[dragLetterIdx]) {
+                    const lObj = state.elements.monogram.letters[dragLetterIdx];
+                    lObj.shiftX = Math.max(-300, Math.min(300, initShiftX + dx));
+                    lObj.shiftY = Math.max(-300, Math.min(300, initShiftY + dy));
+                    const slX = document.getElementById("sliderShiftX");
+                    const slY = document.getElementById("sliderShiftY");
+                    if (slX) slX.value = lObj.shiftX;
+                    if (slY) slY.value = lObj.shiftY;
+                    const vX = document.getElementById("valShiftX");
+                    const vY = document.getElementById("valShiftY");
+                    if (vX) vX.textContent = `${lObj.shiftX}px`;
+                    if (vY) vY.textContent = `${lObj.shiftY}px`;
                 } else if (dragTarget === 'monogram') {
                     state.elements.monogram.block.shiftX = Math.max(-300, Math.min(300, initShiftX + dx));
                     state.elements.monogram.block.shiftY = Math.max(-300, Math.min(300, initShiftY + dy));
@@ -3692,19 +3813,29 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 if (!isDragging) return;
                 isDragging = false;
                 dragTarget = null;
+                dragLetterIdx = -1;
                 document.body.style.userSelect = "";
                 window.removeEventListener("pointermove", onPointerMove);
                 window.removeEventListener("pointerup", onPointerUp);
                 window.removeEventListener("pointercancel", onPointerUp);
+                scheduleAutoSaveWorkspace();
             }
 
             mgIconLayer.addEventListener("pointerdown", (e) => onPointerDown(e, 'icon'));
             mgBadge.addEventListener("pointerdown", (e) => {
                 if (e.target.closest("#monogramIconLayer") && state.monogramIcon.enabled) {
                     onPointerDown(e, 'icon');
-                } else {
-                    onPointerDown(e, 'monogram');
+                    return;
                 }
+                const letterEl = e.target.closest("[data-mg-letter-idx]");
+                if (letterEl && state.activeTarget === 'monogram' && state.granularLevel === 'letter') {
+                    const idx = parseInt(letterEl.getAttribute("data-mg-letter-idx"), 10);
+                    if (!Number.isNaN(idx)) {
+                        onPointerDown(e, 'monogram-letter', idx);
+                        return;
+                    }
+                }
+                onPointerDown(e, 'monogram');
             });
             wmRow.addEventListener("pointerdown", (e) => onPointerDown(e, 'wordmark'));
         }
@@ -3749,6 +3880,10 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         }
 
         function applyMonogramCasing(mode) {
+            if (!guardMonogramUnlocked("monogram")) {
+                syncCasingUI();
+                return;
+            }
             state.casing.monogram = mode;
             syncCasingUI();
             const input = document.getElementById("inputInitials");
@@ -4118,6 +4253,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                         granularLevel: state.granularLevel,
                         globalLigatures: state.globalLigatures,
                         activeStylisticSets: Array.from(state.activeStylisticSets),
+                        monogramLocked: !!state.monogramLocked,
                         monogramIcon: state.monogramIcon,
                         elements: state.elements,
                         boards: state.boards,
@@ -4151,6 +4287,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 if (s.activeTarget) state.activeTarget = s.activeTarget;
                 if (s.granularLevel) state.granularLevel = s.granularLevel;
                 if (s.globalLigatures !== undefined) state.globalLigatures = s.globalLigatures;
+                if (s.monogramLocked !== undefined) state.monogramLocked = !!s.monogramLocked;
                 if (Array.isArray(s.activeStylisticSets)) state.activeStylisticSets = new Set(s.activeStylisticSets);
                 if (s.monogramIcon) state.monogramIcon = s.monogramIcon;
                 if (s.elements) state.elements = s.elements;
@@ -4164,6 +4301,145 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             }
         }
 
+        // ==========================================
+        // FINAL MONOGRAM LOCK & SERVER PERSISTENCE
+        // ==========================================
+        function serializeMonogramSnapshot() {
+            return {
+                initials: state.initials,
+                monogramShape: state.monogramShape,
+                casingMonogram: (state.casing && state.casing.monogram) || "upper",
+                globalLigatures: state.globalLigatures,
+                activeStylisticSets: Array.from(state.activeStylisticSets || []),
+                monogramIcon: JSON.parse(JSON.stringify(state.monogramIcon)),
+                monogram: JSON.parse(JSON.stringify(state.elements.monogram))
+            };
+        }
+
+        function syncMonogramLockUI() {
+            const locked = !!state.monogramLocked;
+            const hasSaved = !!state.finalMonogram;
+            const btnSide = document.getElementById("btnLockFinalMonogramSidebar");
+            const btnBar = document.getElementById("btnLockFinalMonogramBar");
+            const btnRestore = document.getElementById("btnRestoreFinalMonogramSidebar");
+            const pill = document.getElementById("monogramLockedPill");
+
+            if (btnSide) {
+                btnSide.classList.toggle("locked", locked);
+                btnSide.innerHTML = locked
+                    ? "<span>🔓 Desbloquear Monograma</span>"
+                    : "<span>📌 Fijar Monograma Definitivo</span>";
+            }
+            if (btnBar) {
+                btnBar.classList.toggle("locked", locked);
+                btnBar.textContent = locked ? "🔒 Monograma Fijado" : "📌 Fijar Monograma";
+            }
+            if (btnRestore) {
+                btnRestore.style.display = hasSaved ? "inline-flex" : "none";
+            }
+            if (pill) {
+                pill.classList.toggle("visible", locked);
+            }
+        }
+
+        function guardMonogramUnlocked(targetKey = state.activeTarget) {
+            if (state.monogramLocked && targetKey === "monogram") {
+                showToast("🔒 Monograma definitivo fijado. Desbloquealo para modificarlo.");
+                return false;
+            }
+            return true;
+        }
+
+        function applyMonogramSnapshot(snap, { lock = true } = {}) {
+            if (!snap) return;
+            if (snap.initials) state.initials = snap.initials;
+            if (snap.monogramShape) state.monogramShape = snap.monogramShape;
+            if (snap.casingMonogram) {
+                state.casing = state.casing || { wordmark: "upper", monogram: "upper", tagline: "upper" };
+                state.casing.monogram = snap.casingMonogram;
+            }
+            if (snap.globalLigatures !== undefined) state.globalLigatures = snap.globalLigatures;
+            if (Array.isArray(snap.activeStylisticSets)) state.activeStylisticSets = new Set(snap.activeStylisticSets);
+            if (snap.monogramIcon) state.monogramIcon = JSON.parse(JSON.stringify(snap.monogramIcon));
+            if (snap.monogram) state.elements.monogram = JSON.parse(JSON.stringify(snap.monogram));
+            state.monogramLocked = lock;
+
+            const inInit = document.getElementById("inputInitials");
+            if (inInit) inInit.value = state.initials;
+
+            updateIconUIFromState();
+            updateDropdownTriggerDisplay("monogram", state.elements.monogram.fontId);
+            updateVariantBarForElement("monogram");
+            syncCasingUI();
+            renderStylisticSetChips();
+            renderPills();
+            updateSidebarUI();
+            syncMonogramLockUI();
+            updateCanvasElements();
+            scheduleAutoSaveWorkspace();
+        }
+
+        async function toggleFinalMonogramLock() {
+            if (state.monogramLocked) {
+                state.monogramLocked = false;
+                syncMonogramLockUI();
+                scheduleAutoSaveWorkspace();
+                showToast("🔓 Monograma desbloqueado para edición.");
+                return;
+            }
+
+            const snap = serializeMonogramSnapshot();
+            state.finalMonogram = snap;
+            state.monogramLocked = true;
+            syncMonogramLockUI();
+            scheduleAutoSaveWorkspace();
+
+            try {
+                const resp = await fetch(getApiUrl("api/monogram/final"), {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(snap)
+                });
+                const data = await resp.json();
+                if (data && data.ok) {
+                    state.finalMonogram = data.monogram;
+                    syncMonogramLockUI();
+                    showToast("📌 Monograma definitivo fijado y guardado en servidor.");
+                    return;
+                }
+            } catch (err) {
+                console.warn("Error guardando monograma en servidor:", err);
+            }
+            showToast("📌 Monograma fijado localmente (sin respuesta del servidor).");
+        }
+
+        function restoreFinalMonogram() {
+            if (!state.finalMonogram) {
+                showToast("⚠️ Aún no hay un monograma definitivo guardado.");
+                return;
+            }
+            applyMonogramSnapshot(state.finalMonogram, { lock: true });
+            showToast("↩️ Monograma definitivo restaurado y bloqueado.");
+        }
+
+        async function loadFinalMonogramFromServer(autoApplyIfFresh = false) {
+            try {
+                const resp = await fetch(getApiUrl("api/monogram/final"));
+                if (!resp.ok) return;
+                const data = await resp.json();
+                if (data && data.ok && data.monogram) {
+                    state.finalMonogram = data.monogram;
+                    if (autoApplyIfFresh) {
+                        applyMonogramSnapshot(data.monogram, { lock: true });
+                    } else {
+                        syncMonogramLockUI();
+                    }
+                }
+            } catch (err) {
+                console.warn("No se pudo leer monograma final:", err);
+            }
+        }
+
         // Initialize App
         async function initApp() {
             rebuildComponentStores();
@@ -4172,6 +4448,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             if (!restored) {
                 loadSavedAssignments();
             }
+            await loadFinalMonogramFromServer(!restored);
             loadSsotBrands();
             initIconPicker();
             initCanvasMouseDrag();
@@ -4193,6 +4470,8 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             setCanvasTheme(state.canvasTheme);
             setActiveTarget(state.activeTarget || 'wordmark');
             syncCasingUI();
+            syncMonogramLockUI();
+            updateIconUIFromState();
             renderBoardsTabs();
 
             // Pre-hydrate in-memory SVG cache from local/catalog font variants (exact case-sensitive keys)
@@ -4242,6 +4521,8 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     scale: ex ? ex.scale : 100, 
                     shiftX: ex ? ex.shiftX : 0, 
                     shiftY: ex ? ex.shiftY : 0, 
+                    rotate: ex ? (ex.rotate || 0) : 0,
+                    visible: ex ? ex.visible !== false : true,
                     fontId: ex ? ex.fontId : null,
                     variantId: ex ? ex.variantId : null
                 };
@@ -4257,6 +4538,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     rotate: ex ? ex.rotate : 0,
                     mirrorH: ex ? !!ex.mirrorH : false,
                     mirrorV: ex ? !!ex.mirrorV : false,
+                    visible: ex ? ex.visible !== false : true,
                     fontId: ex ? ex.fontId : null,
                     variantId: ex ? ex.variantId : null
                 };
@@ -4274,6 +4556,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     rotate: ex ? ex.rotate : 0,
                     mirrorH: ex ? !!ex.mirrorH : false,
                     mirrorV: ex ? !!ex.mirrorV : false,
+                    visible: ex ? ex.visible !== false : true,
                     fontId: ex ? ex.fontId : null,
                     variantId: ex ? ex.variantId : null
                 };
@@ -4537,6 +4820,10 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         function onElementFontChanged(elementKey, fontId) {
             const comp = state.elements[elementKey];
             if (!comp) return;
+            if (!guardMonogramUnlocked(elementKey)) {
+                updateDropdownTriggerDisplay(elementKey, comp.fontId);
+                return;
+            }
             comp.fontId = fontId || null;
 
             const fontObj = state.fonts.find(f => f.id === fontId);
@@ -4557,6 +4844,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
         // Change Variant for a specific Element
         function onElementVariantChanged(elementKey, variantId) {
+            if (!guardMonogramUnlocked(elementKey)) return;
             const comp = state.elements[elementKey];
             comp.variantId = variantId;
 
@@ -4611,6 +4899,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
         // Letter Mirror Toggle (Flip H / Flip V)
         function toggleLetterMirror(axis) {
+            if (!guardMonogramUnlocked(state.activeTarget)) return;
             const comp = state.elements[state.activeTarget];
             const l = comp.letters[state.selectedLetterIndex];
             if (!l) return;
@@ -4625,6 +4914,11 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         
         // Universal Slider Reset Engine
         function resetSlider(type) {
+            if (type.startsWith("icon")) {
+                if (!guardMonogramUnlocked("monogram")) { updateIconUIFromState(); return; }
+            } else if (type !== "gap") {
+                if (!guardMonogramUnlocked(state.activeTarget)) { updateSidebarUI(); return; }
+            }
             const comp = state.elements[state.activeTarget];
             if (type === 'iconScale') {
                 state.monogramIcon.scale = 100;
@@ -4686,6 +4980,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         }
 
         function resetIconSettings() {
+            if (!guardMonogramUnlocked("monogram")) return;
             state.monogramIcon.scale = 100;
             state.monogramIcon.shiftX = 0;
             state.monogramIcon.shiftY = 0;
@@ -4700,6 +4995,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         }
 
         function resetTransformControls() {
+            if (!guardMonogramUnlocked(state.activeTarget)) return;
             const comp = state.elements[state.activeTarget];
             if (state.granularLevel === "block") {
                 comp.block.scale = 100;
@@ -4797,6 +5093,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
         // Granular Font Override Handler
         function onGranularFontChanged(fontId) {
+            if (!guardMonogramUnlocked(state.activeTarget)) { updateSidebarUI(); return; }
             const comp = state.elements[state.activeTarget];
             const fontObj = state.fonts.find(f => f.id === fontId);
             const varId = fontObj && fontObj.variants.length > 0 ? fontObj.variants[0].variantId : null;
@@ -4816,6 +5113,10 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
         // Slider Change Listener
         function onSliderChange() {
+            if (!guardMonogramUnlocked(state.activeTarget)) {
+                updateSidebarUI();
+                return;
+            }
             const comp = state.elements[state.activeTarget];
             const scale = parseInt(document.getElementById("sliderScale").value, 10);
             const spacing = parseInt(document.getElementById("sliderSpacing").value, 10);
@@ -4928,12 +5229,20 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         let debounceTimer;
         function onBrandTextChange(immediate = false) {
             state.brandName = document.getElementById("inputBrandName").value.trim() || "MARCA";
-            let initialsVal = document.getElementById("inputInitials").value;
-            if (!initialsVal) {
-                const words = state.brandName.split(" ").filter(Boolean);
-                initialsVal = words.slice(0, 2).map(w => w[0]).join("");
+            const inInitEl = document.getElementById("inputInitials");
+            if (state.monogramLocked) {
+                if (inInitEl && inInitEl.value !== state.initials) {
+                    inInitEl.value = state.initials;
+                    showToast("🔒 Iniciales fijadas con el monograma definitivo.");
+                }
+            } else {
+                let initialsVal = inInitEl ? inInitEl.value : "";
+                if (!initialsVal) {
+                    const words = state.brandName.split(" ").filter(Boolean);
+                    initialsVal = words.slice(0, 2).map(w => w[0]).join("");
+                }
+                state.initials = initialsVal;
             }
-            state.initials = initialsVal; // Allows uppercase and lowercase!
             state.descriptor = document.getElementById("inputDescriptor").value; // Allows uppercase and lowercase!
 
             rebuildComponentStores();
@@ -5164,24 +5473,28 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             if (state.elements.wordmark.words) state.elements.wordmark.words.forEach(w => { w.fontId = null; w.variantId = null; });
             if (state.elements.wordmark.letters) state.elements.wordmark.letters.forEach(l => { l.fontId = null; l.variantId = null; });
 
-            // 2. Assign to monogram & clear granular overrides
-            state.elements.monogram.fontId = fontId;
-            state.elements.monogram.variantId = defVarId;
-            if (state.elements.monogram.words) state.elements.monogram.words.forEach(w => { w.fontId = null; w.variantId = null; });
-            if (state.elements.monogram.letters) state.elements.monogram.letters.forEach(l => { l.fontId = null; l.variantId = null; });
+            // 2. Assign to monogram only if not locked
+            if (!state.monogramLocked) {
+                state.elements.monogram.fontId = fontId;
+                state.elements.monogram.variantId = defVarId;
+                if (state.elements.monogram.words) state.elements.monogram.words.forEach(w => { w.fontId = null; w.variantId = null; });
+                if (state.elements.monogram.letters) state.elements.monogram.letters.forEach(l => { l.fontId = null; l.variantId = null; });
+                updateDropdownTriggerDisplay("monogram", fontId);
+                updateVariantBarForElement("monogram");
+            }
 
             // 3. Tagline remains 100% UNTOUCHED (contract: "(no al tagline)")
 
             updateDropdownTriggerDisplay("wordmark", fontId);
-            updateDropdownTriggerDisplay("monogram", fontId);
             updateVariantBarForElement("wordmark");
-            updateVariantBarForElement("monogram");
 
             saveAssignments();
             renderFontCards();
             updateCanvasElements();
             if (typeof updateFullscreenHUD === 'function') updateFullscreenHUD();
-            showToast(`✓ Fuente "${fontObj ? fontObj.title : fontId}" aplicada a Logotipo y Monograma`);
+            showToast(state.monogramLocked
+                ? `🔒 Monograma fijado — Fuente "${fontObj ? fontObj.title : fontId}" aplicada solo al Logotipo`
+                : `✓ Fuente "${fontObj ? fontObj.title : fontId}" aplicada a Logotipo y Monograma`);
         }
 
         // ==========================================
@@ -5384,7 +5697,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             const badgeSize = Math.round(72 * (mg.block.scale / 100));
             mgBadge.style.width = `${badgeSize}px`;
             mgBadge.style.height = `${badgeSize}px`;
-            mgBadge.style.transform = `translate(${mg.block.shiftX}px, ${mg.block.shiftY}px)`;
+            mgBadge.style.transform = `translate(${mg.block.shiftX}px, ${mg.block.shiftY}px) rotate(${mg.block.rotate || 0}deg)`;
             mgBadge.style.position = "relative";
             mgLettersRow.style.gap = `${mg.block.spacing || 0}px`;
             if (mg.block.spacing && mg.block.spacing !== 0) {
@@ -5473,8 +5786,9 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                         const vL = l.variantId || mg.variantId || (f.variants[0] ? f.variants[0].variantId : "regular");
                         const { weight: fWtL, italic: isItL } = parseFontVariant(vL);
                         const fFamL = f.family || f.title;
-                        const s = `display: inline-block; transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; font-size: ${badgeSize * 0.52}px; font-family: '${fFamL}', serif; font-weight: ${fWtL}; font-style: ${isItL ? 'italic' : 'normal'}; line-height: 1; ${fontFeaturesCss}`;
-                        return `<span class="monogram-letter-span" style="${s}">${l.char}</span>`;
+                        const visStyle = l.visible === false ? "display: none;" : "display: inline-block;";
+                        const s = `${visStyle} transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; font-size: ${badgeSize * 0.52}px; font-family: '${fFamL}', serif; font-weight: ${fWtL}; font-style: ${isItL ? 'italic' : 'normal'}; line-height: 1; ${fontFeaturesCss}`;
+                        return `<span class="monogram-letter-span" data-mg-letter-idx="${i}" style="${s}">${l.char}</span>`;
                     }).join("");
                 }
             } else if (mgFont && mgFont.unsupported) {
@@ -5498,7 +5812,8 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                         const rawSvg = letterSvgs[i];
                         const content = rawSvg ? formatSvg(rawSvg, targetH) : `<span class="monogram-letter-span" style="font-size:${targetH}px;">${l.char}</span>`;
                         const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
-                        return `<div class="monogram-unit" style="transform: translate(${l.shiftX}px, ${l.shiftY}px) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center;">${content}</div>`;
+                        const visStyle = l.visible === false ? "display: none;" : "";
+                        return `<div class="monogram-unit" data-mg-letter-idx="${i}" style="${visStyle} transform: translate(${l.shiftX}px, ${l.shiftY}px) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center;">${content}</div>`;
                     }).join("");
                 } else {
                     const v = mg.variantId || (mgFont.variants[0] ? mgFont.variants[0].variantId : "");
@@ -5515,8 +5830,9 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 } else {
                     mgLettersRow.innerHTML = mg.letters.map((l, i) => {
                         const mirrorTransform = `scale(${l.mirrorH ? -1 : 1}, ${l.mirrorV ? -1 : 1})`;
-                        const indS = `display: inline-block; transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; ${s}`;
-                        return `<span class="monogram-letter-span" style="${indS}">${l.char}</span>`;
+                        const visStyle = l.visible === false ? "display: none;" : "display: inline-block;";
+                        const indS = `${visStyle} transform: translate(${l.shiftX}px, ${l.shiftY}px) scale(${l.scale / 100}) rotate(${l.rotate}deg) ${mirrorTransform}; transform-origin: center; ${s}`;
+                        return `<span class="monogram-letter-span" data-mg-letter-idx="${i}" style="${indS}">${l.char}</span>`;
                     }).join("");
                 }
             }
@@ -6065,283 +6381,476 @@ ${JSON.stringify(dtcgTokens, null, 2)}
         }
 
         // ==========================================
-        // 100% ACCURATE STANDALONE SVG BUILDER
+        // 100% ACCURATE VECTOR SVG & PRINT PDF BUILDER
         // ==========================================
-        function buildCombinedSvgString() {
-            const includeBg = document.getElementById("chkIncludeBg") ? document.getElementById("chkIncludeBg").checked : true;
-            
-            // 1. Live Colors from Canvas CSS Variables (100% faithful to live preview & SSoT Chroma)
-            const canvasEl = document.getElementById("brandCanvas") || document.documentElement;
-            const cs = getComputedStyle(canvasEl);
-            const primaryColor = cs.getPropertyValue("--brand-primary").trim() || "#d4af37";
-            const secondaryColor = cs.getPropertyValue("--brand-secondary").trim() || "#9b783e";
-            const accentColor = cs.getPropertyValue("--brand-accent").trim() || "#f3e5ab";
-            const textColor = cs.getPropertyValue("--brand-text").trim() || (state.canvasTheme === "light" ? "#090a0f" : "#ffffff");
-            const bgColor = cs.getPropertyValue("--brand-bg").trim() || (state.canvasTheme === "light" ? "#ffffff" : "#090a0f");
-            const descColor = cs.getPropertyValue("--brand-secondary").trim() || secondaryColor || "#848ea4";
+        const vectorTextCache = new Map();
 
-            const lockup = document.getElementById("brandLockup");
-            const lockupBox = lockup.getBoundingClientRect();
-            
-            const padX = 64;
-            const padY = 48;
-            const totalW = Math.max(320, Math.round(lockupBox.width + padX * 2));
-            const totalH = Math.max(160, Math.round(lockupBox.height + padY * 2));
-
-            let bgSvg = "";
-            if (includeBg) {
-                bgSvg = `<rect width="${totalW}" height="${totalH}" rx="16" fill="${bgColor}"/>`;
+        function getActiveOpenTypeFeaturesMap() {
+            const feat = {
+                liga: !!state.globalLigatures,
+                dlig: !!state.globalLigatures,
+                calt: !!state.globalLigatures,
+                clig: !!state.globalLigatures,
+                hlig: !!state.globalLigatures
+            };
+            if (state.activeStylisticSets) {
+                state.activeStylisticSets.forEach(tag => { feat[tag] = true; });
             }
+            return feat;
+        }
 
-            // 2. Dynamic Web Font Imports
-            const usedFonts = new Set();
-            usedFonts.add("Cinzel");
-            usedFonts.add("Plus Jakarta Sans");
-            ["wordmark", "monogram", "tagline"].forEach(k => {
-                const el = state.elements[k];
-                const f = resolveFont(el.fontId);
-                if (f) {
-                    if (f.family) usedFonts.add(f.family);
-                    else if (f.title && (f.isGoogleFont || !f.isEnvatoCloud)) usedFonts.add(f.title);
+        async function fetchVectorTextData({ family, text, fontSize, weight = 400, italic = false, letterSpacing = 0 }) {
+            if (!family || !text) return null;
+            const features = getActiveOpenTypeFeaturesMap();
+            const featKey = Object.keys(features).filter(k => features[k]).sort().join(',');
+            const cacheKey = `${family}_${weight}_${italic ? 'i' : 'n'}_${fontSize.toFixed(2)}_${letterSpacing}_${featKey}_${text}`;
+            if (vectorTextCache.has(cacheKey)) return vectorTextCache.get(cacheKey);
+
+            try {
+                const resp = await fetch(getApiUrl("api/text-to-svg"), {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ family, text, fontSize, weight, italic, letterSpacing, features })
+                });
+                if (!resp.ok) return null;
+                const data = await resp.json();
+                if (data && data.ok && data.d) {
+                    vectorTextCache.set(cacheKey, data);
+                    return data;
+                }
+            } catch (err) {
+                console.warn("Vector text fallback:", err);
+            }
+            return null;
+        }
+
+        function recolorSvgNode(el, targetColor, monochromeBlack = false) {
+            const shapeSel = "path, circle, rect, polygon, polyline, line, ellipse";
+            const rootFill = el.getAttribute("fill");
+            const rootStroke = el.getAttribute("stroke");
+            const rootFillNone = rootFill === "none";
+            const rootStrokeNone = !rootStroke || rootStroke === "none";
+
+            el.querySelectorAll(shapeSel).forEach(p => {
+                const pFill = p.getAttribute("fill");
+                const pStroke = p.getAttribute("stroke");
+                if (pFill === "none") {
+                    // Preserve explicit hollow fills
+                } else if (pFill) {
+                    p.setAttribute("fill", monochromeBlack ? "#000000" : targetColor);
+                } else if (!rootFillNone) {
+                    p.setAttribute("fill", monochromeBlack ? "#000000" : targetColor);
+                } else {
+                    p.setAttribute("fill", "none");
+                }
+
+                if (pStroke === "none") {
+                    // Preserve explicit none
+                } else if (pStroke) {
+                    p.setAttribute("stroke", monochromeBlack ? "#000000" : targetColor);
+                } else if (!rootStrokeNone) {
+                    p.setAttribute("stroke", monochromeBlack ? "#000000" : targetColor);
+                    if (!p.getAttribute("stroke-width") && el.getAttribute("stroke-width")) {
+                        p.setAttribute("stroke-width", el.getAttribute("stroke-width"));
+                    }
+                    if (!p.getAttribute("stroke-linecap") && el.getAttribute("stroke-linecap")) {
+                        p.setAttribute("stroke-linecap", el.getAttribute("stroke-linecap"));
+                    }
+                    if (!p.getAttribute("stroke-linejoin") && el.getAttribute("stroke-linejoin")) {
+                        p.setAttribute("stroke-linejoin", el.getAttribute("stroke-linejoin"));
+                    }
                 }
             });
-            const fontImports = Array.from(usedFonts).map(fam => {
-                return `@import url('https://fonts.googleapis.com/css2?family=${encodeURIComponent(fam.replace(/ /g, "+"))}:ital,wght@0,300..900;1,300..900&amp;display=swap');`;
-            }).join("\n        ");
+        }
 
-            // 3. Helper to render any unit/glyph preserving exact transforms (mirror, scale, rotate, font & color)
-            function renderUnitSvg(unitEl, defaultColor, defaultFontFam, letterObj = null) {
-                if (!unitEl) return "";
-                if (letterObj && letterObj.visible === false) return "";
-                const uBox = unitEl.getBoundingClientRect();
-                const uW = Math.max(1, Math.round(uBox.width));
-                const uH = Math.max(1, Math.round(uBox.height));
+        function flattenNestedSvgToGroup(svgEl, targetW, targetH, targetColor, monochromeBlack = false) {
+            const cl = svgEl.cloneNode(true);
+            recolorSvgNode(cl, targetColor, monochromeBlack);
 
-                let transformAttr = "";
-                if (letterObj) {
-                    const mH = letterObj.mirrorH ? -1 : 1;
-                    const mV = letterObj.mirrorV ? -1 : 1;
-                    const rot = letterObj.rotate || 0;
-                    const sc = (letterObj.scale || 100) / 100;
-                    if (mH !== 1 || mV !== 1 || rot !== 0 || sc !== 1) {
-                        transformAttr = `transform="translate(${uW / 2}, ${uH / 2}) rotate(${rot}) scale(${mH * sc}, ${mV * sc}) translate(${-uW / 2}, ${-uH / 2})"`;
+            const vbRaw = cl.getAttribute("viewBox");
+            let vx = 0, vy = 0, vw = targetW || 24, vh = targetH || 24;
+            if (vbRaw) {
+                const parts = vbRaw.trim().split(/[\s,]+/).map(Number);
+                if (parts.length === 4 && parts[2] > 0 && parts[3] > 0) {
+                    [vx, vy, vw, vh] = parts;
+                }
+            }
+            const sx = vw > 0 ? (targetW / vw) : 1;
+            const sy = vh > 0 ? (targetH / vh) : 1;
+            const inner = cl.innerHTML;
+            return `<g transform="scale(${sx.toFixed(5)}, ${sy.toFixed(5)}) translate(${-vx}, ${-vy})">${inner}</g>`;
+        }
+
+        function measureUntransformedDOM(mode = "all") {
+            const lockup = document.getElementById("brandLockup");
+            const monoWrapper = document.getElementById("monogramWrapper");
+            const wmWrapper = document.getElementById("wordmarkWrapper");
+            const monoBadge = document.getElementById("monogramBadge");
+            const iconLayerEl = document.getElementById("monogramIconLayer");
+            const wmRow = document.getElementById("wordmarkRow");
+            const descRow = document.getElementById("descriptorRow");
+
+            const savedTransforms = [];
+            const savedDisplays = [];
+            const clearTransform = (el) => {
+                if (!el) return;
+                savedTransforms.push([el, el.style.transform]);
+                el.style.transform = "none";
+            };
+
+            try {
+                if (mode === "monogram" && state.layout === "wordmark-only") {
+                    if (monoWrapper) {
+                        savedDisplays.push([monoWrapper, monoWrapper.style.display]);
+                        monoWrapper.style.setProperty("display", "flex", "important");
+                    }
+                    if (wmWrapper) {
+                        savedDisplays.push([wmWrapper, wmWrapper.style.display]);
+                        wmWrapper.style.setProperty("display", "none", "important");
                     }
                 }
 
-                let innerContent = "";
+                const nodesToClear = [
+                    monoBadge, iconLayerEl, wmRow, descRow,
+                    ...document.querySelectorAll("#monogramBadge .monogram-unit, #monogramBadge .monogram-letter-span"),
+                    ...document.querySelectorAll("#wordmarkRow .word-unit, #wordmarkRow .letter-span"),
+                    ...document.querySelectorAll("#descriptorRow .descriptor-unit, #descriptorRow .descriptor-letter-span")
+                ];
+                nodesToClear.forEach(clearTransform);
+
+                const lockupBox = lockup.getBoundingClientRect();
+                const relRect = (el, base = lockupBox) => {
+                    if (!el) return null;
+                    const r = el.getBoundingClientRect();
+                    return {
+                        x: r.left - base.left,
+                        y: r.top - base.top,
+                        w: r.width,
+                        h: r.height,
+                        raw: r
+                    };
+                };
+
+                const monoBox = relRect(monoBadge);
+                const monoRaw = monoBadge ? monoBadge.getBoundingClientRect() : lockupBox;
+                const mgUnits = Array.from(monoBadge ? monoBadge.querySelectorAll(".monogram-unit, .monogram-letters-row > span") : []);
+                const mgUnitBoxes = mgUnits.map(u => relRect(u, monoRaw));
+                const iconBox = (iconLayerEl && iconLayerEl.style.display !== "none") ? relRect(iconLayerEl, monoRaw) : null;
+
+                const wmBox = relRect(wmRow);
+                const wmRaw = wmRow ? wmRow.getBoundingClientRect() : lockupBox;
+                const wordUnits = Array.from(wmRow ? wmRow.querySelectorAll(".word-unit") : []).map(wu => {
+                    const wuRaw = wu.getBoundingClientRect();
+                    const lSpans = Array.from(wu.querySelectorAll(".letter-span"));
+                    return {
+                        el: wu,
+                        box: relRect(wu, wmRaw),
+                        letters: lSpans.map(ls => ({ el: ls, box: relRect(ls, wuRaw) }))
+                    };
+                });
+
+                const descBox = (descRow && descRow.style.display !== "none") ? relRect(descRow) : null;
+                const descRaw = descRow ? descRow.getBoundingClientRect() : lockupBox;
+                const descUnits = Array.from(descRow ? descRow.querySelectorAll(".descriptor-unit, .descriptor-letter-span") : []).map(du => ({
+                    el: du,
+                    box: relRect(du, descRaw)
+                }));
+
+                return { lockupBox, monoBox, mgUnits, mgUnitBoxes, iconBox, wmBox, wordUnits, descBox, descUnits };
+            } finally {
+                savedTransforms.forEach(([el, val]) => { el.style.transform = val; });
+                savedDisplays.forEach(([el, val]) => { el.style.display = val; });
+            }
+        }
+
+        async function buildCombinedSvgString({ mode = "all", monochromeBlack = false, includeBg = undefined, targetSize = 1024 } = {}) {
+            const useBg = includeBg !== undefined
+                ? includeBg
+                : (document.getElementById("chkIncludeBg") ? document.getElementById("chkIncludeBg").checked : true);
+
+            const canvasEl = document.getElementById("brandCanvas") || document.documentElement;
+            const cs = getComputedStyle(canvasEl);
+            const primaryColor = monochromeBlack ? "#000000" : (cs.getPropertyValue("--brand-primary").trim() || "#d4af37");
+            const secondaryColor = monochromeBlack ? "#000000" : (cs.getPropertyValue("--brand-secondary").trim() || "#9b783e");
+            const accentColor = monochromeBlack ? "#000000" : (cs.getPropertyValue("--brand-accent").trim() || "#f3e5ab");
+            const textColor = monochromeBlack ? "#000000" : (cs.getPropertyValue("--brand-text").trim() || (state.canvasTheme === "light" ? "#090a0f" : "#ffffff"));
+            const bgColor = monochromeBlack ? "#ffffff" : (cs.getPropertyValue("--brand-bg").trim() || (state.canvasTheme === "light" ? "#ffffff" : "#090a0f"));
+            const descColor = monochromeBlack ? "#000000" : (cs.getPropertyValue("--brand-secondary").trim() || secondaryColor || "#848ea4");
+
+            const measured = measureUntransformedDOM(mode);
+
+            async function renderUnitContent(unitEl, uW, uH, unitColor, fallbackFam, letterSpacingPx = 0) {
+                if (!unitEl || uW <= 0 || uH <= 0) return "";
                 const svgs = unitEl.querySelectorAll("svg");
                 if (svgs.length > 0) {
+                    let out = "";
                     svgs.forEach(s => {
-                        const cl = s.cloneNode(true);
-                        cl.setAttribute("width", uW);
-                        cl.setAttribute("height", uH);
-                        cl.querySelectorAll("path, circle, rect, polygon").forEach(p => {
-                            const f = p.getAttribute("fill");
-                            if (!f || f !== "none") {
-                                p.setAttribute("fill", defaultColor);
-                            }
-                            const s = p.getAttribute("stroke");
-                            if (s && s !== "none") {
-                                p.setAttribute("stroke", defaultColor);
-                            }
-                        });
-                        innerContent += cl.outerHTML;
+                        out += flattenNestedSvgToGroup(s, uW, uH, unitColor, monochromeBlack);
                     });
-                } else {
-                    const span = unitEl.querySelector(".monogram-letter-span, .letter-span, .descriptor-letter-span") || unitEl;
-                    const csSpan = window.getComputedStyle(span);
-                    const fam = csSpan.fontFamily || `'${defaultFontFam}', serif`;
-                    const fSize = parseFloat(csSpan.fontSize) || Math.round(uH * 0.8);
-                    const fWeight = csSpan.fontWeight || "700";
-                    const fStyle = csSpan.fontStyle || "normal";
-                    const txt = span.textContent || "";
-                    innerContent = `<text x="${uW / 2}" y="${Math.round(uH * 0.8)}" text-anchor="middle" font-family="${fam}" font-weight="${fWeight}" font-style="${fStyle}" font-size="${fSize}px" fill="${defaultColor}">${txt}</text>`;
+                    return out;
                 }
 
-                if (transformAttr) {
-                    return `<g ${transformAttr}>${innerContent}</g>`;
+                const span = unitEl.matches(".monogram-letter-span, .letter-span, .descriptor-letter-span")
+                    ? unitEl
+                    : (unitEl.querySelector(".monogram-letter-span, .letter-span, .descriptor-letter-span") || unitEl);
+                const csSpan = window.getComputedStyle(span);
+                const rawFam = (csSpan.fontFamily || fallbackFam || "Cinzel").split(",")[0].replace(/['"]/g, "").trim();
+                const fSize = parseFloat(csSpan.fontSize) || Math.round(uH * 0.85);
+                const fWeight = parseInt(csSpan.fontWeight, 10) || (csSpan.fontWeight === "bold" ? 700 : 400);
+                const fStyle = csSpan.fontStyle || "normal";
+                const isItalic = fStyle === "italic";
+                const txt = span.textContent || "";
+                if (!txt.trim()) return "";
+
+                const vec = await fetchVectorTextData({
+                    family: rawFam,
+                    text: txt,
+                    fontSize: fSize,
+                    weight: fWeight,
+                    italic: isItalic,
+                    letterSpacing: letterSpacingPx
+                });
+
+                if (vec && vec.d) {
+                    const denom = (vec.ascenderPx - vec.descenderPx);
+                    const baselineY = denom > 0 ? (uH * (vec.ascenderPx / denom)) : (uH * 0.78);
+                    const offsetX = (uW - (vec.advanceWidth || vec.width)) / 2;
+                    return `<g transform="translate(${offsetX.toFixed(3)}, ${baselineY.toFixed(3)})"><path d="${vec.d}" fill="${unitColor}"/></g>`;
                 }
-                return innerContent;
+
+                const safeTxt = txt.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                return `<text x="${(uW / 2).toFixed(2)}" y="${(uH * 0.78).toFixed(2)}" text-anchor="middle" font-family="'${rawFam}', serif" font-weight="${fWeight}" font-style="${fStyle}" font-size="${fSize}px" fill="${unitColor}">${safeTxt}</text>`;
             }
 
-            let elementsGroup = `<g transform="translate(${padX}, ${padY})">`;
+            let rootParts = [];
 
-            // 4. Monogram Unit Export
-            if (state.layout !== "wordmark-only" && state.elements.monogram.block.visible !== false) {
-                const monoBadge = document.getElementById("monogramBadge");
-                const bBox = monoBadge.getBoundingClientRect();
-                const relX = Math.round(bBox.left - lockupBox.left);
-                const relY = Math.round(bBox.top - lockupBox.top);
-                const w = Math.round(bBox.width);
-                const h = Math.round(bBox.height);
-                const r = Math.round(w / 2);
+            // 1. MONOGRAM
+            const includeMonogram = mode === "monogram" || (state.layout !== "wordmark-only" && state.elements.monogram.block.visible !== false);
+            if (includeMonogram && measured.monoBox) {
+                const mg = state.elements.monogram;
+                const { x: relX, y: relY, w, h } = measured.monoBox;
+                const bShiftX = mg.block.shiftX || 0;
+                const bShiftY = mg.block.shiftY || 0;
+                const bRot = mg.block.rotate || 0;
 
-                const monoShape = state.monogramShape === "circle" 
-                    ? `<circle cx="${r}" cy="${r}" r="${r - 2}" fill="none" stroke="${primaryColor}" stroke-width="2"/>` 
+                const monoShape = state.monogramShape === "circle"
+                    ? `<circle cx="${(w / 2).toFixed(2)}" cy="${(h / 2).toFixed(2)}" r="${Math.max(1, (w / 2) - 1).toFixed(2)}" fill="none" stroke="${primaryColor}" stroke-width="2"/>`
                     : "";
 
                 // Letters
-                let lettersSvg = "";
-                const mgFont = resolveFont(state.elements.monogram.fontId);
+                const mgFont = resolveFont(mg.fontId);
                 const mgFontFam = mgFont ? (mgFont.family || mgFont.title) : "Cinzel";
-                const mgUnits = monoBadge.querySelectorAll(".monogram-unit, .monogram-letters-row > span");
-                
-                if (mgUnits.length > 0) {
-                    mgUnits.forEach((mUnit, idx) => {
-                        const mBox = mUnit.getBoundingClientRect();
-                        const mX = Math.round(mBox.left - bBox.left);
-                        const mY = Math.round(mBox.top - bBox.top);
-                        const letterObj = state.elements.monogram.letters[idx] || null;
-                        const glyph = renderUnitSvg(mUnit, primaryColor, mgFontFam, letterObj);
-                        lettersSvg += `<g transform="translate(${mX}, ${mY})">${glyph}</g>`;
-                    });
+                const isEnvatoMono = mgFont && !mgFont.isLocalFont && !mgFont.isGoogleFont && !mgFont.family && !mgFont.unsupported;
+                let lettersSvg = "";
+
+                for (let idx = 0; idx < measured.mgUnits.length; idx++) {
+                    const mUnit = measured.mgUnits[idx];
+                    const mBox = measured.mgUnitBoxes[idx];
+                    if (!mBox || mBox.w <= 0 || mBox.h <= 0) continue;
+
+                    const letterObj = (measured.mgUnits.length > 1 || mg.letters.length === 1) ? (mg.letters[idx] || null) : null;
+                    if (letterObj && letterObj.visible === false) continue;
+
+                    const hasSvgInside = mUnit.querySelector("svg") !== null;
+                    const lSpacing = (!letterObj && mg.block.spacing) ? mg.block.spacing : 0;
+                    const glyph = await renderUnitContent(mUnit, mBox.w, mBox.h, primaryColor, mgFontFam, lSpacing);
+
+                    const lx = mBox.x + (letterObj ? (letterObj.shiftX || 0) : 0);
+                    const ly = mBox.y + (letterObj ? (letterObj.shiftY || 0) : 0);
+                    const rot = letterObj ? (letterObj.rotate || 0) : 0;
+                    const mH = (letterObj && letterObj.mirrorH) ? -1 : 1;
+                    const mV = (letterObj && letterObj.mirrorV) ? -1 : 1;
+                    const sc = (letterObj && !hasSvgInside && !isEnvatoMono) ? ((letterObj.scale || 100) / 100) : 1;
+
+                    let innerT = `translate(${lx.toFixed(2)}, ${ly.toFixed(2)})`;
+                    if (rot !== 0 || mH !== 1 || mV !== 1 || sc !== 1) {
+                        innerT += ` translate(${(mBox.w / 2).toFixed(2)}, ${(mBox.h / 2).toFixed(2)}) rotate(${rot}) scale(${(mH * sc).toFixed(4)}, ${(mV * sc).toFixed(4)}) translate(${(-mBox.w / 2).toFixed(2)}, ${(-mBox.h / 2).toFixed(2)})`;
+                    }
+                    lettersSvg += `<g transform="${innerT}">${glyph}</g>`;
                 }
 
-                // Vector Icon Layer
+                // Icon Layer
                 let iconVectorSvg = "";
-                const iconLayerEl = monoBadge.querySelector("#monogramIconLayer");
-                if (state.monogramIcon && state.monogramIcon.enabled && iconLayerEl && iconLayerEl.style.display !== "none") {
-                    const iconConfig = state.monogramIcon;
+                const iconConfig = state.monogramIcon;
+                const iconLayerEl = document.getElementById("monogramIconLayer");
+                if (iconConfig && iconConfig.enabled && measured.iconBox && iconLayerEl) {
                     const iconSvg = iconLayerEl.querySelector("svg");
                     if (iconSvg) {
-                        const cl = iconSvg.cloneNode(true);
-                        const iBox = iconLayerEl.getBoundingClientRect();
-                        const iX = Math.round(iBox.left - bBox.left);
-                        const iY = Math.round(iBox.top - bBox.top);
-                        const iW = Math.round(iBox.width);
-                        const iH = Math.round(iBox.height);
-                        
-                        let rotTransform = "";
-                        if (iconConfig.rotate !== 0) {
-                            rotTransform = `transform="rotate(${iconConfig.rotate}, ${iW / 2}, ${iH / 2})"`;
+                        const iBox = measured.iconBox;
+                        const ix = iBox.x + (iconConfig.shiftX || 0);
+                        const iy = iBox.y + (iconConfig.shiftY || 0);
+                        const iRot = iconConfig.rotate || 0;
+                        const iconTargetColor = monochromeBlack ? "#000000" : resolveIconColor(iconConfig.colorType, iconConfig.customColor);
+                        const flatIcon = flattenNestedSvgToGroup(iconSvg, iBox.w, iBox.h, iconTargetColor, monochromeBlack);
+                        const opacityAttr = monochromeBlack ? 1 : ((iconConfig.opacity ?? 100) / 100);
+                        let iTrans = `translate(${ix.toFixed(2)}, ${iy.toFixed(2)})`;
+                        if (iRot !== 0) {
+                            iTrans += ` translate(${(iBox.w / 2).toFixed(2)}, ${(iBox.h / 2).toFixed(2)}) rotate(${iRot}) translate(${(-iBox.w / 2).toFixed(2)}, ${(-iBox.h / 2).toFixed(2)})`;
                         }
-                        iconVectorSvg = `<g transform="translate(${iX}, ${iY})" opacity="${(iconConfig.opacity || 100) / 100}"><g ${rotTransform}>${cl.outerHTML}</g></g>`;
+                        iconVectorSvg = `<g transform="${iTrans}" opacity="${opacityAttr}">${flatIcon}</g>`;
                     }
                 }
 
                 let finalMonoInner = "";
-                if (state.monogramIcon && state.monogramIcon.enabled && state.monogramIcon.layerOrder === "icon-only") {
+                if (iconConfig && iconConfig.enabled && iconConfig.layerOrder === "icon-only") {
                     finalMonoInner = iconVectorSvg;
-                } else if (state.monogramIcon && state.monogramIcon.enabled && state.monogramIcon.layerOrder === "front") {
+                } else if (iconConfig && iconConfig.enabled && iconConfig.layerOrder === "front") {
                     finalMonoInner = `${lettersSvg}${iconVectorSvg}`;
                 } else {
                     finalMonoInner = `${iconVectorSvg}${lettersSvg}`;
                 }
 
-                const mgRot = state.elements.monogram.block.rotate || 0;
-                const mgRotAttr = mgRot !== 0 ? ` rotate(${mgRot}, ${w/2}, ${h/2})` : "";
-                elementsGroup += `
-                    <g transform="translate(${relX}, ${relY})${mgRotAttr}">
-                        ${monoShape}
-                        ${finalMonoInner}
-                    </g>
-                `;
+                let mgBlockT = `translate(${(relX + bShiftX).toFixed(2)}, ${(relY + bShiftY).toFixed(2)})`;
+                if (bRot !== 0) {
+                    mgBlockT += ` translate(${(w / 2).toFixed(2)}, ${(h / 2).toFixed(2)}) rotate(${bRot}) translate(${(-w / 2).toFixed(2)}, ${(-h / 2).toFixed(2)})`;
+                }
+                rootParts.push(`<g transform="${mgBlockT}">${monoShape}${finalMonoInner}</g>`);
             }
 
-            // 5. Wordmark Export
-            if (state.layout !== "monogram-only" && state.elements.wordmark.block.visible !== false) {
-                const wmRow = document.getElementById("wordmarkRow");
-                const wmBox = wmRow.getBoundingClientRect();
-                const wmX = Math.round(wmBox.left - lockupBox.left);
-                const wmY = Math.round(wmBox.top - lockupBox.top);
+            // 2. WORDMARK & TAGLINE (only when mode === 'all')
+            if (mode === "all" && state.layout !== "monogram-only") {
+                const wm = state.elements.wordmark;
+                if (wm.block.visible !== false && measured.wmBox) {
+                    const wmBox = measured.wmBox;
+                    const wmFont = resolveFont(wm.fontId);
+                    const wmFontFam = wmFont ? (wmFont.family || wmFont.title) : "Cinzel";
+                    const wmColor = monochromeBlack ? "#000000" : ((state.canvasTheme === "gold") ? primaryColor : textColor);
+                    const isEnvatoWm = wmFont && !wmFont.isLocalFont && !wmFont.isGoogleFont && !wmFont.family && !wmFont.unsupported;
+                    let wordmarkInner = "";
 
-                const wmFont = resolveFont(state.elements.wordmark.fontId);
-                const wmFontFam = wmFont ? (wmFont.family || wmFont.title) : "Cinzel";
-                const wmColor = (state.canvasTheme === "gold") ? primaryColor : textColor;
+                    if (measured.wordUnits.length > 0) {
+                        let charOffset = 0;
+                        for (let wIdx = 0; wIdx < measured.wordUnits.length; wIdx++) {
+                            const wuObj = measured.wordUnits[wIdx];
+                            const wordObj = wm.words[wIdx];
+                            if (wordObj && wordObj.visible === false) {
+                                charOffset += Math.max(1, wuObj.letters.length);
+                                continue;
+                            }
+                            const wRot = (wordObj && wordObj.rotate) ? wordObj.rotate : 0;
+                            const wx = wuObj.box.x + (wordObj ? (wordObj.shiftX || 0) : 0);
+                            const wy = wuObj.box.y + (wordObj ? (wordObj.shiftY || 0) : 0);
+                            let wInner = "";
 
-                let wordmarkInner = "";
-                const wordUnits = wmRow.querySelectorAll(".word-unit");
-                if (wordUnits.length > 0) {
-                    let charOffset = 0;
-                    wordUnits.forEach((wUnit, wIdx) => {
-                        const uBox = wUnit.getBoundingClientRect();
-                        const uX = Math.round(uBox.left - wmBox.left);
-                        const uY = Math.round(uBox.top - wmBox.top);
-                        
-                        const wordObj = state.elements.wordmark.words[wIdx];
-                        if (wordObj && wordObj.visible === false) return;
-                        const wRot = wordObj && wordObj.rotate ? wordObj.rotate : 0;
-                        const wRotAttr = wRot !== 0 ? ` rotate(${wRot}, ${uBox.width/2}, ${uBox.height/2})` : "";
-                        const letterSpans = wUnit.querySelectorAll(".letter-span");
-                        if (letterSpans.length > 1) {
-                            let lettersInWordSvg = "";
-                            letterSpans.forEach((lSpan, lIdx) => {
-                                const lsBox = lSpan.getBoundingClientRect();
-                                const lsX = Math.round(lsBox.left - uBox.left);
-                                const lsY = Math.round(lsBox.top - uBox.top);
-                                const letterObj = state.elements.wordmark.letters[charOffset + lIdx] || null;
-                                const glyph = renderUnitSvg(lSpan, wmColor, wmFontFam, letterObj);
-                                lettersInWordSvg += `<g transform="translate(${lsX}, ${lsY})">${glyph}</g>`;
-                            });
-                            charOffset += letterSpans.length;
-                            wordmarkInner += `<g transform="translate(${uX}, ${uY})${wRotAttr}">${lettersInWordSvg}</g>`;
-                        } else {
-                            const letterObj = letterSpans.length === 1 ? state.elements.wordmark.letters[charOffset] : null;
-                            if (letterSpans.length === 1) charOffset += 1;
-                            const glyph = renderUnitSvg(wUnit, wmColor, wmFontFam, letterObj);
-                            wordmarkInner += `<g transform="translate(${uX}, ${uY})${wRotAttr}">${glyph}</g>`;
+                            if (wuObj.letters.length > 1) {
+                                for (let lIdx = 0; lIdx < wuObj.letters.length; lIdx++) {
+                                    const lItem = wuObj.letters[lIdx];
+                                    const letterObj = wm.letters[charOffset + lIdx] || null;
+                                    if (letterObj && letterObj.visible === false) continue;
+                                    const glyph = await renderUnitContent(lItem.el, lItem.box.w, lItem.box.h, wmColor, wmFontFam, 0);
+                                    const lx = lItem.box.x + (letterObj ? (letterObj.shiftX || 0) : 0);
+                                    const ly = lItem.box.y + (letterObj ? (letterObj.shiftY || 0) : 0);
+                                    const lRot = letterObj ? (letterObj.rotate || 0) : 0;
+                                    const mH = (letterObj && letterObj.mirrorH) ? -1 : 1;
+                                    const mV = (letterObj && letterObj.mirrorV) ? -1 : 1;
+                                    const hasSvg = lItem.el.querySelector("svg") !== null;
+                                    const sc = (letterObj && !hasSvg && !isEnvatoWm) ? ((letterObj.scale || 100) / 100) : 1;
+                                    let lT = `translate(${lx.toFixed(2)}, ${ly.toFixed(2)})`;
+                                    if (lRot !== 0 || mH !== 1 || mV !== 1 || sc !== 1) {
+                                        lT += ` translate(${(lItem.box.w / 2).toFixed(2)}, ${(lItem.box.h / 2).toFixed(2)}) rotate(${lRot}) scale(${(mH * sc).toFixed(4)}, ${(mV * sc).toFixed(4)}) translate(${(-lItem.box.w / 2).toFixed(2)}, ${(-lItem.box.h / 2).toFixed(2)})`;
+                                    }
+                                    wInner += `<g transform="${lT}">${glyph}</g>`;
+                                }
+                                charOffset += wuObj.letters.length;
+                            } else {
+                                if (wuObj.letters.length === 1) charOffset += 1;
+                                wInner = await renderUnitContent(wuObj.el, wuObj.box.w, wuObj.box.h, wmColor, wmFontFam, wm.block.spacing || 0);
+                            }
+
+                            let wT = `translate(${wx.toFixed(2)}, ${wy.toFixed(2)})`;
+                            if (wRot !== 0) {
+                                wT += ` translate(${(wuObj.box.w / 2).toFixed(2)}, ${(wuObj.box.h / 2).toFixed(2)}) rotate(${wRot}) translate(${(-wuObj.box.w / 2).toFixed(2)}, ${(-wuObj.box.h / 2).toFixed(2)})`;
+                            }
+                            wordmarkInner += `<g transform="${wT}">${wInner}</g>`;
                         }
-                    });
-                } else {
-                    const glyph = renderUnitSvg(wmRow, wmColor, wmFontFam, null);
-                    wordmarkInner = glyph;
-                }
-
-                const wmRot = state.elements.wordmark.block.rotate || 0;
-                const wmRotAttr = wmRot !== 0 ? ` rotate(${wmRot}, ${wmBox.width/2}, ${wmBox.height/2})` : "";
-                elementsGroup += `<g transform="translate(${wmX}, ${wmY})${wmRotAttr}">${wordmarkInner}</g>`;
-
-                // 6. Tagline (Descriptor) Export
-                if (state.descriptor && state.elements.tagline.block.visible !== false) {
-                    const descRow = document.getElementById("descriptorRow");
-                    if (descRow && descRow.style.display !== "none") {
-                        const dBox = descRow.getBoundingClientRect();
-                        const dX = Math.round(dBox.left - lockupBox.left);
-                        const dY = Math.round(dBox.top - lockupBox.top);
-
-                        const tlFont = resolveFont(state.elements.tagline.fontId);
-                        const tlFontFam = tlFont ? (tlFont.family || tlFont.title) : "Plus Jakarta Sans";
-                        const tlColor = (state.canvasTheme === "gold") ? accentColor : descColor;
-
-                        let descInner = "";
-                        const descUnits = descRow.querySelectorAll(".descriptor-unit, .descriptor-letter-span");
-                        if (descUnits.length > 0) {
-                            descUnits.forEach((dUnit, dIdx) => {
-                                const duBox = dUnit.getBoundingClientRect();
-                                const duX = Math.round(duBox.left - dBox.left);
-                                const duY = Math.round(duBox.top - dBox.top);
-                                const letterObj = state.elements.tagline.letters[dIdx] || null;
-                                const glyph = renderUnitSvg(dUnit, tlColor, tlFontFam, letterObj);
-                                descInner += `<g transform="translate(${duX}, ${duY})">${glyph}</g>`;
-                            });
-                        } else {
-                            descInner = renderUnitSvg(descRow, tlColor, tlFontFam, null);
-                        }
-
-                        const tlRot = state.elements.tagline.block.rotate || 0;
-                        const tlRotAttr = tlRot !== 0 ? ` rotate(${tlRot}, ${dBox.width/2}, ${dBox.height/2})` : "";
-                        elementsGroup += `<g transform="translate(${dX}, ${dY})${tlRotAttr}">${descInner}</g>`;
+                    } else {
+                        wordmarkInner = await renderUnitContent(document.getElementById("wordmarkRow"), wmBox.w, wmBox.h, wmColor, wmFontFam, wm.block.spacing || 0);
                     }
+
+                    const wmX = wmBox.x + (wm.block.shiftX || 0);
+                    const wmY = wmBox.y + (wm.block.shiftY || 0);
+                    const wmRot = wm.block.rotate || 0;
+                    let wmT = `translate(${wmX.toFixed(2)}, ${wmY.toFixed(2)})`;
+                    if (wmRot !== 0) {
+                        wmT += ` translate(${(wmBox.w / 2).toFixed(2)}, ${(wmBox.h / 2).toFixed(2)}) rotate(${wmRot}) translate(${(-wmBox.w / 2).toFixed(2)}, ${(-wmBox.h / 2).toFixed(2)})`;
+                    }
+                    rootParts.push(`<g transform="${wmT}">${wordmarkInner}</g>`);
+                }
+
+                // Tagline
+                if (state.descriptor && state.elements.tagline.block.visible !== false && measured.descBox) {
+                    const tl = state.elements.tagline;
+                    const dBox = measured.descBox;
+                    const tlFont = resolveFont(tl.fontId);
+                    const tlFontFam = tlFont ? (tlFont.family || tlFont.title) : "Plus Jakarta Sans";
+                    const tlColor = monochromeBlack ? "#000000" : ((state.canvasTheme === "gold") ? accentColor : descColor);
+                    let descInner = "";
+
+                    if (measured.descUnits.length > 0) {
+                        for (let dIdx = 0; dIdx < measured.descUnits.length; dIdx++) {
+                            const du = measured.descUnits[dIdx];
+                            const letterObj = tl.letters[dIdx] || null;
+                            if (letterObj && letterObj.visible === false) continue;
+                            const glyph = await renderUnitContent(du.el, du.box.w, du.box.h, tlColor, tlFontFam, 0);
+                            const dx = du.box.x + (letterObj ? (letterObj.shiftX || 0) : 0);
+                            const dy = du.box.y + (letterObj ? (letterObj.shiftY || 0) : 0);
+                            descInner += `<g transform="translate(${dx.toFixed(2)}, ${dy.toFixed(2)})">${glyph}</g>`;
+                        }
+                    } else {
+                        descInner = await renderUnitContent(document.getElementById("descriptorRow"), dBox.w, dBox.h, tlColor, tlFontFam, tl.block.spacing || 0);
+                    }
+
+                    const dX = dBox.x + (tl.block.shiftX || 0);
+                    const dY = dBox.y + (tl.block.shiftY || 0);
+                    const tlRot = tl.block.rotate || 0;
+                    let tlT = `translate(${dX.toFixed(2)}, ${dY.toFixed(2)})`;
+                    if (tlRot !== 0) {
+                        tlT += ` translate(${(dBox.w / 2).toFixed(2)}, ${(dBox.h / 2).toFixed(2)}) rotate(${tlRot}) translate(${(-dBox.w / 2).toFixed(2)}, ${(-dBox.h / 2).toFixed(2)})`;
+                    }
+                    rootParts.push(`<g transform="${tlT}">${descInner}</g>`);
                 }
             }
 
-            elementsGroup += `</g>`;
+            const combinedGroupHtml = `<g id="brandExportRoot">${rootParts.join("")}</g>`;
+
+            let vbX = 0, vbY = 0, vbW = 320, vbH = 320;
+            const probeSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            probeSvg.setAttribute("style", "position:fixed; left:-99999px; top:-99999px; visibility:hidden; pointer-events:none;");
+            probeSvg.innerHTML = combinedGroupHtml;
+            document.body.appendChild(probeSvg);
+            try {
+                const rootG = probeSvg.querySelector("#brandExportRoot");
+                const bb = rootG.getBBox();
+                if (bb && bb.width > 0 && bb.height > 0) {
+                    const padRatio = monochromeBlack ? 0.02 : 0.09;
+                    const pad = Math.max(4, Math.round(Math.max(bb.width, bb.height) * padRatio));
+                    vbX = +(bb.x - pad).toFixed(2);
+                    vbY = +(bb.y - pad).toFixed(2);
+                    vbW = +(bb.width + pad * 2).toFixed(2);
+                    vbH = +(bb.height + pad * 2).toFixed(2);
+                }
+            } finally {
+                probeSvg.remove();
+            }
+
+            const maxDim = Math.max(vbW, vbH, 1);
+            const scaleOut = targetSize / maxDim;
+            const outW = Math.max(1, Math.round(vbW * scaleOut));
+            const outH = Math.max(1, Math.round(vbH * scaleOut));
+
+            const bgSvg = (useBg && !monochromeBlack)
+                ? `<rect x="${vbX}" y="${vbY}" width="${vbW}" height="${vbH}" rx="${Math.round(Math.min(vbW, vbH) * 0.03)}" fill="${bgColor}"/>`
+                : "";
 
             return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalW} ${totalH}" width="${totalW}" height="${totalH}">
-    <defs>
-        <style>
-            ${fontImports}
-            text { text-anchor: middle; dominant-baseline: alphabetic; }
-        </style>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vbX} ${vbY} ${vbW} ${vbH}" width="${outW}" height="${outH}">
     ${bgSvg}
-    ${elementsGroup}
+    ${combinedGroupHtml}
 </svg>`;
         }
 
         async function copyCombinedSvgToClipboard() {
-            const svgStr = buildCombinedSvgString();
+            const svgStr = await buildCombinedSvgString({ mode: "all", targetSize: 1024 });
             try {
                 await navigator.clipboard.writeText(svgStr);
                 showToast("✓ SVG vectorial copiado al portapapeles. ¡Pegalo en Figma o Astro!");
@@ -6350,16 +6859,65 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             }
         }
 
-        function downloadCombinedSvg() {
-            const svgStr = buildCombinedSvgString();
-            const blob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+        function triggerBlobDownload(blob, filename) {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = `${state.brandName.toLowerCase().replace(/[^a-z0-9_-]/g, "_")}_brandmark.svg`;
+            a.download = filename;
+            document.body.appendChild(a);
             a.click();
-            URL.revokeObjectURL(url);
-            showToast("✓ Archivo SVG vectorial descargado.");
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        async function downloadCombinedSvg() {
+            const svgStr = await buildCombinedSvgString({ mode: "all", targetSize: 1024 });
+            const slug = (state.brandName || "marca").toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+            triggerBlobDownload(new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" }), `${slug}_brandmark.svg`);
+            showToast("✓ SVG vectorial completo descargado.");
+        }
+
+        async function downloadMonogramSvg() {
+            const svgStr = await buildCombinedSvgString({ mode: "monogram", targetSize: 1024 });
+            const slug = (state.initials || state.brandName || "monograma").toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+            triggerBlobDownload(new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" }), `${slug}_monograma.svg`);
+            showToast("✓ Monograma SVG vectorial (1024px) descargado.");
+        }
+
+        async function downloadMonogramPdf() {
+            try {
+                showToast("⏳ Generando PDF Carta (fondo blanco, trazo negro)...");
+                const svgStr = await buildCombinedSvgString({
+                    mode: "monogram",
+                    monochromeBlack: true,
+                    includeBg: false,
+                    targetSize: 1024
+                });
+                const slug = (state.initials || state.brandName || "monograma").toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+                const filename = `${slug}_monograma_carta_bn.pdf`;
+
+                const resp = await fetch(getApiUrl("api/export/pdf"), {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        svg: svgStr,
+                        pageSize: "LETTER",
+                        marginPt: 36,
+                        filename,
+                        title: `${state.initials || "Monograma"} - Impresión Carta B/N`
+                    })
+                });
+                if (!resp.ok) {
+                    const errTxt = await resp.text();
+                    throw new Error(errTxt || "Error generando PDF");
+                }
+                const pdfBlob = await resp.blob();
+                triggerBlobDownload(pdfBlob, filename);
+                showToast("✓ PDF Carta B/N listo para impresión descargado.");
+            } catch (err) {
+                console.error("PDF export error:", err);
+                showToast(`❌ Error exportando PDF: ${err.message}`);
+            }
         }
 
         // ==========================================

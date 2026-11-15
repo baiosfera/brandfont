@@ -4,6 +4,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+const require = createRequire(import.meta.url);
+const PDFDocument = require('pdfkit');
+const SVGtoPDF = require('svg-to-pdfkit');
+const opentype = require('opentype.js');
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -11,8 +16,114 @@ const PORT = parseInt(process.env.PORT || '3000', 10);
 const HOST = process.env.HOST || '0.0.0.0';
 const CATALOG_FILE = path.join(__dirname, 'catalog.json');
 const BRANDS_DATA_FILE = path.join(__dirname, 'brands_data.json');
+const FINAL_MONOGRAM_FILE = path.join(__dirname, 'final_monogram.json');
+const FONTS_DIR = path.join(__dirname, 'fonts');
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 const PROYECTOS_DIR = '/var/www/baiosfera/PROYECTOS';
+
+const parsedFontCache = new Map();
+
+function readJsonBody(req, maxBytes = 5 * 1024 * 1024) {
+    return new Promise((resolve, reject) => {
+        let size = 0;
+        const chunks = [];
+        req.on('data', chunk => {
+            size += chunk.length;
+            if (size > maxBytes) {
+                req.destroy();
+                reject(new Error('Payload demasiado grande'));
+                return;
+            }
+            chunks.push(chunk);
+        });
+        req.on('end', () => {
+            try {
+                const raw = Buffer.concat(chunks).toString('utf8');
+                resolve(raw ? JSON.parse(raw) : {});
+            } catch (err) {
+                reject(new Error('JSON inválido'));
+            }
+        });
+        req.on('error', reject);
+    });
+}
+
+function findLocalFontFile(family, isItalic = false) {
+    if (!family || !fs.existsSync(FONTS_DIR)) return null;
+    const norm = family.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const explicitMap = {
+        monas: ['Monas.otf', 'Monas.ttf'],
+        kaeleya: isItalic ? ['Kaeleya-Italic.otf', 'Kaeleya-Italic.ttf'] : ['Kaeleya-Regular.otf', 'Kaeleya-Regular.ttf'],
+        kaliebluxury: isItalic ? ['KaliebLuxury-Italic.otf', 'KaliebLuxury-Italic.ttf'] : ['KaliebLuxury-Regular.otf', 'KaliebLuxury-Regular.ttf'],
+        megante: ['Megante.otf', 'Megante.ttf'],
+        biancha: ['Biancha.otf', 'Biancha.ttf'],
+        sagoraglamour: ['Sagora Glamour.otf', 'Sagora Glamour.ttf'],
+        averne: ['Averne.otf', 'Averne.ttf']
+    };
+    const candidates = explicitMap[norm] || [];
+    for (const fname of candidates) {
+        const full = path.join(FONTS_DIR, fname);
+        if (fs.existsSync(full)) return full;
+    }
+    const files = fs.readdirSync(FONTS_DIR).filter(f => /\.(otf|ttf)$/i.test(f));
+    const italicPreferred = files.filter(f => isItalic ? /italic/i.test(f) : !/italic/i.test(f));
+    for (const pool of [italicPreferred, files]) {
+        const hit = pool.find(f => {
+            const base = f.replace(/\.(otf|ttf)$/i, '').replace(/[-_\s]?(regular|italic|bold)/gi, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+            return base === norm;
+        });
+        if (hit) return path.join(FONTS_DIR, hit);
+    }
+    return null;
+}
+
+async function loadOpenTypeFont({ family, weight = 400, italic = false }) {
+    if (!family) return null;
+    const cacheKey = `${family.toLowerCase()}_${weight}_${italic ? 'i' : 'n'}`;
+    if (parsedFontCache.has(cacheKey)) return parsedFontCache.get(cacheKey);
+
+    const localPath = findLocalFontFile(family, italic);
+    if (localPath) {
+        const buf = await fs.promises.readFile(localPath);
+        const font = opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));
+        parsedFontCache.set(cacheKey, font);
+        return font;
+    }
+
+    const encFam = encodeURIComponent(family.trim().replace(/\s+/g, '+'));
+    const cssUrls = [
+        `https://fonts.googleapis.com/css2?family=${encFam}:ital,wght@${italic ? 1 : 0},${weight || 400}&display=swap`,
+        `https://fonts.googleapis.com/css2?family=${encFam}:wght@${weight || 400}&display=swap`,
+        `https://fonts.googleapis.com/css2?family=${encFam}&display=swap`
+    ];
+    for (const cssUrl of cssUrls) {
+        try {
+            const cssResp = await fetch(cssUrl, { headers: { 'User-Agent': 'curl/8.0.0' } });
+            if (!cssResp.ok) continue;
+            const cssText = await cssResp.text();
+            const match = cssText.match(/url\((https:\/\/[^)]+\.(?:ttf|otf|woff))\)/i);
+            if (!match) continue;
+            const fontResp = await fetch(match[1]);
+            if (!fontResp.ok) continue;
+            const ab = await fontResp.arrayBuffer();
+            const font = opentype.parse(ab);
+            parsedFontCache.set(cacheKey, font);
+            return font;
+        } catch {}
+    }
+    return null;
+}
+
+function pathToCleanSvgD(otPath) {
+    return otPath.commands.map(cmd => {
+        if (cmd.type === 'M') return `M ${cmd.x.toFixed(3)} ${cmd.y.toFixed(3)}`;
+        if (cmd.type === 'L') return `L ${cmd.x.toFixed(3)} ${cmd.y.toFixed(3)}`;
+        if (cmd.type === 'Q') return `Q ${cmd.x1.toFixed(3)} ${cmd.y1.toFixed(3)} ${cmd.x.toFixed(3)} ${cmd.y.toFixed(3)}`;
+        if (cmd.type === 'C') return `C ${cmd.x1.toFixed(3)} ${cmd.y1.toFixed(3)} ${cmd.x2.toFixed(3)} ${cmd.y2.toFixed(3)} ${cmd.x.toFixed(3)} ${cmd.y.toFixed(3)}`;
+        if (cmd.type === 'Z') return 'Z';
+        return '';
+    }).filter(Boolean).join(' ');
+}
 
 const MIME_TYPES = {
     '.html': 'text/html; charset=utf-8',
@@ -262,7 +373,6 @@ function loadAllBrands() {
 }
 
 
-const require = createRequire(import.meta.url);
 let lucideData = null;
 let tablerData = null;
 let faData = null;
@@ -991,6 +1101,207 @@ if (pathname === '/api/render' && req.method === 'GET') {
             const icons = getCollectionIcons(cat, limit, offset);
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.end(JSON.stringify({ ok: true, count: icons.length, category: cat, icons: icons }));
+            return;
+        }
+
+        // 5.6 Final Monogram Persistence (/api/monogram/final)
+        if (pathname === '/api/monogram/final') {
+            if (req.method === 'GET') {
+                let monogram = null;
+                if (fs.existsSync(FINAL_MONOGRAM_FILE)) {
+                    try {
+                        monogram = JSON.parse(await fs.promises.readFile(FINAL_MONOGRAM_FILE, 'utf8'));
+                    } catch {}
+                }
+                res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({ ok: true, monogram }));
+                return;
+            }
+            if (req.method === 'POST') {
+                try {
+                    const body = await readJsonBody(req);
+                    if (!body || typeof body !== 'object' || (!body.initials && !body.elements)) {
+                        res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+                        res.end(JSON.stringify({ ok: false, error: 'Datos de monograma inválidos' }));
+                        return;
+                    }
+                    const payload = {
+                        ...body,
+                        savedAt: new Date().toISOString()
+                    };
+                    await fs.promises.writeFile(FINAL_MONOGRAM_FILE, JSON.stringify(payload, null, 2), 'utf8');
+                    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.end(JSON.stringify({ ok: true, monogram: payload }));
+                } catch (err) {
+                    res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.end(JSON.stringify({ ok: false, error: err.message }));
+                }
+                return;
+            }
+            if (req.method === 'DELETE') {
+                if (fs.existsSync(FINAL_MONOGRAM_FILE)) {
+                    await fs.promises.unlink(FINAL_MONOGRAM_FILE).catch(() => {});
+                }
+                res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({ ok: true }));
+                return;
+            }
+        }
+
+        // 5.7 Vector Text-to-Path Converter via OpenType.js (/api/text-to-svg)
+        if (pathname === '/api/text-to-svg' && req.method === 'POST') {
+            try {
+                const body = await readJsonBody(req);
+                const family = String(body.family || '').trim();
+                const text = String(body.text || '');
+                const fontSize = Math.max(8, Number(body.fontSize) || 100);
+                const weight = parseInt(body.weight || '400', 10) || 400;
+                const italic = Boolean(body.italic);
+                const letterSpacing = Number(body.letterSpacing) || 0;
+                const features = (body.features && typeof body.features === 'object') ? body.features : { liga: true, dlig: true, calt: true };
+
+                if (!family || !text) {
+                    res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.end(JSON.stringify({ ok: false, error: 'family y text son requeridos' }));
+                    return;
+                }
+
+                const font = await loadOpenTypeFont({ family, weight, italic });
+                if (!font) {
+                    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.end(JSON.stringify({ ok: false, fallback: true }));
+                    return;
+                }
+
+                const otPath = font.getPath(text, 0, 0, fontSize, {
+                    kerning: true,
+                    letterSpacing: letterSpacing ? (letterSpacing / fontSize) : 0,
+                    features
+                });
+                const bb = otPath.getBoundingBox();
+                const d = pathToCleanSvgD(otPath);
+                const w = Math.max(0, +(bb.x2 - bb.x1).toFixed(3));
+                const h = Math.max(0, +(bb.y2 - bb.y1).toFixed(3));
+                if (!d || w <= 0 || h <= 0) {
+                    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.end(JSON.stringify({ ok: true, svg: '', width: 0, height: 0 }));
+                    return;
+                }
+
+                const unitsPerEm = font.unitsPerEm || 1000;
+                const ascenderPx = (font.ascender / unitsPerEm) * fontSize;
+                const descenderPx = (font.descender / unitsPerEm) * fontSize;
+                const advanceWidth = font.getAdvanceWidth(text, fontSize, {
+                    kerning: true,
+                    letterSpacing: letterSpacing ? (letterSpacing / fontSize) : 0,
+                    features
+                });
+
+                const vb = `${bb.x1.toFixed(3)} ${bb.y1.toFixed(3)} ${w} ${h}`;
+                const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" width="${w}" height="${h}"><path d="${d}" fill="currentColor"/></svg>`;
+                res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({
+                    ok: true,
+                    svg,
+                    d,
+                    viewBox: vb,
+                    width: w,
+                    height: h,
+                    bb: { x1: bb.x1, y1: bb.y1, x2: bb.x2, y2: bb.y2 },
+                    advanceWidth,
+                    ascenderPx,
+                    descenderPx
+                }));
+            } catch (err) {
+                res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({ ok: false, error: err.message }));
+            }
+            return;
+        }
+
+        // 5.8 Full-Page Print PDF Export (US Letter, Pure White Background, Pure Black Vector)
+        if (pathname === '/api/export/pdf' && req.method === 'POST') {
+            try {
+                const body = await readJsonBody(req, 10 * 1024 * 1024);
+                const svgRaw = String(body.svg || '').trim();
+                if (!svgRaw || !svgRaw.includes('<svg')) {
+                    res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.end(JSON.stringify({ ok: false, error: 'SVG inválido para PDF' }));
+                    return;
+                }
+
+                const pageSize = String(body.pageSize || 'LETTER').toUpperCase();
+                const [pageW, pageH] = pageSize === 'A4' ? [595.28, 841.89] : [612, 792];
+                const marginPt = Math.max(18, Math.min(108, Number(body.marginPt) || 36));
+                const printableW = pageW - marginPt * 2;
+                const printableH = pageH - marginPt * 2;
+
+                let vbW = 100, vbH = 100;
+                const vbMatch = svgRaw.match(/viewBox\s*=\s*["']([^"']+)["']/i);
+                if (vbMatch) {
+                    const parts = vbMatch[1].trim().split(/[\s,]+/).map(Number);
+                    if (parts.length === 4 && parts[2] > 0 && parts[3] > 0) {
+                        vbW = parts[2];
+                        vbH = parts[3];
+                    }
+                } else {
+                    const wM = svgRaw.match(/\bwidth\s*=\s*["']([\d.]+)/i);
+                    const hM = svgRaw.match(/\bheight\s*=\s*["']([\d.]+)/i);
+                    if (wM && hM) {
+                        vbW = Math.max(1, parseFloat(wM[1]));
+                        vbH = Math.max(1, parseFloat(hM[1]));
+                    }
+                }
+
+                const scale = Math.min(printableW / vbW, printableH / vbH);
+                const drawW = vbW * scale;
+                const drawH = vbH * scale;
+                const drawX = (pageW - drawW) / 2;
+                const drawY = (pageH - drawH) / 2;
+
+                const doc = new PDFDocument({
+                    size: [pageW, pageH],
+                    margin: 0,
+                    info: {
+                        Title: String(body.title || 'Monograma Definitivo'),
+                        Creator: 'Brandfont Sovereign Workbench'
+                    }
+                });
+
+                const chunks = [];
+                doc.on('data', c => chunks.push(c));
+                const pdfBufferPromise = new Promise((resolve, reject) => {
+                    doc.on('end', () => resolve(Buffer.concat(chunks)));
+                    doc.on('error', reject);
+                });
+
+                // Pure white full page background
+                doc.rect(0, 0, pageW, pageH).fill('#ffffff');
+
+                SVGtoPDF(doc, svgRaw, drawX, drawY, {
+                    width: drawW,
+                    height: drawH,
+                    preserveAspectRatio: 'xMidYMid meet',
+                    assumePt: true
+                });
+
+                doc.end();
+                const pdfBuffer = await pdfBufferPromise;
+
+                const safeFilename = String(body.filename || 'monograma_carta_bn.pdf')
+                    .replace(/[^a-zA-Z0-9._-]/g, '_');
+
+                res.writeHead(200, {
+                    'Content-Type': 'application/pdf',
+                    'Content-Length': pdfBuffer.length,
+                    'Content-Disposition': `attachment; filename="${safeFilename}"`,
+                    'Cache-Control': 'no-store'
+                });
+                res.end(pdfBuffer);
+            } catch (err) {
+                res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({ ok: false, error: err.message }));
+            }
             return;
         }
 

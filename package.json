@@ -20,6 +20,9 @@
   "dependencies": {
     "@iconify-json/fa6-solid": "^1.2.4",
     "@iconify-json/lucide": "^1.2.152",
-    "@iconify-json/tabler": "^1.2.43"
+    "@iconify-json/tabler": "^1.2.43",
+    "opentype.js": "^2.0.0",
+    "pdfkit": "^0.20.2",
+    "svg-to-pdfkit": "^0.1.8"
   }
 }

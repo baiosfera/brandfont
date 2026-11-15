@@ -2,8 +2,15 @@ zerops:
   - setup: brandfont
     build:
       base: alpine/nodejs@22
+      envVariables:
+        npm_config_cache: .npm-cache
+      buildCommands:
+        - npm ci --omit=dev
       deployFiles:
         - .
+      cache:
+        - node_modules
+        - .npm-cache
     run:
       base: alpine/nodejs@22
       ports:
