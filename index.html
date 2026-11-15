@@ -1155,6 +1155,12 @@
             color: var(--text-muted);
         }
 
+        .export-measuring,
+        .export-measuring * {
+            transition: none !important;
+            animation: none !important;
+        }
+
         /* Tray & Catalog */
         .font-tray {
             background: var(--bg-surface);
@@ -6486,6 +6492,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             const monoWrapper = document.getElementById("monogramWrapper");
             const wmWrapper = document.getElementById("wordmarkWrapper");
             const monoBadge = document.getElementById("monogramBadge");
+            const mgLettersRow = document.getElementById("monogramLettersRow");
             const iconLayerEl = document.getElementById("monogramIconLayer");
             const wmRow = document.getElementById("wordmarkRow");
             const descRow = document.getElementById("descriptorRow");
@@ -6499,6 +6506,8 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             };
 
             try {
+                if (lockup) lockup.classList.add("export-measuring");
+
                 if (mode === "monogram" && state.layout === "wordmark-only") {
                     if (monoWrapper) {
                         savedDisplays.push([monoWrapper, monoWrapper.style.display]);
@@ -6511,12 +6520,15 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 }
 
                 const nodesToClear = [
-                    monoBadge, iconLayerEl, wmRow, descRow,
+                    lockup, monoWrapper, wmWrapper, monoBadge, mgLettersRow, iconLayerEl, wmRow, descRow,
                     ...document.querySelectorAll("#monogramBadge .monogram-unit, #monogramBadge .monogram-letter-span"),
-                    ...document.querySelectorAll("#wordmarkRow .word-unit, #wordmarkRow .letter-span"),
+                    ...document.querySelectorAll("#wordmarkRow .word-unit, #wordmarkRow .letter-unit, #wordmarkRow .letter-span"),
                     ...document.querySelectorAll("#descriptorRow .descriptor-unit, #descriptorRow .descriptor-letter-span")
                 ];
                 nodesToClear.forEach(clearTransform);
+
+                // Force synchronous reflow with transitions disabled so rects reflect true base layout
+                if (lockup) void lockup.offsetHeight;
 
                 const lockupBox = lockup.getBoundingClientRect();
                 const relRect = (el, base = lockupBox) => {
@@ -6541,11 +6553,11 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                 const wmRaw = wmRow ? wmRow.getBoundingClientRect() : lockupBox;
                 const wordUnits = Array.from(wmRow ? wmRow.querySelectorAll(".word-unit") : []).map(wu => {
                     const wuRaw = wu.getBoundingClientRect();
-                    const lSpans = Array.from(wu.querySelectorAll(".letter-span"));
+                    const lEls = Array.from(wu.querySelectorAll(":scope > .letter-unit, :scope > .letter-span"));
                     return {
                         el: wu,
                         box: relRect(wu, wmRaw),
-                        letters: lSpans.map(ls => ({ el: ls, box: relRect(ls, wuRaw) }))
+                        letters: lEls.map(ls => ({ el: ls, box: relRect(ls, wuRaw) }))
                     };
                 });
 
@@ -6560,6 +6572,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
             } finally {
                 savedTransforms.forEach(([el, val]) => { el.style.transform = val; });
                 savedDisplays.forEach(([el, val]) => { el.style.display = val; });
+                if (lockup) lockup.classList.remove("export-measuring");
             }
         }
 
@@ -6648,7 +6661,10 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                     const mBox = measured.mgUnitBoxes[idx];
                     if (!mBox || mBox.w <= 0 || mBox.h <= 0) continue;
 
-                    const letterObj = (measured.mgUnits.length > 1 || mg.letters.length === 1) ? (mg.letters[idx] || null) : null;
+                    const idxAttr = mUnit.getAttribute("data-mg-letter-idx");
+                    const letterObj = idxAttr !== null
+                        ? (mg.letters[parseInt(idxAttr, 10)] || null)
+                        : ((measured.mgUnits.length > 1 || mg.letters.length === 1) ? (mg.letters[idx] || null) : null);
                     if (letterObj && letterObj.visible === false) continue;
 
                     const hasSvgInside = mUnit.querySelector("svg") !== null;
@@ -6664,7 +6680,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
 
                     let innerT = `translate(${lx.toFixed(2)}, ${ly.toFixed(2)})`;
                     if (rot !== 0 || mH !== 1 || mV !== 1 || sc !== 1) {
-                        innerT += ` translate(${(mBox.w / 2).toFixed(2)}, ${(mBox.h / 2).toFixed(2)}) rotate(${rot}) scale(${(mH * sc).toFixed(4)}, ${(mV * sc).toFixed(4)}) translate(${(-mBox.w / 2).toFixed(2)}, ${(-mBox.h / 2).toFixed(2)})`;
+                        innerT += ` translate(${(mBox.w / 2).toFixed(2)}, ${(mBox.h / 2).toFixed(2)}) scale(${sc.toFixed(4)}, ${sc.toFixed(4)}) rotate(${rot}) scale(${mH}, ${mV}) translate(${(-mBox.w / 2).toFixed(2)}, ${(-mBox.h / 2).toFixed(2)})`;
                     }
                     lettersSvg += `<g transform="${innerT}">${glyph}</g>`;
                 }
@@ -6747,7 +6763,7 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                                     const sc = (letterObj && !hasSvg && !isEnvatoWm) ? ((letterObj.scale || 100) / 100) : 1;
                                     let lT = `translate(${lx.toFixed(2)}, ${ly.toFixed(2)})`;
                                     if (lRot !== 0 || mH !== 1 || mV !== 1 || sc !== 1) {
-                                        lT += ` translate(${(lItem.box.w / 2).toFixed(2)}, ${(lItem.box.h / 2).toFixed(2)}) rotate(${lRot}) scale(${(mH * sc).toFixed(4)}, ${(mV * sc).toFixed(4)}) translate(${(-lItem.box.w / 2).toFixed(2)}, ${(-lItem.box.h / 2).toFixed(2)})`;
+                                        lT += ` translate(${(lItem.box.w / 2).toFixed(2)}, ${(lItem.box.h / 2).toFixed(2)}) scale(${sc.toFixed(4)}, ${sc.toFixed(4)}) rotate(${lRot}) scale(${mH}, ${mV}) translate(${(-lItem.box.w / 2).toFixed(2)}, ${(-lItem.box.h / 2).toFixed(2)})`;
                                     }
                                     wInner += `<g transform="${lT}">${glyph}</g>`;
                                 }
@@ -6757,9 +6773,10 @@ ${JSON.stringify(dtcgTokens, null, 2)}
                                 wInner = await renderUnitContent(wuObj.el, wuObj.box.w, wuObj.box.h, wmColor, wmFontFam, wm.block.spacing || 0);
                             }
 
+                            const wSc = (wordObj && wuObj.letters.length > 1) ? ((wordObj.scale || 100) / 100) : 1;
                             let wT = `translate(${wx.toFixed(2)}, ${wy.toFixed(2)})`;
-                            if (wRot !== 0) {
-                                wT += ` translate(${(wuObj.box.w / 2).toFixed(2)}, ${(wuObj.box.h / 2).toFixed(2)}) rotate(${wRot}) translate(${(-wuObj.box.w / 2).toFixed(2)}, ${(-wuObj.box.h / 2).toFixed(2)})`;
+                            if (wRot !== 0 || wSc !== 1) {
+                                wT += ` translate(${(wuObj.box.w / 2).toFixed(2)}, ${(wuObj.box.h / 2).toFixed(2)}) scale(${wSc.toFixed(4)}, ${wSc.toFixed(4)}) rotate(${wRot}) translate(${(-wuObj.box.w / 2).toFixed(2)}, ${(-wuObj.box.h / 2).toFixed(2)})`;
                             }
                             wordmarkInner += `<g transform="${wT}">${wInner}</g>`;
                         }
